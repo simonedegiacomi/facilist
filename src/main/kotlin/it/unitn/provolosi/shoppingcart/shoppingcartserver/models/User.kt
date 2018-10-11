@@ -6,7 +6,6 @@ import javax.persistence.*
 @Entity()
 @Table(name = "user")
 data class User(
-
         @Id
         @GeneratedValue
         var id: Long? = null,
@@ -31,5 +30,11 @@ data class User(
         var password: String
 
 
-)
+) {
+        companion object {
+                const val USER = "ROLE_USER"
+                const val ADMIN = "ROLE_ADMIN"
+        }
+
+}
 
