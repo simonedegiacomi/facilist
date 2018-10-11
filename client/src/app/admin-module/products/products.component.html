@@ -1,0 +1,64 @@
+<h2>Prodotti</h2>
+
+<div class="row">
+    <div class="col-12 d-flex col-lg-4 d-lg-block select-category">
+
+        <button class="list-group-item btn btn-block mb-2" [class.active]="!selectedCategory"
+                (click)="onShowAllProducts()">
+            Visualizza tutti
+        </button>
+
+        <!-- List of categories -->
+        <div class="list-group-item" *ngFor="let category of categories" [class.active]="selectedCategory == category"
+             (click)="onSelectCategory(category)">
+
+            <div class="d-flex flex-column align-items-center text-center flex-lg-row align-items-lg-start text-lg-left">
+                <img class="mb-3 mr-lg-3" [src]="category._links.icon.href" alt="Icona della categoria">
+                <div class="">
+                    <h5 class="">{{ category.name }}</h5>
+                    <span class="d-none d-lg-block"><strong>6</strong> prodotti</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-12 col-lg-8">
+
+        <!-- Top bar -->
+        <div class="row">
+
+            <!-- Search -->
+            <form class="form-inline col-12 col-md-8 mb-2">
+                <input class="form-control w-100" type="search" placeholder="Filtra per nome" aria-label="Search"
+                       #searchFilter (keyup)="onUpdateSearchFilter(searchFilter.value)">
+            </form>
+
+            <!-- Create new -->
+            <div *ngIf="!newProduct" class="col-12 col-md-4 d-flex justify-content-end mb-2">
+                <button class="btn" (click)="onCreateProduct()">Crea prodotto</button>
+            </div>
+        </div>
+
+        <div *ngIf="newProduct">
+            <admin-product-view-editor [product]="newProduct" (created)="onProductCreated($event)"
+                                       (cancel)="newProduct = null"></admin-product-view-editor>
+        </div>
+
+
+        <div *ngIf="loadingProducts">Caricamento...</div>
+
+        <div *ngIf="!loadingProducts" class="row">
+            <div class="col-6 col-xl-4 mb-2" *ngFor="let product of products">
+                <admin-product-view-editor [product]="product"
+                                           (deleted)="onProductDeleted()"></admin-product-view-editor>
+            </div>
+        </div>
+
+        <app-pagination #pagination [(page)]="productsPage"></app-pagination>
+    </div>
+</div>
+
+

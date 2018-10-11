@@ -1,0 +1,68 @@
+<h2>Categorie di prodotti</h2>
+
+<!-- Top bar -->
+<div class="row">
+
+    <!-- Search -->
+    <form class="form-inline col-12 col-md-8">
+        <input class="form-control w-100" type="search" placeholder="Filtra per nome" aria-label="Search"
+               #searchFilter (keyup)="onUpdateSearchFilter(searchFilter.value)">
+    </form>
+
+    <!-- Create new -->
+    <div *ngIf="!newCategory" class="col-12 col-md-4 d-flex justify-content-end">
+        <button class="btn" (click)="createCategory()">Crea categoria</button>
+    </div>
+</div>
+
+<!-- Loading -->
+<div *ngIf="loading">
+    Caricamento
+</div>
+
+
+<!-- Editor of the new category -->
+<div class="list-group-item mb-3" *ngIf="newCategory">
+    <admin-category-view-editor [category]="newCategory" (cancel)="newCategory = null"
+                                (created)="onNewCategoryCreated($event)"></admin-category-view-editor>
+</div>
+
+<!-- Display results -->
+<div *ngIf="!loading">
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let category of categories">
+            <admin-category-view-editor [category]="category" (delete)="onDelete($event)"></admin-category-view-editor>
+        </li>
+    </ul>
+
+    <app-pagination #pagination [(page)]="page"></app-pagination>
+</div>
+
+
+<!-- Warning delete category warning -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteCategoryModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategoryModalLabel">Cancellare la categoria?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="deletingCategory">
+                    Sei sicuro di voler eliminare la categoria <strong>{{ deletingCategory.name }}</strong> e tutti i
+                    suoi
+                    prodotti?<br>
+                    Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire
+                    misteriosamente
+                    questi prodotti!
+                </p>
+
+                <button class="action-button link-cta danger" (click)="onDeleteCategoryAfterWarning(deletingCategory)">
+                    Elimina
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

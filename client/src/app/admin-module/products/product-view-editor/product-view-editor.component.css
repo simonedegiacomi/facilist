@@ -1,0 +1,7 @@
+.card-title {
+    cursor: text;
+}
+
+div.product-buttons button:not(:last-child) {
+    margin-right: 0.5rem;
+}

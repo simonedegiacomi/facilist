@@ -1,0 +1,11 @@
+.container.admin {
+    width: 90vw;
+    margin: 1rem auto;
+}
+
+@media (max-width: 576px) {
+    .container.admin {
+        width: 100vw;
+        margin: 1rem auto;
+    }
+}

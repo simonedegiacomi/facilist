@@ -1,0 +1,26 @@
+<h2>Categorie liste della spesa</h2>
+
+<div class="row">
+    <div class="col-4">
+        <button class="list-group-item btn btn-block mb-2" (click)="onCreate()">Crea</button>
+
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let category of categories" [class.active]="category == selected"
+                (click)="selected = category">
+                <div class="media">
+                    <img class="mr-3" width="64" [src]="category._links.icon.href">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{ category.name }}</h5>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-8">
+        <div *ngIf="selected">
+            <admin-shopping-list-view-editor [shoppingListCategory]="selected" (cancel)="onCancel($event)"
+                                             (deleted)="onDeleted($event)"></admin-shopping-list-view-editor>
+        </div>
+    </div>
+</div>

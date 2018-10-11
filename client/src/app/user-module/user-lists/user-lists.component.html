@@ -1,0 +1,23 @@
+<h3>Le mie liste</h3>
+
+<h4>Crea una nuona lista</h4>
+<label>Nome
+    <input type="text" [(ngModel)]="newList.name">
+</label>
+
+<label>Descrizione
+<input type="text" [(ngModel)]="newList.description">
+</label>
+
+<select [(ngModel)]="newListCategory">
+    <option *ngFor="let category of listCategories$ | async" [ngValue]="category" >{{ category.name }}</option>
+</select>
+
+
+<button class="btn btn-primary" (click)="onCreateNewList()" [disabled]="isCreating">Crea nuova lista</button>
+
+
+<h4>Liste</h4>
+<ul>
+    <li *ngFor="let list of lists$ | async">{{ list.name }}</li>
+</ul>

@@ -1,0 +1,106 @@
+
+
+/* HOMEPAGE */
+.egged {
+    background: url("../../../assets/img/egg-big.svg") right/60vw no-repeat;
+}
+
+.big-header,
+.ending {
+    color: var(--light);
+    background-color: var(--dark);
+    text-align: center;
+}
+
+.ending {
+    padding: 4em 0;
+}
+
+.big-header {
+    height: calc(100vh - 52px);
+}
+
+/* Fix for the word "dell'applicazione" that doesn't break on phones */
+.big-header h1 {
+    width:70vw;
+    word-wrap:break-word;
+    display:inline-block;
+}
+
+
+.big-header-content {
+    height: calc(100vh - 52px - 75px); /* 52: menu */
+}
+
+.big-header h1 {
+    font-size: 3em;
+    margin-bottom: 0;
+}
+
+.big-header .description,
+.ending     .description {
+    font-style: italic;
+    font-size: 1.5em;
+
+    margin-bottom: 2em;
+}
+
+
+.big-header .link-cta {
+    font-size: 1.2em;
+}
+
+.food-bg {
+    background: url("../../../assets/img/icons.svg") no-repeat center center;
+    background-size: cover;
+
+    height: 75px;
+}
+
+.presentation-area {
+    padding-top: 4em;
+    max-width: 900px;
+}
+
+.presentation-area .row {
+    margin-bottom: 3em;
+}
+
+.home-image {
+    max-width: 150px;
+    max-height: 250px;
+}
+
+
+/*Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+
+}
+
+/*Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .presentation-area h2{
+        text-align: center;
+    }
+}
+
+/*Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+
+    .food-bg {
+        height: 45px;
+    }
+
+    .big-header-content {
+        height: calc(100vh - 52px - 45px);
+    }
+
+    .presentation-area img {
+        margin-bottom: .5em;
+    }
+}
+
+/*Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+
+}

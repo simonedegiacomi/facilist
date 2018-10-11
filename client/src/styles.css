@@ -1,0 +1,290 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i|Lobster');
+
+/* Bootstrap */
+@import "~node_modules/bootstrap/dist/css/bootstrap.css";
+
+
+:root {
+    --dark: #15202b;
+    --light: #f9ede7;
+    --lightDarkened: #cbb9a8;
+
+    --buttonDark: #0a3c6b;
+    --buttonVeryDark: #032342;
+    --buttonLight: #145c9e;
+    --buttonText: #FFF;
+    --buttonDisabled: gray;
+    --buttonDanger: red;
+    --buttonDangerDark: darkred;
+
+    --fontTitle: 'Lobster', serif;
+    --fontRegular: 'Lato', sans-serif;
+
+    --em-fix: .0625;
+}
+
+
+body {
+    padding: 0;
+    margin: 0;
+
+    font-family: var(--fontRegular);
+    line-height: 1.25;
+
+    background: var(--light);
+    color: var(--dark);
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: var(--fontTitle);
+}
+
+
+/* GLOBAL */
+
+
+button.action-button {
+    color: var(--buttonText);
+    font-family: var(--fontTitle);
+    font-size: 1.25em;
+
+    background: var(--buttonLight);
+
+    padding: .25em 1.25em;
+
+    border: none;
+    border-bottom: 5px solid var(--buttonDark);
+    border-radius: 0.2em;
+
+    transition: border 0.1s ease-out, margin 0.1s ease-out;
+
+    cursor: pointer;
+}
+
+button.action-button.danger {
+    background-color: var(--buttonDanger);
+    border-bottom: 5px solid var(--buttonDangerDark);
+}
+
+button.action-button:hover {
+    margin-top: -2px;
+    border-bottom-width: 7px;
+}
+
+button.action-button:active {
+    margin-top: 4px;
+    border-bottom-width: 1px;
+}
+
+button.action-button:disabled {
+    background-color: var(--buttonDisabled);
+    border-bottom-width: 1px;
+}
+
+button.action-button:focus {
+    outline: none;
+}
+
+button.action-button.big {
+    font-size: 1.5em;
+    padding: .25em 1.5em;
+}
+
+button.action-button.back {
+    background: var(--buttonDark);
+    border-bottom-color: var(--buttonVeryDark);
+}
+
+hr {
+    border-top: 2px dashed var(--dark);
+}
+
+.container {
+    width: 75vw;
+    margin: 0 auto;
+}
+
+a {
+    color: var(--light);
+    font-family: var(--fontTitle);
+
+    transition: color 0.25s ease;
+}
+
+a:hover {
+    color: var(--lightDarkened);
+}
+
+a.dark {
+    color: var(--buttonVeryDark);
+}
+
+a.dark:hover {
+    color: var(--buttonDark);
+}
+
+.footer {
+    color: var(--light);
+    background: var(--dark);
+    padding-bottom: 1em;
+}
+
+.footer-content  {
+    width: 70vw;
+    margin: 0 auto;
+
+    text-align: center;
+
+    border-top: 1px dashed var(--light);
+    padding-top: .5em;
+}
+
+.footer li {
+    background: url("assets/img/circle-divider-light.svg") left center no-repeat;
+    background-size: contain;
+
+    padding-left: 1.5em;
+}
+
+.form-group label {
+    font-family: var(--fontRegular);
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+input.form-control {
+    border-radius: 50px;
+}
+
+input.form-control[type="text"],
+input.form-control[type="email"],
+input.form-control[type="password"] {
+    border: 0 none;
+    border-top: 3px solid var(--lightDarkened);
+}
+
+input.form-control[type="text"]:focus,
+input.form-control[type="email"]:focus,
+input.form-control[type="password"]:focus {
+    box-shadow: 0 0 0 0.2rem var(--light);
+}
+
+input.form-check-input {
+    margin-left: .75em;
+}
+
+
+/* CUSTOM CHECKBOX */
+.checkbox-container {
+    display: inline;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.checkbox-container input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    z-index: 2;
+
+    border: 3px solid black;
+    border-radius: 2px;
+    width: 1.5em;
+    height: 1.5em;
+
+    outline: none;
+}
+
+.checkbox-tick {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+
+    left: 1.1em;
+    top: -0.7em;
+
+    content: url("assets/img/check-mark.svg");
+
+    display: none;
+}
+
+.checkbox-container input[type=checkbox]:checked ~ .checkbox-tick {
+    display: block;
+}
+
+
+.checkbox-container input[type=checkbox] {
+    margin-top: 0;
+}
+/* END CUSTOM CHECKBOX */
+
+
+/* MODALS */
+
+.modal-dialog {
+    padding-right: 56px;
+}
+
+.modal-content {
+    background: transparent url("assets/img/modal-top.svg") top center;
+    border-radius: 0;
+    border: none 0;
+
+    background-size: cover;
+
+    box-shadow: 15px 15px 3px 0 #00000088;
+}
+
+h5.modal-title {
+    font-size: 2em;
+    padding-top:.5em;
+}
+
+.modal-header,
+.modal-footer {
+    border: none;
+}
+
+.modal-header {
+    padding-bottom: 0;
+}
+
+.modal-header .close {
+    background: url("assets/img/flag-close.svg");
+    width: 55px;
+    height: 55px;
+    margin-right: -71px;
+    margin-top: -5px;
+
+    font-size: 0;
+
+    opacity: 1;
+
+    transition: transform 0.1s ease-out;
+}
+
+.modal-header .close:hover {
+    transform: rotateY(15deg);
+    transform-origin: top left;
+}
+
+.modal-header .close:active {
+    transform: rotateY(30deg);
+    transform-origin: top left;
+}
+
+.modal-header .close:focus {
+    outline: none;
+}
+
+.modal-backdrop.show {
+    opacity: .75;
+}
+
+
+
+

@@ -1,0 +1,52 @@
+<div class="media">
+    <div class="mr-3">
+        <img [src]="category._links.icon.href" class="d-block" width="64" alt="Icona della categoria">
+
+    </div>
+
+    <div class="media-body">
+
+        <!-- Show name -->
+        <h5 class="mt-0" *ngIf="!isEditing">{{ category.name }}</h5>
+
+        <!-- Edit name -->
+        <div class="form-group form-inline" *ngIf="isEditing">
+            <label for="categoryName">Nome</label>
+            <input type="text" class="form-control ml-3" id="categoryName" [(ngModel)]="category.name">
+
+            <div *ngIf="nameConflict" class="alert alert-danger">
+                <div>
+                    Un'altra categoria ha già questo nome.
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload icon -->
+        <div class="form-group form-inline" *ngIf="isEditing">
+            <label>Cambia icona <input type="file" (change)="onSelectIconFile($event)" class="ml-3">
+            </label>
+        </div>
+
+        <!-- Show description -->
+        <div *ngIf="!isEditing" [innerHTML]="category.description"></div>
+
+        <!-- Edit description -->
+        <editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description"></editor>
+
+
+        <div class="media-bottom d-flex justify-content-end mt-2">
+            <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">Modifica
+            </button>
+
+            <button class="action-button link-cta mr-1" *ngIf="isEditing" [disabled]="!isValid ||isSaving"
+                    (click)="onSaveOrCreate()">{{ isNew ? 'Crea' : 'Salva' }}
+            </button>
+
+            <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
+
+            <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
+        </div>
+
+
+    </div>
+</div>

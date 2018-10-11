@@ -1,0 +1,60 @@
+<div class="card">
+    <div class="card-body">
+
+        <img class="mr-3" *ngIf="!isNew" [src]="product._links.icon.href" width="64" alt="Icona della prodotto" style="float: left;">
+        <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
+
+        <div class="form-group" *ngIf="isEditing">
+            <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
+                   [(ngModel)]="product.name" (keyup.enter)="onEditName()" >
+        </div>
+
+        <!-- Upload icon -->
+        <div class="form-group form-inline" *ngIf="isEditing">
+            <label>Cambia icona
+                <input type="file" (change)="onSelectIconFile($event)" class="mr-3">
+            </label>
+        </div>
+
+
+        <div *ngIf="isNew">
+            <select [(ngModel)]="product.category">
+                <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+            </select>
+        </div>
+
+        <div class="d-flex justify-content-end product-buttons mt-5">
+            <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
+
+            <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()">{{ isNew ? 'Crea' : 'Salva'}}</button>
+
+
+            <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
+
+            <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete product warning -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="delete-product-{{ product.id }}-warning">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Cancellare il prodotto?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Sei sicuro di voler eliminare la categoria <strong>{{ product.name }}</strong> e tutti i suoi
+                    prodotti?<br>
+                    Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire misteriosamente
+                    questi prodotti!
+                </p>
+
+                <button class="action-button link-cta danger" (click)="onDeleteProductAfterWarning()">Elimina</button>
+            </div>
+
+        </div>
+    </div>
+</div>
