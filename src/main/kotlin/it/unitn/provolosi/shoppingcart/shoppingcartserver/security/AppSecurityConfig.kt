@@ -3,6 +3,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.security
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -14,7 +15,7 @@ import javax.sql.DataSource
 @Configuration()
 @EnableWebSecurity()
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true
+    prePostEnabled = true
 )
 class AppSecurityConfig(
 
@@ -30,11 +31,19 @@ class AppSecurityConfig(
 
     override fun configure(http: HttpSecurity?) {
         http!!.authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest()
+                    .authenticated()
 
-                .and().httpBasic()
+                .and().formLogin()
+                    .loginPage("/auth/login")
+                    .usernameParameter("email")
+                    .successHandler { _, response, _ -> response.status = HttpStatus.OK.value() }
+                    .failureHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }
 
-                .and().csrf()
+                .and().rememberMe()
+                    .rememberMeParameter("rememberMe")
+
+                .and().csrf().disable()
     }
 
 
@@ -46,5 +55,5 @@ class AppSecurityConfig(
     }
 
     @Bean("passwordEncoder")
-    fun passwordEncoder () = BCryptPasswordEncoder()
+    fun passwordEncoder() = BCryptPasswordEncoder()
 }

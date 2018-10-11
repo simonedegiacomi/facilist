@@ -54,6 +54,10 @@ dependencies {
     // Database
     compile 'com.h2database:h2'
 
+
+    // CSV reader to import data
+    compile 'org.apache.commons:commons-csv:1.5'
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
