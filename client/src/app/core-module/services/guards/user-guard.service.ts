@@ -3,6 +3,7 @@ import { AuthService } from "../auth.service";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
+import { Roles } from "../../models/user";
 
 @Injectable()
 export class UserGuard implements CanActivate {
@@ -15,7 +16,7 @@ export class UserGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.auth.getUser().pipe(
 
-            map(user => user != null && !user.admin),
+            map(user => user != null && Roles.isUser(user)),
 
             // If there's an error the user is not logged in
             catchError(_ => of(false)),

@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Observable, of, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { AuthService, USER_NOT_LOGGED_IN } from "../auth.service";
+import { Roles } from "../../models/user";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -15,7 +16,7 @@ export class AdminGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.auth.getUser().pipe(
 
-            map(user => user != null && user.admin),
+            map(user => user != null && Roles.isAdmin(user)),
 
             // If there's an error the user is not logged in
             catchError(_ => of(false)),

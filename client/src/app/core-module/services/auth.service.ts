@@ -9,7 +9,7 @@ import {
     HttpRequest
 } from "@angular/common/http";
 import { BehaviorSubject, Observable, Observer, of, Subject, throwError } from "rxjs";
-import { User } from "../models/user";
+import { Roles, User } from "../models/user";
 import { catchError, map, tap } from "rxjs/operators";
 import { NETWORK_ERROR } from "./network-errors.service";
 import { BAD_REQUEST, FORBIDDEN } from "http-status-codes";
@@ -31,7 +31,7 @@ export class AuthService {
     /**
      * Observable logged in user
      */
-    public readonly user$ = new BehaviorSubject<User>();
+    public readonly user$ = new BehaviorSubject<User>(null);
 
 
     // Last route  which access was unauthorized (used for redirect after login)
@@ -136,7 +136,7 @@ export class AuthService {
             return;
         }
 
-        let redirectTo = this.user.admin ? '/admin/dashboard' : '/user/dashboard';
+        let redirectTo = Roles.isAdmin(this.user) ? '/admin/dashboard' : '/user/dashboard';
         if (this.unauthorizedRoute != null) {
             redirectTo = this.unauthorizedRoute;
         }

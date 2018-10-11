@@ -1,8 +1,18 @@
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Resource } from "hal-4-angular";
+export const Roles = {
+    USER: "ROLE_USER",
+    ADMIN: "ROLE_ADMIN",
 
-export class User extends Resource {
+    isAdmin(user: User) {
+        return user.role === this.ADMIN;
+    },
+
+    isUser(user: User) {
+        return user.role == this.USER
+    }
+};
+
+
+export class User {
 
     id: number;
     email: string;
@@ -11,18 +21,16 @@ export class User extends Resource {
     lastName: string;
 
     emailVerified: boolean;
-    admin: boolean;
+    role: string;
 
-    constructor({id, emailVerified, firstName, lastName, _links, email, admin}) {
-        super();
+    constructor({id, emailVerified, firstName, lastName, email, role}) {
 
         this.id            = id;
-        super._links        = _links;
         this.firstName     = firstName;
         this.lastName      = lastName;
         this.email         = email;
         this.emailVerified = emailVerified;
-        this.admin         = admin;
+        this.role          = role;
 
     }
 

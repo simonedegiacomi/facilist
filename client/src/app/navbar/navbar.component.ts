@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../core-module/services/auth.service";
 import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
+import { Roles } from "../core-module/models/user";
 
 @Component({
     selector: 'app-navbar',
@@ -20,8 +21,8 @@ export class NavbarComponent implements OnInit {
 
     readonly user$      = this.auth.user$;
     readonly isGuest$   = this.user$.pipe(map(user => user == null));
-    readonly isUser$    = this.user$.pipe(map(user => user != null && !user.admin));
-    readonly isAdmin$   = this.user$.pipe(map(user => user != null && user.admin));
+    readonly isUser$    = this.user$.pipe(map(user => user != null && Roles.isUser(user)));
+    readonly isAdmin$   = this.user$.pipe(map(user => user != null && Roles.isAdmin(user)));
 
 
     onClickLogout () {
