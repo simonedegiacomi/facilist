@@ -1,0 +1,13 @@
+firstName;lastName;email;password;admin
+Alessio;Faieta;alessio.faieta@studenti.unitn.it;password;false
+Gentiana;Berisha;gentiana.berisha@studenti.unitn.it;password;false
+Simone;Degiacomi;simone.degiacomi@studenti.unitn.it;password;false
+Slava;Rublev;slavarublev@gmail.com;password;false
+Mario;Rossi;mario@rossi.it;password;password;false
+Mario;Blue;mario@blue.it;password;false
+Pinco;Pallino;pinco@pallino.it;password;false
+Alessio Admin;Faieta;alessio@shopping.com;password;true
+Gentiana Admin;Berisha;gentiana@shopping.com;password;true
+Simone Admin;Degiacomi;simone@shopping.com;password;true
+Slava Admin;Rublev;slava@shopping.com;password;true
+Admin;Master;admin@shopping.com;password;true
