@@ -1,18 +1,10 @@
-import { HalOptions, Resource, ResourceArray, RestService } from "hal-4-angular";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Injector } from "@angular/core";
+import { catchError, map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { NetworkErrorsService } from "./network-errors.service";
+import { ifResponseCodeThen } from "../utils";
+import { CONFLICT } from "http-status-codes";
 
 export const PAGE_SIZE = 20;
-
-export const sortByName: HalOptions = {
-    sort: [{
-        path: 'name',
-        order: 'ASC'
-    }]
-};
 
 export class PagedResult<T> {
 
@@ -78,10 +70,16 @@ export class MyRestService<T> {
 
     constructor(
         resourcePath: string,
-        protected httpClient: HttpClient,
-        protected errorService: NetworkErrorsService
+        protected httpClient: HttpClient
     ) {
         this.resourcePath = `/api/${resourcePath}`
+    }
+
+
+    update(entity: T): Observable<T> {
+        const url = `${this.resourcePath}/${entity.id}`;
+
+        return this.httpClient.put<T>(url, entity);
     }
 
     public getAllPaged(page: number = 0, size: number = 20): Observable<PagedResult<T>> {

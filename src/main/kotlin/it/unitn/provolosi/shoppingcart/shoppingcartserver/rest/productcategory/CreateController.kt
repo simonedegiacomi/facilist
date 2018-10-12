@@ -21,7 +21,7 @@ class CreateController(
 
     @PostMapping
     @RolesAllowed(User.ADMIN)
-    fun create(@RequestBody @Valid category: ProductCategory, @AppUser admin: User) =
+    fun create(@RequestBody @Valid category: ProductCategory) =
             if (productCategoryDAO.existsWithName(category.name)) {
                 ResponseEntity.status(HttpStatus.CONFLICT).build()
             } else {

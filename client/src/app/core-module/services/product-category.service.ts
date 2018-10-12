@@ -18,18 +18,17 @@ export class ProductCategoryService extends MyRestService<ProductCategory> {
 
 
     constructor(
-        httpClient: HttpClient,
-        networkErrorService: NetworkErrorsService
+        httpClient: HttpClient
     ) {
-        super('productCategories', httpClient, networkErrorService);
+        super('productCategories', httpClient);
     }
+
 
     update(entity: ProductCategory): Observable<ProductCategory> {
         return super.update(entity).pipe(
             catchError(ifResponseCodeThen(CONFLICT, CATEGORY_NAME_CONFLICT))
         );
     }
-
 
     create(entity: ProductCategory): Observable<Observable<never> | ProductCategory> {
         return super.create(entity).pipe(

@@ -4,11 +4,17 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
+class ProductCategoryNotFoundException : Exception()
+class ProductCategoryWithSameNameAlreadyExistsException : Exception()
+
 interface ProductCategoryDAO {
 
-    fun save(category: ProductCategory)
+    fun save(category: ProductCategory): ProductCategory
 
-    fun existsWithName(name: String):Boolean
+    fun existsWithName(name: String): Boolean
 
     fun findAllByOrderByNameAsc(page: Pageable): Page<ProductCategory>
+
+    fun findById(id: Long): ProductCategory
 }
+
