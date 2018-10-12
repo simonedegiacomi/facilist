@@ -15,7 +15,8 @@ import javax.sql.DataSource
 @Configuration()
 @EnableWebSecurity()
 @EnableGlobalMethodSecurity(
-    prePostEnabled = true
+    prePostEnabled  = true,
+    jsr250Enabled   = true
 )
 class AppSecurityConfig(
 

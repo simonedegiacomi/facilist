@@ -37,7 +37,7 @@ export class ProductCategoriesComponent implements OnInit {
 
 
     fetchCategories () {
-        this.categoriesService.getAllPagedSortedByName()
+        this.categoriesService.getAllPaged()
             .subscribe(page => this.page = page);
     }
 
@@ -47,7 +47,7 @@ export class ProductCategoriesComponent implements OnInit {
 
             distinctUntilChanged(),
 
-            switchMap(filter => this.categoriesService.searchByNameAndSortByName(filter))
+            //switchMap(filter => this.categoriesService.searchByNameAndSortByName(filter))
         ).subscribe(page => this.page = page);
     }
 
@@ -67,7 +67,7 @@ export class ProductCategoriesComponent implements OnInit {
 
     get loading (): boolean { return this.page == null; }
 
-    get categories (): ProductCategory[] { return this.page.results; }
+    get categories (): ProductCategory[] { return this.page.content; }
 
 
     onDelete (category: ProductCategory) {

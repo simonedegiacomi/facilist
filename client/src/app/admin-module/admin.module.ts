@@ -12,6 +12,7 @@ import { PaginationComponent } from "../core-module/components/pagination/pagina
 import { ShoppingListCategoriesComponent } from './shopping-list-categories/shopping-list-categories.component';
 import { ShoppingListViewEditorComponent } from './shopping-list-categories/shopping-list-view-editor/shopping-list-view-editor.component';
 import { AdminRootComponent } from './admin-root.component';
+import { ImagePipe } from "../core-module/pipes/image.pipe";
 
 @NgModule({
     imports: [
@@ -30,7 +31,9 @@ import { AdminRootComponent } from './admin-root.component';
         ProductViewEditorComponent,
         ShoppingListCategoriesComponent,
         ShoppingListViewEditorComponent,
-        AdminRootComponent
+        AdminRootComponent,
+
+        ImagePipe
     ]
 })
 export class AdminModule {

@@ -16,6 +16,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdminModule } from "./admin-module/admin.module";
 import { HttpInterceptorsProvider } from "./http-interceptors";
 import { UserModule } from "./user-module/user.module";
+import { ImagePipe } from "./core-module/pipes/image.pipe";
 
 
 @NgModule({
