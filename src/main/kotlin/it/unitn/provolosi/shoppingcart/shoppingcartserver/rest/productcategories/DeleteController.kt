@@ -1,4 +1,4 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.productcategory
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.productcategories
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryNotFoundException

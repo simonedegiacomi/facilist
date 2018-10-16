@@ -24,7 +24,7 @@ interface InternalSpringJPAProductCategory : JpaRepository<ProductCategory, Long
 }
 
 @Component
-class SpringJPAProductCategory constructor(
+class SpringJPAProductCategory (
 
         @Autowired
         private val springRepository: InternalSpringJPAProductCategory

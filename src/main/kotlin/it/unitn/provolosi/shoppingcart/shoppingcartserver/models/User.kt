@@ -27,8 +27,14 @@ data class User(
 
         @Column()
         @JsonIgnore()
-        var password: String
+        var password: String,
 
+        @OneToMany(
+            mappedBy = "creator",
+            cascade = [CascadeType.REMOVE]
+        )
+        @JsonIgnore
+        val products: List<Product> = mutableListOf()
 
 ) {
         companion object {

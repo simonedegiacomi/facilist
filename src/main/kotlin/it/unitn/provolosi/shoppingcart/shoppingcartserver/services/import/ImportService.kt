@@ -1,7 +1,9 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.import
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.images.ImagesService
@@ -23,18 +25,21 @@ class ImportService(
         private val uploadsFolderPath: String,
 
         private val userDAO: UserDAO,
+        private val productDAO: ProductDAO,
         private val productCategoryDAO: ProductCategoryDAO
 
 ) {
 
     val userByEmail     = mutableMapOf<String, User>()
     val categoryByName  = mutableMapOf<String, ProductCategory>()
+    val productByName   = mutableMapOf<String, Product>()
 
     fun importDataFromResources() {
         println("\nImport started")
 
         importUsers()
         importProductCategories()
+        importProducts()
 
         importDefaultImages()
 
@@ -70,6 +75,23 @@ class ImportService(
         categoryByName[category.name] = category
     }
 
+    private fun importProducts () = csvFile("/import/products.csv").forEach {
+        val category = categoryByName[it["category"]]!!
+        val product = Product(
+            name        = it["name"],
+            icon        = category.icon,
+            category    = category
+        )
+
+        val iconFileName = it["icon"]
+        if (iconFileName.isNotEmpty()) {
+            product.icon = importImageIfExists("product-icons", iconFileName)
+        }
+
+        productDAO.save(product)
+        productByName[product.name] = product
+    }
+
     private fun importDefaultImages() =
             mapOf(
                 "product-category-icons"        to "default-product-category-icon",
@@ -86,7 +108,7 @@ class ImportService(
     private fun printStatistics () {
         println("\nImport completed")
         println("Users:                     ${userByEmail.size}")
-        //println("Products:                  ${productByName.size}")
+        println("Products:                  ${productByName.size}")
         println("Product categories:        ${categoryByName.size}")
         /*println("Shopping lists:            $shoppingLists")
         println("Shopping list categories:  ${shoppingListCategoriesByName.size}\n")*/
