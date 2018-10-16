@@ -16,5 +16,7 @@ interface ProductCategoryDAO {
     fun findAllByOrderByNameAsc(page: Pageable): Page<ProductCategory>
 
     fun findById(id: Long): ProductCategory
+
+    fun deleteById(id: Long)
 }
 

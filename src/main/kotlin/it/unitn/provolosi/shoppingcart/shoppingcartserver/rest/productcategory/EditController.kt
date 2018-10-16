@@ -21,7 +21,7 @@ class EditController (
 
     @PutMapping("/{id}")
     @RolesAllowed(User.ADMIN)
-    fun create(
+    fun edit(
             @PathVariable id: Long,
             @RequestBody @Valid category: ProductCategory
     ): ResponseEntity<ProductCategory> = try {

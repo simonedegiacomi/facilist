@@ -3,6 +3,7 @@ import { catchError, map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { ifResponseCodeThen } from "../utils";
 import { CONFLICT } from "http-status-codes";
+import { ProductCategory } from "../models/product-category";
 
 export const PAGE_SIZE = 20;
 
@@ -89,5 +90,11 @@ export class MyRestService<T> {
         return this.httpClient.get<PagedResult<T>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this))
         );
+    }
+
+    public delete (entity: T):Observable<any> {
+        const url = `${this.resourcePath}/${entity.id}`;
+
+        return this.httpClient.delete<T>(url, entity);
     }
 }
