@@ -3,6 +3,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
+import kotlin.jvm.Transient
 
 @Entity
 @Table(name = "product")
@@ -29,4 +30,9 @@ data class Product(
         @OnDelete(action = OnDeleteAction.CASCADE)
         val category: ProductCategory
 ) {
+
+
+    fun wasCreatedByAnAdmin() = creator == null
+
+    fun wasCreatedBy(user: User) = creator == user
 }

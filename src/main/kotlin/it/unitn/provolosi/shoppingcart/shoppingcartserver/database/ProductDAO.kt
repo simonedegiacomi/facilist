@@ -14,4 +14,6 @@ interface ProductDAO {
 
     fun deleteById(id: Long)
 
+    fun findById(id: Long): Product
+
 }

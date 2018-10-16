@@ -47,8 +47,8 @@ class CreateProductController (
 
     data class CreateProductDTO (
 
-            // NOTE: To use the spring validation annotations, the field must be nullable, otherwise an exception
-            // will be thrown when some fields are missing in the json
+        // NOTE: To use the spring validation annotations, the field must be nullable, otherwise an exception
+        // will be thrown when some fields are missing in the json
 
             @get:NotNull
             @get:NotEmpty
@@ -61,4 +61,6 @@ class CreateProductController (
             @get:NotNull
             val categoryId: Long?
     )
+
+
 }

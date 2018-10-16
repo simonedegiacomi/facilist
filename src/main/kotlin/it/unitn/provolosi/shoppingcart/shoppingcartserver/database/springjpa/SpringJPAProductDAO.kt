@@ -30,4 +30,6 @@ class SpringJPAProductDAO(
     } catch (ex: EmptyResultDataAccessException) {
         throw ProductNotFoundException()
     }
+
+    override fun findById(id: Long) = springRepository.findById(id).orElseThrow { ProductNotFoundException() }!!
 }

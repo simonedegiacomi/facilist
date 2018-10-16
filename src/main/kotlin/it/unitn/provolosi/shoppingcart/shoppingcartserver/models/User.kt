@@ -37,10 +37,13 @@ data class User(
         val products: List<Product> = mutableListOf()
 
 ) {
-        companion object {
-                const val USER = "ROLE_USER"
-                const val ADMIN = "ROLE_ADMIN"
-        }
+    companion object {
+        const val USER = "ROLE_USER"
+        const val ADMIN = "ROLE_ADMIN"
+    }
+
+    @Transient()
+    fun isAdmin () = role == ADMIN
 
 }
 
