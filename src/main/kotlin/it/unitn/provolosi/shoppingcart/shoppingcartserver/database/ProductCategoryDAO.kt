@@ -18,5 +18,7 @@ interface ProductCategoryDAO {
     fun findById(id: Long): ProductCategory
 
     fun deleteById(id: Long)
+
+    fun findByNameContainingIgnoreCase(name: String, pageable: Pageable): Page<ProductCategory>
 }
 

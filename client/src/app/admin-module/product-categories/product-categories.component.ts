@@ -42,13 +42,13 @@ export class ProductCategoriesComponent implements OnInit {
     }
 
     setUpSearch () {
-        /*this.filter.pipe(
+        this.filter.pipe(
             debounceTime(300),
 
             distinctUntilChanged(),
 
-            //switchMap(filter => this.categoriesService.searchByNameAndSortByName(filter))
-        ).subscribe(page => this.page = page);*/
+            switchMap(filter => this.categoriesService.searchByNameAndSortByName(filter))
+        ).subscribe(page => this.page = page);
     }
 
     onUpdateSearchFilter (searchFilter: string) {

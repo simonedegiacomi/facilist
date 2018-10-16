@@ -2,8 +2,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.import
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.images.ImagesService
 import org.apache.commons.csv.CSVFormat
 import org.springframework.beans.factory.annotation.Value

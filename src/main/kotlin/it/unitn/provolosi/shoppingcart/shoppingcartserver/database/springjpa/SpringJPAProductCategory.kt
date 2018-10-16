@@ -4,7 +4,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCatego
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
-import org.h2.jdbc.JdbcSQLException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Component
-import java.sql.SQLException
 
 interface InternalSpringJPAProductCategory : JpaRepository<ProductCategory, Long> {
 
@@ -21,6 +19,8 @@ interface InternalSpringJPAProductCategory : JpaRepository<ProductCategory, Long
     fun existsWithName(name: String): Boolean
 
     fun findAllByOrderByNameAsc (page: Pageable): Page<ProductCategory>
+
+    fun findByNameContainingIgnoreCaseOrderByNameAsc(name: String, pageable: Pageable): Page<ProductCategory>
 }
 
 @Component
@@ -53,4 +53,8 @@ class SpringJPAProductCategory constructor(
     } catch (ex: EmptyResultDataAccessException){
         throw ProductCategoryNotFoundException()
     }
+
+
+    override fun findByNameContainingIgnoreCase(name: String, pageable: Pageable) =
+            springRepository.findByNameContainingIgnoreCaseOrderByNameAsc(name, pageable)
 }

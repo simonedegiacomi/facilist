@@ -35,4 +35,6 @@ export class ProductCategoryService extends MyRestService<ProductCategory> {
             catchError(ifResponseCodeThen(CONFLICT, CATEGORY_NAME_CONFLICT))
         );
     }
+
+
 }
