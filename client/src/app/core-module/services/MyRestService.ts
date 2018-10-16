@@ -1,113 +1,133 @@
-import { HalOptions, Resource, ResourceArray, RestService } from "hal-4-angular";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Injector } from "@angular/core";
+import { catchError, map } from "rxjs/operators";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import QueryString from "querystring";
+import { ifResponseCodeThen } from "../utils";
+import { CONFLICT } from "http-status-codes";
+import { ProductCategory } from "../models/product-category";
 
 export const PAGE_SIZE = 20;
 
-export const sortByName: HalOptions = {
-    sort: [{
-        path: 'name',
-        order: 'ASC'
-    }]
-};
+export class PagedResult<T> {
 
-export class PagedResult<T extends Resource> {
-
-    public readonly number: number;
-    public readonly pageCount: number;
-
-    public readonly hasNext: boolean;
     public readonly next: Observable<PagedResult<T>>;
 
     public readonly pages: Observable<PagedResult<T>>[];
 
-    public readonly hasPrevious: boolean;
     public readonly previous: Observable<PagedResult<T>>;
 
-
     constructor(
-        public readonly results: T[],
-        private readonly service: RestService<T>,
-        private readonly type: { new(): T},
-        resourceArray: ResourceArray<T> = service.resourceArray
+        public readonly content: T[],
+        public readonly size: number,
+        public readonly totalElements: number,
+        public readonly number: number,
+        public readonly totalPages: number,
+        public readonly first: boolean,
+        public readonly last: boolean,
+        readonly service: MyRestService<T>,
+        readonly url: string
     ) {
-        this.number             = resourceArray.pageNumber;
-        this.pageCount          = resourceArray.totalPages;
-
-        this.hasPrevious        = resourceArray.prev_uri != null;
-        this.previous           = this.wrapResourceArray(resourceArray.prev(type));
-
-        this.pages              = this.buildArrayOfObservablePages();
-
-        this.hasNext            = resourceArray.next_uri != null;
-        this.next               = this.wrapResourceArray(resourceArray.next(type));
-    }
-
-
-    private wrapResult(observable: Observable<T[]>): Observable<PagedResult<T>> {
-        return observable.pipe(
-            map(results => new PagedResult(results, this.service, this.type))
-        )
-    }
-
-    private buildArrayOfObservablePages (): Observable<PagedResult<T>>[] {
-        const resourceArray     = this.service.resourceArray;
-        const pages             = [];
-
-        for (let i = 0; i < resourceArray.totalPages; i++) {
-            pages[i] = this.wrapResourceArray(resourceArray.page(this.type, i));
+        if (this.hasNext) {
+            this.next = service.getPaged(url, number + 1, size)
         }
 
-        return pages;
+        this.pages = [];
+        for (let i = 0; i < totalPages; i++) {
+            this.pages[i] = service.getPaged(url, i, size)
+        }
+
+        if (this.hasPrevious) {
+            this.previous = service.getPaged(url, number - 1, size)
+        }
     }
 
 
-    private wrapResourceArray(observable: Observable<ResourceArray<T>>): Observable<PagedResult<T>> {
-        return observable.pipe(
-            map(resourceArray => new PagedResult(resourceArray.result, this.service, this.type, resourceArray))
-        )
-    }
-}
+    static wrapFromResponse<T>(result: PagedResult<T>, service: MyRestService<T>, url: string): PagedResult<T> {
+        return new PagedResult<T>(
+            result.content,
+            result.size,
+            result.totalElements,
+            result.number,
+            result.totalPages,
+            result.first,
+            result.last,
 
-export class MyRestService<T extends Resource> extends RestService<T> {
-
-
-    constructor(
-        private _type: { new(): T },
-        resource: string,
-        injector: Injector
-    ) {
-        super(_type, resource, injector);
-    }
-
-    protected paginate(results: Observable<T[]>): Observable<PagedResult<T>> {
-        return results.pipe(
-            map(result => new PagedResult(result, this, this._type))
+            service,
+            url
         );
     }
 
-
-    getAllPaged (options?: HalOptions): Observable<PagedResult<T>> {
-        return this.paginate(super.getAll(options));
+    get hasNext(): boolean {
+        return !this.last;
     }
 
-    getAllSortedByName(): Observable<T[]> {
-        return this.getAll(sortByName);
+    get hasPrevious(): boolean {
+        return !this.first
     }
 
-    getAllPagedSortedByName(): Observable<PagedResult<T>> {
-        return this.getAllPaged(sortByName);
+}
+
+export class MyRestService<T> {
+
+    private readonly resourcePath: string;
+
+    constructor(
+        resourcePath: string,
+        protected httpClient: HttpClient
+    ) {
+        this.resourcePath = `/api/${resourcePath}`
     }
 
 
-    searchByNameAndSortByName(name: string) :Observable<PagedResult<T>> {
-        return this.paginate(this.search('findByNameContainingIgnoreCase', {
-            ...sortByName,
-            params: [{
-                key: 'name',
-                value: name
-            }]
-        }));
+    update(entity: T): Observable<T> {
+        const url = `${this.resourcePath}/${entity.id}`;
+
+        return this.httpClient.put<T>(url, entity);
+    }
+
+    public getAllPaged(page: number = 0, size: number = 20): Observable<PagedResult<T>> {
+        return this.getPaged(this.resourcePath, page, size);
+    }
+
+    public getPaged(url: string, page: number = 0, size: number = 20): Observable<PagedResult<T>> {
+
+        url = this.replaceQueryParameters(url, {page, size});
+
+        return this.httpClient.get<PagedResult<T>>(url).pipe(
+            map(result => PagedResult.wrapFromResponse(result, this, url))
+        );
+    }
+
+    private replaceQueryParameters(url: string, toReplace) {
+        const hasParameters = url.indexOf('?') > 0;
+        let params          = {};
+
+        if (hasParameters) {
+            params = QueryString.parse(url.substr(url.indexOf('?') + 1));
+            url    = url.substring(0, url.indexOf('?'));
+        }
+
+        for (let key in toReplace) {
+            if (!toReplace.hasOwnProperty(key)) {
+                continue;
+            }
+            params[key] = toReplace[key];
+        }
+
+        return `${url}?${QueryString.stringify(params)}`;
+    }
+
+    public delete(entity: T): Observable<any> {
+        const url = `${this.resourcePath}/${entity.id}`;
+
+        return this.httpClient.delete<T>(url, entity);
+    }
+
+    public searchByNameAndSortByName(name: string): Observable<PagedResult<T>> {
+        const url = `${this.resourcePath}/search/byName?name=${name}`;
+
+        return this.httpClient.get<PagedResult<T>>(url).pipe(
+            map(result => PagedResult.wrapFromResponse(result, this, url))
+        );
     }
 }

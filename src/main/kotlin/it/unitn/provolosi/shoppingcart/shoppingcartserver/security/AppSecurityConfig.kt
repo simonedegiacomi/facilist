@@ -15,7 +15,8 @@ import javax.sql.DataSource
 @Configuration()
 @EnableWebSecurity()
 @EnableGlobalMethodSecurity(
-    prePostEnabled = true
+    prePostEnabled  = true,
+    jsr250Enabled   = true
 )
 class AppSecurityConfig(
 
@@ -40,6 +41,14 @@ class AppSecurityConfig(
                     .successHandler { _, response, _ -> response.status = HttpStatus.OK.value() }
                     .failureHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }
 
+                .and().exceptionHandling()
+                    .accessDeniedHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }
+                    .authenticationEntryPoint { _, response, authException ->
+                        if (authException != null) {
+                            response.status = HttpStatus.FORBIDDEN.value()
+                        }
+                    }
+
                 .and().rememberMe()
                     .rememberMeParameter("rememberMe")
 
@@ -53,6 +62,7 @@ class AppSecurityConfig(
                 .usersByUsernameQuery(QUERY_GET_USER_BY_USERNAME)
                 .authoritiesByUsernameQuery(QUERY_GET_ROLES_BY_USERNAME)
     }
+
 
     @Bean("passwordEncoder")
     fun passwordEncoder() = BCryptPasswordEncoder()
