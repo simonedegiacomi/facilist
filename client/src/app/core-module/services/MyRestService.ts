@@ -70,7 +70,7 @@ export class PagedResult<T> {
 
 export class MyRestService<T> {
 
-    private readonly resourcePath: string;
+    protected readonly resourcePath: string;
 
     constructor(
         resourcePath: string,

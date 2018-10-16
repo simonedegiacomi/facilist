@@ -1,6 +1,5 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
@@ -13,6 +12,12 @@ import org.springframework.stereotype.Component
 
 interface InternalSpringJPAProductDAO : JpaRepository<Product, Long> {
     fun findAllByOrderByNameAsc(page: Pageable): Page<Product>
+
+    fun findByNameContainingIgnoreCaseOrderByName(name: String, pageable: Pageable): Page<Product>
+
+    fun findByNameContainingIgnoreCaseAndCategoryIdOrderByName(name: String, categoryId: Long, pageable: Pageable): Page<Product>
+
+    fun findByCategoryIdOrderByName(categoryId: Long, pageable: Pageable): Page<Product>
 }
 
 @Component
@@ -32,4 +37,14 @@ class SpringJPAProductDAO(
     }
 
     override fun findById(id: Long) = springRepository.findById(id).orElseThrow { ProductNotFoundException() }!!
+
+    override fun findByNameContainingIgnoreCaseOrderByName(name: String, pageable: Pageable) =
+            springRepository.findByNameContainingIgnoreCaseOrderByName(name, pageable)
+
+
+    override fun findByNameContainingIgnoreCaseAndCategoryIdOrderByName(name: String, categoryId: Long, pageable: Pageable) =
+            springRepository.findByNameContainingIgnoreCaseAndCategoryIdOrderByName(name, categoryId, pageable)
+
+    override fun findByCategoryIdOrderByName(categoryId: Long, pageable: Pageable) =
+            springRepository.findByCategoryIdOrderByName(categoryId, pageable)
 }

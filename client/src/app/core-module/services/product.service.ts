@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ProductCategory } from "../models/product-category";
 import { MyRestService, PagedResult, sortByName } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
 
 
 @Injectable()
@@ -17,27 +18,20 @@ export class ProductService extends MyRestService<Product> {
     }
 
     getAllOfCategoryPagedSortedByName(category: ProductCategory): Observable<PagedResult<Product>> {
-        return this.paginate(this.search('findByCategory', {
-            ...sortByName,
-            params: [{
-                key: 'category',
-                value: category._links.self.href
-            }]
-        }));
+        const url = `${this.resourcePath}/search/byCategory?categoryId=${category.id}`;
+
+        return this.httpClient.get<PagedResult<ProductCategory>>(url).pipe(
+            map(result => PagedResult.wrapFromResponse(result, this, url))
+        );
     }
 
 
     searchByCategoryAndNameAndSortByName(category: ProductCategory, name: string) {
-        return this.paginate(this.search('findByCategoryAndNameContainingIgnoreCase', {
-            ...sortByName,
-            params: [{
-                key: 'name',
-                value: name
-            }, {
-                key: 'category',
-                value: category._links.self.href
-            }]
-        }));
+        const url = `${this.resourcePath}/search/byNameAndCategory?name=${name}&categoryId=${category.id}`;
+
+        return this.httpClient.get<PagedResult<ProductCategory>>(url).pipe(
+            map(result => PagedResult.wrapFromResponse(result, this, url))
+        );
     }
 
 
