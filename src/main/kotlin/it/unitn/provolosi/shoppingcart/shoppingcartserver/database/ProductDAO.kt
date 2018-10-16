@@ -3,7 +3,6 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.util.MultiValueMap
 
 class ProductNotFoundException : Exception()
 

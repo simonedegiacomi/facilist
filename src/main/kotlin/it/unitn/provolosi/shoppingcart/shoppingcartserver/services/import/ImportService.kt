@@ -2,9 +2,11 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.import
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.images.ImagesService
 import org.apache.commons.csv.CSVFormat
@@ -26,13 +28,15 @@ class ImportService(
 
         private val userDAO: UserDAO,
         private val productDAO: ProductDAO,
-        private val productCategoryDAO: ProductCategoryDAO
+        private val productCategoryDAO: ProductCategoryDAO,
+        private val shoppingListCategoryDAO: ShoppingListCategoryDAO
 
 ) {
 
-    val userByEmail     = mutableMapOf<String, User>()
-    val categoryByName  = mutableMapOf<String, ProductCategory>()
-    val productByName   = mutableMapOf<String, Product>()
+    val userByEmail                     = mutableMapOf<String, User>()
+    val categoryByName                  = mutableMapOf<String, ProductCategory>()
+    val productByName                   = mutableMapOf<String, Product>()
+    val shoppingListCategoriesByName    = mutableMapOf<String, ShoppingListCategory>()
 
     fun importDataFromResources() {
         println("\nImport started")
@@ -40,6 +44,7 @@ class ImportService(
         importUsers()
         importProductCategories()
         importProducts()
+        importShoppingListCategories()
 
         importDefaultImages()
 
@@ -92,6 +97,26 @@ class ImportService(
         productByName[product.name] = product
     }
 
+    private fun importShoppingListCategories () = csvFile("/import/shoppingListCategories.csv").forEach {
+        val category = ShoppingListCategory(
+            name                = it["name"],
+            description         = it["description"],
+            icon                = "default-shopping-list-category-icon",
+            productCategories   = it["productCategories"]
+                    .split(",")
+                    .map { categoryByName[it]!! }
+                    .toMutableList()
+        )
+
+        val iconFileName = it["icon"]
+        if (iconFileName.isNotEmpty()) {
+            category.icon = importImageIfExists("shopping-list-category-icons", iconFileName)
+        }
+
+        shoppingListCategoryDAO.save(category)
+        shoppingListCategoriesByName[category.name] = category
+    }
+
     private fun importDefaultImages() =
             mapOf(
                 "product-category-icons"        to "default-product-category-icon",
@@ -110,8 +135,8 @@ class ImportService(
         println("Users:                     ${userByEmail.size}")
         println("Products:                  ${productByName.size}")
         println("Product categories:        ${categoryByName.size}")
-        /*println("Shopping lists:            $shoppingLists")
-        println("Shopping list categories:  ${shoppingListCategoriesByName.size}\n")*/
+        //println("Shopping lists:            $shoppingLists")
+        println("Shopping list categories:  ${shoppingListCategoriesByName.size}\n")
         println("\n\n")
     }
 

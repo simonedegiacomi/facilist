@@ -3,7 +3,6 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
-import kotlin.jvm.Transient
 
 @Entity
 @Table(name = "product")

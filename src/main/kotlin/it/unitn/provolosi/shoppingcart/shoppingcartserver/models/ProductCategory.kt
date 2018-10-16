@@ -4,7 +4,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
 import javax.persistence.*
 
 
-
 @Entity
 @Table(
     name = "product_category",
@@ -24,7 +23,13 @@ data class ProductCategory(
         var description: String,
 
         @Column
-        var icon: String = "default-product-category-icon"
+        var icon: String = "default-product-category-icon",
+
+        @ManyToMany(
+            mappedBy    = "productCategories",
+            cascade     = [CascadeType.REMOVE] // When the category is deleted, remove the category from the shopping list categories
+        )
+        var shoppingLists: List<ShoppingListCategory> = mutableListOf()
 ) {
     companion object {
         const val PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT = "product_category_unique_name_constraint"
