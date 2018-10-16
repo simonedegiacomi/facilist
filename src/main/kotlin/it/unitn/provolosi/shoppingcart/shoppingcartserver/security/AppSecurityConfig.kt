@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
+import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -41,6 +42,14 @@ class AppSecurityConfig(
                     .successHandler { _, response, _ -> response.status = HttpStatus.OK.value() }
                     .failureHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }
 
+                .and().exceptionHandling()
+                    .accessDeniedHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }
+                    .authenticationEntryPoint { _, response, authException ->
+                        if (authException != null) {
+                            response.status = HttpStatus.FORBIDDEN.value()
+                        }
+                    }
+
                 .and().rememberMe()
                     .rememberMeParameter("rememberMe")
 
@@ -54,6 +63,7 @@ class AppSecurityConfig(
                 .usersByUsernameQuery(QUERY_GET_USER_BY_USERNAME)
                 .authoritiesByUsernameQuery(QUERY_GET_ROLES_BY_USERNAME)
     }
+
 
     @Bean("passwordEncoder")
     fun passwordEncoder() = BCryptPasswordEncoder()
