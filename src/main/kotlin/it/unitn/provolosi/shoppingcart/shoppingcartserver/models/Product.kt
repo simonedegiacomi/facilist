@@ -34,5 +34,7 @@ data class Product(
 
     fun wasCreatedByAnAdmin() = creator == null
 
+    fun canBeEditedBy(user: User) = (user.isAdmin() && wasCreatedByAnAdmin()) || wasCreatedBy(user)
+
     fun wasCreatedBy(user: User) = creator == user
 }

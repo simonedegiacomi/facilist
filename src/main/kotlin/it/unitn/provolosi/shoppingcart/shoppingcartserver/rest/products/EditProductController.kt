@@ -30,7 +30,7 @@ class EditProductController(
         return try {
             val product = productDAO.findById(id)
 
-            if (!canUserEditProduct(user, product)) {
+            if (!product.canBeEditedBy(user)) {
                 ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
             } else {
                 product.name = update.name!!
@@ -58,8 +58,4 @@ class EditProductController(
             @get:NotEmpty
             val icon: String?
     )
-
-
-    private fun canUserEditProduct(user: User, product: Product) =
-            (user.isAdmin() && product.wasCreatedByAnAdmin()) || product.wasCreatedBy(user)
 }
