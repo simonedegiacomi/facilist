@@ -41,11 +41,11 @@ export class ProductsComponent implements OnInit {
     }
 
     private fetchCategories () {
-        this.categoryService.getAllSortedByName().subscribe(categories => this.categories = categories);
+        this.categoryService.getAll().subscribe(categories => this.categories = categories);
     }
 
     private fetchAllProducts () {
-        this.productsService.getAllPagedSortedByName().subscribe(page =>this.productsPage = page)
+        this.productsService.getAllPaged().subscribe(page =>this.productsPage = page)
     }
 
     private setupSearch () {
@@ -77,7 +77,7 @@ export class ProductsComponent implements OnInit {
 
     get loadingProducts (): boolean { return this.productsPage == null; }
 
-    get products (): Product[] { return this.productsPage.results; }
+    get products (): Product[] { return this.productsPage.content; }
 
 
     onUpdateSearchFilter (searchFilter: string) {

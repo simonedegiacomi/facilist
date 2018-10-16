@@ -51,8 +51,7 @@ export class ProductViewEditorComponent implements OnInit {
 
     private fetchCategories () {
         // TODO: Clean
-        // TODO: Do not paginate
-        this.categoryService.getAllSortedByName().pipe(
+        this.categoryService.getAll().pipe(
             tap(categories => {
                 if (this.product.category) {
                     categories.forEach(category => {

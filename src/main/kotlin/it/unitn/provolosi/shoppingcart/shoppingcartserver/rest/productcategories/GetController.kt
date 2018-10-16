@@ -21,4 +21,7 @@ class GetController (
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
     ) = ResponseEntity.ok(productCategoryDAO.findAllByOrderByNameAsc(PageRequest.of(page, size)))
 
+
+    @GetMapping("/all")
+    fun getAll () = ResponseEntity.ok(productCategoryDAO.findAllByOrderByNameAsc())
 }

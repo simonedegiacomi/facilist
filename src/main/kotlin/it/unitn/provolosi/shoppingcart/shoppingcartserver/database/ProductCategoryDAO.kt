@@ -13,6 +13,8 @@ interface ProductCategoryDAO {
 
     fun existsWithName(name: String): Boolean
 
+    fun findAllByOrderByNameAsc(): List<ProductCategory>
+
     fun findAllByOrderByNameAsc(page: Pageable): Page<ProductCategory>
 
     fun findById(id: Long): ProductCategory

@@ -3,14 +3,17 @@ import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
 import { ProductCategory } from "../models/product-category";
 import { MyRestService, PagedResult, sortByName } from "./MyRestService";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable()
 export class ProductService extends MyRestService<Product> {
 
 
-    constructor(injector: Injector) {
-        super(Product, 'products', injector);
+    constructor(
+        httpClient: HttpClient
+    ) {
+        super('products', httpClient);
     }
 
     getAllOfCategoryPagedSortedByName(category: ProductCategory): Observable<PagedResult<Product>> {

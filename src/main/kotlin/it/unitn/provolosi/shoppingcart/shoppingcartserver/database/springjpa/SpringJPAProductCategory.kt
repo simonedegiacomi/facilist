@@ -20,6 +20,8 @@ interface InternalSpringJPAProductCategory : JpaRepository<ProductCategory, Long
 
     fun findAllByOrderByNameAsc (page: Pageable): Page<ProductCategory>
 
+    fun findAllByOrderByNameAsc (): List<ProductCategory>
+
     fun findByNameContainingIgnoreCaseOrderByNameAsc(name: String, pageable: Pageable): Page<ProductCategory>
 }
 
@@ -42,6 +44,8 @@ class SpringJPAProductCategory (
     }
 
     override fun existsWithName(name: String) = springRepository.existsWithName(name)
+
+    override fun findAllByOrderByNameAsc() = springRepository.findAllByOrderByNameAsc()
 
     override fun findAllByOrderByNameAsc(page: Pageable) = springRepository.findAllByOrderByNameAsc(page)
 

@@ -1,7 +1,6 @@
-import { Resource } from "hal-4-angular";
 import { Product } from "./product";
 
-export class ProductCategory extends Resource {
+export class ProductCategory {
 
     id: number = -1; // TODO: Use null
 
@@ -12,15 +11,4 @@ export class ProductCategory extends Resource {
     products: Product[];
 
     icon = 'default-product-category-icon';
-
-    constructor() {
-        super();
-        this._links = {
-            icon: {
-                href: 'api/images/default-product-category-icon' // TODO: Should the model know the api call for the image???
-            }
-        }
-    }
-
-
 }

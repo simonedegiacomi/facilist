@@ -5,6 +5,7 @@ import QueryString from "querystring";
 import { ifResponseCodeThen } from "../utils";
 import { CONFLICT } from "http-status-codes";
 import { ProductCategory } from "../models/product-category";
+import { CATEGORY_NAME_CONFLICT } from "./product-category.service";
 
 export const PAGE_SIZE = 20;
 
@@ -78,11 +79,20 @@ export class MyRestService<T> {
         this.resourcePath = `/api/${resourcePath}`
     }
 
+    create(entity: T): Observable<T> {
+        return this.httpClient.post<T>(this.resourcePath, entity);
+    }
+
 
     update(entity: T): Observable<T> {
         const url = `${this.resourcePath}/${entity.id}`;
 
         return this.httpClient.put<T>(url, entity);
+    }
+
+    public getAll(): Observable<T[]> {
+        const url = `${this.resourcePath}/all`
+        return this.httpClient.get<T[]>(url);
     }
 
     public getAllPaged(page: number = 0, size: number = 20): Observable<PagedResult<T>> {

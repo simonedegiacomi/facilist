@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
 
-        <img class="mr-3" *ngIf="!isNew" [src]="product._links.icon.href" width="64" alt="Icona della prodotto" style="float: left;">
+        <img class="mr-3" *ngIf="!isNew" [src]="product.icon | image" width="64" alt="Icona della prodotto" style="float: left;">
         <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
 
         <div class="form-group" *ngIf="isEditing">
@@ -18,8 +18,8 @@
 
 
         <div *ngIf="isNew">
-            <select [(ngModel)]="product.category">
-                <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+            <select [(ngModel)]="product.categoryId">
+                <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
             </select>
         </div>
 
