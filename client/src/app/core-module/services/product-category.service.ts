@@ -1,9 +1,8 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ProductCategory } from "../models/product-category";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { CONFLICT } from "http-status-codes";
-import { NetworkErrorsService } from "./network-errors.service";
 import { ifResponseCodeThen } from "../utils";
 import { MyRestService } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
@@ -30,7 +29,7 @@ export class ProductCategoryService extends MyRestService<ProductCategory> {
         );
     }
 
-    create(entity: ProductCategory): Observable<Observable<never> | ProductCategory> {
+    create(entity: ProductCategory): Observable<ProductCategory> {
         return super.create(entity).pipe(
             catchError(ifResponseCodeThen(CONFLICT, CATEGORY_NAME_CONFLICT))
         );

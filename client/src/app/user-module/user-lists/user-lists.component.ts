@@ -5,7 +5,6 @@ import { ShoppingListCategory } from "../../core-module/models/shopping-list-cat
 import { ShoppingListService } from "../../core-module/services/shopping-list.service";
 import { ShoppingList } from "../../core-module/models/shopping-list";
 import { AuthService } from "../../core-module/services/auth.service";
-import { switchMap } from "rxjs/operators";
 
 @Component({
     templateUrl: './user-lists.component.html',
@@ -28,10 +27,10 @@ export class UserListsComponent implements OnInit {
         private listService: ShoppingListService,
         private auth: AuthService
     ) {
-        this.listCategories$ = listCategoryService.getAllSortedByName();
+        /*this.listCategories$ = listCategoryService.getAll();
         this.lists$ = this.auth.user$.pipe(
             switchMap(user => user.getRelationArray(ShoppingList,'shoppingLists'))
-        );
+        );*/
     }
 
     ngOnInit() {

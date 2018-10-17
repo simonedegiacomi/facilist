@@ -1,6 +1,7 @@
 import { Product } from "./product";
+import { MyRestEntity } from "../services/MyRestService";
 
-export class ProductCategory {
+export class ProductCategory implements MyRestEntity{
 
     id: number = -1; // TODO: Use null
 

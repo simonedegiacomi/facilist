@@ -1,5 +1,6 @@
+import { MyRestEntity } from "../services/MyRestService";
 
-export class Product {
+export class Product implements MyRestEntity {
 
     id: number = null;
 

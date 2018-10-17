@@ -88,7 +88,7 @@ export class ProductsComponent implements OnInit {
         this.newProduct = new Product();
 
         if (this.selectedCategory) {
-            this.newProduct.category = this.selectedCategory;
+            this.newProduct.categoryId = this.selectedCategory.id;
         }
     }
 

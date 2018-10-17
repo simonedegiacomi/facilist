@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from "../../../core-module/models/product";
 import { ProductService } from "../../../core-module/services/product.service";
 import { UploadService } from "../../../core-module/services/upload.service";
-import { Observable, of, zip } from "rxjs";
-import { map, switchMap, tap } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { ProductCategoryService } from "../../../core-module/services/product-category.service";
 
@@ -50,18 +50,8 @@ export class ProductViewEditorComponent implements OnInit {
     }
 
     private fetchCategories () {
-        // TODO: Clean
-        this.categoryService.getAll().pipe(
-            tap(categories => {
-                if (this.product.category) {
-                    categories.forEach(category => {
-                        if (category.id == this.product.category.id) {
-                            this.product.category = category;
-                        }
-                    })
-                }
-            })
-        ).subscribe(categories => this.categories = categories);
+        this.categoryService.getAll()
+            .subscribe(categories => this.categories = categories);
     }
 
     onSelectIconFile (event: Event) {

@@ -1,8 +1,7 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MyRestService } from "./MyRestService";
 import { ShoppingList } from "../models/shopping-list";
-import { NetworkErrorsService } from "./network-errors.service";
-import { ProductCategory } from "../models/product-category";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +9,9 @@ import { ProductCategory } from "../models/product-category";
 export class ShoppingListService extends MyRestService<ShoppingList> {
 
     constructor(
-        injector: Injector
+        httpClient: HttpClient
     ) {
-        super(ShoppingList, 'shoppingLists', injector);
+        super('shoppingLists', httpClient);
     }
 
 }

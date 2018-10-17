@@ -1,8 +1,8 @@
 import { Product } from "../models/product";
-import { Injectable, Injector } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ProductCategory } from "../models/product-category";
-import { MyRestService, PagedResult, sortByName } from "./MyRestService";
+import { MyRestService, PagedResult } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 
@@ -20,7 +20,7 @@ export class ProductService extends MyRestService<Product> {
     getAllOfCategoryPagedSortedByName(category: ProductCategory): Observable<PagedResult<Product>> {
         const url = `${this.resourcePath}/search/byCategory?categoryId=${category.id}`;
 
-        return this.httpClient.get<PagedResult<ProductCategory>>(url).pipe(
+        return this.httpClient.get<PagedResult<Product>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))
         );
     }
@@ -29,7 +29,7 @@ export class ProductService extends MyRestService<Product> {
     searchByCategoryAndNameAndSortByName(category: ProductCategory, name: string) {
         const url = `${this.resourcePath}/search/byNameAndCategory?name=${name}&categoryId=${category.id}`;
 
-        return this.httpClient.get<PagedResult<ProductCategory>>(url).pipe(
+        return this.httpClient.get<PagedResult<Product>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))
         );
     }

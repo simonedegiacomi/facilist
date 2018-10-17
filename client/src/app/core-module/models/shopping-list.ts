@@ -1,7 +1,7 @@
-import { Resource } from "hal-4-angular";
 import { ShoppingListCategory } from "./shopping-list-category";
+import { MyRestEntity } from "../services/MyRestService";
 
-export class ShoppingList extends Resource {
+export class ShoppingList implements MyRestEntity {
     id: number = null;
 
     name: string;

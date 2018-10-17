@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     HttpClient,
     HttpEvent,
@@ -8,7 +8,7 @@ import {
     HttpParams,
     HttpRequest
 } from "@angular/common/http";
-import { BehaviorSubject, Observable, Observer, of, Subject, throwError } from "rxjs";
+import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { Roles, User } from "../models/user";
 import { catchError, map, tap } from "rxjs/operators";
 import { NETWORK_ERROR } from "./network-errors.service";

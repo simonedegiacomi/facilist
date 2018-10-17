@@ -1,15 +1,11 @@
 import { Observable } from "rxjs";
-import { catchError, map } from "rxjs/operators";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { HttpClient } from "@angular/common/http";
 import QueryString from "querystring";
-import { ifResponseCodeThen } from "../utils";
-import { CONFLICT } from "http-status-codes";
-import { ProductCategory } from "../models/product-category";
-import { CATEGORY_NAME_CONFLICT } from "./product-category.service";
 
 export const PAGE_SIZE = 20;
 
-export class PagedResult<T> {
+export class PagedResult<T extends MyRestEntity> {
 
     public readonly next: Observable<PagedResult<T>>;
 
@@ -43,7 +39,7 @@ export class PagedResult<T> {
     }
 
 
-    static wrapFromResponse<T>(result: PagedResult<T>, service: MyRestService<T>, url: string): PagedResult<T> {
+    static wrapFromResponse<T extends MyRestEntity>(result: PagedResult<T>, service: MyRestService<T>, url: string): PagedResult<T> {
         return new PagedResult<T>(
             result.content,
             result.size,
@@ -68,7 +64,11 @@ export class PagedResult<T> {
 
 }
 
-export class MyRestService<T> {
+export interface MyRestEntity {
+    id: number
+}
+
+export class MyRestService<T extends MyRestEntity> {
 
     protected readonly resourcePath: string;
 
@@ -130,7 +130,7 @@ export class MyRestService<T> {
     public delete(entity: T): Observable<any> {
         const url = `${this.resourcePath}/${entity.id}`;
 
-        return this.httpClient.delete<T>(url, entity);
+        return this.httpClient.delete<T>(url);
     }
 
     public searchByNameAndSortByName(name: string): Observable<PagedResult<T>> {

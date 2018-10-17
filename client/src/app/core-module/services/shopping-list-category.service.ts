@@ -1,9 +1,9 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MyRestService } from "./MyRestService";
 import { ShoppingListCategory } from "../models/shopping-list-category";
 import { ProductCategory } from "../models/product-category";
 import { Observable } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { ifResponseCodeThen } from "../utils";
 import { CONFLICT } from "http-status-codes";
@@ -16,7 +16,7 @@ export const SHOPPING_LIST_CATEGORY_NAME_CONFLICT = "shoppingListCategoryNameCon
 export class ShoppingListCategoryService extends MyRestService<ShoppingListCategory> {
 
     constructor(
-        private httpClient: HttpClient
+        httpClient: HttpClient
     ) {
         super('shoppingListCategories', httpClient);
     }

@@ -1,3 +1,5 @@
+import { MyRestEntity } from "../services/MyRestService";
+
 export const Roles = {
     USER: "ROLE_USER",
     ADMIN: "ROLE_ADMIN",
@@ -12,7 +14,7 @@ export const Roles = {
 };
 
 
-export class User {
+export class User implements MyRestEntity {
 
     id: number;
     email: string;
