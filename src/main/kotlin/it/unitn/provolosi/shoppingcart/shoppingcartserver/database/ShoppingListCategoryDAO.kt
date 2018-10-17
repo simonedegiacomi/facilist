@@ -11,4 +11,6 @@ interface ShoppingListCategoryDAO {
     fun findAllByOrderByNameAsc(): List<ShoppingListCategory>
 
     fun findById(id: Long): ShoppingListCategory
+
+    fun deleteById(id: Long)
 }

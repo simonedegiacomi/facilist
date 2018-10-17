@@ -5,6 +5,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 
@@ -33,4 +34,10 @@ class SpringJPAShoppingListCategoryDAO(
         id).orElseThrow { ShoppingListCategoryNotFoundException() }
 
     override fun findAllByOrderByNameAsc() = springRepository.findAllByOrderByNameAsc()
+
+    override fun deleteById(id: Long) = try {
+        springRepository.deleteById(id)
+    } catch (ex: EmptyResultDataAccessException){
+        throw ShoppingListCategoryNotFoundException()
+    }
 }
