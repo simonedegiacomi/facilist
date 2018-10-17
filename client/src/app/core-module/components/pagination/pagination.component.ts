@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PagedResult } from "../../services/MyRestService";
 import { Observable } from "rxjs";
-import { Resource } from "hal-4-angular";
 
 @Component({
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent<T extends Resource> implements OnInit {
+export class PaginationComponent<T> implements OnInit {
 
     @Input() page: PagedResult<T>;
     @Output() pageChange = new EventEmitter<PagedResult<T>>();

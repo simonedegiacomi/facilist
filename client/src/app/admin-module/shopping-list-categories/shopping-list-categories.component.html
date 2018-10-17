@@ -8,7 +8,7 @@
             <li class="list-group-item" *ngFor="let category of categories" [class.active]="category == selected"
                 (click)="selected = category">
                 <div class="media">
-                    <img class="mr-3" width="64" [src]="category._links.icon.href">
+                    <img class="mr-3" width="64" [src]="category.icon | image">
                     <div class="media-body">
                         <h5 class="mt-0">{{ category.name }}</h5>
                     </div>

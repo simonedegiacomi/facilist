@@ -16,35 +16,27 @@ export const SHOPPING_LIST_CATEGORY_NAME_CONFLICT = "shoppingListCategoryNameCon
 export class ShoppingListCategoryService extends MyRestService<ShoppingListCategory> {
 
     constructor(
-        private httpClient: HttpClient,
-        injector: Injector
+        private httpClient: HttpClient
     ) {
-        super(ShoppingListCategory, 'shoppingListCategories', injector);
+        super('shoppingListCategories', httpClient);
     }
 
     updateProductCategories(category: ShoppingListCategory, included: ProductCategory[]): Observable<void> {
-        const links = included
-            .map(included => included._links.self.href)
-            .join("\n");
-        const options = {
-            headers: new HttpHeaders().append('Content-Type', 'text/uri-list')
-        };
+        const url = `${this.resourcePath}/${category.id}/productCategories`;
 
-        return this.httpClient.put<void>(category._links.productCategories.href, links, options)
+        const productCategoryIds = included.map(category => category.id);
+
+        return this.httpClient.put<void>(url, productCategoryIds);
     }
 
-    getProductCategoriesOfShoppingListCategory(category: ShoppingListCategory): Observable<ProductCategory[]> {
-        return category.getRelationArray(ProductCategory, 'productCategories');
-    }
-
-    create(entity: ShoppingListCategory): Observable<Observable<never> | ShoppingListCategory> {
+    create(entity: ShoppingListCategory): Observable<ShoppingListCategory> {
         return super.create(entity).pipe(
             catchError(ifResponseCodeThen(CONFLICT, SHOPPING_LIST_CATEGORY_NAME_CONFLICT))
         );
     }
 
 
-    update(entity: ShoppingListCategory): Observable<Observable<never> | ShoppingListCategory> {
+    update(entity: ShoppingListCategory): Observable<ShoppingListCategory> {
         return super.update(entity).pipe(
             catchError(ifResponseCodeThen(CONFLICT, SHOPPING_LIST_CATEGORY_NAME_CONFLICT))
         );

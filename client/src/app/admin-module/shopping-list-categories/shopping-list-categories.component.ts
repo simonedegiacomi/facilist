@@ -24,8 +24,7 @@ export class ShoppingListCategoriesComponent implements OnInit {
     }
 
     fetchCategories () {
-        // TODO: Do not paginate
-        this.categoryService.getAllSortedByName()
+        this.categoryService.getAll()
             .subscribe(categories => this.categories = categories)
     }
 

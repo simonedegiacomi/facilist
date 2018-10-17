@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory.Companion.PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT
 import javax.persistence.*
 
@@ -29,6 +30,7 @@ data class ProductCategory(
             mappedBy    = "productCategories",
             cascade     = [CascadeType.REMOVE] // When the category is deleted, remove the category from the shopping list categories
         )
+        @JsonIgnore
         var shoppingLists: List<ShoppingListCategory> = mutableListOf()
 ) {
     companion object {

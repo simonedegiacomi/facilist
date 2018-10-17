@@ -3,7 +3,10 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 import javax.persistence.*
 
 @Entity()
-@Table(name = "shopping_list_category")
+@Table(
+    name = "shopping_list_category",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["name"], name = ShoppingListCategory.SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT)]
+)
 data class ShoppingListCategory(
 
         @Id
@@ -26,5 +29,9 @@ data class ShoppingListCategory(
             joinColumns         = [JoinColumn(name = "shopping_list_category_id")],
             inverseJoinColumns  = [JoinColumn(name = "product_category_id")]
         )
-        val productCategories: List<ProductCategory> = mutableListOf()
-)
+        val productCategories: MutableList<ProductCategory> = mutableListOf()
+) {
+    companion object {
+        const val SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT = "shopping_list_category_unique_name_constraint"
+    }
+}

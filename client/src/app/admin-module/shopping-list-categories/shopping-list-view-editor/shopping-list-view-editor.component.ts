@@ -60,7 +60,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
     }
 
     fetchProductCategories () {
-        this.productCategoryService.getAllSortedByName()
+        this.productCategoryService.getAll()
             .subscribe(categories => this.productCategories = categories);
     }
 
@@ -84,11 +84,10 @@ export class ShoppingListViewEditorComponent implements OnInit {
                 this.isEditing  = true;
             }
         } else {
-            this.isNew                  = false;
-            this.originalName           = this.category.name;
-            this.originalDescription    = this.category.description;
-            this.categoryService.getProductCategoriesOfShoppingListCategory(category)
-                .subscribe(included => this.includedProductCategories = included);
+            this.isNew                      = false;
+            this.originalName               = this.category.name;
+            this.originalDescription        = this.category.description;
+            this.includedProductCategories  = this.category.productCategories;
         }
     }
 
@@ -140,7 +139,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
                     return this.categoryService.update(this.category);
                 }
             }),
-            switchMap(_ => this.categoryService.updateProductCategories(this.category, this.includedProductCategories))
+            switchMap(c => this.categoryService.updateProductCategories(c, this.includedProductCategories))
         ).subscribe(_ => {
             if (this.isNew) {
                 this.isNew = false;
