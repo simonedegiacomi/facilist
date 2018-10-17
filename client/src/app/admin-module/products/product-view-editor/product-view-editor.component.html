@@ -26,7 +26,8 @@
         <div class="d-flex justify-content-end product-buttons mt-5">
             <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
 
-            <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()">{{ isNew ? 'Crea' : 'Salva'}}</button>
+            <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()" [disabled]="!isValid || isSaving">
+                {{ isNew ? 'Crea' : 'Salva'}}</button>
 
 
             <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>

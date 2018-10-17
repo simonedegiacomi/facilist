@@ -90,6 +90,10 @@ export class ProductViewEditorComponent implements OnInit {
         });
     }
 
+    // TODO: Use Angular Form so validation is automatic
+    get isValid (): boolean { return this.product.name != null && this.product.name != ""
+        && this.product.categoryId != null; }
+
     onCancel () {
         this.isEditing      = false;
         this.product.name   = this.originalName;

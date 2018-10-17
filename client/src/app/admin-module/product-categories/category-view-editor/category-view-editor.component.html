@@ -12,7 +12,7 @@
         <!-- Edit name -->
         <div class="form-group form-inline" *ngIf="isEditing">
             <label for="categoryName">Nome</label>
-            <input type="text" class="form-control ml-3" id="categoryName" [(ngModel)]="category.name">
+            <input type="text" class="form-control ml-3" id="categoryName" [(ngModel)]="category.name" name="name">
 
             <div *ngIf="nameConflict" class="alert alert-danger">
                 <div>
@@ -38,7 +38,7 @@
             <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">Modifica
             </button>
 
-            <button class="action-button link-cta mr-1" *ngIf="isEditing" [disabled]="!isValid ||isSaving"
+            <button class="action-button link-cta mr-1" *ngIf="isEditing" [disabled]="!isValid || isSaving"
                     (click)="onSaveOrCreate()">{{ isNew ? 'Crea' : 'Salva' }}
             </button>
 
@@ -49,4 +49,5 @@
 
 
     </div>
+
 </div>

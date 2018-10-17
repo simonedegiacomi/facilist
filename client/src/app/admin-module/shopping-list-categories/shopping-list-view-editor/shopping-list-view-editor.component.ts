@@ -4,6 +4,8 @@ import { Observable, of } from "rxjs";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { map, switchMap } from "rxjs/operators";
 import { UploadService } from "../../../core-module/services/upload.service";
+import editorConfig from '../../../core-module/tinymceConfig';
+
 import {
     SHOPPING_LIST_CATEGORY_NAME_CONFLICT,
     ShoppingListCategoryService
@@ -34,17 +36,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
     iconUploaded: Observable<void> = of(null);
 
-    editorConfig = {
-        menubar: false,
-        toolbar: 'undo, redo | cut, copy, paste, selectall | bold, italic | subscript, superscript | formatselect',
-        block_formats: 'Paragrafo=p;Titolo 2=h3;Sottotitolo 3=h4;Titolino 4=h5;',
-        branding: false,
-
-        language: 'it',
-        language_url: '/tinymce/langs/it.js',
-
-        skin_url: '/tinymce/skins/lightgray'
-    };
+    editorConfig = editorConfig;
 
     @Output() cancel: EventEmitter<ShoppingListCategory> = new EventEmitter<ShoppingListCategory>();
     @Output() deleted: EventEmitter<ShoppingListCategory> = new EventEmitter<ShoppingListCategory>();
@@ -173,4 +165,8 @@ export class ShoppingListViewEditorComponent implements OnInit {
         this.categoryService.delete(toDelete)
             .subscribe(_ => this.deleted.emit(toDelete));
     }
+
+    // TODO: Use Angular Form so validation is automatic
+    get isValid (): boolean { return this.category.name != null && this.category.name != ""
+        && this.category.description != null && this.category.description != ""; }
 }

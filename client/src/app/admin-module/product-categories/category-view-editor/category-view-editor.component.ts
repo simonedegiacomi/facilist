@@ -4,7 +4,7 @@ import { CATEGORY_NAME_CONFLICT, ProductCategoryService } from "../../../core-mo
 import { Observable, of } from "rxjs";
 import { UploadService } from "../../../core-module/services/upload.service";
 import { catchError, map } from "rxjs/operators";
-
+import editorConfig from '../../../core-module/tinymceConfig';
 
 @Component({
     selector: 'admin-category-view-editor',
@@ -30,17 +30,7 @@ export class CategoryViewEditorComponent implements OnInit {
 
     iconUploaded: Observable<void> = of(null);
 
-    editorConfig = {
-        menubar: false,
-        toolbar: 'undo, redo | cut, copy, paste, selectall | bold, italic | subscript, superscript | formatselect',
-        block_formats: 'Paragrafo=p;Titolo 2=h3;Sottotitolo 3=h4;Titolino 4=h5;',
-        branding: false,
-
-        language: 'it',
-        language_url: '/tinymce/langs/it.js',
-
-        skin_url: '/tinymce/skins/lightgray'
-    };
+    editorConfig = editorConfig;
 
     constructor(
         private categories: ProductCategoryService,
@@ -114,7 +104,9 @@ export class CategoryViewEditorComponent implements OnInit {
         );
     }
 
-    get isValid (): boolean { return this.category.name != "" && this.category.description != ""; }
+    // TODO: Use Angular Form so validation is automatic
+    get isValid (): boolean { return this.category.name != null && this.category.name != ""
+        && this.category.description != null && this.category.description != ""; }
 
     onCancel () {
         this.isEditing              = false;
