@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../core-module/models/shopping-list-category";
 import { ShoppingListPreview, ShoppingListService } from "../../core-module/services/shopping-list.service";
 import { ShoppingList } from "../../core-module/models/shopping-list";
-import { AuthService } from "../../core-module/services/auth.service";
 
 @Component({
     templateUrl: './user-lists.component.html',

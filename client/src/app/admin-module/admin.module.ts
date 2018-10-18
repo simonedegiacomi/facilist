@@ -12,7 +12,6 @@ import { PaginationComponent } from "../core-module/components/pagination/pagina
 import { ShoppingListCategoriesComponent } from './shopping-list-categories/shopping-list-categories.component';
 import { ShoppingListViewEditorComponent } from './shopping-list-categories/shopping-list-view-editor/shopping-list-view-editor.component';
 import { AdminRootComponent } from './admin-root.component';
-import { ImagePipe } from "../core-module/pipes/image.pipe";
 import { CoreModule } from "../core-module/core.module";
 
 @NgModule({

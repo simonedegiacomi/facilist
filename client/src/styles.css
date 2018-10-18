@@ -23,6 +23,8 @@
     --fontRegular: 'Lato', sans-serif;
 
     --em-fix: .0625;
+
+    --user-background: #15202b;
 }
 
 
@@ -173,6 +175,12 @@ input.form-control[type="password"]:focus {
 
 input.form-check-input {
     margin-left: .75em;
+}
+
+/* IMAGES */
+img.list-icon {
+    border-radius: 100%;
+    width: 5em;
 }
 
 
