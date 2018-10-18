@@ -31,7 +31,7 @@ data class ProductCategory(
             cascade     = [CascadeType.REMOVE] // When the category is deleted, remove the category from the shopping list categories
         )
         @JsonIgnore
-        var shoppingLists: List<ShoppingListCategory> = mutableListOf()
+        private var shoppingLists: List<ShoppingListCategory> = mutableListOf()
 ) {
     companion object {
         const val PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT = "product_category_unique_name_constraint"

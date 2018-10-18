@@ -30,11 +30,25 @@ data class User(
         var password: String,
 
         @OneToMany(
-            mappedBy = "creator",
+            mappedBy    = "creator",
+            cascade     = [CascadeType.REMOVE]
+        )
+        @JsonIgnore
+        val products: List<Product> = mutableListOf(),
+
+        @OneToMany(
+            mappedBy    = "creator",
+            cascade     = [CascadeType.REMOVE]
+        )
+        @JsonIgnore
+        val shoppingLists: List<ShoppingList> = mutableListOf(),
+
+        @OneToMany(
+            mappedBy = "user",
             cascade = [CascadeType.REMOVE]
         )
         @JsonIgnore
-        val products: List<Product> = mutableListOf()
+        val collaborations: MutableList<ShoppingListCollaboration> = mutableListOf()
 
 ) {
     companion object {

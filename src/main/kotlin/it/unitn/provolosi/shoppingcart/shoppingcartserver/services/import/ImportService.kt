@@ -1,13 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.import
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.images.ImagesService
 import org.apache.commons.csv.CSVFormat
 import org.springframework.beans.factory.annotation.Value
@@ -29,7 +23,10 @@ class ImportService(
         private val userDAO: UserDAO,
         private val productDAO: ProductDAO,
         private val productCategoryDAO: ProductCategoryDAO,
-        private val shoppingListCategoryDAO: ShoppingListCategoryDAO
+        private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
+        private val shoppingListDAO: ShoppingListDAO,
+        private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
+        private val shoppingListProductDAO: ShoppingListProductDAO
 
 ) {
 
@@ -37,6 +34,7 @@ class ImportService(
     val categoryByName                  = mutableMapOf<String, ProductCategory>()
     val productByName                   = mutableMapOf<String, Product>()
     val shoppingListCategoriesByName    = mutableMapOf<String, ShoppingListCategory>()
+    var shoppingLists                   = 0
 
     fun importDataFromResources() {
         println("\nImport started")
@@ -45,6 +43,7 @@ class ImportService(
         importProductCategories()
         importProducts()
         importShoppingListCategories()
+        importShoppingLists()
 
         importDefaultImages()
 
@@ -117,6 +116,54 @@ class ImportService(
         shoppingListCategoriesByName[category.name] = category
     }
 
+    private fun importShoppingLists () = csvFile("/import/shoppingLists.csv").forEach {
+        val category = shoppingListCategoriesByName[it["category"]]!!
+        val shoppingList = ShoppingList(
+            name        = it["name"],
+            description = it["description"],
+            icon        = category.icon,
+            creator     = userByEmail[it["owner"]!!]!!,
+            category    = shoppingListCategoriesByName[it["category"]]!!
+        )
+        shoppingListDAO.save(shoppingList)
+
+        it["users"]
+                .split(',')
+                .forEach {
+                    val pieces  = it.split(':')
+                    val email   = pieces[0]
+                    val role    = pieces[1]
+
+                    shoppingListCollaborationDAO.save(ShoppingListCollaboration(
+                        user            = userByEmail[email]!!,
+                        shoppingList    = shoppingList,
+                        role            = role
+                    ))
+                }
+
+        it["products"]
+                .split(',')
+                .forEach {
+                    val pieces      = it.split(':')
+                    val productName = pieces[0]
+                    val toBuy       = pieces[1].toBoolean()
+                    val product     = productByName[productName]!!
+
+                    shoppingListProductDAO.save(ShoppingListProduct(
+                        product         = product,
+                        shoppingList    = shoppingList,
+                        toBuy           = toBuy
+                    ))
+                }
+
+        val iconFileName = it["icon"]
+        if (iconFileName.isNotEmpty()) {
+            shoppingList.icon = importImageIfExists("shopping-list-icons", iconFileName)
+        }
+
+        shoppingLists++
+    }
+
     private fun importDefaultImages() =
             mapOf(
                 "product-category-icons"        to "default-product-category-icon",
@@ -135,7 +182,7 @@ class ImportService(
         println("Users:                     ${userByEmail.size}")
         println("Products:                  ${productByName.size}")
         println("Product categories:        ${categoryByName.size}")
-        //println("Shopping lists:            $shoppingLists")
+        println("Shopping lists:            $shoppingLists")
         println("Shopping list categories:  ${shoppingListCategoriesByName.size}\n")
         println("\n\n")
     }
