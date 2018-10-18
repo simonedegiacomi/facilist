@@ -20,7 +20,7 @@ class EditShoppingListCategoryController (
     @RolesAllowed(User.ADMIN)
     fun create(
             @PathVariable id: Long,
-            @RequestBody @Valid dto: CreateShoppingListController.ShoppingListCategoryDTO
+            @RequestBody @Valid dto: CreateShoppingCategoryListController.ShoppingListCategoryDTO
     ): ResponseEntity<ShoppingListCategory> = try {
 
         val category = shoppingListCategoryDAO.findById(id)

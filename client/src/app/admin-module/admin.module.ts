@@ -13,13 +13,15 @@ import { ShoppingListCategoriesComponent } from './shopping-list-categories/shop
 import { ShoppingListViewEditorComponent } from './shopping-list-categories/shopping-list-view-editor/shopping-list-view-editor.component';
 import { AdminRootComponent } from './admin-root.component';
 import { ImagePipe } from "../core-module/pipes/image.pipe";
+import { CoreModule } from "../core-module/core.module";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         EditorModule, // TODO: This is already imported in the main 'app' module, but if i remove from here it doesn't work
-        AdminRoutingModule
+        AdminRoutingModule,
+        CoreModule
     ],
     declarations: [
         PaginationComponent,
@@ -31,9 +33,7 @@ import { ImagePipe } from "../core-module/pipes/image.pipe";
         ProductViewEditorComponent,
         ShoppingListCategoriesComponent,
         ShoppingListViewEditorComponent,
-        AdminRootComponent,
-
-        ImagePipe
+        AdminRootComponent
     ]
 })
 export class AdminModule {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShoppingListCategoryService } from "../../core-module/services/shopping-list-category.service";
 import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../core-module/models/shopping-list-category";
-import { ShoppingListService } from "../../core-module/services/shopping-list.service";
+import { ShoppingListPreview, ShoppingListService } from "../../core-module/services/shopping-list.service";
 import { ShoppingList } from "../../core-module/models/shopping-list";
 import { AuthService } from "../../core-module/services/auth.service";
 
@@ -12,9 +12,7 @@ import { AuthService } from "../../core-module/services/auth.service";
 })
 export class UserListsComponent implements OnInit {
 
-    lists$: Observable<ShoppingList[]>;
-
-    listCategories$: Observable<ShoppingListCategory[]>;
+    lists$: Observable<ShoppingListPreview[]>;
 
     newList = new ShoppingList();
 
@@ -24,13 +22,9 @@ export class UserListsComponent implements OnInit {
 
     constructor(
         private listCategoryService: ShoppingListCategoryService,
-        private listService: ShoppingListService,
-        private auth: AuthService
+        private listService: ShoppingListService
     ) {
-        /*this.listCategories$ = listCategoryService.getAll();
-        this.lists$ = this.auth.user$.pipe(
-            switchMap(user => user.getRelationArray(ShoppingList,'shoppingLists'))
-        );*/
+        this.lists$ = this.listService.getMyShoppingLists()
     }
 
     ngOnInit() {
@@ -46,5 +40,9 @@ export class UserListsComponent implements OnInit {
             this.newList    = new ShoppingList();
             this.isCreating = false;
         });
+    }
+
+    onCreateNewList () {
+
     }
 }

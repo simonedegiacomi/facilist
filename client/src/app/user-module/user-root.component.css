@@ -1,11 +1,12 @@
-.container.admin {
-    width: 90vw;
-    margin: 1rem auto;
-}
 
-@media (max-width: 576px) {
-    .container.admin {
-        width: 100vw;
-        margin: 1rem auto;
-    }
+div.container.user-page {
+    min-width: 100vw;
+    height: calc(100vh - 52px);
+    margin: 0;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+
+    background-color: var(--user-background);
 }

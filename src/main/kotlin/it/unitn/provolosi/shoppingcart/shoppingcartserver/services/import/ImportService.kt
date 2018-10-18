@@ -168,7 +168,8 @@ class ImportService(
             mapOf(
                 "product-category-icons"        to "default-product-category-icon",
                 "product-photos"                to "default-product-photo",
-                "shopping-list-category-icons"  to "default-shopping-list-category-icon"
+                "shopping-list-category-icons"  to "default-shopping-list-category-icon",
+                "shopping-list-icons"           to "default-shopping-list-icon"
             ).forEach { it ->
                 val folder = it.key
                 val file = it.value

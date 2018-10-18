@@ -1,23 +1,44 @@
-<h3>Le mie liste</h3>
+<div class="lists-list-container">
+    <div class="modal-content lists-list">
+        <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Le mie liste della spesa</h5>
+        </div>
 
-<h4>Crea una nuona lista</h4>
-<label>Nome
-    <input type="text" [(ngModel)]="newList.name">
-</label>
+        <div class="modal-body">
 
-<label>Descrizione
-<input type="text" [(ngModel)]="newList.description">
-</label>
+            <div>
 
-<select [(ngModel)]="newListCategory">
-    <option *ngFor="let category of listCategories$ | async" [ngValue]="category" >{{ category.name }}</option>
-</select>
+                <table class="my-lists-table">
+                    <tbody>
+                    <tr *ngFor="let list of lists$ | async">
+                        <td>
+                            <img [src]="list.icon | image" class="list-icon" width="64">
+                        </td>
 
+                        <td class="list-title-and-description">
+                            <h3>{{ list.name }}</h3>
+                            {{ list.description }}
+                        </td>
 
-<button class="btn btn-primary" (click)="onCreateNewList()" [disabled]="isCreating">Crea nuova lista</button>
+                        <td class="list-items-counters">
+                            <img src="assets/img/ic_ham.svg">
+                            {{ list.itemsToBuyCount }} / {{ list.itemsCount }}
+                        </td>
 
+                        <td class="list-sharing-status">
+                            <img src="assets/img/{{ list.shared ? 'ic_list_shared' : 'ic_list_not_shared' }}.svg">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
-<h4>Liste</h4>
-<ul>
-    <li *ngFor="let list of lists$ | async">{{ list.name }}</li>
-</ul>
+                <hr>
+            </div>
+
+            <div>
+                <a data-toggle="modal" data-target="#newListModal">Crea una nuova lista...</a>
+            </div>
+        </div>
+    </div>
+</div>
+<user-new-list></user-new-list>

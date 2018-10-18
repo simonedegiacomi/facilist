@@ -89,9 +89,13 @@ class SimpleImagesService(
         val fileName = getFileName(id)
         val file = File(uploadsFolderPath, fileName)
 
-        headers.contentLength = file.length()
+        return if (file.exists()) {
+            headers.contentLength = file.length()
 
-        return ResponseEntity.ok(InputStreamResource(FileInputStream(file)))
+            ResponseEntity.ok(InputStreamResource(FileInputStream(file)))
+        } else {
+            ResponseEntity.notFound().build()
+        }
     }
 
 }

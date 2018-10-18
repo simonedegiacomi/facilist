@@ -1,0 +1,21 @@
+.lists-list {
+    min-height: 50vh;
+}
+
+.my-lists-table {
+    font-family: var(--fontRegular);
+}
+
+.my-lists-table td {
+    padding: .25em;
+}
+
+.list-items-counters,
+.list-sharing-status {
+    font-size: 1.5em;
+}
+
+.list-items-counters img,
+.list-sharing-status img {
+    height: 1em;
+}
