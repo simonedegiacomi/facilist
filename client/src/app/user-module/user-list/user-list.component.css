@@ -1,0 +1,18 @@
+.list {
+    min-height: 50vh;
+}
+
+.add-product-bar {
+    width: calc(100% + 1em);
+    padding: .5em;
+    margin: 0 -.5em;
+    background-color: var(--lightDarkened);
+}
+
+td.product-image-name-and-note {
+    width: 100%;
+}
+
+td div.list-product-bought-state {
+    width: 3em;
+}

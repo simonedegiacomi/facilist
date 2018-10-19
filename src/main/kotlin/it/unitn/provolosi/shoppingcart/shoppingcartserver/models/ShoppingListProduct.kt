@@ -13,7 +13,6 @@ data class ShoppingListProduct(
         @GeneratedValue
         val id: Long? = null,
 
-
         @ManyToOne
         @JoinColumn(name = "shopping_list_id")
         @JsonIgnore
@@ -28,7 +27,14 @@ data class ShoppingListProduct(
         var toBuy: Boolean = true,
 
         @Column
-        var quantity: Int = 1
+        var quantity: Int = 1,
+
+        @Column
+        var note: String? = null,
+
+
+        @Column
+        var image: String
 
 ) {
     init {

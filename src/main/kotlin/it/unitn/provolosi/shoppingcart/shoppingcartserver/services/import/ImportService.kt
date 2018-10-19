@@ -152,7 +152,8 @@ class ImportService(
                     shoppingListProductDAO.save(ShoppingListProduct(
                         product         = product,
                         shoppingList    = shoppingList,
-                        toBuy           = toBuy
+                        toBuy           = toBuy,
+                        image           = product.icon
                     ))
                 }
 

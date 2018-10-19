@@ -14,4 +14,7 @@ class SpringJPAShoppingListProductDAO(
 
     override fun save(product: ShoppingListProduct) = springRepository.save(product)
 
+
+    override fun deleteAll(toDelete: List<ShoppingListProduct>) = springRepository.deleteAll(toDelete)
+
 }

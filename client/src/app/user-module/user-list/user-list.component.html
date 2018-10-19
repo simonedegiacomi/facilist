@@ -1,4 +1,61 @@
-<p>
-  user-list works!
-    {{list$ | async}}
-</p>
+<div class="list-container">
+    <div class="modal-content list" *ngIf="list">
+        <div class="modal-header">
+            <h5 class="modal-title">{{ list.name }}</h5>
+
+            <div class="update-message">
+                <div class="is-saving" *ngIf="isSaving">
+                    Sto salvando ...
+                </div>
+                <div class="last-update" *ngIf="lastUpdate">
+                    {{ lastUpdate | date }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="add-product-bar">
+            <div class="form-group">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <table>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td>Prodotto</td>
+                    <td>Qta.</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let product of list.products">
+                    <td>
+                        <div class="form-group list-product-bought-state">
+                            <div class="checkbox-container">
+                                <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
+                                       [checked]="product.toBuy">
+
+                                <span class="checkbox-tick"></span>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="product-image-name-and-note">
+                        <img class="list-icon" [src]="product.image | image">
+                        {{ product.product.name }}<br>
+                        {{ product.note }}
+                    </td>
+                    <td>
+                        <span (click)="decrementQuantity(product)">-</span>
+                        <span>{{ product.quantity }}</span>
+                        <span (click)="incrementQuantity(product)">+</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<user-new-list></user-new-list>

@@ -27,6 +27,23 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
 
         return super.create(entity);
     }
+
+    updateProducts(list: ShoppingList): Observable<ShoppingList> {
+        const url = `${this.resourcePath}/${list.id}/products`;
+
+        return this.httpClient.post<ShoppingList>(
+            url,
+            list.products.map(product => {
+                return {
+                    productId:  product.product.id,
+                    image:      product.image,
+                    toBuy:      product.toBuy,
+                    quantity:   product.quantity,
+                    note:       product.note
+                }
+            })
+        );
+    }
 }
 
 export class ShoppingListPreview {
