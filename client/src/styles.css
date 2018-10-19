@@ -261,38 +261,60 @@ h5.modal-title {
     padding-bottom: 0;
 }
 
-.modal-header .close {
-    background: url("assets/img/flag-close.svg");
-    width: 55px;
-    height: 55px;
-    margin-right: -71px;
-    margin-top: -5px;
+.modal-header .modal-header-buttons {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: -70px;
+    margin-top: 25px;
 
     font-size: 0;
-
-    opacity: 1;
-
-    transition: transform 0.1s ease-out;
 }
 
-.modal-header .close:hover {
+.modal-header .modal-header-buttons button {
+    width: 55px;
+    height: 55px;
+
+    border: 0;
+
+    opacity: 1;
+    transition: transform 0.1s ease-out;
+
+    margin-bottom: 20px;
+}
+
+.modal-header .modal-header-buttons button:hover {
     transform: rotateY(15deg);
     transform-origin: top left;
 }
 
-.modal-header .close:active {
+.modal-header .modal-header-buttons button:active {
     transform: rotateY(30deg);
     transform-origin: top left;
 }
 
-.modal-header .close:focus {
+.modal-header .modal-header-buttons button:focus {
     outline: none;
 }
 
+.close-icon {
+    background: url("assets/img/flag-close.svg");
+}
+
+.share-icon {
+    background: url("assets/img/flag-close.svg");
+}
+
+.settings-icon {
+    background: url("assets/img/flag-close.svg");
+}
+
+/*
 .modal-backdrop.show {
     opacity: .75;
 }
 
+*/
 
 
 

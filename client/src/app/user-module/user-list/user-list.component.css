@@ -1,11 +1,16 @@
 .list {
     min-height: 50vh;
+    max-width: 600px;
+
+    margin-right: 3em;
 }
 
+
+
 .add-product-bar {
-    width: calc(100% + 1em);
+    width: calc(100% + .5em);
     padding: .5em;
-    margin: 0 -.5em;
+    margin-left: -0.5em;
     background-color: var(--lightDarkened);
 }
 
@@ -16,3 +21,5 @@ td.product-image-name-and-note {
 td div.list-product-bought-state {
     width: 3em;
 }
+
+
