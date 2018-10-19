@@ -27,7 +27,6 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
 
         return super.create(entity);
     }
-
 }
 
 export class ShoppingListPreview {

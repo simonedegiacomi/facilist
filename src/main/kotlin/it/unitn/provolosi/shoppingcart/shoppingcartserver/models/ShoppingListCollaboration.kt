@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -18,6 +19,7 @@ data class ShoppingListCollaboration (
 
         @ManyToOne
         @JoinColumn(name = "shopping_list_id")
+        @JsonIgnore
         val shoppingList: ShoppingList
 ) {
     companion object {

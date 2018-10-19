@@ -44,4 +44,6 @@ data class ShoppingList(
         val products:MutableList<ShoppingListProduct> = mutableListOf()
 ) {
     fun isShared() = collaborations.isNotEmpty()
+
+    fun isUserOwnerOrCollaborator(user: User) = creator == user || collaborations.any { c -> c.user == user }
 }

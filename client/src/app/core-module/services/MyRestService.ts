@@ -90,6 +90,11 @@ export class MyRestService<T extends MyRestEntity> {
         return this.httpClient.put<T>(url, entity);
     }
 
+    getById(entityId: number): Observable<T> {
+        const url = `${this.resourcePath}/${entityId}`;
+        return this.httpClient.get<T>(url);
+    }
+
     public getAll(): Observable<T[]> {
         const url = `${this.resourcePath}/all`
         return this.httpClient.get<T[]>(url);

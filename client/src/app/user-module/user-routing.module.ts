@@ -4,6 +4,7 @@ import { UserGuard } from "../core-module/services/guards/user-guard.service";
 import { UserRootComponent } from "./user-root.component";
 import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
 import { UserListsComponent } from "./user-lists/user-lists.component";
+import { UserListComponent } from "./user-list/user-list.component";
 
 const routes: Routes = [
     {
@@ -16,6 +17,9 @@ const routes: Routes = [
             }, {
                 path: 'shoppingLists',
                 component: UserListsComponent
+            }, {
+                path: 'shoppingLists/:id',
+                component: UserListComponent
             }
         ],
 

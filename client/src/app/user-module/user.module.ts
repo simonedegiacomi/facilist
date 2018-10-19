@@ -7,6 +7,7 @@ import { UserListsComponent } from './user-lists/user-lists.component';
 import { FormsModule } from "@angular/forms";
 import { CoreModule } from "../core-module/core.module";
 import { NewListComponent } from './user-lists/new-list/new-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { NewListComponent } from './user-lists/new-list/new-list.component';
         UserRootComponent,
         UserDashboardComponent,
         UserListsComponent,
-        NewListComponent
+        NewListComponent,
+        UserListComponent
     ]
 })
 export class UserModule {

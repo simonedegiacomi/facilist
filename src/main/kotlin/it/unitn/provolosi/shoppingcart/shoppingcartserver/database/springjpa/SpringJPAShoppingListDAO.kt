@@ -1,6 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListPreview
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -24,6 +25,7 @@ class SpringJPAShoppingListDAO(
             .getShoppingListsWithUserAsCreatorOrCollaborator(user)
             .map { it ->
                 ShoppingListPreview(
+                    id              = it.id!!,
                     name            = it.name,
                     description     = it.description,
                     icon            = it.icon,
@@ -37,4 +39,6 @@ class SpringJPAShoppingListDAO(
 
     override fun save(shoppingList: ShoppingList) = springRepository.save(shoppingList)
 
+    override fun findById(id: Long): ShoppingList = springRepository.findById(id)
+            .orElseThrow { ShoppingListNotFoundException() }
 }

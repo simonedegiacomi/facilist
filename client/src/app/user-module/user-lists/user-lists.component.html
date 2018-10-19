@@ -11,13 +11,17 @@
                 <table class="my-lists-table">
                     <tbody>
                     <tr *ngFor="let list of lists$ | async">
-                        <td>
-                            <img [src]="list.icon | image" class="list-icon" width="64">
+                        <td class="list-icon">
+                            <a [routerLink]="['/user', 'shoppingLists', list.id]">
+                                <img [src]="list.icon | image" class="list-icon" width="64">
+                            </a>
                         </td>
 
                         <td class="list-title-and-description">
-                            <h3>{{ list.name }}</h3>
-                            {{ list.description }}
+                            <a [routerLink]="['/user', 'shoppingLists', list.id]">
+                                <h3>{{ list.name }}</h3>
+                                {{ list.description }}
+                            </a>
                         </td>
 
                         <td class="list-items-counters">
