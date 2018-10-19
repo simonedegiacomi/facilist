@@ -27,6 +27,7 @@
                     <td></td>
                     <td>Prodotto</td>
                     <td>Qta.</td>
+                    <td></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,6 +53,7 @@
                         <span>{{ product.quantity }}</span>
                         <span (click)="incrementQuantity(product)">+</span>
                     </td>
+                    <td><span (click)="removeProduct(product)">X</span></td>
                 </tr>
                 </tbody>
             </table>

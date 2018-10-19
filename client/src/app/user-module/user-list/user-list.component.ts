@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
     sendEdits: Subject<null> = new Subject();
 
     isSaving = false;
-,
+
     lastUpdate: Date;
 
     constructor(
@@ -65,22 +65,15 @@ export class UserListComponent implements OnInit {
         this.notifyChange();
     }
 
+
+    removeProduct (product: ShoppingListProduct) {
+        this.list.products.splice(this.list.products.indexOf(product), 1);
+        this.notifyChange();
+    }
+
+
     notifyChange() {
         this.sendEdits.next();
     }
-
-    /**
-     * this.filter.pipe(
-     debounceTime(300),
-     distinctUntilChanged(),
-     switchMap(filter => {
-                if (this.selectedCategory) {
-                    return this.productsService.searchByCategoryAndNameAndSortByName(this.selectedCategory, filter);
-                } else {
-                    return this.productsService.searchByNameAndSortByName(filter);
-                }
-            })
-     ).subscribe(page => this.productsPage = page);
-     */
 
 }
