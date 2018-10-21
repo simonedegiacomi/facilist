@@ -15,8 +15,10 @@
             </div>
 
             <div class="modal-header-buttons">
+                <button *ngIf="userCanEditCollaborations" type="button" class="share-icon" data-dismiss="modal"
+                        aria-label="Impostazioni di condivisione"
+                        data-toggle="modal" data-target="#listSharingSettingsModal"></button>
                 <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"></button>
-                <button type="button" class="share-icon" data-dismiss="modal" aria-label="Impostazioni di condivisione"></button>
                 <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"></button>
             </div>
         </div>
@@ -66,3 +68,5 @@
         </div>
     </div>
 </div>
+
+<user-list-share-settings *ngIf="list" [list]="list"></user-list-share-settings>

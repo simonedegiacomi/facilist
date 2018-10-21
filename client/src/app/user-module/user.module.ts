@@ -10,6 +10,7 @@ import { NewListComponent } from './user-lists/new-list/new-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { SearchComponent } from './user-list/search/search.component';
 import { UserProductListNoteComponent } from './user-list/user-product-list-note/user-product-list-note.component';
+import { ListShareSettingsComponent } from './user-list/list-share-settings/list-share-settings.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { UserProductListNoteComponent } from './user-list/user-product-list-note
         NewListComponent,
         UserListComponent,
         SearchComponent,
-        UserProductListNoteComponent
+        UserProductListNoteComponent,
+        ListShareSettingsComponent
     ]
 })
 export class UserModule {

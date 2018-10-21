@@ -1,0 +1,75 @@
+<div class="modal fade" id="listSharingSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Condivisione lista</h5>
+
+                <div class="modal-header-buttons">
+                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+
+
+            <div class="modal-body">
+                <!-- Creator -->
+                <h6>
+                    Creata da
+                    <img [src]="list.creator.photo">
+                    {{ list.creator.firstName }}
+                </h6>
+
+                <!-- Collaborators -->
+                <ul>
+                    <li *ngFor="let collaboration of list.collaborations">
+                        <div>
+                            <img class="list-icon" [src]="collaboration.user.photo">
+                            {{ collaboration.user.firstName }} ({{ collaboration.user.email }})
+                        </div>
+
+                        <div>
+                            <input type="radio" [name]="'permission' + collaboration.id" [(ngModel)]="collaboration.role"
+                                   [value]="roles.ADMIN" (change)="notifyChanges()">
+                            <input type="radio" [name]="'permission' + collaboration.id" [(ngModel)]="collaboration.role"
+                                   [value]="roles.SOCIAL" (change)="notifyChanges()">
+                            <input type="radio" [name]="'permission' + collaboration.id" [(ngModel)]="collaboration.role"
+                                   [value]="roles.BASIC" (change)="notifyChanges()">
+
+                            <button (click)="onDeleteCollaboration(collaboration)">Rimuovi</button>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Add collaborator -->
+                <div>
+                    <div class="form-group">
+                        <input class="form-control" [(ngModel)]="newCollaborator" type="email">
+                    </div>
+                    <button (click)="addCollaborator()">Aggiungi</button>
+                </div>
+
+                <!-- Legenda -->
+                <div>
+                    <div>
+                        <h6>Significato dei simboli</h6>
+                    </div>
+                    <div>
+                        <div>
+                            <img>
+                            <p>Può aggiungere e rimuovere oggetti alla lista</p>
+                        </div>
+
+                        <div>
+                            <img>
+                            <p>Può aggiungere e rimuovere oggetti alla lista ed invitare altre persone</p>
+                        </div>
+
+                        <div>
+                            <img>
+                            <p>Può aggiungere e rimuovere oggetti alla lista, invitare altre persone e modificare i dettagli della lista</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

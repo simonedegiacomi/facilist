@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { catchError, map } from "rxjs/operators";
-import { Observable, of } from "rxjs";
 import { UploadService } from "../../services/upload.service";
 
 @Component({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MyRestService } from "./MyRestService";
-import { ShoppingList } from "../models/shopping-list";
+import { ShoppingList, ShoppingListCollaboration } from "../models/shopping-list";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
@@ -43,6 +43,29 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
                 }
             })
         );
+    }
+
+    updateCollaborations(list: ShoppingList): Observable<ShoppingList>  {
+        const url = `${this.resourcePath}/${list.id}/collaborations`;
+        return this.httpClient.post<ShoppingList>(
+            url,
+            list.collaborations.map(collaboration => {
+                return {
+                    collaborationId: collaboration.id,
+                    role: collaboration.role
+                }
+            })
+        )
+    }
+
+    addCollaboratorByEmail(list: ShoppingList, email: string): Observable<ShoppingList> {
+        const url = `${this.resourcePath}/${list.id}/collaborations`;
+        return this.httpClient.put<ShoppingList>(url, { email })
+    }
+
+    deleteCollaboration (list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {
+        const url = `${this.resourcePath}/${list.id}/collaborations/${toDelete.id}`;
+        return this.httpClient.delete<ShoppingList>(url)
     }
 }
 

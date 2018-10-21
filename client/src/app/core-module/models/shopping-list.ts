@@ -1,6 +1,7 @@
 import { ShoppingListCategory } from "./shopping-list-category";
 import { MyRestEntity } from "../services/MyRestService";
 import { Product } from "./product";
+import { User } from "./user";
 
 export class ShoppingList implements MyRestEntity {
 
@@ -15,6 +16,10 @@ export class ShoppingList implements MyRestEntity {
     category: ShoppingListCategory;
 
     products: ShoppingListProduct[];
+
+    collaborations: ShoppingListCollaboration[];
+
+    creator: User;
 }
 
 export class ShoppingListProduct implements MyRestEntity {
@@ -34,4 +39,18 @@ export class ShoppingListProduct implements MyRestEntity {
     ) {
         this.image = product.icon;
     }
+}
+
+export const CollaborationsRoles = {
+    BASIC: "BASIC",
+    SOCIAL: "SOCIAL",
+    ADMIN: "ADMIN"
+};
+
+export class ShoppingListCollaboration implements MyRestEntity {
+    id: number = null;
+
+    user: User;
+
+    role: string;
 }

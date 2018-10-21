@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductService } from "../../../core-module/services/product.service";
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { Product } from "../../../core-module/models/product";
 import { ShoppingList } from "../../../core-module/models/shopping-list";

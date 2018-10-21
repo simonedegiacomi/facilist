@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ShoppingListService } from "../../core-module/services/shopping-list.service";
 import { ActivatedRoute } from "@angular/router";
 import { Subject } from "rxjs";
-import { ShoppingList, ShoppingListProduct } from "../../core-module/models/shopping-list";
+import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../core-module/models/shopping-list";
 import { debounceTime, switchMap, tap } from "rxjs/operators";
 import { Product } from "../../core-module/models/product";
+import { AuthService } from "../../core-module/services/auth.service";
 
 @Component({
     selector: 'app-user-list',
@@ -26,6 +27,7 @@ export class UserListComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private listService: ShoppingListService,
+        private auth: AuthService
     ) {
     }
 
@@ -81,6 +83,17 @@ export class UserListComponent implements OnInit {
 
     notifyChange() {
         this.sendEdits.next();
+    }
+
+    get userCanEditCollaborations() {
+        const userId = this.auth.user.id;
+        if (userId == this.list.creator.id) {
+            return true;
+        }
+
+        const userCollaborations = this.list.collaborations.find(c => c.user.id == userId);
+        return userCollaborations.role == CollaborationsRoles.SOCIAL ||
+            userCollaborations.role == CollaborationsRoles.SOCIAL;
     }
 
 }

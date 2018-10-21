@@ -18,6 +18,7 @@ export class User implements MyRestEntity {
 
     id: number;
     email: string;
+    photo: string;
 
     firstName: string;
     lastName: string;

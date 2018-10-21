@@ -41,9 +41,17 @@ data class ShoppingList(
             mappedBy = "shoppingList",
             cascade = [CascadeType.REMOVE]
         )
+        val invites: MutableList<InviteToCollaborate> = mutableListOf(),
+
+        @OneToMany(
+            mappedBy = "shoppingList",
+            cascade = [CascadeType.REMOVE]
+        )
         val products:MutableList<ShoppingListProduct> = mutableListOf()
 ) {
     fun isShared() = collaborations.isNotEmpty()
 
     fun isUserOwnerOrCollaborator(user: User) = creator == user || collaborations.any { c -> c.user == user }
+
+    fun canUserEditCollaborations(user: User) = creator == user || collaborations.any { c -> c.user == user && c.canEditCollaborations() }
 }

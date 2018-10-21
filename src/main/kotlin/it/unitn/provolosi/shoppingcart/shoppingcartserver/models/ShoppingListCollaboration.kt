@@ -6,6 +6,8 @@ import javax.persistence.*
 @Entity
 @Table(name = "shopping_list__user")
 data class ShoppingListCollaboration (
+        // TODO: Insert unique constraint
+
         @Id
         @GeneratedValue
         val id: Long? = null,
@@ -22,6 +24,7 @@ data class ShoppingListCollaboration (
         @JsonIgnore
         val shoppingList: ShoppingList
 ) {
+
     companion object {
         const val BASIC     = "BASIC"
         const val SOCIAL    = "SOCIAL"
@@ -32,4 +35,6 @@ data class ShoppingListCollaboration (
         shoppingList.collaborations.add(this)
         user.collaborations.add(this)
     }
+
+    fun canEditCollaborations() = role == SOCIAL || role == ADMIN
 }

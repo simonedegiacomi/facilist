@@ -48,7 +48,10 @@ data class User(
             cascade = [CascadeType.REMOVE]
         )
         @JsonIgnore
-        val collaborations: MutableList<ShoppingListCollaboration> = mutableListOf()
+        val collaborations: MutableList<ShoppingListCollaboration> = mutableListOf(),
+
+        @Column
+        var photo: String = "default-user-photo"
 
 ) {
     companion object {
