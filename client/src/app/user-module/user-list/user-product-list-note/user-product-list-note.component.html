@@ -1,0 +1,8 @@
+<p *ngIf="!isEditing">
+    {{ product.note }}
+    <span (click)="isEditing = true">{{ product.note ? 'Modifica' : 'Aggiungi'}} nota</span>
+</p>
+<div *ngIf="isEditing">
+    <textarea [(ngModel)]="product.note"></textarea>
+    <button (click)="onSave()">Salva</button>
+</div>

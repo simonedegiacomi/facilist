@@ -47,9 +47,12 @@
                     </td>
 
                     <td class="product-image-name-and-note">
-                        <img class="list-icon" [src]="product.image | image">
+                        <user-product-list-image [product]="product" (imageChanged)="notifyChange()"></user-product-list-image>
+
                         {{ product.product.name }}<br>
-                        {{ product.note }}
+
+                        <user-product-list-note [product]="product" (noteChanged)="notifyChange()"></user-product-list-note>
+                        {{product.note}}
                     </td>
                     <td>
                         <span (click)="decrementQuantity(product)">-</span>

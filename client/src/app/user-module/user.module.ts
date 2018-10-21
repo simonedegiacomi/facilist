@@ -9,6 +9,8 @@ import { CoreModule } from "../core-module/core.module";
 import { NewListComponent } from './user-lists/new-list/new-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { SearchComponent } from './user-list/search/search.component';
+import { UserProductListNoteComponent } from './user-list/user-product-list-note/user-product-list-note.component';
+import { UserProductListImageComponent } from './user-list/user-product-list-image/user-product-list-image.component';
 
 @NgModule({
     imports: [
@@ -24,7 +26,9 @@ import { SearchComponent } from './user-list/search/search.component';
         UserListsComponent,
         NewListComponent,
         UserListComponent,
-        SearchComponent
+        SearchComponent,
+        UserProductListNoteComponent,
+        UserProductListImageComponent
     ]
 })
 export class UserModule {

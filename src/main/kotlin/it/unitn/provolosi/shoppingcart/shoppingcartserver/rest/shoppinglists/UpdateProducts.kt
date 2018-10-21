@@ -39,7 +39,8 @@ class UpdateProducts(
                     shoppingList    = list,
                     toBuy           = it.toBuy!!,
                     quantity        = it.quantity!!,
-                    image           = it.image!!
+                    image           = it.image!!,
+                    note            = it.note
                 ))
             }
             // TODO: Verify if i need to add the ShoppingListProduct to the list model or if Hibernate will do it
