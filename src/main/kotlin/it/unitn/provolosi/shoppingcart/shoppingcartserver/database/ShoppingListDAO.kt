@@ -25,4 +25,6 @@ interface ShoppingListDAO {
 
     fun findById(id: Long): ShoppingList
 
+    fun delete(list: ShoppingList)
+
 }

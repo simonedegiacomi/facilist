@@ -20,7 +20,6 @@ class SpringJPAShoppingListDAO(
         private val springRepository: InternalSpringJPAShoppingListDAO
 ) : ShoppingListDAO {
 
-
     override fun getShoppingListPreviewsByUser(user: User) = springRepository
             .getShoppingListsWithUserAsCreatorOrCollaborator(user)
             .map { it ->
@@ -41,4 +40,7 @@ class SpringJPAShoppingListDAO(
 
     override fun findById(id: Long): ShoppingList = springRepository.findById(id)
             .orElseThrow { ShoppingListNotFoundException() }
+
+
+    override fun delete(list: ShoppingList) = springRepository.delete(list)
 }

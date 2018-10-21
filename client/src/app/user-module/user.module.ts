@@ -11,6 +11,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { SearchComponent } from './user-list/search/search.component';
 import { UserProductListNoteComponent } from './user-list/user-product-list-note/user-product-list-note.component';
 import { ListShareSettingsComponent } from './user-list/list-share-settings/list-share-settings.component';
+import { ListOptionsComponent } from './user-list/list-options/list-options.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { ListShareSettingsComponent } from './user-list/list-share-settings/list
         UserListComponent,
         SearchComponent,
         UserProductListNoteComponent,
-        ListShareSettingsComponent
+        ListShareSettingsComponent,
+        ListOptionsComponent
     ]
 })
 export class UserModule {

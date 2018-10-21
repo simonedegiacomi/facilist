@@ -2,7 +2,7 @@
     <div class="modal-content list" *ngIf="list">
 
         <!-- TODO: Remove hacky margin -->
-        <div class="modal-header"  style="margin-bottom: -180px;">
+        <div class="modal-header" style="margin-bottom: -180px;">
             <h5 class="modal-title">{{ list.name }}</h5>
 
             <div class="update-message">
@@ -18,8 +18,9 @@
                 <button *ngIf="userCanEditCollaborations" type="button" class="share-icon" data-dismiss="modal"
                         aria-label="Impostazioni di condivisione"
                         data-toggle="modal" data-target="#listSharingSettingsModal"></button>
+                <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
+                        data-toggle="modal" data-target="#listOptionsModal"></button>
                 <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"></button>
-                <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"></button>
             </div>
         </div>
 
@@ -49,11 +50,13 @@
                     </td>
 
                     <td class="product-image-name-and-note">
-                        <app-show-change-image [(image)]="product.image" (imageChange)="notifyChange()"></app-show-change-image>
+                        <app-show-change-image [(image)]="product.image"
+                                               (imageChange)="notifyChange()"></app-show-change-image>
 
                         {{ product.product.name }}<br>
 
-                        <user-product-list-note [product]="product" (noteChange)="notifyChange()"></user-product-list-note>
+                        <user-product-list-note [product]="product"
+                                                (noteChange)="notifyChange()"></user-product-list-note>
                         {{product.note}}
                     </td>
                     <td>
@@ -70,3 +73,4 @@
 </div>
 
 <user-list-share-settings *ngIf="list" [list]="list"></user-list-share-settings>
+<list-options *ngIf="list" [list]="list"></list-options>
