@@ -13,7 +13,7 @@ export class UserProductListNoteComponent {
 
     isEditing = false;
 
-    @Output() noteChanged = new EventEmitter();
+    @Output() noteChange = new EventEmitter();
 
     constructor() {
     }
@@ -21,7 +21,7 @@ export class UserProductListNoteComponent {
 
     onSave(){
         this.isEditing = false;
-        this.noteChanged.emit();
+        this.noteChange.emit();
     }
 
 }

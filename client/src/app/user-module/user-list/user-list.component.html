@@ -47,11 +47,11 @@
                     </td>
 
                     <td class="product-image-name-and-note">
-                        <user-product-list-image [product]="product" (imageChanged)="notifyChange()"></user-product-list-image>
+                        <app-show-change-image [(image)]="product.image" (imageChange)="notifyChange()"></app-show-change-image>
 
                         {{ product.product.name }}<br>
 
-                        <user-product-list-note [product]="product" (noteChanged)="notifyChange()"></user-product-list-note>
+                        <user-product-list-note [product]="product" (noteChange)="notifyChange()"></user-product-list-note>
                         {{product.note}}
                     </td>
                     <td>
