@@ -1,0 +1,22 @@
+.add-product-bar {
+    position: relative;
+
+    width: calc(100% + .5em);
+    padding: .5em;
+    margin-left: -0.5em;
+    background-color: var(--lightDarkened);
+}
+
+.results {
+    position: absolute;
+    width: 100%;
+    max-height: 50vh;
+    margin-left: -0.5em;
+
+    z-index: 10;
+
+    overflow-y: auto;
+
+    background-color: white;
+
+}

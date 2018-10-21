@@ -33,15 +33,18 @@ class UpdateProducts(
             shoppingListProductDAO.deleteAll(list.products)
             list.products.clear()
 
-            list.products.addAll(update.map { it ->
+            update.map { it ->
                 shoppingListProductDAO.save(ShoppingListProduct(
-                    product         = productDAO.findById(it.productId!!),
+                    product         = productDAO.findById(it.productId!!), // TODO: Check if the product is compatible
                     shoppingList    = list,
                     toBuy           = it.toBuy!!,
                     quantity        = it.quantity!!,
                     image           = it.image!!
                 ))
-            })
+            }
+            // TODO: Verify if i need to add the ShoppingListProduct to the list model or if Hibernate will do it
+
+            shoppingListDAO.save(list)
 
             ResponseEntity(list, HttpStatus.OK)
 

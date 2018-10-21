@@ -139,7 +139,7 @@ export class MyRestService<T extends MyRestEntity> {
     }
 
     public searchByNameAndSortByName(name: string): Observable<PagedResult<T>> {
-        const url = `${this.resourcePath}/search/byName?name=${name}`;
+        const url = `${this.resourcePath}/search?name=${name}`;
 
         return this.httpClient.get<PagedResult<T>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))

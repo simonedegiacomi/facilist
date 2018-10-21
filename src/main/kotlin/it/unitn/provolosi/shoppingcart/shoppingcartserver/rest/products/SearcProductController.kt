@@ -18,7 +18,7 @@ class SearcProductController (
         private val productDAO: ProductDAO
 ) {
 
-    @GetMapping("/byName")
+    @GetMapping(params = ["name"])
     fun searchByName(
             @RequestParam(name = "name", defaultValue = "") name: String,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
@@ -28,7 +28,7 @@ class SearcProductController (
         HttpStatus.OK
     )
 
-    @GetMapping("/byCategory")
+    @GetMapping(params = ["categoryId"])
     fun searchByCategory(
             @RequestParam(name = "categoryId", defaultValue = "") categoryId: Long,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
@@ -38,7 +38,7 @@ class SearcProductController (
         HttpStatus.OK
     )
 
-    @GetMapping("/byNameAndCategory")
+    @GetMapping(params = ["name", "categoryId"])
     fun searchByNameAndCategory(
             @RequestParam(name = "name", defaultValue = "") name: String,
             @RequestParam(name = "categoryId", defaultValue = "") categoryId: Long,
@@ -46,6 +46,18 @@ class SearcProductController (
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
     ): ResponseEntity<Page<Product>> = ResponseEntity(
         productDAO.findByNameContainingIgnoreCaseAndCategoryIdOrderByName(name, categoryId, PageRequest.of(page, size)),
+        HttpStatus.OK
+    )
+
+
+    @GetMapping(params = ["name", "shoppingListCategoryId"])
+    fun searchByNameAndShoppingListCategory(
+            @RequestParam(name = "name", defaultValue = "") name: String,
+            @RequestParam(name = "shoppingListCategoryId", defaultValue = "") categoryId: Long,
+            @RequestParam(name = "page", defaultValue = "0") page: Int,
+            @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
+    ): ResponseEntity<Page<Product>> = ResponseEntity(
+        productDAO.findByNameContainingIgnoreCaseAndShoppingListCategoryIdOrderByName(name, categoryId, PageRequest.of(page, size)),
         HttpStatus.OK
     )
 

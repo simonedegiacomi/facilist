@@ -6,14 +6,6 @@
 }
 
 
-
-.add-product-bar {
-    width: calc(100% + .5em);
-    padding: .5em;
-    margin-left: -0.5em;
-    background-color: var(--lightDarkened);
-}
-
 td.product-image-name-and-note {
     width: 100%;
 }

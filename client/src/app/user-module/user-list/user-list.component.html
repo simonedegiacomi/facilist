@@ -1,6 +1,8 @@
 <div class="list-container">
     <div class="modal-content list" *ngIf="list">
-        <div class="modal-header">
+
+        <!-- TODO: Remove hacky margin -->
+        <div class="modal-header"  style="margin-bottom: -180px;">
             <h5 class="modal-title">{{ list.name }}</h5>
 
             <div class="update-message">
@@ -19,12 +21,7 @@
             </div>
         </div>
 
-        <!-- TODO: Remove hacky margin -->
-        <div class="add-product-bar" style="margin-top: -180px;">
-            <div class="form-group">
-                <input type="text" class="form-control">
-            </div>
-        </div>
+        <user-list-search [list]="list" (addProduct)="onAddProduct($event)"></user-list-search>
 
         <div class="modal-body">
             <table>
@@ -66,4 +63,3 @@
         </div>
     </div>
 </div>
-<user-new-list></user-new-list>

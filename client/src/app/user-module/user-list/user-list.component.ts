@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subject } from "rxjs";
 import { ShoppingList, ShoppingListProduct } from "../../core-module/models/shopping-list";
 import { debounceTime, switchMap, tap } from "rxjs/operators";
+import { Product } from "../../core-module/models/product";
 
 @Component({
     selector: 'app-user-list',
@@ -19,6 +20,8 @@ export class UserListComponent implements OnInit {
     isSaving = false;
 
     lastUpdate: Date;
+
+    productToAdd: Product;
 
     constructor(
         private route: ActivatedRoute,
@@ -65,8 +68,12 @@ export class UserListComponent implements OnInit {
         this.notifyChange();
     }
 
+    onAddProduct(product: Product) {
+        this.list.products.push(new ShoppingListProduct(product));
+        this.notifyChange();
+    }
 
-    removeProduct (product: ShoppingListProduct) {
+    removeProduct(product: ShoppingListProduct) {
         this.list.products.splice(this.list.products.indexOf(product), 1);
         this.notifyChange();
     }

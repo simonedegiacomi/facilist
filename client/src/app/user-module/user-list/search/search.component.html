@@ -1,0 +1,16 @@
+<div class="add-product-bar">
+    <div class="form-group">
+        <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)">
+    </div>
+
+    <div class="results" *ngIf="results">
+        <ul>
+            <li *ngFor="let result of results">
+                <img class="list-icon" [src]="result.icon | image">
+                <h4>{{ result.name }}</h4>
+                <span>{{ result.category.name }}</span>
+                <button (click)="onAddProduct(result)">Aggiungi</button>
+            </li>
+        </ul>
+    </div>
+</div>

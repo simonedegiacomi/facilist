@@ -5,6 +5,7 @@ import { ProductCategory } from "../models/product-category";
 import { MyRestService, PagedResult } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { ShoppingListCategory } from "../models/shopping-list-category";
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class ProductService extends MyRestService<Product> {
     }
 
     getAllOfCategoryPagedSortedByName(category: ProductCategory): Observable<PagedResult<Product>> {
-        const url = `${this.resourcePath}/search/byCategory?categoryId=${category.id}`;
+        const url = `${this.resourcePath}/search?categoryId=${category.id}`;
 
         return this.httpClient.get<PagedResult<Product>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))
@@ -27,7 +28,7 @@ export class ProductService extends MyRestService<Product> {
 
 
     searchByCategoryAndNameAndSortByName(category: ProductCategory, name: string) {
-        const url = `${this.resourcePath}/search/byNameAndCategory?name=${name}&categoryId=${category.id}`;
+        const url = `${this.resourcePath}/search?name=${name}&categoryId=${category.id}`;
 
         return this.httpClient.get<PagedResult<Product>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))
@@ -35,4 +36,11 @@ export class ProductService extends MyRestService<Product> {
     }
 
 
+    searchByNameAndShoppingListCategory(name: string, category: ShoppingListCategory): Observable<PagedResult<Product>> {
+        const url = `${this.resourcePath}/search?name=${name}&shoppingListCategory=${category.id}`;
+
+        return this.httpClient.get<PagedResult<Product>>(url).pipe(
+            map(result => PagedResult.wrapFromResponse(result, this, url))
+        );
+    }
 }

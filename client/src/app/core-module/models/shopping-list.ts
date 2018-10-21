@@ -21,13 +21,17 @@ export class ShoppingListProduct implements MyRestEntity {
 
     id: number = null;
 
-    product: Product;
-
-    quantity: number;
-
-    toBuy: boolean;
-
-    note: string;
-
     image: string;
+
+    quantity: number = 1;
+
+    toBuy: boolean = true;
+
+    note: string = null;
+
+    constructor(
+        public product: Product
+    ) {
+        this.image = product.icon;
+    }
 }
