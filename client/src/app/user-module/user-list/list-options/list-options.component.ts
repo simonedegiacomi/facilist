@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
+import { AuthService } from "../../../core-module/services/auth.service";
 
 @Component({
     selector: 'list-options',
@@ -12,7 +13,8 @@ export class ListOptionsComponent implements OnInit {
     @Input() list: ShoppingList;
 
     constructor(
-        private listService: ShoppingListService
+        private listService: ShoppingListService,
+        private authService: AuthService
     ) {
     }
 
@@ -26,4 +28,6 @@ export class ListOptionsComponent implements OnInit {
             // TODO: Redirect
         });
     }
+
+    get isUserTheCreator () { return this.authService.user.id == this.list.creator.id }
 }

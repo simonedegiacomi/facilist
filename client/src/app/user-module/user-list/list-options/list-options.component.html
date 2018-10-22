@@ -26,10 +26,9 @@
                 </div>
 
 
-                Creata da: <img [src]="list.creator.photo | image"> {{ list.creator.firstName }} <span>(Io???)</span>
+                Creata da: <img [src]="list.creator.photo | image" class="icon normal-icon"> {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
 
-                <!-- TODO: Mostrare solo se è l'admin -->
-                <button (click)="deleteList()">Elimina lista</button>
+                <button *ngIf="isUserTheCreator" class="action-button link-cta danger" (click)="deleteList()">Elimina lista</button>
 
             </div>
         </div>

@@ -2,3 +2,12 @@ img.icon {
     border-radius: 100%;
 }
 
+img.normal-icon {
+    width: 4em;
+    height: 4em;
+}
+
+img.small-icon {
+    width: 2em;
+    height: 2em;
+}

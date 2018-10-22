@@ -7,6 +7,7 @@ import {
 import { Subject } from "rxjs";
 import { debounceTime, switchMap, tap } from "rxjs/operators";
 import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
+import { AuthService } from "../../../core-module/services/auth.service";
 
 @Component({
     selector: 'user-list-share-settings',
@@ -27,7 +28,8 @@ export class ListShareSettingsComponent implements OnInit {
     newCollaborator: string;
 
     constructor(
-        private listService: ShoppingListService
+        private listService: ShoppingListService,
+        private authService: AuthService
     ) {
 
     }
@@ -63,4 +65,5 @@ export class ListShareSettingsComponent implements OnInit {
         // TODO: Update UI
     }
 
+    get isUserTheCreator () { return this.authService.user.id == this.list.creator.id }
 }

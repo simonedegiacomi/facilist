@@ -5,10 +5,8 @@
             <div class="notebook-sheet-header">
                 <h5 class="modal-title">Condivisione lista</h5>
 
-
                 <div class="notebook-sheet-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"
-                            [routerLink]="['/user']"></button>
+                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"></button>
                 </div>
             </div>
 
@@ -16,31 +14,47 @@
             <div class="notebook-sheet-content">
                 <!-- Creator -->
                 <h6>
-                    Creata da
-                    <img [src]="list.creator.photo">
-                    {{ list.creator.firstName }}
+                    <strong class="pr-4">Creata da</strong>
+                    <img [src]="list.creator.photo | image" class="icon normal-icon">
+                    {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
                 </h6>
 
                 <!-- Collaborators -->
                 <ul>
-                    <li *ngFor="let collaboration of list.collaborations">
-                        <div>
-                            <img class="list-icon" [src]="collaboration.user.photo">
+                    <li *ngFor="let collaboration of list.collaborations" class="row">
+                        <div class="col-2">
+                            <img class="icon small-icon" [src]="collaboration.user.photo | image">
+                        </div>
+
+                        <div class="col-5">
                             {{ collaboration.user.firstName }} ({{ collaboration.user.email }})
                         </div>
 
-                        <div>
-                            <input type="radio" [name]="'permission' + collaboration.id"
-                                   [(ngModel)]="collaboration.role"
-                                   [value]="roles.ADMIN" (change)="notifyChanges()">
-                            <input type="radio" [name]="'permission' + collaboration.id"
-                                   [(ngModel)]="collaboration.role"
-                                   [value]="roles.SOCIAL" (change)="notifyChanges()">
-                            <input type="radio" [name]="'permission' + collaboration.id"
-                                   [(ngModel)]="collaboration.role"
-                                   [value]="roles.BASIC" (change)="notifyChanges()">
+                        <div class="col-5 permission">
+                            <label [for]="'admin' + collaboration.id">
+                                <input type="radio" [name]="'permission' + collaboration.id"
+                                       [(ngModel)]="collaboration.role" class="admin" [id]="'admin' + collaboration.id"
+                                       [value]="roles.ADMIN" (change)="notifyChanges()">
+                                <img>
+                            </label>
 
-                            <button (click)="onDeleteCollaboration(collaboration)">Rimuovi</button>
+                            <label [for]="'social' + collaboration.id">
+                            <input type="radio" [name]="'permission' + collaboration.id" [id]="'social' + collaboration.id"
+                                   [(ngModel)]="collaboration.role" class="social"
+                                   [value]="roles.SOCIAL" (change)="notifyChanges()">
+                                <img>
+                            </label>
+
+                            <label [for]="'basic' + collaboration.id">
+                            <input type="radio" [name]="'permission' + collaboration.id"
+                                   [(ngModel)]="collaboration.role" class="basic" [id]="'basic' + collaboration.id"
+                                   [value]="roles.BASIC" (change)="notifyChanges()">
+                                <img>
+                            </label>
+
+                            <button class="action-button link-cta danger"
+                                    (click)="onDeleteCollaboration(collaboration)">Rimuovi
+                            </button>
                         </div>
                     </li>
                 </ul>
