@@ -2,6 +2,10 @@
     padding: 0;
 }
 
+li.row {
+    margin: 0;
+}
+
 .lists-list a {
     color: black;
 }

@@ -106,7 +106,7 @@ export class AuthService {
     }
 
     recoverPassword(email: string): Observable<any> {
-        return this.httpClient.post('/api/auth/recoverPassword', {email}).pipe(
+        return this.httpClient.post(`/api/users/${email}/recoverPassword`, null).pipe(
             catchError(res => throwError(res.status == BAD_REQUEST ? EMAIL_NOT_REGISTERED : NETWORK_ERROR)),
         );
     }
@@ -123,7 +123,7 @@ export class AuthService {
     }
 
     completeRecoverPassword(data: { email: string; newPassword: string; token: string }): Observable<any> {
-        return this.httpClient.post('/api/auth/completeRecoverPassword', data).pipe(
+        return this.httpClient.post('/api/users/completeRecoverPassword', data).pipe(
             catchError(res => throwError(res.status == BAD_REQUEST ? INVALID_CODE : NETWORK_ERROR))
         );
     }

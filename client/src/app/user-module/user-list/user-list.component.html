@@ -35,7 +35,7 @@
                 <div></div>
             </li>
             <li *ngFor="let product of list.products" class="row">
-                <div class="col-2 col-sm-1">
+                <div class="col-2 col-sm-2" style="padding-top: 1em;">
                     <div class="form-group list-product-bought-state">
                         <div class="checkbox-container">
                             <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-3 col-sm-2">
+                <div class="col-3 col-sm-2" style="height: 4em;">
                     <app-show-change-image [(image)]="product.image"
                                            (imageChange)="notifyChange()"></app-show-change-image>
 
@@ -54,7 +54,7 @@
                     <!-- TODO: Add the remove button -->
                     <!--<div><span (click)="removeProduct(product)">X</span></div>-->
                 </div>
-                <div class="col-7 col-sm-6">
+                <div class="col-7 col-sm-5">
                     <p>
                         <strong>{{ product.product.name }}</strong>
 

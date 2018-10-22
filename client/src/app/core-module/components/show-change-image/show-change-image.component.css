@@ -1,5 +1,7 @@
 div.show-change-image {
     display: inline;
+    width: 4em;
+    height: 4em;
 }
 
 div.show-change-image > input {

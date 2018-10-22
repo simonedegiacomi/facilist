@@ -1,4 +1,5 @@
 .notebook-sheet {
+    position: relative;
     max-width: 32em;
     margin: 2em 0;
     padding: 0 0.5em;

@@ -1,9 +1,21 @@
+div.search-container {
+    min-height: var(--searchBarHeight);
+}
 
 .add-product-bar {
+    position: absolute;
+    height: var(--searchBarHeight);
+    width: calc(100% + 0.5em);
+    z-index: 3;
 
-    padding: .5em;
+    margin-left: -1em;
+    padding: .5em 2em;
 
     background-color: var(--lightDarkened);
+}
+
+.add-product-bar .form-group {
+    margin: 0;
 }
 
 
@@ -21,3 +33,22 @@
 
 }
 
+.results {
+    max-width: calc(100vw - 5em);
+    background-color: var(--lightDarkened);
+    top: 3.5em;
+}
+
+ul {
+    padding: 0.5em;
+}
+
+li {
+    margin: 0;
+    border-color: var(--light);
+}
+
+img.result-icon {
+    width: 4em;
+    height: 4em;
+}

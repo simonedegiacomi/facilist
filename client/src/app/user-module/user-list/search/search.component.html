@@ -1,17 +1,25 @@
-<div class="add-product-bar">
-    <div class="form-group">
-        <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)">
-    </div>
+<div class="search-container">
+    <div class="add-product-bar">
+        <div class="form-group">
+            <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)"
+                   placeholder="Aggiungi qualcosa ...">
+        </div>
 
-    <div class="results" *ngIf="results">
-        <ul>
-            <li *ngFor="let result of results">
-                <img class="list-icon" [src]="result.icon | image">
-                <h4>{{ result.name }}</h4>
-                <span>{{ result.category.name }}</span>
-                <button (click)="onAddProduct(result)">Aggiungi</button>
-            </li>
-        </ul>
+        <div class="results" *ngIf="results">
+            <ul>
+                <li *ngFor="let result of results" class="row">
+                    <div class="col-3">
+                        <img class="result-icon icon" [src]="result.icon | image">
+                    </div>
+                    <div class="col-7">
+                        <h4>{{ result.name }}</h4>
+                        <span>{{ result.category.name }}</span>
+                    </div>
+                    <div class="col-2">
+                        <button (click)="onAddProduct(result)">+</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-

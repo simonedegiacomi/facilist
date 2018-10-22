@@ -2,6 +2,10 @@ ul.products-list {
     padding: 0;
 }
 
+li.row {
+    margin: 0;
+}
+
 .share-icon {
     background: url("../../../assets/img/flag-share.svg");
 }

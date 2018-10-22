@@ -48,6 +48,10 @@ export class NewListComponent implements OnInit {
         }
     }
 
+    set newListIcon (image: string) {
+        this.newList.icon = image;
+    }
+
     onCreate () {
         this.isSaving = true;
         this.newList.icon = this.newListIcon;
