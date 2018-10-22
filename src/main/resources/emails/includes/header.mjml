@@ -1,0 +1,9 @@
+<mj-section>
+
+  <mj-column>
+    <mj-text font-family="Lobster">
+          <h2>{{ applicationName }}</h2>
+    </mj-text>
+  </mj-column>
+
+</mj-section>

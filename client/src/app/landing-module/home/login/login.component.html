@@ -1,58 +1,61 @@
 <!-- LOGIN FORM -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
      aria-hidden="true">
-    <div class="notebook-sheet modal-dialog" role="document">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content notebook-sheet">
 
-        <div class="notebook-sheet-header">
-            <h5 class="modal-title" id="loginModalLabel">Accedi</h5>
-            <div class="notebook-sheet-buttons">
-                <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+            <div class="notebook-sheet-header">
+                <h5 class="modal-title" id="loginModalLabel">Accedi</h5>
+                <div class="notebook-sheet-buttons">
+                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+                </div>
             </div>
-        </div>
-        <div class="notebook-sheet-content">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="emailInput">Indirizzo email</label>
-                    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
-                           placeholder="Email" formControlName="email" required autocomplete="email">
-                </div>
-                <div class="form-group">
-                    <label for="passwordInput">Password</label>
-                    <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordInput"
-                           placeholder="Password" formControlName="password" required
-                           autocomplete="current-password">
-                </div>
-                <div class="form-group">
-                    <label class="form-check-label" for="rememberMe">Ricordami</label>
 
-                    <div class="checkbox-container">
-                        <input type="checkbox" class="form-check-input" id="rememberMe"
-                               formControlName="rememberMe">
-
-                        <span class="checkbox-tick"></span>
+            <div class="notebook-sheet-content">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="emailInput">Indirizzo email</label>
+                        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
+                               placeholder="Email" formControlName="email" required autocomplete="email">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordInput"
+                               placeholder="Password" formControlName="password" required
+                               autocomplete="current-password">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check-label" for="rememberMe">Ricordami</label>
 
-                <div class="alert alert-warning" *ngIf="loginError">
-                    Indirizzo E-email o password errati.
-                </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="form-check-input" id="rememberMe"
+                                   formControlName="rememberMe">
+
+                            <span class="checkbox-tick"></span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning" *ngIf="loginError">
+                        Indirizzo E-email o password errati.
+                    </div>
 
 
-                <div class="modal-footer">
-                    <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="action-button" [disabled]="!loginForm.valid || loggingIn">Accedi
-                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
+                        <button type="submit" class="action-button" [disabled]="!loginForm.valid || loggingIn">Accedi
+                        </button>
+                    </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
+                       data-target="#recoverPasswordModal">Recupera password</a><br>
+                    <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
+                       data-target="#registerModal">Non sei registrato? Crea un nuovo account</a>
                 </div>
-            </form>
-            <hr>
-            <div class="text-center">
-                <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
-                   data-target="#recoverPasswordModal">Recupera password</a><br>
-                <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
-                   data-target="#registerModal">Non sei registrato? Crea un nuovo account</a>
             </div>
-        </div>
 
+        </div>
 
     </div>
 </div>

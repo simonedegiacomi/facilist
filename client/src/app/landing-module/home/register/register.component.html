@@ -1,96 +1,97 @@
 <!-- REGISTER FORM -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
      aria-hidden="true">
-    <div class="notebook-sheet modal-dialog" role="document">
+    <div class="modal-dialog" role="document">
 
-        <div class="notebook-sheet-header">
-            <h5 class="modal-title" id="registerModalLabel">Registrati</h5>
-            <div class="notebook-sheet-buttons">
-                <button type="button" class="modal-header-button close-icon" data-dismiss="modal"
-                        aria-label="Close"></button>
+        <div class="modal-content notebook-sheet">
+            <div class="notebook-sheet-header">
+                <h5 class="modal-title" id="registerModalLabel">Registrati</h5>
+                <div class="notebook-sheet-buttons">
+                    <button type="button" class="modal-header-button close-icon" data-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
             </div>
-        </div>
 
-        <div class="notebook-sheet-content">
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="firstNameInput">Nome</label>
-                    <input type="text" class="form-control" id="firstNameInput" aria-describedby=""
-                           placeholder="Nome" formControlName="firstName">
+            <div class="notebook-sheet-content">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="firstNameInput">Nome</label>
+                        <input type="text" class="form-control" id="firstNameInput" aria-describedby=""
+                               placeholder="Nome" formControlName="firstName">
 
-                    <div *ngIf="shouldShowErrors(firstName)"
-                         class="alert alert-danger">
+                        <div *ngIf="shouldShowErrors(firstName)"
+                             class="alert alert-danger">
 
-                        <div *ngIf="firstName.errors.required">
-                            Inserisci il tuo nome.
+                            <div *ngIf="firstName.errors.required">
+                                Inserisci il tuo nome.
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="firstNameInput">Cognome</label>
-                    <input type="text" class="form-control" id="lastNameInput" aria-describedby=""
-                           placeholder="Cognome" formControlName="lastName">
+                    <div class="form-group">
+                        <label for="firstNameInput">Cognome</label>
+                        <input type="text" class="form-control" id="lastNameInput" aria-describedby=""
+                               placeholder="Cognome" formControlName="lastName">
 
-                    <div *ngIf="shouldShowErrors(lastName)"
-                         class="alert alert-danger">
+                        <div *ngIf="shouldShowErrors(lastName)"
+                             class="alert alert-danger">
 
-                        <div *ngIf="lastName.errors.required">
-                            Inserisci il tuo cognome.
+                            <div *ngIf="lastName.errors.required">
+                                Inserisci il tuo cognome.
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
-                <div class="form-group">
-                    <label for="registerEmail">Indirizzo email</label>
-                    <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
-                           placeholder="Email" formControlName="email" required autocomplete="email">
+                    <div class="form-group">
+                        <label for="registerEmail">Indirizzo email</label>
+                        <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
+                               placeholder="Email" formControlName="email" required autocomplete="email">
 
-                    <div *ngIf="shouldShowErrors(email)" class="alert alert-danger">
-                        <div *ngIf="email.errors.required">
-                            Inserisci un indirizzo E-email.
+                        <div *ngIf="shouldShowErrors(email)" class="alert alert-danger">
+                            <div *ngIf="email.errors.required">
+                                Inserisci un indirizzo E-email.
+                            </div>
+                            <div *ngIf="email.errors.email">
+                                Indirizzo E-email non valido.
+                            </div>
                         </div>
-                        <div *ngIf="email.errors.email">
-                            Indirizzo E-email non valido.
+                        <div *ngIf="emailAlreadyInUse" class="alert alert-danger">
+                            <div>
+                                Indirizzo E-email già in uso.
+                            </div>
                         </div>
                     </div>
-                    <div *ngIf="emailAlreadyInUse" class="alert alert-danger">
-                        <div>
-                            Indirizzo E-email già in uso.
+
+                    <app-new-password [passwords]="registerForm.get('passwords')"></app-new-password>
+
+                    <div class="form-group">
+                        <label class="form-check-label" for="privacy">Accetto la normativa della privacy</label>
+
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="form-check-input" id="privacy"
+                                   formControlName="privacy">
+
+                            <span class="checkbox-tick"></span>
                         </div>
                     </div>
-                </div>
 
-                <app-new-password [passwords]="registerForm.get('passwords')"></app-new-password>
 
-                <div class="form-group">
-                    <label class="form-check-label" for="privacy">Accetto la normativa della privacy</label>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" class="form-check-input" id="privacy"
-                               formControlName="privacy">
-
-                        <span class="checkbox-tick"></span>
+                    <div class="modal-footer">
+                        <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
+                        <button type="submit" class="action-button" [disabled]="!registerForm.valid || registering">
+                            Registrati
+                        </button>
                     </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
+                       data-target="#loginModal">Hai già un account? Accedi</a>
                 </div>
-
-
-                <div class="modal-footer">
-                    <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="action-button" [disabled]="!registerForm.valid || registering">
-                        Registrati
-                    </button>
-                </div>
-            </form>
-            <hr>
-            <div class="text-center">
-                <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
-                   data-target="#loginModal">Hai già un account? Accedi</a>
             </div>
+
         </div>
-
-
     </div>
 </div>
 

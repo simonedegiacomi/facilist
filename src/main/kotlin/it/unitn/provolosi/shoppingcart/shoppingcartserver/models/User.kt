@@ -1,16 +1,20 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User.Companion.USER_EMAIL_UNIQUE_NAME_CONSTRAINT
 import javax.persistence.*
 
 @Entity()
-@Table(name = "user")
+@Table(
+    name = "user",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["email"], name = USER_EMAIL_UNIQUE_NAME_CONSTRAINT)]
+)
 data class User(
         @Id
         @GeneratedValue
         var id: Long? = null,
 
-        @Column(unique = true)
+        @Column()
         val email: String,
 
         @Column(name = "first_name")
@@ -23,7 +27,7 @@ data class User(
         var emailVerified: Boolean = false,
 
         @Column
-        var role: String,
+        var role: String = User.USER,
 
         @Column()
         @JsonIgnore()
@@ -57,6 +61,8 @@ data class User(
     companion object {
         const val USER = "ROLE_USER"
         const val ADMIN = "ROLE_ADMIN"
+
+        const val USER_EMAIL_UNIQUE_NAME_CONSTRAINT = "user_email_unique_name_constraint"
     }
 
     @Transient()

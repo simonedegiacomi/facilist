@@ -102,7 +102,7 @@ export class AuthService {
             params: new HttpParams().set('token', token)
         };
 
-        return this.httpClient.post(`/api/auth/verifyEmail/${email}`, {}, options);
+        return this.httpClient.post(`/api/users/verifyEmail/${email}`, {}, options);
     }
 
     recoverPassword(email: string): Observable<any> {
