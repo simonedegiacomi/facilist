@@ -136,7 +136,7 @@ export class AuthService {
             return;
         }
 
-        let redirectTo = Roles.isAdmin(this.user) ? '/admin/dashboard' : '/user/dashboard';
+        let redirectTo = Roles.isAdmin(this.user) ? '/admin/dashboard' : '/user';
         if (this.unauthorizedRoute != null) {
             redirectTo = this.unauthorizedRoute;
         }

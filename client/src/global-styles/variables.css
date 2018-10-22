@@ -1,0 +1,22 @@
+:root {
+    --dark: #15202b;
+    --light: #f9ede7;
+    --lightDarkened: #cbb9a8;
+
+    --buttonDark: #0a3c6b;
+    --buttonVeryDark: #032342;
+    --buttonLight: #145c9e;
+    --buttonText: #FFF;
+    --buttonDisabled: gray;
+    --buttonDanger: red;
+    --buttonDangerDark: darkred;
+
+    --fontTitle: 'Lobster', serif;
+    --fontRegular: 'Lato', sans-serif;
+
+    --em-fix: .0625;
+
+    --user-background: #15202b;
+
+    --navbar-height: 56px;
+}

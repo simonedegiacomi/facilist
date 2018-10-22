@@ -1,76 +1,78 @@
-<div class="list-container">
-    <div class="modal-content list" *ngIf="list">
+<div class="notebook-sheet list" *ngIf="list">
 
-        <!-- TODO: Remove hacky margin -->
-        <div class="modal-header" style="margin-bottom: -180px;">
-            <h5 class="modal-title">{{ list.name }}</h5>
+    <!-- TODO: Remove hacky margin -->
+    <div class="notebook-sheet-header">
+        <h5>{{ list.name }}</h5>
 
-            <div class="update-message">
-                <div class="is-saving" *ngIf="isSaving">
-                    Sto salvando ...
-                </div>
-                <div class="last-update" *ngIf="lastUpdate">
-                    {{ lastUpdate | date }}
-                </div>
+        <div class="update-message">
+            <div class="is-saving" *ngIf="isSaving">
+                Sto salvando ...
             </div>
-
-            <div class="modal-header-buttons">
-                <button *ngIf="userCanEditCollaborations" type="button" class="share-icon" data-dismiss="modal"
-                        aria-label="Impostazioni di condivisione"
-                        data-toggle="modal" data-target="#listSharingSettingsModal"></button>
-                <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
-                        data-toggle="modal" data-target="#listOptionsModal"></button>
-                <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"></button>
+            <div class="last-update" *ngIf="lastUpdate">
+                {{ lastUpdate | date }}
             </div>
         </div>
 
+        <div class="notebook-sheet-buttons">
+            <button *ngIf="userCanEditCollaborations" type="button" class="share-icon" data-dismiss="modal"
+                    aria-label="Impostazioni di condivisione"
+                    data-toggle="modal" data-target="#listSharingSettingsModal"></button>
+            <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
+                    data-toggle="modal" data-target="#listOptionsModal"></button>
+            <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"></button>
+        </div>
+    </div>
+
+    <div class="notebook-sheet-content">
         <user-list-search [list]="list" (addProduct)="onAddProduct($event)"></user-list-search>
 
-        <div class="modal-body">
-            <table>
-                <thead>
-                <tr>
-                    <td></td>
-                    <td>Prodotto</td>
-                    <td>Qta.</td>
-                    <td></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let product of list.products">
-                    <td>
-                        <div class="form-group list-product-bought-state">
-                            <div class="checkbox-container">
-                                <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
-                                       [checked]="product.toBuy">
+        <ul class="products-list">
+            <li class="row">
+                <div class="col-2 col-sm-1"></div>
+                <div class="col-3 col-sm-2"></div>
+                <div class="col-4 col-sm-6">Prodotto</div>
+                <div class="col-3 col-sm-3">Qta.</div>
+                <div></div>
+            </li>
+            <li *ngFor="let product of list.products" class="row">
+                <div class="col-2 col-sm-1">
+                    <div class="form-group list-product-bought-state">
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
+                                   [checked]="product.toBuy">
 
-                                <span class="checkbox-tick"></span>
-                            </div>
+                            <span class="checkbox-tick"></span>
                         </div>
-                    </td>
+                    </div>
+                </div>
 
-                    <td class="product-image-name-and-note">
-                        <app-show-change-image [(image)]="product.image"
-                                               (imageChange)="notifyChange()"></app-show-change-image>
+                <div class="col-3 col-sm-2">
+                    <app-show-change-image [(image)]="product.image"
+                                           (imageChange)="notifyChange()"></app-show-change-image>
 
-                        {{ product.product.name }}<br>
+
+                    <!--<div><span (click)="removeProduct(product)">X</span></div>-->
+                </div>
+                <div class="col-7 col-sm-6">
+                    <p>
+                        <strong>{{ product.product.name }}</strong>
 
                         <user-product-list-note [product]="product"
                                                 (noteChange)="notifyChange()"></user-product-list-note>
-                        {{product.note}}
-                    </td>
-                    <td>
-                        <span (click)="decrementQuantity(product)">-</span>
-                        <span>{{ product.quantity }}</span>
-                        <span (click)="incrementQuantity(product)">+</span>
-                    </td>
-                    <td><span (click)="removeProduct(product)">X</span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                    </p>
+                </div>
+                <div class="col-12 col-sm-3 quantity-box d-flex align-items-center justify-content-end justify-content-sm-center">
+                    <span class="quantity quantity-button" (click)="incrementQuantity(product)">+</span>
+                    <span class="quantity quantity-number" [class.to-buy]="product.toBuy">{{ product.quantity }}</span>
+                    <span class="quantity-button" (click)="decrementQuantity(product)">-</span>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 
+
 <user-list-share-settings *ngIf="list" [list]="list"></user-list-share-settings>
 <list-options *ngIf="list" [list]="list"></list-options>
+
+

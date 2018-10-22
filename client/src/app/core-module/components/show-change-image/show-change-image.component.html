@@ -1,2 +1,9 @@
-<img class="list-icon" [src]="image | image">
-<label>Cambia <input type="file" (change)="onSelectFile($event)" class="ml-3">
+<div class="show-change-image">
+    <label for="change-image-input">
+        <img [src]="image | image" class="icon current-image"/>
+        <img class="icon upload-icon" src="assets/img/ic_upload.svg">
+
+    </label>
+
+    <input id="change-image-input" type="file" (change)="onSelectFile($event)"/>
+</div>

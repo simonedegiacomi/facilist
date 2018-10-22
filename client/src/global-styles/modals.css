@@ -1,0 +1,27 @@
+
+
+/* MODALS */
+.modal-dialog {
+    padding-right: 56px;
+}
+
+
+
+.modal-header,
+.modal-footer {
+    border: none;
+}
+
+.modal-header {
+    padding-bottom: 0;
+}
+
+.modal-header .modal-header-buttons {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: -70px;
+    margin-top: 25px;
+
+    font-size: 0;
+}

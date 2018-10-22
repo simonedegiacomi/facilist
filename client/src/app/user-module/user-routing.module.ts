@@ -12,10 +12,7 @@ const routes: Routes = [
         component: UserRootComponent,
         children: [
             {
-                path: 'dashboard',
-                component: UserDashboardComponent
-            }, {
-                path: 'shoppingLists',
+                path: '',
                 component: UserListsComponent
             }, {
                 path: 'shoppingLists/:id',

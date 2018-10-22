@@ -1,0 +1,53 @@
+
+
+button.action-button {
+    color: var(--buttonText);
+    font-family: var(--fontTitle);
+    font-size: 1.25em;
+
+    background: var(--buttonLight);
+
+    padding: .25em 1.25em;
+
+    border: none;
+    border-bottom: 5px solid var(--buttonDark);
+    border-radius: 0.2em;
+
+    transition: border 0.1s ease-out, margin 0.1s ease-out;
+
+    cursor: pointer;
+}
+
+button.action-button.danger {
+    background-color: var(--buttonDanger);
+    border-bottom: 5px solid var(--buttonDangerDark);
+}
+
+button.action-button:hover {
+    margin-top: -2px;
+    border-bottom-width: 7px;
+}
+
+button.action-button:active {
+    margin-top: 4px;
+    border-bottom-width: 1px;
+}
+
+button.action-button:disabled {
+    background-color: var(--buttonDisabled);
+    border-bottom-width: 1px;
+}
+
+button.action-button:focus {
+    outline: none;
+}
+
+button.action-button.big {
+    font-size: 1.5em;
+    padding: .25em 1.5em;
+}
+
+button.action-button.back {
+    background: var(--buttonDark);
+    border-bottom-color: var(--buttonVeryDark);
+}

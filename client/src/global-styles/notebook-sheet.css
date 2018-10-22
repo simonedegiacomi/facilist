@@ -1,0 +1,100 @@
+.notebook-sheet {
+    max-width: 32em;
+    margin: 2em 0;
+    padding: 0 0.5em;
+
+    background: transparent url("../assets/img/modal-top.svg") top center;
+    border-radius: 0;
+    border: none 0;
+
+    background-size: cover;
+
+    box-shadow: 15px 15px 3px 0 #00000088;
+}
+
+.notebook-sheet-header {
+    position: relative;
+
+    padding-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+.notebook-sheet-content {
+    max-height: calc(80vh - var(--navbar-height));;
+    overflow-y: auto;
+}
+
+.notebook-sheet h5 {
+    font-size: 2em;
+}
+
+.notebook-sheet li {
+    padding: 1em 0;
+    border-bottom: 2px dashed var(--lightDarkened);
+}
+
+/* BUTTONS ON THE TOP RIGHT CORNER */
+.notebook-sheet-buttons {
+    position: absolute;
+    top: 3em;
+    right: -63px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.notebook-sheet-buttons button {
+
+    width: 55px;
+    height: 55px;
+
+    border: 0;
+
+    opacity: 1;
+    transition: transform 0.1s ease-out;
+
+    margin-bottom: 20px;
+}
+
+@media (max-width: 576px) {
+    .notebook-sheet-buttons {
+        top: 0;
+        right: 0;
+
+        flex-direction: row;
+    }
+
+    .notebook-sheet-buttons button {
+        width: 2em;
+        height: 2em;
+        margin-right: .5em;
+    }
+}
+
+
+.notebook-sheet-buttons button:hover {
+    transform: rotateY(15deg);
+    transform-origin: top left;
+}
+
+.notebook-sheet-buttons button:active {
+    transform: rotateY(30deg);
+    transform-origin: top left;
+}
+
+.notebook-sheet-buttons button:focus {
+    outline: none;
+}
+
+/* END*/
+
+.close-icon {
+    background: url("../assets/img/flag-close.svg");
+}
+
+@media (max-width: 576px) {
+    .close-icon {
+        background: url("../assets/img/flag-close-rotated.svg");
+    }
+}
+

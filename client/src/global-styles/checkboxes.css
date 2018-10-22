@@ -1,0 +1,44 @@
+
+.checkbox-container {
+    display: inline;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.checkbox-container input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    z-index: 2;
+
+    border: 3px solid black;
+    border-radius: 2px;
+    width: 1.5em;
+    height: 1.5em;
+
+    outline: none;
+}
+
+.checkbox-tick {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+
+    left: 1.1em;
+    top: -0.7em;
+
+    content: url("assets/img/check-mark.svg");
+
+    display: none;
+}
+
+.checkbox-container input[type=checkbox]:checked ~ .checkbox-tick {
+    display: block;
+}
+
+
+.checkbox-container input[type=checkbox] {
+    margin-top: 0;
+}

@@ -1,0 +1,27 @@
+
+.form-group label {
+    font-family: var(--fontRegular);
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+input.form-control {
+    border-radius: 50px;
+}
+
+input.form-control[type="text"],
+input.form-control[type="email"],
+input.form-control[type="password"] {
+    border: 0 none;
+    border-top: 3px solid var(--lightDarkened);
+}
+
+input.form-control[type="text"]:focus,
+input.form-control[type="email"]:focus,
+input.form-control[type="password"]:focus {
+    box-shadow: 0 0 0 0.2rem var(--light);
+}
+
+input.form-check-input {
+    margin-left: .75em;
+}

@@ -1,48 +1,49 @@
-<div class="lists-list-container">
-    <div class="modal-content lists-list">
-        <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Le mie liste della spesa</h5>
-        </div>
+<div class="notebook-sheet lists-list">
+    <div class="notebook-sheet-header">
+        <h5>Le mie liste della spesa</h5>
+    </div>
 
-        <div class="modal-body">
+    <div class="notebook-sheet-content">
 
-            <div>
+        <ul class="lists-list">
+            <li *ngFor="let list of lists$ | async" class="row">
+                <div class="col-4 col-sm-2">
+                    <a [routerLink]="['/user', 'shoppingLists', list.id]">
+                        <img [src]="list.icon | image" class="icon">
+                    </a>
+                </div>
 
-                <table class="my-lists-table">
-                    <tbody>
-                    <tr *ngFor="let list of lists$ | async">
-                        <td class="list-icon">
-                            <a [routerLink]="['/user', 'shoppingLists', list.id]">
-                                <img [src]="list.icon | image" class="list-icon" width="64">
-                            </a>
-                        </td>
+                <div class="col-8 col-sm-6">
+                    <a [routerLink]="['/user', 'shoppingLists', list.id]">
+                        <h3>{{ list.name }}</h3>
+                        <p class="description">{{ list.description }}</p>
+                    </a>
+                </div>
 
-                        <td class="list-title-and-description">
-                            <a [routerLink]="['/user', 'shoppingLists', list.id]">
-                                <h3>{{ list.name }}</h3>
-                                {{ list.description }}
-                            </a>
-                        </td>
 
-                        <td class="list-items-counters">
-                            <img src="assets/img/ic_ham.svg">
-                            {{ list.itemsToBuyCount }} / {{ list.itemsCount }}
-                        </td>
+                <div class="col-12 col-sm-4 counter-and-share-flag">
+                    <div>
+                        <img src="assets/img/ic_ham.svg" class="counter-icon">
+                        <span class="list-counter">{{ list.itemsToBuyCount }} / {{ list.itemsCount }}</span>
 
-                        <td class="list-sharing-status">
-                            <img src="assets/img/{{ list.shared ? 'ic_list_shared' : 'ic_list_not_shared' }}.svg">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <img src="assets/img/{{ list.shared ? 'ic_list_shared' : 'ic_list_not_shared' }}.svg"
+                             class="share-flag">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-4 col-sm-2">
+                    <!-- Hacky space -->
+                    <p></p>
+                </div>
 
-                <hr>
-            </div>
+                <div class="col-8 col-sm-6">
+                    <a data-toggle="modal" data-target="#newListModal">Crea una nuova lista...</a>
+                </div>
 
-            <div>
-                <a data-toggle="modal" data-target="#newListModal">Crea una nuova lista...</a>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
 </div>
+
 <user-new-list></user-new-list>

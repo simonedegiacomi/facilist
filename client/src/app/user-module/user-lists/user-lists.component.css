@@ -1,26 +1,38 @@
-.lists-list {
-    min-height: 50vh;
+.lists-list ul {
+    padding: 0;
 }
 
-.my-lists-table {
-    font-family: var(--fontRegular);
-}
-
-
-.my-lists-table td {
-    padding: .25em;
-}
-
-td a {
+.lists-list a {
     color: black;
 }
 
-.list-items-counters,
-.list-sharing-status {
-    font-size: 1.5em;
+.lists-list a:hover {
+    text-decoration: none;
 }
 
-.list-items-counters img,
-.list-sharing-status img {
-    height: 1em;
+.lists-list img.icon {
+    width: 100%;
+    padding-right: .25em;
+}
+
+.lists-list .list-counter {
+    margin: 0 1em;
+}
+
+.lists-list img.counter-icon,
+.lists-list img.share-flag {
+    width: 100%;
+    max-width: 2em;
+}
+
+
+.counter-and-share-flag {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: end;
+}
+
+.counter-and-share-flag div {
+    padding-right: 0.5em;
 }
