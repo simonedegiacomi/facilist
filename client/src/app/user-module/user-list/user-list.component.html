@@ -19,7 +19,7 @@
                     data-toggle="modal" data-target="#listSharingSettingsModal"></button>
             <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
                     data-toggle="modal" data-target="#listOptionsModal"></button>
-            <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"></button>
+            <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi" [routerLink]="['/user']"></button>
         </div>
     </div>
 
@@ -51,6 +51,7 @@
                                            (imageChange)="notifyChange()"></app-show-change-image>
 
 
+                    <!-- TODO: Add the remove button -->
                     <!--<div><span (click)="removeProduct(product)">X</span></div>-->
                 </div>
                 <div class="col-7 col-sm-6">

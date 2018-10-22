@@ -1,39 +1,39 @@
 <div class="modal fade" id="listOptionsModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Opzioni</h5>
+    <div class="notebook-sheet modal-dialog" role="document">
 
-                <div class="modal-header-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-            </div>
+        <div class="notebook-sheet-header">
+            <h5 class="modal-title">Opzioni</h5>
 
-            <div class="modal-body">
-                <!-- TODO: Fare come un form per avere i controlli -->
-                <div class="form-group">
-                    <label for="name">Nome</label>
-                    <input type="text" class="form-control" [(ngModel)]="list.name" placeholder="Nome"
-                           id="name">
-                </div>
-
-                Categoria: {{ list.category.name }}
-
-                <div class="form-group">
-                    <label for="description">Descrizione</label>
-                    <textarea type="text" class="form-control" [(ngModel)]="list.description" placeholder="Descrizione"
-                              id="description"></textarea>
-                </div>
-
-
-                Creata da: <img [src]="list.creator.photo | image"> {{ list.creator.firstName }} <span>(Io???)</span>
-
-                <!-- TODO: Mostrare solo se è l'admin -->
-                <button (click)="deleteList()">Elimina lista</button>
-
+            <div class="notebook-sheet-buttons">
+                <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
             </div>
         </div>
+
+        <div class="notebook-sheet-content">
+            <!-- TODO: Fare come un form per avere i controlli -->
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control" [(ngModel)]="list.name" placeholder="Nome"
+                       id="name">
+            </div>
+
+            Categoria: {{ list.category.name }}
+
+            <div class="form-group">
+                <label for="description">Descrizione</label>
+                <textarea type="text" class="form-control" [(ngModel)]="list.description" placeholder="Descrizione"
+                          id="description"></textarea>
+            </div>
+
+
+            Creata da: <img [src]="list.creator.photo | image"> {{ list.creator.firstName }} <span>(Io???)</span>
+
+            <!-- TODO: Mostrare solo se è l'admin -->
+            <button (click)="deleteList()">Elimina lista</button>
+
+        </div>
     </div>
+
 </div>
 
 

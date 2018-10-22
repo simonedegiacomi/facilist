@@ -1,11 +1,11 @@
-.add-product-bar {
-    position: relative;
 
-    width: calc(100% + .5em);
+.add-product-bar {
+
     padding: .5em;
-    margin-left: -0.5em;
+
     background-color: var(--lightDarkened);
 }
+
 
 .results {
     position: absolute;
@@ -20,3 +20,4 @@
     background-color: white;
 
 }
+
