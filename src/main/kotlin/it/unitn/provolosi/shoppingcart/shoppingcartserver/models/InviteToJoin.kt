@@ -1,6 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.InviteToCollaborate.Companion.INVITE_TO_COLLABORATE__UNIQUE_INVITE_FOR_SHOPPING_LIST_PER_MAIL_CONSTRAINT
+import com.fasterxml.jackson.annotation.JsonIgnore
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.InviteToJoin.Companion.INVITE_TO_COLLABORATE__UNIQUE_INVITE_FOR_SHOPPING_LIST_PER_MAIL_CONSTRAINT
 import javax.persistence.*
 
 @Entity
@@ -11,7 +12,7 @@ import javax.persistence.*
         name = INVITE_TO_COLLABORATE__UNIQUE_INVITE_FOR_SHOPPING_LIST_PER_MAIL_CONSTRAINT
     )]
 )
-data class InviteToCollaborate(
+data class InviteToJoin(
 
         @Id
         @GeneratedValue
@@ -22,7 +23,13 @@ data class InviteToCollaborate(
 
         @ManyToOne
         @JoinColumn(name = "shopping_list_id")
-        val shoppingList: ShoppingList
+        @JsonIgnore
+        val shoppingList: ShoppingList,
+
+        @ManyToOne
+        @JoinColumn(name = "inviter_id")
+        @JsonIgnore
+        val inviter: User
 ) {
     companion object {
         const val INVITE_TO_COLLABORATE__UNIQUE_INVITE_FOR_SHOPPING_LIST_PER_MAIL_CONSTRAINT = "invite_to_collaborate__unique_invite_for_shopping_list_per_mail_constraint"

@@ -41,7 +41,7 @@ data class ShoppingList(
             mappedBy = "shoppingList",
             cascade = [CascadeType.REMOVE]
         )
-        val invites: MutableList<InviteToCollaborate> = mutableListOf(),
+        val invites: MutableList<InviteToJoin> = mutableListOf(),
 
         @OneToMany(
             mappedBy = "shoppingList",

@@ -19,6 +19,8 @@ export class ShoppingList implements MyRestEntity {
 
     collaborations: ShoppingListCollaboration[];
 
+    invites: Invite[];
+
     creator: User;
 }
 
@@ -53,4 +55,10 @@ export class ShoppingListCollaboration implements MyRestEntity {
     user: User;
 
     role: string;
+}
+
+export class Invite implements MyRestEntity {
+    id: number = null;
+
+    email: string;
 }

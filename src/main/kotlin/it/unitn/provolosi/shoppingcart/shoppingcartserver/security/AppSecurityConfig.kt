@@ -32,7 +32,7 @@ class AppSecurityConfig(
 
     override fun configure(http: HttpSecurity?) {
         http!!.authorizeRequests()
-                .antMatchers("/users/register", "/users/verifyEmail/*")
+                .antMatchers("/users/register", "/users/verifyEmail/*", "/users/*/recoverPassword", "/users/completeRecoverPassword")
                     .permitAll()
                 .anyRequest()
                     .authenticated()
