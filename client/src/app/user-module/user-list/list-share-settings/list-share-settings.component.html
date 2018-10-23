@@ -60,7 +60,12 @@
                 </ul>
 
                 <!-- Invites -->
-                <!-- TODO: Implement -->
+                <h6>Inviti a persone non registrate</h6>
+                <ul>
+                    <li *ngFor="let invite of list.invites" class="row">
+                        {{ invite.email }}
+                    </li>
+                </ul>
 
                 <!-- Add collaborator -->
                 <div>
