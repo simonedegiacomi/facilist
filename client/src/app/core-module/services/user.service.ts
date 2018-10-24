@@ -32,8 +32,6 @@ export class UserService extends MyRestService<User> {
             );
     }
 
-,
-
     changeUserPhoto(user: User): Observable<User> {
         return this.httpClient
             .post<User>(`${this.resourcePath}/me/photo`, user.photo);

@@ -64,4 +64,7 @@ dependencies {
     // Spring tests
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security:spring-security-test')
+
+    // Emails
+    compile 'org.simplejavamail:simple-java-mail:5.0.3'
 }
