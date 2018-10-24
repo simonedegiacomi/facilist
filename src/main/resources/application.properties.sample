@@ -19,7 +19,7 @@ app.name="Titolo Applicazione"
 uploads.maxSize=10
 
 # Path to an existing folder for upload
-uploads.folder=/Volumes/Ramdisk/uploads
+uploads.folder=
 
 
 #spring.jpa.show-sql = true
@@ -29,5 +29,5 @@ uploads.folder=/Volumes/Ramdisk/uploads
 emails.server.host=smtp.gmail.com
 emails.server.port=465
 emails.server.username=ds197and.sd@gmail.com
-emails.server.password=lawthihpwnjtydgu
+emails.server.password=
 emails.server.sender=ds197and.sd@gmail.com
