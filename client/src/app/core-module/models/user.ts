@@ -26,15 +26,4 @@ export class User implements MyRestEntity {
     emailVerified: boolean;
     role: string;
 
-    constructor({id, emailVerified, firstName, lastName, email, role}) {
-
-        this.id            = id;
-        this.firstName     = firstName;
-        this.lastName      = lastName;
-        this.email         = email;
-        this.emailVerified = emailVerified;
-        this.role          = role;
-
-    }
-
 }

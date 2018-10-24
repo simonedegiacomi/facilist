@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { NewPasswordComponent } from "../common/new-password/new-password.component";
+import { NewPasswordComponent } from "../../core-module/components/new-password/new-password.component";
 import { ActivatedRoute } from "@angular/router";
 import { AuthService, INVALID_CODE } from "../../core-module/services/auth.service";
 

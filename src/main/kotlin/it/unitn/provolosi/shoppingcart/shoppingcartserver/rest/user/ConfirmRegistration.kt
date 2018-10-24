@@ -1,6 +1,5 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.InviteToJoinDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenNotFoundException

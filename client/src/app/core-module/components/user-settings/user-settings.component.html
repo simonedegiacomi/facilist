@@ -1,0 +1,77 @@
+<div class="modal fade" id="userSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content notebook-sheet">
+            <div class="notebook-sheet-header">
+                <h5 class="modal-title">
+                    <app-show-change-image [image]="user.photo"
+                                           (imageChange)="onImageChanged($event)"></app-show-change-image>
+                    {{ user.firstName }}
+                </h5>
+
+                <div class="notebook-sheet-buttons">
+                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"
+                            [disabled]="isSaving"></button>
+                </div>
+            </div>
+
+
+            <div class="notebook-sheet-content">
+                <div>
+                    <div class="notebook-sheet-strip-container mb-2">
+                        <div class="notebook-sheet-strip blue-strip">
+                            <h6>Cambia Email</h6>
+                        </div>
+                    </div>
+
+                    <form [formGroup]="changeEmailForm" (ngSubmit)="onChangeEmail()">
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-9">
+                                <input placeholder="Nuovo indirizzo email" type="email" class="form-control"
+                                       formControlName="email">
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <button type="submit" class="action-button"
+                                        [disabled]="!changeEmailForm.valid || isSaving">Cambia
+                                </button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="emailRequestSent">
+                            Email di verifica inviata
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="notebook-sheet-strip-container mb-2">
+                        <div class="notebook-sheet-strip blue-strip">
+                            <h6>Cambia password</h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
+
+                            <div class="form-group">
+                                <input type="password" class="form-control" required formControlName="currentPassword">
+                            </div>
+                            <div class="alert alert-warning" *ngIf="changePasswordError">
+                                Password corrente errata.
+                            </div>
+
+                            <app-new-password [passwords]="changePasswordForm.get('passwords')"></app-new-password>
+
+
+                            <div class="col-12">
+                                <button type="submit" class="action-button"
+                                        [disabled]="!changePasswordForm.valid || isSaving">Cambia
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

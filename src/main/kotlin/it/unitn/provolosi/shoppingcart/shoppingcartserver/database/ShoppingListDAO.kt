@@ -11,8 +11,8 @@ data class ShoppingListPreview(
         val description: String?,
         val icon: String,
 
+        val boughtItemsCount: Int,
         val itemsCount: Int,
-        val itemsToBuyCount: Int,
 
         val isShared: Boolean
 )

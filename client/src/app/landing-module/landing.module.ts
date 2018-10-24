@@ -9,11 +9,12 @@ import { RegisterComponent } from './home/register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { RecoverPasswordComponent } from './home/recover-password/recover-password.component';
 import { CompleteRecoverPasswordComponent } from './complete-recover-password/complete-recover-password.component';
-import { NewPasswordComponent } from './common/new-password/new-password.component';
+import { CoreModule } from "../core-module/core.module";
 
 @NgModule({
     imports: [
         CommonModule,
+        CoreModule,
         ReactiveFormsModule,
         LandingRoutingModule
     ],
@@ -23,8 +24,7 @@ import { NewPasswordComponent } from './common/new-password/new-password.compone
         RegisterComponent,
         VerifyEmailComponent,
         RecoverPasswordComponent,
-        CompleteRecoverPasswordComponent,
-        NewPasswordComponent
+        CompleteRecoverPasswordComponent
     ]
 })
 export class LandingModule {

@@ -32,7 +32,7 @@ export class ShoppingListProduct implements MyRestEntity {
 
     quantity: number = 1;
 
-    toBuy: boolean = true;
+    bought: boolean = true;
 
     note: string = null;
 

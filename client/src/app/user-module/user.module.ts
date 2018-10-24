@@ -4,7 +4,7 @@ import { UserRoutingModule } from "./user-routing.module";
 import { UserRootComponent } from './user-root.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserListsComponent } from './user-lists/user-lists.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "../core-module/core.module";
 import { NewListComponent } from './user-lists/new-list/new-list.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -17,6 +17,7 @@ import { ListOptionsComponent } from './user-list/list-options/list-options.comp
     imports: [
         FormsModule,
         CommonModule,
+        ReactiveFormsModule,
 
         UserRoutingModule,
         CoreModule

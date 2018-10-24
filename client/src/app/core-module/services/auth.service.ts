@@ -10,7 +10,7 @@ import {
 } from "@angular/common/http";
 import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { Roles, User } from "../models/user";
-import { catchError, map, tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { NETWORK_ERROR } from "./network-errors.service";
 import { BAD_REQUEST, FORBIDDEN } from "http-status-codes";
 import { Router } from "@angular/router";
@@ -49,7 +49,6 @@ export class AuthService {
         }
 
         return this.httpClient.get<User>("/api/users/me").pipe(
-            map(user => new User(user)),
             tap(user => this.notifyUserObservers(user)),
             tap(user => console.log("Current user:", user)),
             tap(_ => {

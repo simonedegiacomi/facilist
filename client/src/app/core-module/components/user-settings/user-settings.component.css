@@ -1,0 +1,7 @@
+div.notebook-sheet-strip-container {
+    min-height: var(--titleStripHeight);
+}
+
+div.notebook-sheet-strip {
+    height: var(--titleStripHeight);
+}

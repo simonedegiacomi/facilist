@@ -17,7 +17,16 @@ const routes: Routes = [
         component: VerifyEmailComponent,
         canActivate: [
             NotLoggedInGuard
-        ]
+        ],
+        data: {
+            verifyFirstEmail: true
+        }
+    }, {
+        path: 'verifyNewEmail/:email',
+        component: VerifyEmailComponent,
+        data: {
+            verifyFirstEmail: false
+        }
     }, {
         path: 'recoverPassword/:email',
         component: CompleteRecoverPasswordComponent,

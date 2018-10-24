@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../core-module/services/auth.service";
+import { UserService } from "../../core-module/services/user.service";
+import { Observable } from "rxjs";
 
 @Component({
     templateUrl: './verify-email.component.html',
@@ -8,9 +10,9 @@ import { AuthService } from "../../core-module/services/auth.service";
 })
 export class VerifyEmailComponent implements OnInit {
 
-    verifying = false;
+    verifying   = false;
     verifyError = false;
-    verified = false;
+    verified    = false;
 
     redirectLoginQueryParams = {
         openLoginModal: true,
@@ -19,12 +21,13 @@ export class VerifyEmailComponent implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService
+        private authService: AuthService,
+        private userService: UserService
     ) {
     }
 
     ngOnInit() {
-        this.activatedRoute.queryParamMap.subscribe(_ =>this.onRouteChanged());
+        this.activatedRoute.queryParamMap.subscribe(_ => this.onRouteChanged());
     }
 
     onRouteChanged() {
@@ -35,25 +38,36 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     verifyEmail(email: string, token: string) {
-        this.verifying = true;
+        this.verifying   = true;
         this.verifyError = false;
-        this.verified = false;
+        this.verified    = false;
 
-        this.authService.verifyEmail(email, token).subscribe(
+        let observable: Observable<any>;
+        if (this.isVerifyingFirstEmailAddress) {
+            observable = this.authService.verifyEmail(email, token);
+        } else {
+            observable = this.userService.verifyNewEmail(email, token);
+        }
+
+        observable.subscribe(
             _ => this.onEmailVerified(email),
             error => this.onVerifyError(error)
         );
     }
 
+    get isVerifyingFirstEmailAddress() {
+        return this.activatedRoute.snapshot.data.verifyFirstEmail;
+    }
+
 
     onEmailVerified(email: string) {
-        this.verifying = false;
-        this.verified = true;
+        this.verifying                      = false;
+        this.verified                       = true;
         this.redirectLoginQueryParams.email = email;
     }
 
     onVerifyError(error: any) {
-        this.verifying = false;
+        this.verifying   = false;
         this.verifyError = true;
     }
 }

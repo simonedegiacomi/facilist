@@ -29,7 +29,10 @@
     left: .9em;
     top: -0.4em;
 
-    content: url("assets/img/check-mark.svg");
+    background-image: url("assets/img/check-mark.svg");
+    background-size: contain;
+    background-position-y: -0.2em;
+
 
     display: none;
 }

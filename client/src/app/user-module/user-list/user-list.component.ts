@@ -56,7 +56,7 @@ export class UserListComponent implements OnInit {
     }
 
     toggleToBuy(product: ShoppingListProduct) {
-        product.toBuy = !product.toBuy;
+        product.bought = !product.bought;
         this.notifyChange();
     }
 

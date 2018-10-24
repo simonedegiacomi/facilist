@@ -1,21 +1,16 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.collaborations
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.InviteToJoin
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.IShoppingListService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.InviterCantEditCollaboratorsException
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.annotation.security.RolesAllowed
-import javax.persistence.EntityNotFoundException
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 import javax.validation.constraints.NotNull

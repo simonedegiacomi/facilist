@@ -37,7 +37,7 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
                 return {
                     productId:  product.product.id,
                     image:      product.image,
-                    toBuy:      product.toBuy,
+                    toBuy:      product.bought,
                     quantity:   product.quantity,
                     note:       product.note
                 }
@@ -75,7 +75,7 @@ export class ShoppingListPreview {
     icon: string;
 
     itemsCount: boolean;
-    itemsToBuyCount: boolean;
+    boughtItemsCount: boolean;
 
     shared: boolean;
 }

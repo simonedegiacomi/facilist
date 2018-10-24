@@ -64,10 +64,12 @@
                 {{ (user$ | async)?.firstName }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
-                <a class="dropdown-item" href="#">Profilo</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#userSettingsModal">Profilo</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" (click)="onClickLogout()">Logout</a>
             </div>
         </div>
     </div>
 </nav>
+
+<app-user-settings *ngIf="user$ | async"></app-user-settings>

@@ -59,6 +59,14 @@ class ImportService(
             role            = if (it["admin"]!!.toBoolean()) User.ADMIN else User.USER,
             emailVerified   = true
         )
+
+/*
+        val photoFileName = it["photo"]
+        if (photoFileName.isNotEmpty()) {
+            user.photo = importImageIfExists("user-photos", photoFileName)
+        }
+*/
+
         userDAO.save(user)
         userByEmail[user.email] = user
     }
@@ -152,7 +160,7 @@ class ImportService(
                     shoppingListProductDAO.save(ShoppingListProduct(
                         product         = product,
                         shoppingList    = shoppingList,
-                        toBuy           = toBuy,
+                        bought           = toBuy,
                         image           = product.icon
                     ))
                 }

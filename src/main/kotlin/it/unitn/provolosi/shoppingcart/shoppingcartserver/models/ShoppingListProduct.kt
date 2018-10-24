@@ -24,7 +24,7 @@ data class ShoppingListProduct(
         val product: Product,
 
         @Column
-        var toBuy: Boolean = true,
+        var bought: Boolean = true,
 
         @Column
         var quantity: Int = 1,

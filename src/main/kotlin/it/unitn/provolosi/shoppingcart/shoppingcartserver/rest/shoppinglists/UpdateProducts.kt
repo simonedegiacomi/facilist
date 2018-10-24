@@ -37,7 +37,7 @@ class UpdateProducts(
                 shoppingListProductDAO.save(ShoppingListProduct(
                     product         = productDAO.findById(it.productId!!), // TODO: Check if the product is compatible
                     shoppingList    = list,
-                    toBuy           = it.toBuy!!,
+                    bought           = it.toBuy!!,
                     quantity        = it.quantity!!,
                     image           = it.image!!,
                     note            = it.note

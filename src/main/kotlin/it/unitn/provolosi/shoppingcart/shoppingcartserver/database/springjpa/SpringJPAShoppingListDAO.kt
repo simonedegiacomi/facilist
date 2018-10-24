@@ -24,15 +24,15 @@ class SpringJPAShoppingListDAO(
             .getShoppingListsWithUserAsCreatorOrCollaborator(user)
             .map { it ->
                 ShoppingListPreview(
-                    id              = it.id!!,
-                    name            = it.name,
-                    description     = it.description,
-                    icon            = it.icon,
+                    id                  = it.id!!,
+                    name                = it.name,
+                    description         = it.description,
+                    icon                = it.icon,
 
-                    itemsToBuyCount = 4,
-                    itemsCount      = 12,
+                    boughtItemsCount    = it.products.count { p -> p.bought },
+                    itemsCount          = it.products.size,
 
-                    isShared        = it.isShared()
+                    isShared            = it.isShared()
                 )
             }
 
