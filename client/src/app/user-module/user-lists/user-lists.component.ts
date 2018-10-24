@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
 import { ShoppingListPreview, ShoppingListService } from "../../core-module/services/shopping-list.service";
+import { ShoppingList } from "../../core-module/models/shopping-list";
 
 @Component({
     templateUrl: './user-lists.component.html',
@@ -8,16 +8,21 @@ import { ShoppingListPreview, ShoppingListService } from "../../core-module/serv
 })
 export class UserListsComponent implements OnInit {
 
-    lists$: Observable<ShoppingListPreview[]>;
-
+    lists: ShoppingListPreview[];
 
     constructor(
         private listService: ShoppingListService
-    ) {
-        this.lists$ = this.listService.getMyShoppingLists()
-    }
+    ) { }
 
     ngOnInit() {
+        this.fetchMyShoppingLists()
+    }
 
+    fetchMyShoppingLists () {
+        this.listService.getMyShoppingLists().subscribe(lists => this.lists = lists);
+    }
+
+    onNewListCreated (newList: ShoppingList) {
+        this.lists.push(new ShoppingListPreview(newList));
     }
 }

@@ -15,13 +15,14 @@ export class ShoppingList implements MyRestEntity {
 
     category: ShoppingListCategory;
 
-    products: ShoppingListProduct[];
+    products: ShoppingListProduct[] = [];
 
-    collaborations: ShoppingListCollaboration[];
+    collaborations: ShoppingListCollaboration[] = [];
 
-    invites: Invite[];
+    invites: Invite[] = [];
 
     creator: User;
+
 }
 
 export class ShoppingListProduct implements MyRestEntity {
@@ -32,7 +33,7 @@ export class ShoppingListProduct implements MyRestEntity {
 
     quantity: number = 1;
 
-    bought: boolean = true;
+    bought: boolean = false;
 
     note: string = null;
 

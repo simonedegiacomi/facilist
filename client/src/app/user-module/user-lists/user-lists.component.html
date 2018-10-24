@@ -6,7 +6,8 @@
     <div class="notebook-sheet-content">
 
         <ul class="lists-list">
-            <li *ngFor="let list of lists$ | async" class="row">
+
+            <li *ngFor="let list of lists" class="row">
                 <div class="col-4 col-sm-2">
                     <a [routerLink]="['/user', 'shoppingLists', list.id]">
                         <img [src]="list.icon | image" class="icon">
@@ -46,4 +47,4 @@
     </div>
 </div>
 
-<user-new-list></user-new-list>
+<user-new-list (newListCreated)="onNewListCreated($event)"></user-new-list>

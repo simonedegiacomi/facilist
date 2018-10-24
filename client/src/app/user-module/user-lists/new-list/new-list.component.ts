@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ShoppingListCategoryService } from "../../../core-module/services/shopping-list-category.service";
 import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
@@ -23,6 +23,9 @@ export class NewListComponent implements OnInit {
     newList: ShoppingList = new ShoppingList();
 
     isSaving = false;
+
+    @Output()
+    newListCreated = new EventEmitter<ShoppingList>();
 
     constructor(
         private listCategoryService: ShoppingListCategoryService,
@@ -58,7 +61,10 @@ export class NewListComponent implements OnInit {
         this.listService.create(this.newList).subscribe(l => {
             this.isSaving = false;
             $('#newListModal').modal('hide');
-            // TODO: Redirect to the shopping list page
+
+            this.newListCreated.emit(this.newList);
+
+            this.newList = new ShoppingList();
         });
     }
 

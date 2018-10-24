@@ -35,17 +35,17 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
             url,
             list.products.map(product => {
                 return {
-                    productId:  product.product.id,
-                    image:      product.image,
-                    toBuy:      product.bought,
-                    quantity:   product.quantity,
-                    note:       product.note
+                    productId: product.product.id,
+                    image: product.image,
+                    toBuy: product.bought,
+                    quantity: product.quantity,
+                    note: product.note
                 }
             })
         );
     }
 
-    updateCollaborations(list: ShoppingList): Observable<ShoppingList>  {
+    updateCollaborations(list: ShoppingList): Observable<ShoppingList> {
         const url = `${this.resourcePath}/${list.id}/collaborations`;
         return this.httpClient.post<ShoppingList>(
             url,
@@ -60,10 +60,10 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
 
     addCollaboratorByEmail(list: ShoppingList, email: string): Observable<ShoppingList> {
         const url = `${this.resourcePath}/${list.id}/collaborations`;
-        return this.httpClient.put<ShoppingList>(url, { email })
+        return this.httpClient.put<ShoppingList>(url, {email})
     }
 
-    deleteCollaboration (list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {
+    deleteCollaboration(list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {
         const url = `${this.resourcePath}/${list.id}/collaborations/${toDelete.id}`;
         return this.httpClient.delete<ShoppingList>(url)
     }
@@ -74,8 +74,19 @@ export class ShoppingListPreview {
     description: string;
     icon: string;
 
-    itemsCount: boolean;
-    boughtItemsCount: boolean;
+    itemsCount: number;
+    boughtItemsCount: number;
 
     shared: boolean;
+
+    constructor(list: ShoppingList) {
+        this.name        = list.name;
+        this.description = list.description;
+        this.icon        = list.icon;
+
+        this.itemsCount       = list.products.length;
+        this.boughtItemsCount = list.products.filter(p => p.bought).length;
+
+        this.shared = list.collaborations.length > 0
+    }
 }
