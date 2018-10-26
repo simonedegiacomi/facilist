@@ -1,9 +1,11 @@
 import { StompConfig } from "@stomp/ng2-stompjs";
 
+const protocol = location.protocol == 'https:' ? 'wss:' : 'ws:';
+
 export const stompConfig: StompConfig = {
     // Which server?
     //url: `ws://${location.host}/api/ws`,
-    url: `ws://${location.host}/api/ws`,
+    url: `${protocol}//${location.host}/api/ws`,
 
     // Headers
     // Typical keys: login, passcode, host
