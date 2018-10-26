@@ -1,2 +1,2 @@
 release: ./build-angular.sh
-web java -Dserver.port=$PORT -Dprofile=prod $JAVA_OPTS -jar build/libs/*.jar
+web: java -Dserver.port=$PORT -Dprofile=prod $JAVA_OPTS -jar build/libs/*.jar
