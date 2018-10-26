@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.io.File
+import java.io.InputStream
 import java.io.InputStreamReader
 
 @Component
@@ -183,8 +184,8 @@ class ImportService(
             ).forEach { it ->
                 val folder = it.key
                 val file = it.value
-                File(ImportService::class.java.getResource("/import/images/$folder/$file.png").toURI())
-                        .copyTo(File("$uploadsFolderPath/$file.png"), true)
+                ImportService::class.java.getResourceAsStream("/import/images/$folder/$file.png")
+                        .toFile(File("$uploadsFolderPath/$file.png"))
             }
 
 
@@ -207,4 +208,8 @@ class ImportService(
     private fun importImageIfExists(folder: String, name: String) = imagesService.storeImage(
         ImportService::class.java.getResourceAsStream("/import/images/$folder/$name")
     )
+
+    fun InputStream.toFile(file: File) {
+        file.outputStream().use { this.copyTo(it) }
+    }
 }
