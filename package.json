@@ -1,0 +1,19 @@
+{
+  "name": "shoppingcart2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/provolosi-web/progetto-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/provolosi-web/progetto-web/issues"
+  },
+  "homepage": "https://gitlab.com/provolosi-web/progetto-web#README"
+}
