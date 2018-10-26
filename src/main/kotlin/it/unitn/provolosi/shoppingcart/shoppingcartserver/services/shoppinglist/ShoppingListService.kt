@@ -4,13 +4,12 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.InviteToJoinD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.InviteToJoin
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.realtimeupdates.IRealtimeUpdatesService
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
@@ -23,7 +22,11 @@ class ShoppingListService(
         private val emailService: EmailService,
 
         @Value("\${app.name}")
-        private val applicationName: String
+        private val applicationName: String,
+
+        private val realtimeUpdatesService: IRealtimeUpdatesService,
+
+        private val stomp: SimpMessagingTemplate
 ) : IShoppingListService {
 
     override fun addUserToShoppingListByEmail(
@@ -47,14 +50,51 @@ class ShoppingListService(
     }
 
     private fun addUserToShoppingList(list: ShoppingList, user: User, inviter: User) {
-        shoppingListCollaborationDAO.save(
-            shoppingListCollaborationDAO.save(ShoppingListCollaboration(
-                user = user,
-                shoppingList = list
-            ))
-        )
+        val collaboration = shoppingListCollaborationDAO.save(ShoppingListCollaboration(
+            user = user,
+            shoppingList = list
+        ))
 
-        // TODO: Send notification
+        val update = Update(
+            notification = Notification(
+                shoppingList = list,
+                to = user
+            ),
+            event = Update.YOU_HAVE_BEEN_ADDED_TO_A_LIST,
+            generatedBy = inviter
+        )
+        //sendWelcomeEmail(collaboration)
+        //pushNotificationService.send(updateNewCollaborator.notification)
+        //realtimeUpdatesService.send(updateNewCollaborator)
+        //stomp.convertAndSendToUser(user.email, "shoppingLists", update)
+        stomp.convertAndSendToUser(user.email, "/queue/shoppingLists", update)
+
+
+       /* list.collaborations.filter { c -> c.user != user }.forEach { u ->
+            val update = Update(
+                notification = Notification(
+                    shoppingList = list,
+                    to = u.user
+                ),
+                event = Update.NEW_COLLABORATOR_IN_LIST,
+                generatedBy = inviter
+            )
+
+            pushNotificationService.sendBuffered(update.notification)
+            realtimeUpdatesService.send(update)
+        }*/
+
+
+    }
+
+    private fun sendWelcomeEmail(collaboration: ShoppingListCollaboration) {
+        emailService.sendEmail(object : Email() {
+            override fun to() = collaboration.user.email
+
+            override fun subject() = "Benvenuto nella lista ${collaboration.shoppingList.name}"
+
+            override fun text() = ""
+        })
     }
 
 

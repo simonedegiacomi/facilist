@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import java.util.*
@@ -7,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "event")
-data class Event (
+data class Update (
 
         @Id
         @GeneratedValue
@@ -15,6 +16,7 @@ data class Event (
 
         @ManyToOne
         @JoinColumn(name = "notification_id")
+        @JsonIgnore
         val notification: Notification,
 
         @ManyToOne
@@ -41,5 +43,9 @@ data class Event (
         const val PRODUCT_REMOVED                               = "product_removed"
         const val PRODUCT_EDITED                                = "product_edited"
 
+    }
+
+    init {
+        this.notification.updates.add(this)
     }
 }

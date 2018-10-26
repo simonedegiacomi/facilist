@@ -6,6 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.realtimeupdates.IRealtimeUpdatesService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,7 +22,8 @@ import javax.validation.constraints.NotNull
 @RequestMapping("/shoppingLists")
 class CreateShoppingListController (
         private val shoppingListDAO: ShoppingListDAO,
-        private val shoppingListCategoryDAO: ShoppingListCategoryDAO
+        private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
+        private val realtimeUpdatesService: IRealtimeUpdatesService
 ) {
 
     @PostMapping
@@ -30,14 +32,17 @@ class CreateShoppingListController (
             @AppUser user: User,
             @RequestBody @Valid dto: CreateShoppingListDTO
     ): ResponseEntity<ShoppingList> = try {
-        ResponseEntity(shoppingListDAO.save(ShoppingList(
+        val list = shoppingListDAO.save(ShoppingList(
             name        = dto.name!!,
             description = dto.description,
             icon        = dto.icon!!,
             creator     = user,
             category    = shoppingListCategoryDAO.findById(dto.shoppingListCategoryId!!)
-        )), HttpStatus.CREATED)
+        ))
 
+        realtimeUpdatesService.userNewShoppingList(user, list)
+
+        ResponseEntity(list, HttpStatus.CREATED)
     } catch (ex: ShoppingListCategoryNotFoundException) {
         ResponseEntity.notFound().build()
     }

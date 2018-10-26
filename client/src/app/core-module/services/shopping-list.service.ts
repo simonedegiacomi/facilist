@@ -70,6 +70,7 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
 }
 
 export class ShoppingListPreview {
+    id: number;
     name: string;
     description: string;
     icon: string;
@@ -80,6 +81,7 @@ export class ShoppingListPreview {
     shared: boolean;
 
     constructor(list: ShoppingList) {
+        this.id          = list.id;
         this.name        = list.name;
         this.description = list.description;
         this.icon        = list.icon;

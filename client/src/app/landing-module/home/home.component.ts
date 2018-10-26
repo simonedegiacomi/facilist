@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RealtimeUpdatesService } from "../../core-module/services/realtime-updates.service";
 
 
 @Component({
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
     constructor(
+        private realtime: RealtimeUpdatesService
     ) {
     }
 

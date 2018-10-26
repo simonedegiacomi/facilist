@@ -32,6 +32,8 @@ class AppSecurityConfig(
         http!!.authorizeRequests()
                 .antMatchers("/users/register", "/users/verifyEmail/*", "/users/*/recoverPassword", "/users/completeRecoverPassword")
                     .permitAll()
+                .antMatchers("/ws")
+                    .authenticated()
                 .anyRequest()
                     .authenticated()
 

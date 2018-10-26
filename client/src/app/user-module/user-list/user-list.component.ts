@@ -6,6 +6,7 @@ import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../co
 import { debounceTime, switchMap, tap } from "rxjs/operators";
 import { Product } from "../../core-module/models/product";
 import { AuthService } from "../../core-module/services/auth.service";
+import { RealtimeUpdatesService } from "../../core-module/services/realtime-updates.service";
 
 @Component({
     selector: 'app-user-list',
@@ -27,7 +28,8 @@ export class UserListComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private listService: ShoppingListService,
-        private auth: AuthService
+        private auth: AuthService,
+        private realtimeUpdatesService: RealtimeUpdatesService
     ) {
     }
 
@@ -37,7 +39,13 @@ export class UserListComponent implements OnInit {
     }
 
     private fetchShoppingList() {
-        this.listService.getById(this.shoppingListId).subscribe(list => this.list = list);
+        this.listService.getById(this.shoppingListId).subscribe(list => {
+            this.list = list
+
+            this.realtimeUpdatesService.forShoppingList(this.list).subscribe(u => {
+                console.log('ok', u)
+            })
+        });
     }
 
     private setUpSendEdits() {

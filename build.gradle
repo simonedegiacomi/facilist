@@ -55,6 +55,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-validation')
     implementation('org.springframework.boot:spring-boot-starter-websocket')
+    implementation('org.springframework.security:spring-security-messaging')
 
     // Database
     compile 'com.h2database:h2'

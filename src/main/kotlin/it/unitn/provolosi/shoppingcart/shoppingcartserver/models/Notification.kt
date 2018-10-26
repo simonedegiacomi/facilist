@@ -21,7 +21,7 @@ data class Notification (
         @OneToMany(
             cascade = [CascadeType.ALL]
         )
-        val events: MutableList<Event> = mutableListOf(),
+        val updates: MutableList<Update> = mutableListOf(),
 
         @ManyToOne
         @JoinColumn(name = "user_id")

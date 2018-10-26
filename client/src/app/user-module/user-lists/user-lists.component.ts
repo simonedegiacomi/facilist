@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListPreview, ShoppingListService } from "../../core-module/services/shopping-list.service";
-import { ShoppingList } from "../../core-module/models/shopping-list";
+import { RealtimeUpdatesService } from "../../core-module/services/realtime-updates.service";
 
 @Component({
     templateUrl: './user-lists.component.html',
@@ -11,18 +11,20 @@ export class UserListsComponent implements OnInit {
     lists: ShoppingListPreview[];
 
     constructor(
-        private listService: ShoppingListService
+        private listService: ShoppingListService,
+        private realtime: RealtimeUpdatesService
     ) { }
 
     ngOnInit() {
-        this.fetchMyShoppingLists()
+        this.fetchMyShoppingLists();
+        this.listenForRealtimeUpdates();
     }
 
     fetchMyShoppingLists () {
         this.listService.getMyShoppingLists().subscribe(lists => this.lists = lists);
     }
 
-    onNewListCreated (newList: ShoppingList) {
-        this.lists.push(new ShoppingListPreview(newList));
+    listenForRealtimeUpdates () {
+        this.realtime.forShoppingLists().subscribe(list => this.lists.push(new ShoppingListPreview(list)))
     }
 }

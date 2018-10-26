@@ -9,6 +9,8 @@ import { ShowChangeImageComponent } from './components/show-change-image/show-ch
 import { UserSettingsComponent } from "./components/user-settings/user-settings.component";
 import { NewPasswordComponent } from "./components/new-password/new-password.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { StompConfig, StompService } from "@stomp/ng2-stompjs";
+import { stompConfig } from "./stompConfig";
 
 @NgModule({
     imports: [
@@ -19,7 +21,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     providers: [
         AuthService,
         UserService,
-        NetworkErrorsService
+        NetworkErrorsService,
+        StompService,
+        {
+            provide: StompConfig,
+            useValue: stompConfig
+        }
     ],
     declarations: [
         ImagePipe,
