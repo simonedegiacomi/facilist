@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd client && ng build && cp -r dist/client ../src/main/resources/public/"
+    "postinstall": "cd client && npm install && ng build && cp -r dist/client ../src/main/resources/public/"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,13 @@
   },
   "homepage": "https://gitlab.com/provolosi-web/progetto-web#README",
   "dependencies": {
+    "@angular-devkit/build-angular": "~0.7.0",
     "@angular/cli": "~6.1.4",
-    "@angular/compiler-cli": "^6.1.0"
+    "@angular/compiler-cli": "^6.1.0",
+    "@angular/language-service": "^6.1.0",
+    "@types/jasmine": "~2.8.6",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
+    "typescript": "~2.7.2"
   }
 }
