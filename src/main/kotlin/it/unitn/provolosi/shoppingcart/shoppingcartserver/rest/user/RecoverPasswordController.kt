@@ -18,7 +18,7 @@ import protocolPortAndDomain
 import javax.servlet.http.HttpServletRequest
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 class RecoverPasswordController(
         private val userDAO: UserDAO,
         private val tokenDAO: VerificationTokenDAO,

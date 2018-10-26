@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 
 @RestController
-@RequestMapping("/productCategories")
+@RequestMapping("/api/productCategories")
 class DeleteController(
         private val productCategoryDAO: ProductCategoryDAO
 ) {

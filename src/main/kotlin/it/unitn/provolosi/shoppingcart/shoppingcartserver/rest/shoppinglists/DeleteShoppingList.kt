@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 
 @RestController
-@RequestMapping("/shoppingLists")
+@RequestMapping("/api/shoppingLists")
 class DeleteShoppingList(
         private val shoppingListDAO: ShoppingListDAO
 ) {

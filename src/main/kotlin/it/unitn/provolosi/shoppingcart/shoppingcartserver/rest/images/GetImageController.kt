@@ -6,7 +6,7 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/api/images")
 class GetImageController (
         private val images: ImagesService
 ) {

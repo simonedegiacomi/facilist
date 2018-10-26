@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/shoppingListCategories")
+@RequestMapping("/api/shoppingListCategories")
 class DeleteShoppingListCategoryController(
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO
 ) {

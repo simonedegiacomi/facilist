@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull
 
 
 @RestController
-@RequestMapping("/shoppingLists/{id}/collaborations")
+@RequestMapping("/api/shoppingLists/{id}/collaborations")
 class AddCollaboration (
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListService: IShoppingListService

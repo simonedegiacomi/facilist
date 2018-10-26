@@ -17,13 +17,13 @@ class GetUserShoppingLists (
         private val shoppingListDAO: ShoppingListDAO
 ) {
 
-    @GetMapping("/users/me/shoppingLists")
+    @GetMapping("/api/users/me/shoppingLists")
     @RolesAllowed(User.USER)
     fun getUserShoppingLists (
             @AppUser user: User
     ) = ResponseEntity(shoppingListDAO.getShoppingListPreviewsByUser(user), HttpStatus.OK)
 
-    @GetMapping("/shoppingLists/{id}")
+    @GetMapping("/api/shoppingLists/{id}")
     @RolesAllowed(User.USER)
     fun getById(
             @PathVariable id: Long,

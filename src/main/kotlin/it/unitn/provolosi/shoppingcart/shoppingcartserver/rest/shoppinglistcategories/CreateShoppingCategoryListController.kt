@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 @RestController
-@RequestMapping("/shoppingListCategories")
+@RequestMapping("/api/shoppingListCategories")
 class CreateShoppingCategoryListController(
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO
 ) {

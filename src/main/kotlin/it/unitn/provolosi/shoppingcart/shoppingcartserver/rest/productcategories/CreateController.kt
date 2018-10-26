@@ -13,7 +13,7 @@ import javax.annotation.security.RolesAllowed
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/productCategories")
+@RequestMapping("/api/productCategories")
 class CreateController(
         private val productCategoryDAO: ProductCategoryDAO
 ) {

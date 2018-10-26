@@ -30,15 +30,15 @@ class AppSecurityConfig(
 
     override fun configure(http: HttpSecurity?) {
         http!!.authorizeRequests()
-                .antMatchers("/users/register", "/users/verifyEmail/*", "/users/*/recoverPassword", "/users/completeRecoverPassword")
+                .antMatchers("/index.html")
                     .permitAll()
-                .antMatchers("/ws")
-                    .authenticated()
-                .anyRequest()
+                .antMatchers("/api/users/register", "/api/users/verifyEmail/*", "/api/users/*/recoverPassword", "/api/users/completeRecoverPassword")
+                    .permitAll()
+                .antMatchers("/api/**")
                     .authenticated()
 
                 .and().formLogin()
-                    .loginPage("/auth/login")
+                    .loginPage("/api/auth/login")
                     .usernameParameter("email")
                     .successHandler { _, response, _ -> response.status = HttpStatus.OK.value() }
                     .failureHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }

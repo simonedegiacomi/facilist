@@ -13,7 +13,7 @@ import javax.validation.Valid
 
 
 @RestController
-@RequestMapping("/productCategories")
+@RequestMapping("/api/productCategories")
 class EditController (
         private val productCategoryDAO: ProductCategoryDAO
 ) {

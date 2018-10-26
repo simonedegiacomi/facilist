@@ -14,7 +14,7 @@ import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 class CompleteRecoverPasswordController(
         private val userDAO: UserDAO,
         private val tokenDAO: VerificationTokenDAO

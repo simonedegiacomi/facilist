@@ -24,7 +24,7 @@ import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 class RegistrationController (
         val userDAO: UserDAO,
         val tokenDAO: VerificationTokenDAO,

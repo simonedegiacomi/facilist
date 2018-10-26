@@ -10,7 +10,7 @@ import javax.annotation.security.RolesAllowed
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/shoppingListCategories")
+@RequestMapping("/api/shoppingListCategories")
 class EditShoppingListCategoryController (
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
         private val productCategoryDAO: ProductCategoryDAO

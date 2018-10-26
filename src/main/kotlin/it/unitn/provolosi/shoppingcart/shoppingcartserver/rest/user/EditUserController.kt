@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 class EditUserController(
         private val userDAO: UserDAO,
         private val userService: IUserService

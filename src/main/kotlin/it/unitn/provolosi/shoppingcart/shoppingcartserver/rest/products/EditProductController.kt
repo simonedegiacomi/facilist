@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 class EditProductController(
         private val productDAO: ProductDAO
 ) {

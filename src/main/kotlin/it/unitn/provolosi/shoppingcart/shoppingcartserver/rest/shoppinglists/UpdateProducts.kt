@@ -13,7 +13,7 @@ import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
 @RestController
-@RequestMapping("/shoppingLists")
+@RequestMapping("/api/shoppingLists")
 class UpdateProducts(
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListProductDAO: ShoppingListProductDAO,

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.io.InputStream
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/api/images")
 class UploadImageController (
         private val images: ImagesService
 ) {

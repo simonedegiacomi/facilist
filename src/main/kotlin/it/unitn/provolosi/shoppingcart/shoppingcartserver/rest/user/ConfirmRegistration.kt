@@ -16,7 +16,7 @@ class ConfirmRegistration(
         private val shoppingListService: IShoppingListService
 ) {
 
-    @PostMapping("/users/verifyEmail/{email}")
+    @PostMapping("/api/users/verifyEmail/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun verifyToken(
             @PathVariable email: String,
