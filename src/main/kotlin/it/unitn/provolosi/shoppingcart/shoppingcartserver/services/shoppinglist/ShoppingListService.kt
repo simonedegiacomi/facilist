@@ -7,7 +7,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserNotFoundE
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.realtimeupdates.IRealtimeUpdatesService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
@@ -24,7 +23,7 @@ class ShoppingListService(
         @Value("\${app.name}")
         private val applicationName: String,
 
-        private val realtimeUpdatesService: IRealtimeUpdatesService,
+        private val syncShoppingListService: ISyncShoppingListService,
 
         private val stomp: SimpMessagingTemplate
 ) : IShoppingListService {
@@ -65,7 +64,7 @@ class ShoppingListService(
         )
         //sendWelcomeEmail(collaboration)
         //pushNotificationService.send(updateNewCollaborator.notification)
-        //realtimeUpdatesService.send(updateNewCollaborator)
+        //syncShoppingListService.send(updateNewCollaborator)
         //stomp.convertAndSendToUser(user.email, "shoppingLists", update)
         stomp.convertAndSendToUser(user.email, "/queue/shoppingLists", update)
 
@@ -81,7 +80,7 @@ class ShoppingListService(
             )
 
             pushNotificationService.sendBuffered(update.notification)
-            realtimeUpdatesService.send(update)
+            syncShoppingListService.send(update)
         }*/
 
 

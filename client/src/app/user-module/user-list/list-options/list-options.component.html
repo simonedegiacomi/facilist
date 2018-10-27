@@ -5,30 +5,74 @@
                 <h5 class="modal-title">Opzioni</h5>
 
                 <div class="notebook-sheet-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close-icon" id="closeListOptions" data-dismiss="modal"
+                            aria-label="Close"></button>
                 </div>
             </div>
 
             <div class="notebook-sheet-content">
                 <!-- TODO: Fare come un form per avere i controlli -->
-                <div class="form-group">
-                    <label for="name">Nome</label>
-                    <input type="text" class="form-control" [(ngModel)]="list.name" placeholder="Nome"
-                           id="name">
-                </div>
 
-                Categoria: {{ list.category.name }}
-
-                <div class="form-group">
-                    <label for="description">Descrizione</label>
-                    <textarea type="text" class="form-control" [(ngModel)]="list.description" placeholder="Descrizione"
-                              id="description"></textarea>
-                </div>
+                <form #form="ngForm">
+                    <!-- Name -->
+                    <div class="form-group row">
+                        <label for="name" class="col-12 col-sm-4">Nome</label>
+                        <div class="col-12 col-sm-8">
+                            <input type="text" class="form-control" [(ngModel)]="list.name" placeholder="Nome"
+                                   id="name" name="name" required>
+                        </div>
+                    </div>
 
 
-                Creata da: <img [src]="list.creator.photo | image" class="icon normal-icon"> {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
+                    <!-- Category -->
+                    <div class="form-group row">
+                        <label for="category" class="col-12 col-sm-4">Categoria</label>
+                        <div class="col-12 col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" [ngModel]="list.category.name"
+                                   id="category" name="category">
+                        </div>
+                    </div>
 
-                <button *ngIf="isUserTheCreator" class="action-button link-cta danger" (click)="deleteList()">Elimina lista</button>
+                    <!-- Description -->
+                    <div class="form-group row">
+                        <label for="category" class="col-12 col-sm-4">Descrizione</label>
+                        <div class="col-12 col-sm-8">
+                        <textarea type="text" class="form-control" [(ngModel)]="list.description"
+                                  placeholder="Descrizione"
+                                  id="description" name="description"></textarea>
+                        </div>
+                    </div>
+
+
+                    <!-- Created by -->
+                    <div class="form-group row">
+                        <label for="category" class="col-12 col-sm-4">Creata da</label>
+                        <div class="col-12 col-sm-8">
+                            <img [src]="list.creator.photo | image" class="icon small-icon mr-2">
+                            {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="row">
+                        <button [disabled]="!isUserTheCreator" class="col-4 action-button link-cta danger"
+                                (click)="onDeleteList()">
+                            Elimina lista
+                        </button>
+
+                        <button class="col-4 action-button link-cta " (click)="onCancel()">
+                            Annulla
+                        </button>
+
+                        <button type="submit" class="col-4 action-button link-cta primary"
+                                [disabled]="!form.valid || isSaving"
+                                (click)="onSave()">
+                            Slava
+                        </button>
+                    </div>
+
+                </form>
 
             </div>
         </div>

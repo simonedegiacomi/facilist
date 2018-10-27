@@ -1,32 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
 import { AuthService } from "../../../core-module/services/auth.service";
+import { Router } from "@angular/router";
+
+const $ = window['jQuery'];
 
 @Component({
     selector: 'list-options',
     templateUrl: './list-options.component.html',
     styleUrls: ['./list-options.component.css']
 })
-export class ListOptionsComponent implements OnInit {
+export class ListOptionsComponent  {
 
     @Input() list: ShoppingList;
 
+    isSaving = false;
+
     constructor(
         private listService: ShoppingListService,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) {
     }
 
-    ngOnInit() {
+    onDeleteList () {
+        // TODO: Ask for confirmation
+        this.isSaving = true;
+        this.listService.delete(this.list).subscribe(() => {
+            this.isSaving = false;
+            this.closeModal();
+            this.router.navigateByUrl('/');
+        });
     }
 
-    deleteList () {
-        // TODO: Ask for confirmation
-        this.listService.delete(this.list).subscribe(() => {
-            console.log('deleted');
-            // TODO: Redirect
-        });
+    onCancel () {
+        this.closeModal();
+    }
+
+    onSave () {
+        this.isSaving = true;
+        this.listService.update(this.list).subscribe(() => {
+            this.isSaving = false;
+            this.closeModal();
+        })
+    }
+
+    closeModal () {
+        $('#closeListOptions').click();
     }
 
     get isUserTheCreator () { return this.authService.user.id == this.list.creator.id }

@@ -37,4 +37,6 @@ data class ShoppingListCollaboration (
     }
 
     fun canEditCollaborations() = role == SOCIAL || role == ADMIN
+
+    fun canEditList() = role == ADMIN
 }

@@ -1,9 +1,9 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.realtimeupdates
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 
-interface IRealtimeUpdatesService {
+interface ISyncShoppingListService {
 
     fun userNewShoppingList(user: User, list: ShoppingList)
 

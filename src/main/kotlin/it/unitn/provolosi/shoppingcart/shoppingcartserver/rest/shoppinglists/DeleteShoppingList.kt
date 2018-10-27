@@ -4,7 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.realtimeupdates.IRealtimeUpdatesService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ISyncShoppingListService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,7 +17,7 @@ import javax.annotation.security.RolesAllowed
 @RequestMapping("/api/shoppingLists")
 class DeleteShoppingList(
         private val shoppingListDAO: ShoppingListDAO,
-        private val updatesService: IRealtimeUpdatesService
+        private val updatesService: ISyncShoppingListService
 ) {
 
     @DeleteMapping("/{id}")

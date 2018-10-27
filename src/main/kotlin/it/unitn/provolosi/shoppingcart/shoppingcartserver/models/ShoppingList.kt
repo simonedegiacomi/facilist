@@ -55,6 +55,8 @@ data class ShoppingList(
 
     fun canUserEditCollaborations(user: User) = creator == user || collaborations.any { c -> c.user == user && c.canEditCollaborations() }
 
+    fun canUSerEditList(user: User) = creator == user || collaborations.any { c -> c.user == user && c.canEditList() }
+
     fun toPreview() = ShoppingListPreview(
         id                  = this.id!!,
         name                = this.name,
