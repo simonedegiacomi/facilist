@@ -2,7 +2,6 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListPreview
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import org.springframework.data.jpa.repository.JpaRepository
@@ -22,19 +21,7 @@ class SpringJPAShoppingListDAO(
 
     override fun getShoppingListPreviewsByUser(user: User) = springRepository
             .getShoppingListsWithUserAsCreatorOrCollaborator(user)
-            .map { it ->
-                ShoppingListPreview(
-                    id                  = it.id!!,
-                    name                = it.name,
-                    description         = it.description,
-                    icon                = it.icon,
-
-                    boughtItemsCount    = it.products.count { p -> p.bought },
-                    itemsCount          = it.products.size,
-
-                    isShared            = it.isShared()
-                )
-            }
+            .map { it -> it.toPreview() }
 
     override fun save(shoppingList: ShoppingList) = springRepository.save(shoppingList)
 

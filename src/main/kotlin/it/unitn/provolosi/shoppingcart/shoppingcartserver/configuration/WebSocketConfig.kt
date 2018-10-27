@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 class WebSocketConfig: WebSocketMessageBrokerConfigurer {
 
     override fun configureMessageBroker(registry: MessageBrokerRegistry) {
-        registry.enableSimpleBroker("/queue")
+        registry.enableSimpleBroker("/queue", "/topic")
     }
 
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {

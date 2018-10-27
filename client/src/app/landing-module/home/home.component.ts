@@ -1,21 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { RealtimeUpdatesService } from "../../core-module/services/realtime-updates.service";
+import { Component } from '@angular/core';
 
 
 @Component({
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-
-    constructor(
-        private realtime: RealtimeUpdatesService
-    ) {
-    }
-
-    ngOnInit() {
-
-    }
-
+export class HomeComponent {
 
 }

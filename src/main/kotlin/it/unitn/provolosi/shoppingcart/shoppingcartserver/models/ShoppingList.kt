@@ -54,4 +54,28 @@ data class ShoppingList(
     fun isUserOwnerOrCollaborator(user: User) = creator == user || collaborations.any { c -> c.user == user }
 
     fun canUserEditCollaborations(user: User) = creator == user || collaborations.any { c -> c.user == user && c.canEditCollaborations() }
+
+    fun toPreview() = ShoppingListPreview(
+        id                  = this.id!!,
+        name                = this.name,
+        description         = this.description,
+        icon                = this.icon,
+
+        boughtItemsCount    = this.products.count { p -> p.bought },
+        itemsCount          = this.products.size,
+
+        isShared            = this.isShared()
+    )
 }
+
+data class ShoppingListPreview(
+        val id: Long,
+        val name: String,
+        val description: String?,
+        val icon: String,
+
+        val boughtItemsCount: Int,
+        val itemsCount: Int,
+
+        val isShared: Boolean
+)
