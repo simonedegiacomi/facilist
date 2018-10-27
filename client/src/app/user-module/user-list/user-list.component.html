@@ -19,7 +19,8 @@
                     data-toggle="modal" data-target="#listSharingSettingsModal"></button>
             <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
                     data-toggle="modal" data-target="#listOptionsModal"></button>
-            <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi" [routerLink]="['/user']"></button>
+            <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"
+                    [routerLink]="['/user']"></button>
         </div>
     </div>
 
@@ -34,40 +35,9 @@
                 <div class="col-3 col-sm-3">Qta.</div>
                 <div></div>
             </li>
-            <li *ngFor="let product of list.products" class="row">
-                <div class="col-2 col-sm-2" style="padding-top: 1em;">
-                    <div class="form-group list-product-bought-state">
-                        <div class="checkbox-container">
-                            <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
-                                   [checked]="product.bought">
 
-                            <span class="checkbox-tick"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-3 col-sm-2" style="height: 4em;">
-                    <app-show-change-image [(image)]="product.image"
-                                           (imageChange)="notifyChange()"></app-show-change-image>
-
-
-                    <!-- TODO: Add the remove button -->
-                    <!--<div><span (click)="removeProduct(product)">X</span></div>-->
-                </div>
-                <div class="col-7 col-sm-5">
-                    <p>
-                        <strong>{{ product.product.name }}</strong>
-
-                        <user-product-list-note [product]="product"
-                                                (noteChange)="notifyChange()"></user-product-list-note>
-                    </p>
-                </div>
-                <div class="col-12 col-sm-3 quantity-box d-flex align-items-center justify-content-end justify-content-sm-center">
-                    <button class="quantity quantity-button" (click)="incrementQuantity(product)">+</button>
-                    <span class="quantity quantity-number" [class.to-buy]="product.bought">{{ product.quantity }}</span>
-                    <button class="quantity-button" [disabled]="product.quantity <= 1" (click)="decrementQuantity(product)">-</button>
-                </div>
-            </li>
+            <user-shopping-list-product *ngFor="let product of list.products" [product]="product">
+            </user-shopping-list-product>
         </ul>
     </div>
 </div>

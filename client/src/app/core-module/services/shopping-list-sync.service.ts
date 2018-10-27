@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StompService } from "@stomp/ng2-stompjs";
-import { ShoppingList } from "../models/shopping-list";
+import { ShoppingList, ShoppingListProduct } from "../models/shopping-list";
 import { filter, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { EventTypes, MySyncService } from "./MySyncService";
@@ -31,12 +31,25 @@ export class ShoppingListSyncService extends MySyncService {
         )
     }
 
-    shoppingListDeleted <T>(list: ShoppingList | ShoppingListPreview): Observable<ShoppingList | ShoppingListPreview> {
+    shoppingListDeleted (list: ShoppingList | ShoppingListPreview): Observable<ShoppingList | ShoppingListPreview> {
         return this.subscribe(`/topic/shoppingLists/${list.id}`).pipe(
             filter(event => event.event == EventTypes.DELETED),
             map(_ => list)
         );
     }
 
+    newProductInShoppingList(list:ShoppingList): Observable<ShoppingListProduct> {
+        return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
+            filter(event => event.event == EventTypes.CREATED),
+            map(event => event.model)
+        );
+    }
 
+
+    productInShoppingListEdited(list: ShoppingList) : Observable<ShoppingListProduct> {
+        return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
+            filter(event => event.event == EventTypes.MODIFIED),
+            map(event => event.model)
+        );
+    }
 }

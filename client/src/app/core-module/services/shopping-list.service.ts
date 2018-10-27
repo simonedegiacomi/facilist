@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MyRestService } from "./MyRestService";
-import { ShoppingList, ShoppingListCollaboration } from "../models/shopping-list";
+import { ShoppingList, ShoppingListCollaboration, ShoppingListProduct } from "../models/shopping-list";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { Product } from "../models/product";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,8 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
     ) {
         super('shoppingLists', httpClient);
     }
+
+
 
     getMyShoppingLists(): Observable<ShoppingListPreview[]> {
         return this.httpClient.get<ShoppingListPreview[]>('/api/users/me/shoppingLists');
@@ -28,20 +31,12 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
         return super.create(entity);
     }
 
-    updateProducts(list: ShoppingList): Observable<ShoppingList> {
-        const url = `${this.resourcePath}/${list.id}/products`;
 
-        return this.httpClient.post<ShoppingList>(
-            url,
-            list.products.map(product => {
-                return {
-                    productId: product.product.id,
-                    image: product.image,
-                    toBuy: product.bought,
-                    quantity: product.quantity,
-                    note: product.note
-                }
-            })
+
+    updateProductInShoppingList(relation: ShoppingListProduct): Observable<ShoppingListProduct> {
+        return this.httpClient.put<ShoppingListProduct>(
+            `/api/shoppingListProducts/${relation.id}`,
+            relation
         );
     }
 
@@ -66,6 +61,14 @@ export class ShoppingListService extends MyRestService<ShoppingList> {
     deleteCollaboration(list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {
         const url = `${this.resourcePath}/${list.id}/collaborations/${toDelete.id}`;
         return this.httpClient.delete<ShoppingList>(url)
+    }
+
+
+    addProduct(list: ShoppingList, product: Product): Observable<ShoppingListProduct> {
+        return this.httpClient.post<ShoppingListProduct>(
+            `${this.resourcePath}/${list.id}/products`,
+            product.id
+        )
     }
 }
 

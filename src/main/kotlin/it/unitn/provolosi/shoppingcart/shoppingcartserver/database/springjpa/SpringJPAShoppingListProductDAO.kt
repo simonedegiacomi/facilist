@@ -1,6 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
@@ -17,4 +18,6 @@ class SpringJPAShoppingListProductDAO(
 
     override fun deleteAll(toDelete: List<ShoppingListProduct>) = springRepository.deleteAll(toDelete)
 
+    override fun findById(id: Long): ShoppingListProduct = springRepository.findById(id)
+            .orElseThrow { ShoppingListProductNotFoundException() }
 }

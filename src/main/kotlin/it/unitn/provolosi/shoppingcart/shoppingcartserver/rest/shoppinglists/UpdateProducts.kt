@@ -1,16 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
-import javax.annotation.security.RolesAllowed
-import javax.validation.Valid
-import javax.validation.constraints.NotNull
+/*
 
 @RestController
 @RequestMapping("/api/shoppingLists")
@@ -37,7 +27,7 @@ class UpdateProducts(
                 shoppingListProductDAO.save(ShoppingListProduct(
                     product         = productDAO.findById(it.productId!!), // TODO: Check if the product is compatible
                     shoppingList    = list,
-                    bought           = it.toBuy!!,
+                    bought           = it.bought!!,
                     quantity        = it.quantity!!,
                     image           = it.image!!,
                     note            = it.note
@@ -70,11 +60,11 @@ class UpdateProducts(
             val quantity: Int?,
 
             @get:NotNull
-            val toBuy: Boolean?,
+            val bought: Boolean?,
 
             val note: String?,
 
             @get:NotNull
             val image: String?
     )
-}
+}*/

@@ -1,3 +1,5 @@
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import javax.servlet.http.HttpServletRequest
 
 fun HttpServletRequest.protocolPortAndDomain(): String {
@@ -7,3 +9,8 @@ fun HttpServletRequest.protocolPortAndDomain(): String {
     }
     return protocolAndDomain
 }
+
+
+fun <T> notFound(): ResponseEntity<T> = ResponseEntity.notFound().build()
+
+fun <T> forbidden(): ResponseEntity<T> = ResponseEntity.status(HttpStatus.FORBIDDEN).build()

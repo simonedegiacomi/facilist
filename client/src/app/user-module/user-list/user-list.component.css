@@ -27,25 +27,3 @@ li.row {
 
 
 
-.quantity-button {
-    font-size: 2em;
-}
-
-.quantity-number {
-    font-size: 1.5em;
-}
-
-.quantity-number {
-    margin: 0 0.5em;
-}
-
-.quantity-button {
-    font-weight: bold;
-}
-
-.quantity-number.to-buy {
-    text-decoration: line-through;
-}
-
-
-

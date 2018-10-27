@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListService } from "../../core-module/services/shopping-list.service";
 import { ActivatedRoute } from "@angular/router";
-import { Subject } from "rxjs";
 import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../core-module/models/shopping-list";
-import { debounceTime, switchMap, tap } from "rxjs/operators";
 import { Product } from "../../core-module/models/product";
 import { AuthService } from "../../core-module/services/auth.service";
+import { ShoppingListSyncService } from "../../core-module/services/shopping-list-sync.service";
 
 @Component({
     selector: 'app-user-list',
@@ -16,65 +15,54 @@ export class UserListComponent implements OnInit {
 
     list: ShoppingList;
 
-    sendEdits: Subject<null> = new Subject();
-
     isSaving = false;
 
     lastUpdate: Date;
 
-    productToAdd: Product;
-
     constructor(
         private route: ActivatedRoute,
         private listService: ShoppingListService,
-        private auth: AuthService
+        private auth: AuthService,
+        private shoppingListSyncService: ShoppingListSyncService
     ) {
     }
 
     ngOnInit() {
         this.fetchShoppingList();
-        this.setUpSendEdits();
     }
 
     private fetchShoppingList() {
         this.listService.getById(this.shoppingListId).subscribe(list => {
-            this.list = list
+            this.list = list;
+            this.listenForSyncUpdates();
         });
     }
 
-    private setUpSendEdits() {
-        this.sendEdits.pipe(
-            debounceTime(3000),
-            tap(() => this.isSaving = true),
-            switchMap(() => this.listService.updateProducts(this.list))
-        ).subscribe(updatedList => {
-            this.lastUpdate = new Date();
-            this.isSaving   = false;
-        });
+    private listenForSyncUpdates() {
+        this.shoppingListSyncService.newProductInShoppingList(this.list)
+            .subscribe(p => this.list.products.push(p));
+
+        this.shoppingListSyncService.productInShoppingListEdited(this.list)
+            .subscribe(updatedProduct => {
+                const product = this.list.products.find(p => p.id == updatedProduct.id)
+
+                product.note     = updatedProduct.note;
+                product.image    = updatedProduct.image;
+                product.quantity = updatedProduct.quantity;
+                product.bought   = updatedProduct.bought;
+            });
     }
 
     get shoppingListId() {
         return this.route.snapshot.params.id;
     }
 
-    toggleToBuy(product: ShoppingListProduct) {
-        product.bought = !product.bought;
-        this.notifyChange();
-    }
-
-    decrementQuantity(product: ShoppingListProduct) {
-        product.quantity--;
-        this.notifyChange();
-    }
-
-    incrementQuantity(product: ShoppingListProduct) {
-        product.quantity++;
-        this.notifyChange();
-    }
-
     onAddProduct(product: Product) {
-        this.list.products.push(new ShoppingListProduct(product));
-        this.notifyChange();
+
+        this.listService.addProduct(this.list, product).subscribe(() => {
+            this.lastUpdate = new Date();
+        });
+
     }
 
     removeProduct(product: ShoppingListProduct) {
@@ -82,10 +70,6 @@ export class UserListComponent implements OnInit {
         this.notifyChange();
     }
 
-
-    notifyChange() {
-        this.sendEdits.next();
-    }
 
     get userCanEditCollaborations() {
         const userId = this.auth.user.id;
