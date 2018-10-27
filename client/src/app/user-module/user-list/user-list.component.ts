@@ -67,7 +67,7 @@ export class UserListComponent implements OnInit {
 
     removeProduct(product: ShoppingListProduct) {
         this.list.products.splice(this.list.products.indexOf(product), 1);
-        this.notifyChange();
+        //this.notifyChange();
     }
 
 
