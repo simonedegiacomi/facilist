@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd client && npm install --only=prod && ng build && cp -r dist/client/* ../src/main/resources/public"
+    "postinstall": "cd client && npm install --only=prod && ng build --prod && cp -r dist/client/* ../src/main/resources/public"
   },
   "repository": {
     "type": "git",

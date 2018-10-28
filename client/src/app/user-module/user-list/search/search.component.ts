@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
 
     private filter = new Subject<string>();
 
-    private results: Product[];
+    results: Product[];
 
     constructor(
         private productService: ProductService
