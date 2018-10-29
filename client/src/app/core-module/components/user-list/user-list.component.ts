@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ShoppingListService } from "../../core-module/services/shopping-list.service";
-import { ActivatedRoute } from "@angular/router";
-import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../core-module/models/shopping-list";
-import { Product } from "../../core-module/models/product";
-import { AuthService } from "../../core-module/services/auth.service";
-import { ShoppingListSyncService } from "../../core-module/services/shopping-list-sync.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
+import { Product } from "../../models/product";
+import { AuthService } from "../../services/auth.service";
+import { ShoppingListSyncService } from "../../services/shopping-list-sync.service";
+import { ShoppingListService } from "../../services/shopping-list.service";
 
 @Component({
     selector: 'app-user-list',
@@ -13,14 +12,17 @@ import { ShoppingListSyncService } from "../../core-module/services/shopping-lis
 })
 export class UserListComponent implements OnInit {
 
-    list: ShoppingList;
+    @Input() list: ShoppingList;
+
+    @Output() back              = new EventEmitter();
+    @Output() openShareSettings = new EventEmitter();
+    @Output() openSettings      = new EventEmitter();
 
     isSaving = false;
 
     lastUpdate: Date;
 
     constructor(
-        private route: ActivatedRoute,
         private listService: ShoppingListService,
         private auth: AuthService,
         private shoppingListSyncService: ShoppingListSyncService
@@ -28,14 +30,7 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.fetchShoppingList();
-    }
-
-    private fetchShoppingList() {
-        this.listService.getById(this.shoppingListId).subscribe(list => {
-            this.list = list;
-            this.listenForSyncUpdates();
-        });
+        this.listenForSyncUpdates();
     }
 
     private listenForSyncUpdates() {
@@ -53,9 +48,6 @@ export class UserListComponent implements OnInit {
             });
     }
 
-    get shoppingListId() {
-        return this.route.snapshot.params.id;
-    }
 
     onAddProduct(product: Product) {
 
@@ -72,6 +64,11 @@ export class UserListComponent implements OnInit {
 
 
     get userCanEditCollaborations() {
+        // TODO: This is an hacky way to show the share button also for the demo list.
+        if (this.auth.user == null && this.list.creator == null) {
+            return true;
+        }
+
         const userId = this.auth.user.id;
         if (userId == this.list.creator.id) {
             return true;

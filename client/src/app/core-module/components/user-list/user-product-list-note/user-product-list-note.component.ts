@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ShoppingListProduct } from "../../../core-module/models/shopping-list";
+import { ShoppingListProduct } from "../../../models/shopping-list";
 
 @Component({
     selector: 'user-product-list-note',

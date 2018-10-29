@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { ShoppingListProduct } from "../../../core-module/models/shopping-list";
+import { ShoppingListProduct } from "../../../models/shopping-list";
 import { Subject } from "rxjs";
 import { debounceTime, switchMap } from "rxjs/operators";
-import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
+import { ShoppingListService } from "../../../services/shopping-list.service";
 
 @Component({
     selector: 'user-shopping-list-product',

@@ -1,97 +1,22 @@
 import { Injectable } from '@angular/core';
-import { MyRestService } from "./MyRestService";
-import { ShoppingList, ShoppingListCollaboration, ShoppingListProduct } from "../models/shopping-list";
-import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../models/shopping-list";
 import { Product } from "../models/product";
 
-@Injectable({
-    providedIn: 'root'
-})
-export class ShoppingListService extends MyRestService<ShoppingList> {
+@Injectable()
+export abstract class ShoppingListService {
 
-    constructor(
-        httpClient: HttpClient
-    ) {
-        super('shoppingLists', httpClient);
-    }
+    abstract getMyShoppingLists(): Observable<ShoppingListPreview[]>;
 
+    abstract create(list: ShoppingList): Observable<ShoppingList>;
 
+    abstract addProduct(list: ShoppingList, product: Product): Observable<ShoppingListProduct>;
 
-    getMyShoppingLists(): Observable<ShoppingListPreview[]> {
-        return this.httpClient.get<ShoppingListPreview[]>('/api/users/me/shoppingLists');
-    }
+    abstract updateProductInShoppingList(relation: ShoppingListProduct): Observable<ShoppingListProduct>;
 
-    create(list: ShoppingList): Observable<ShoppingList> {
-        const entity = {
-            ...list,
-            shoppingListCategoryId: list.category.id
-        };
+    abstract delete(list: ShoppingList): Observable<any>;
 
-        return super.create(entity);
-    }
+    abstract update(list: ShoppingList): Observable<ShoppingList>;
 
-
-
-    updateProductInShoppingList(relation: ShoppingListProduct): Observable<ShoppingListProduct> {
-        return this.httpClient.put<ShoppingListProduct>(
-            `/api/shoppingListProducts/${relation.id}`,
-            relation
-        );
-    }
-
-    updateCollaborations(list: ShoppingList): Observable<ShoppingList> {
-        const url = `${this.resourcePath}/${list.id}/collaborations`;
-        return this.httpClient.post<ShoppingList>(
-            url,
-            list.collaborations.map(collaboration => {
-                return {
-                    collaborationId: collaboration.id,
-                    role: collaboration.role
-                }
-            })
-        )
-    }
-
-    addCollaboratorByEmail(list: ShoppingList, email: string): Observable<ShoppingList> {
-        const url = `${this.resourcePath}/${list.id}/collaborations`;
-        return this.httpClient.put<ShoppingList>(url, {email})
-    }
-
-    deleteCollaboration(list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {
-        const url = `${this.resourcePath}/${list.id}/collaborations/${toDelete.id}`;
-        return this.httpClient.delete<ShoppingList>(url)
-    }
-
-
-    addProduct(list: ShoppingList, product: Product): Observable<ShoppingListProduct> {
-        return this.httpClient.post<ShoppingListProduct>(
-            `${this.resourcePath}/${list.id}/products`,
-            product.id
-        )
-    }
-}
-
-export class ShoppingListPreview {
-    id: number;
-    name: string;
-    description: string;
-    icon: string;
-
-    itemsCount: number;
-    boughtItemsCount: number;
-
-    shared: boolean;
-
-    constructor(list: ShoppingList) {
-        this.id          = list.id;
-        this.name        = list.name;
-        this.description = list.description;
-        this.icon        = list.icon;
-
-        this.itemsCount       = list.products.length;
-        this.boughtItemsCount = list.products.filter(p => p.bought).length;
-
-        this.shared = list.collaborations.length > 0
-    }
+    abstract getById(entityId: number): Observable<ShoppingList>;
 }

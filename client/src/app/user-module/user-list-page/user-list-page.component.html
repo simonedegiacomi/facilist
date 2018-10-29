@@ -1,0 +1,13 @@
+<app-user-list *ngIf="list"
+          [list]="list"
+          (openSettings)="onOpenSettings()"
+          (openShareSettings)="onOpenShareSettings()"
+          (back)="onBack()"
+></app-user-list>
+
+<user-list-share-settings
+    *ngIf="list"
+    [list]="list"></user-list-share-settings>
+
+<list-options *ngIf="list"
+              [list]="list"></list-options>

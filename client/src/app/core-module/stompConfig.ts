@@ -4,7 +4,6 @@ const protocol = location.protocol == 'https:' ? 'wss:' : 'ws:';
 
 export const stompConfig: StompConfig = {
     // Which server?
-    //url: `ws://${location.host}/api/ws`,
     url: `${protocol}//${location.host}/api/ws`,
 
     // Headers
@@ -23,5 +22,5 @@ export const stompConfig: StompConfig = {
     reconnect_delay: 5000,
 
     // Will log diagnostics on console
-    debug: true
+    debug: false
 };

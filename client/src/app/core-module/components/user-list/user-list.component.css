@@ -1,0 +1,29 @@
+ul.products-list {
+    padding: 0;
+}
+
+li.row {
+    margin: 0;
+}
+
+.share-icon {
+    background: url("../../../../assets/img/flag-share.svg");
+}
+
+.settings-icon {
+    background: url("../../../../assets/img/flag-settings.svg");
+}
+
+
+@media (max-width: 576px) {
+    .share-icon {
+        background: url("../../../../assets/img/flag-share-rotated.svg");
+    }
+
+    .settings-icon {
+        background: url("../../../../assets/img/flag-settings-rotated.svg");
+    }
+}
+
+
+

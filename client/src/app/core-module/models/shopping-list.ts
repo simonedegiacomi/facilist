@@ -63,3 +63,27 @@ export class Invite implements MyRestEntity {
 
     email: string;
 }
+
+export class ShoppingListPreview {
+    id: number;
+    name: string;
+    description: string;
+    icon: string;
+
+    itemsCount: number;
+    boughtItemsCount: number;
+
+    shared: boolean;
+
+    constructor(list: ShoppingList) {
+        this.id          = list.id;
+        this.name        = list.name;
+        this.description = list.description;
+        this.icon        = list.icon;
+
+        this.itemsCount       = list.products.length;
+        this.boughtItemsCount = list.products.filter(p => p.bought).length;
+
+        this.shared = list.collaborations.length > 0
+    }
+}

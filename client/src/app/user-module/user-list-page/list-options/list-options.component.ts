@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
-import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { Router } from "@angular/router";
+import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
 
 const $ = window['jQuery'];
 

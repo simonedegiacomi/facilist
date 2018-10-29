@@ -6,8 +6,8 @@ import {
 } from "../../../core-module/models/shopping-list";
 import { Subject } from "rxjs";
 import { debounceTime, switchMap, tap } from "rxjs/operators";
-import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
 import { AuthService } from "../../../core-module/services/auth.service";
+import { ShoppingListCollaborationService } from "../../../core-module/services/shopping-list-collaboration.service";
 
 @Component({
     selector: 'user-list-share-settings',
@@ -28,7 +28,7 @@ export class ListShareSettingsComponent implements OnInit {
     newCollaborator: string;
 
     constructor(
-        private listService: ShoppingListService,
+        private listService: ShoppingListCollaborationService,
         private authService: AuthService
     ) {
 

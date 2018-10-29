@@ -4,19 +4,24 @@ import { CommonModule } from '@angular/common';
 import { LandingRoutingModule } from "./landing-routing.module";
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from "./home/login/login.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RegisterComponent } from './home/register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { RecoverPasswordComponent } from './home/recover-password/recover-password.component';
 import { CompleteRecoverPasswordComponent } from './complete-recover-password/complete-recover-password.component';
 import { CoreModule } from "../core-module/core.module";
+import { TryNowComponent } from './try-now/try-now.component';
+import { UserModule } from "../user-module/user.module";
+import { NewDemoListComponent } from './try-now/new-demo-list/new-demo-list.component';
 
 @NgModule({
     imports: [
         CommonModule,
         CoreModule,
         ReactiveFormsModule,
-        LandingRoutingModule
+        LandingRoutingModule,
+        UserModule,
+        FormsModule
     ],
     declarations: [
         LoginComponent,
@@ -24,7 +29,9 @@ import { CoreModule } from "../core-module/core.module";
         RegisterComponent,
         VerifyEmailComponent,
         RecoverPasswordComponent,
-        CompleteRecoverPasswordComponent
+        CompleteRecoverPasswordComponent,
+        TryNowComponent,
+        NewDemoListComponent
     ]
 })
 export class LandingModule {

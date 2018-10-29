@@ -1,0 +1,35 @@
+<div class="notebook-sheet list">
+    <div class="notebook-sheet-header">
+        <h5>Crea la tua lista demo!</h5>
+
+        <div class="notebook-sheet-buttons">
+            <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"
+                    routerLink="/home"></button>
+        </div>
+    </div>
+
+    <div class="notebook-sheet-content">
+        <form #form="ngForm">
+            <div class="form-group row">
+
+                <div class="col-4">
+                    <label><strong>Scegli la categoria</strong></label>
+                </div>
+
+                <div class="col-8">
+                    <select required [(ngModel)]="newList.category" name="newListCategory">
+                        <option *ngFor="let category of categories$ | async" [ngValue]="category">
+                            {{ category.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="col-4 action-button link-cta primary"
+                    [disabled]="!form.valid"
+                    (click)="onCreate()">
+                Crea
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ShoppingListPreview, ShoppingListService } from "../../core-module/services/shopping-list.service";
 import { Subscription } from "rxjs";
 import { ShoppingListSyncService } from "../../core-module/services/shopping-list-sync.service";
+import { ShoppingListPreview } from "../../core-module/models/shopping-list";
+import { ShoppingListService } from "../../core-module/services/shopping-list.service";
 
 @Component({
     templateUrl: './user-lists.component.html',

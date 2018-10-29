@@ -7,12 +7,9 @@ import { UserListsComponent } from './user-lists/user-lists.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "../core-module/core.module";
 import { NewListComponent } from './user-lists/new-list/new-list.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { SearchComponent } from './user-list/search/search.component';
-import { UserProductListNoteComponent } from './user-list/user-product-list-note/user-product-list-note.component';
-import { ListShareSettingsComponent } from './user-list/list-share-settings/list-share-settings.component';
-import { ListOptionsComponent } from './user-list/list-options/list-options.component';
-import { UserShoppingListProductComponent } from './user-list/user-shopping-list-product/user-shopping-list-product.component';
+import { ListShareSettingsComponent } from './user-list-page/list-share-settings/list-share-settings.component';
+import { ListOptionsComponent } from './user-list-page/list-options/list-options.component';
+import { UserListPageComponent } from './user-list-page/user-list-page.component';
 
 @NgModule({
     imports: [
@@ -28,12 +25,9 @@ import { UserShoppingListProductComponent } from './user-list/user-shopping-list
         UserDashboardComponent,
         UserListsComponent,
         NewListComponent,
-        UserListComponent,
-        SearchComponent,
-        UserProductListNoteComponent,
         ListShareSettingsComponent,
         ListOptionsComponent,
-        UserShoppingListProductComponent
+        UserListPageComponent
     ]
 })
 export class UserModule {

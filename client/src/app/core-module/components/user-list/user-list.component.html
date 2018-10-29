@@ -1,4 +1,4 @@
-<div class="notebook-sheet list" *ngIf="list">
+<div class="notebook-sheet list">
 
     <!-- TODO: Remove hacky margin -->
     <div class="notebook-sheet-header">
@@ -16,11 +16,13 @@
         <div class="notebook-sheet-buttons">
             <button *ngIf="userCanEditCollaborations" type="button" class="share-icon" data-dismiss="modal"
                     aria-label="Impostazioni di condivisione"
-                    data-toggle="modal" data-target="#listSharingSettingsModal"></button>
+                    (click)="openShareSettings.emit()"></button>
+
             <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
-                    data-toggle="modal" data-target="#listOptionsModal"></button>
+                    (click)="openSettings.emit()"></button>
+
             <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"
-                    [routerLink]="['/user']"></button>
+                    (click)="back.emit()"></button>
         </div>
     </div>
 
@@ -41,9 +43,4 @@
         </ul>
     </div>
 </div>
-
-
-<user-list-share-settings *ngIf="list" [list]="list"></user-list-share-settings>
-<list-options *ngIf="list" [list]="list"></list-options>
-
 

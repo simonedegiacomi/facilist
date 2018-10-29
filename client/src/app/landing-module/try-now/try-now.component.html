@@ -1,0 +1,10 @@
+<div class="container demo">
+    <app-new-demo-list *ngIf="!list" (listCreated)="onListCreated($event)"></app-new-demo-list>
+
+    <app-user-list *ngIf="list"
+                   [list]="list"
+                   (openSettings)="onOpenSettings()"
+                   (openShareSettings)="onOpenShareSettings()"
+                   (back)="onBack()"
+    ></app-user-list>
+</div>

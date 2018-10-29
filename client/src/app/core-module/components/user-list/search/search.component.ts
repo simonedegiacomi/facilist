@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductService } from "../../../core-module/services/product.service";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { Product } from "../../../core-module/models/product";
-import { ShoppingList } from "../../../core-module/models/shopping-list";
+import { ProductService } from "../../../services/product.service";
+import { Product } from "../../../models/product";
+import { ShoppingList } from "../../../models/shopping-list";
 
 @Component({
     selector: 'user-list-search',

@@ -26,14 +26,29 @@ class AppSecurityConfig(
     companion object {
         const val QUERY_GET_USER_BY_USERNAME = "SELECT email AS username, password, enabled FROM user where email = ?"
         const val QUERY_GET_ROLES_BY_USERNAME = "SELECT email AS username, role FROM user WHERE email = ?"
+
+        val unauthenticatedApiEndpoints = arrayOf(
+            "/api/users/register",
+            "/api/users/verifyEmail/*",
+            "/api/users/*/recoverPassword",
+            "/api/users/completeRecoverPassword",
+
+            "/api/shoppingListCategories/all",
+
+            "/api/products/search",
+
+            "/api/images/*"
+        )
     }
 
     override fun configure(http: HttpSecurity?) {
         http!!.authorizeRequests()
                 .antMatchers("/index.html")
                     .permitAll()
-                .antMatchers("/api/users/register", "/api/users/verifyEmail/*", "/api/users/*/recoverPassword", "/api/users/completeRecoverPassword")
+
+                .antMatchers(*unauthenticatedApiEndpoints)
                     .permitAll()
+
                 .antMatchers("/api/**")
                     .authenticated()
 

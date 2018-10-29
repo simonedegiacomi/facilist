@@ -11,12 +11,18 @@ import { NewPasswordComponent } from "./components/new-password/new-password.com
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { StompConfig, StompService } from "@stomp/ng2-stompjs";
 import { stompConfig } from "./stompConfig";
+import { UserListComponent } from "./components/user-list/user-list.component";
+import { RouterModule } from "@angular/router";
+import { SearchComponent } from "./components/user-list/search/search.component";
+import { UserProductListNoteComponent } from "./components/user-list/user-product-list-note/user-product-list-note.component";
+import { UserShoppingListProductComponent } from "./components/user-list/user-shopping-list-product/user-shopping-list-product.component";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     providers: [
         AuthService,
@@ -33,13 +39,18 @@ import { stompConfig } from "./stompConfig";
         ImagePickerComponent,
         ShowChangeImageComponent,
         UserSettingsComponent,
-        NewPasswordComponent
+        NewPasswordComponent,
+        UserListComponent,
+        SearchComponent,
+        UserProductListNoteComponent,
+        UserShoppingListProductComponent,
     ],
     exports: [
         ImagePipe,
         ShowChangeImageComponent,
         UserSettingsComponent,
-        NewPasswordComponent
+        NewPasswordComponent,
+        UserListComponent
     ]
 })
 export class CoreModule {

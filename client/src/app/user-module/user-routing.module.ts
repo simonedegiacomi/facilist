@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { UserGuard } from "../core-module/services/guards/user-guard.service";
 import { UserRootComponent } from "./user-root.component";
 import { UserListsComponent } from "./user-lists/user-lists.component";
-import { UserListComponent } from "./user-list/user-list.component";
+import { UserListPageComponent } from "./user-list-page/user-list-page.component";
 
 const routes: Routes = [
     {
@@ -15,7 +15,7 @@ const routes: Routes = [
                 component: UserListsComponent
             }, {
                 path: 'shoppingLists/:id',
-                component: UserListComponent
+                component: UserListPageComponent
             }
         ],
 
