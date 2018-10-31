@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i|Lobster');
 
 /* Bootstrap */
-@import "~node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
 @import "global-styles/variables.css";
 

@@ -14,6 +14,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdminModule } from "./admin-module/admin.module";
 import { HttpInterceptorsProvider } from "./http-interceptors";
 import { UserModule } from "./user-module/user.module";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { UserModule } from "./user-module/user.module";
         CoreModule,
         LandingModule,
         AdminModule,
-        UserModule
+        UserModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
         HttpInterceptorsProvider,
