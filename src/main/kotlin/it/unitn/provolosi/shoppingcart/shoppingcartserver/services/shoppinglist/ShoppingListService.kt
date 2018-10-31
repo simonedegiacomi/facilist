@@ -5,8 +5,10 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.INotificationService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
@@ -25,7 +27,7 @@ class ShoppingListService(
 
         private val syncShoppingListService: ISyncShoppingListService,
 
-        private val stomp: SimpMessagingTemplate
+        private val notificationService: INotificationService
 ) : IShoppingListService {
 
     override fun addUserToShoppingListByEmail(
@@ -38,7 +40,7 @@ class ShoppingListService(
 
             try {
                 val user = userDAO.getUserByEmail(email)
-                addUserToShoppingList(list, user, inviter)
+                addUserToShoppingList(list, user, inviter, req)
             } catch (ex: UserNotFoundException) {
                 inviteUserByEmailToList(inviter, list, email, req)
             }
@@ -48,54 +50,35 @@ class ShoppingListService(
         }
     }
 
-    private fun addUserToShoppingList(list: ShoppingList, user: User, inviter: User) {
+    private fun addUserToShoppingList(list: ShoppingList, user: User, inviter: User, req: HttpServletRequest) {
         val collaboration = shoppingListCollaborationDAO.save(ShoppingListCollaboration(
             user = user,
             shoppingList = list
         ))
 
-        val update = Update(
-            notification = Notification(
-                shoppingList = list,
-                to = user
-            ),
-            event = Update.YOU_HAVE_BEEN_ADDED_TO_A_LIST,
-            generatedBy = inviter
+
+        notificationService.saveAndSendCollaboratorNotification(
+            collaboration,
+            inviter,
+            ShoppingListCollaborationNotification.ACTION_ADD_COLLABORATOR
         )
-        //sendWelcomeEmail(collaboration)
-        //pushNotificationService.send(updateNewCollaborator.notification)
-        //syncShoppingListService.send(updateNewCollaborator)
-        //stomp.convertAndSendToUser(user.email, "shoppingLists", update)
-        stomp.convertAndSendToUser(user.email, "/queue/shoppingLists", update)
-
-
-       /* list.collaborations.filter { c -> c.user != user }.forEach { u ->
-            val update = Update(
-                notification = Notification(
-                    shoppingList = list,
-                    to = u.user
-                ),
-                event = Update.NEW_COLLABORATOR_IN_LIST,
-                generatedBy = inviter
-            )
-
-            pushNotificationService.sendBuffered(update.notification)
-            syncShoppingListService.send(update)
-        }*/
-
-
+        sendEmailToNewCollaborator(collaboration, req)
     }
 
-    private fun sendWelcomeEmail(collaboration: ShoppingListCollaboration) {
+
+    private fun sendEmailToNewCollaborator(
+            collaboration: ShoppingListCollaboration,
+            req: HttpServletRequest
+    ) {
+        // TODO: Improve email
         emailService.sendEmail(object : Email() {
             override fun to() = collaboration.user.email
 
-            override fun subject() = "Benvenuto nella lista ${collaboration.shoppingList.name}"
+            override fun subject() = "$applicationName - Sei stato aggiunto ad una lista!"
 
-            override fun text() = ""
+            override fun text() = "Apri la pagina"
         })
     }
-
 
     private fun inviteUserByEmailToList(inviter: User, list: ShoppingList, email: String, req: HttpServletRequest) {
         val invite = inviteToJoinDAO.save(InviteToJoin(
@@ -129,7 +112,7 @@ class ShoppingListService(
     }
 
 
-    override fun acceptInvitesForUser(user: User) = inviteToJoinDAO.findByEmail(user.email).forEach { it ->
-        addUserToShoppingList(it.shoppingList, user, it.inviter)
+    override fun acceptInvitesForUser(user: User, req: HttpServletRequest) = inviteToJoinDAO.findByEmail(user.email).forEach { it ->
+        addUserToShoppingList(it.shoppingList, user, it.inviter, req)
     }
 }

@@ -31,7 +31,7 @@ class UpdateShoppingListInfoController(
 
         val list = shoppingListDAO.findById(id)
 
-        if (list.canUSerEditList(user)) {
+        if (list.canUserEditList(user)) {
 
             list.apply {
                 name        = update.name!!

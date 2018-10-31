@@ -8,6 +8,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 class ConfirmRegistration(
@@ -20,7 +21,8 @@ class ConfirmRegistration(
     @ResponseStatus(HttpStatus.OK)
     fun verifyToken(
             @PathVariable email: String,
-            @RequestParam("token") tokenString: String
+            @RequestParam("token") tokenString: String,
+            req: HttpServletRequest
     ): ResponseEntity<Any> = try {
         val token = tokenDAO.findByToken(tokenString)
 
@@ -36,7 +38,7 @@ class ConfirmRegistration(
 
                 userDAO.save(user)
                 tokenDAO.delete(token)
-                onNewUserActivated(user)
+                onNewUserActivated(user, req)
 
                 ResponseEntity.ok().build()
             }
@@ -45,5 +47,6 @@ class ConfirmRegistration(
         ResponseEntity.notFound().build()
     }
 
-    private fun onNewUserActivated (user: User) = shoppingListService.acceptInvitesForUser(user)
+    private fun onNewUserActivated (user: User, req: HttpServletRequest)
+            = shoppingListService.acceptInvitesForUser(user, req)
 }

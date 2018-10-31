@@ -42,7 +42,7 @@ class SimpleJavaEmailService (
                 .withHTMLText(email.html())
                 .buildEmail()
 
-        mailer.sendMail(simpleJavaEmail, true)
+        //mailer.sendMail(simpleJavaEmail, true)
 
         println("Sent email: ${email.text()}")
     }

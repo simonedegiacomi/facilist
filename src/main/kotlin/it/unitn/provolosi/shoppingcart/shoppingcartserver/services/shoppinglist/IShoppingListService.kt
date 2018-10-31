@@ -10,6 +10,6 @@ interface IShoppingListService {
 
     fun addUserToShoppingListByEmail(list: ShoppingList, inviter: User, email: String, req: HttpServletRequest)
 
-    fun acceptInvitesForUser(user: User)
+    fun acceptInvitesForUser(user: User, req: HttpServletRequest)
 
 }
