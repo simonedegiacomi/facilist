@@ -59,8 +59,9 @@ data class User(
 
         @OneToMany(
             mappedBy = "user",
-            cascade  = [CascadeType.REMOVE]
+            cascade  = [CascadeType.ALL]
         )
+        @JsonIgnore
         val pushSubscriptions: MutableList<PushSubscription> = mutableListOf()
 
 ) {

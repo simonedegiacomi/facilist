@@ -62,8 +62,8 @@ export class UserService extends MyRestService<User> {
     sendPushSubscription(subscription: PushSubscription): Observable<any> {
         return this.httpClient.post(`${this.resourcePath}/me/pushSubscriptions`, {
             endpoint: subscription.endpoint,
-            publicKey: arrayBufferToBase64(subscription.getKey('p256dh')),
-            auth: arrayBufferToBase64(subscription.getKey('auth'))
+            base64PublicKey: arrayBufferToBase64(subscription.getKey('p256dh')),
+            base64Auth: arrayBufferToBase64(subscription.getKey('auth'))
         });
     }
 }
