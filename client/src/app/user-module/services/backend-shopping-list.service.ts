@@ -13,7 +13,6 @@ export class BackendShoppingListService extends MyRestService<ShoppingList> impl
         httpClient: HttpClient
     ) {
         super('shoppingLists', httpClient);
-        console.log('creata')
     }
 
 

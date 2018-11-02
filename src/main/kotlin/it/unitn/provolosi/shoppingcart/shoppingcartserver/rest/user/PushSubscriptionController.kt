@@ -4,17 +4,14 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.PushSubscription
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import nl.martijndwars.webpush.Subscription
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.persistence.Column
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
-import javax.xml.ws.Response
 
 @RestController
 @RequestMapping("/api/users/me/pushSubscriptions")
@@ -29,7 +26,7 @@ class PushSubscriptionController (
     ): ResponseEntity<Any> {
         val oldSubscription = user.pushSubscriptions.find { s -> s.endpoint == add.endpoint }
 
-        if (oldSubscription != null) {
+        if (oldSubscription == null) {
             user.pushSubscriptions.add(add.toSubscription(user))
             userDAO.save(user)
         }

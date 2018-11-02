@@ -9,6 +9,10 @@
                 </div>
             </li>
         </ul>
+
+        <div class="alert alert-primary" role="alert" *ngIf="!hasSubscribed">
+            <a (click)="onSubscribeToPushNotifications()">Abilita le notifiche su questo dispositivo</a>
+        </div>
     </div>
 
     <button class="notifications-icon unread-notifications" aria-label="Notifiche" (click)="open = !open"></button>

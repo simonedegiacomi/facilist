@@ -58,19 +58,6 @@
             </li>
         </ul>
 
-
-        <!-- <div *ngIf="!(isGuest$ | async)" class="navbar-nav nav-item dropdown">
-
-             <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 {{ (user$ | async)?.firstName }}
-             </a>
-             <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
-                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#userSettingsModal">Profilo</a>
-                 <div class="dropdown-divider"></div>
-                 <a class="dropdown-item" href="#" (click)="onClickLogout()">Logout</a>
-             </div>
-         </div>-->
     </div>
 
     <!-- User profile and logout -->
@@ -78,9 +65,9 @@
 
         <app-notifications></app-notifications>
 
-        <button class="settings-icon" aria-label="Impostazioni"></button>
+        <button class="settings-icon" aria-label="Impostazioni" data-toggle="modal" data-target="#userSettingsModal"></button>
 
-        <button class="exit-icon" aria-label="Esci"></button>
+        <button class="exit-icon" aria-label="Esci" (click)="onClickLogout()"></button>
 
     </div>
 </nav>

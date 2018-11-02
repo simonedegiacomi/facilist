@@ -58,19 +58,9 @@ export class UserService extends MyRestService<User> {
 
         return this.httpClient.post(`${this.resourcePath}/confirmEmailChange/${email}`, {}, options);
     }
-
-    sendPushSubscription(subscription: PushSubscription): Observable<any> {
-        return this.httpClient.post(`${this.resourcePath}/me/pushSubscriptions`, {
-            endpoint: subscription.endpoint,
-            base64PublicKey: arrayBufferToBase64(subscription.getKey('p256dh')),
-            base64Auth: arrayBufferToBase64(subscription.getKey('auth'))
-        });
-    }
 }
 
-function arrayBufferToBase64 (data: ArrayBuffer): String {
-    return btoa(String.fromCharCode.apply(null, new Uint8Array(data)));
-}
+
 
 export class UpdatePassword {
     currentPassword: string;

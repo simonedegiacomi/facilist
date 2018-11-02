@@ -5,14 +5,14 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.PushSubscription
 import nl.martijndwars.webpush.PushService
 import nl.martijndwars.webpush.Utils
-import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.springframework.stereotype.Component
-import java.security.Security
 import org.bouncycastle.jce.ECNamedCurveTable
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.jce.spec.ECPublicKeySpec
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 import java.security.KeyFactory
 import java.security.PublicKey
+import java.security.Security
 
 
 @Component
