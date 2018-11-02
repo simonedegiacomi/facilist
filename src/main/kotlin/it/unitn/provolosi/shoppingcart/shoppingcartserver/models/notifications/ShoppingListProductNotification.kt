@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -45,6 +46,7 @@ data class ShoppingListProductChange (
 
         @ManyToOne()
         @JoinColumn(name = "shopping_list_product_notification_id")
+        @JsonIgnore
         val notification: ShoppingListProductNotification,
 
         @ManyToOne()

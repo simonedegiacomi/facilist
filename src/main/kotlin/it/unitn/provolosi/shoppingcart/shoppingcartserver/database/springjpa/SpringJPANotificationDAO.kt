@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 interface InternalSpringJPANotificationDAO : JpaRepository<Notification, Long> {
 
-    fun findAllOrderBySentAt(pageable: Pageable): Page<Notification>
+    fun findAllByOrderBySentAtDesc(pageable: Pageable): Page<Notification>
 
 }
 
@@ -23,6 +23,6 @@ class SpringJPANotificationDAO(
         springRepository.saveAll(notifications)
     }
 
-    override fun allOrderBySentAt(pageable: Pageable) = springRepository.findAllOrderBySentAt(pageable)
+    override fun allOrderBySentAt(pageable: Pageable) = springRepository.findAllByOrderBySentAtDesc(pageable)
 
 }

@@ -1,7 +1,10 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.util.*
 import javax.persistence.*
 
@@ -16,8 +19,12 @@ class ShoppingListCollaborationNotification(
         target: User,
 
         @Column
-        val action: String
+        val action: String,
 
+        @ManyToOne
+        @JoinColumn(name = "shopping_list_collaboration_id")
+        @OnDelete(action = OnDeleteAction.CASCADE)
+        val collaboration: ShoppingListCollaboration
 
 ) : Notification(
     shoppingList    = shoppingList,
