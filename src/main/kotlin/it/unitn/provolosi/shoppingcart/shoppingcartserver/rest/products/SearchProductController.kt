@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/products/search")
-class SearcProductController (
+class SearchProductController (
         private val productDAO: ProductDAO
 ) {
 
