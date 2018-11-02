@@ -58,16 +58,18 @@ dependencies {
     implementation('org.springframework.security:spring-security-messaging')
 
     // Database
-    compile 'com.h2database:h2'
-
+    implementation 'com.h2database:h2'
 
     // CSV reader to import data
-    compile 'org.apache.commons:commons-csv:1.5'
+    implementation 'org.apache.commons:commons-csv:1.5'
 
     // Spring tests
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security:spring-security-test')
 
     // Emails
-    compile 'org.simplejavamail:simple-java-mail:5.0.3'
+    implementation 'org.simplejavamail:simple-java-mail:5.0.3'
+
+    // Push API
+    implementation group: 'nl.martijndwars', name: 'web-push', version: '3.1.1'
 }

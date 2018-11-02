@@ -28,3 +28,8 @@ emails.server.port=465
 emails.server.username=ds197and.sd@gmail.com
 emails.server.password=
 emails.server.sender=ds197and.sd@gmail.com
+
+
+# Push API
+pushAPI.VAPID.base64PublicKey=
+pushAPI.VAPID.base64PrivateKey=
