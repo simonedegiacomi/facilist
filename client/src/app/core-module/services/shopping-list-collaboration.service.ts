@@ -29,7 +29,7 @@ export class ShoppingListCollaborationService extends MyRestService<ShoppingList
 
     addCollaboratorByEmail(list: ShoppingList, email: string): Observable<ShoppingList> {
         const url = `${this.resourcePath}/${list.id}/collaborations`;
-        return this.httpClient.put<ShoppingList>(url, {email})
+        return this.httpClient.put<ShoppingList>(url, email)
     }
 
     deleteCollaboration(list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {

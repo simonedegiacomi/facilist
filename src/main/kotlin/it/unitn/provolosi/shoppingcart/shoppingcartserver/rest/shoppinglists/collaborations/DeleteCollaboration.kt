@@ -7,6 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.S
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest
 class DeleteCollaboration(
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
-        private val userDAO: UserDAO,
+        private val notificationService: NotificationService,
         val emailService: EmailService,
 
         @Value("\${app.name}")
@@ -42,11 +43,18 @@ class DeleteCollaboration(
         if (list.canUserEditCollaborations(user)) {
 
 
+            val collaboration = shoppingListCollaborationDAO.findById(collaborationId)
+
             shoppingListCollaborationDAO.deleteById(collaborationId)
+
             sendEmailToCollaborator(list, user) // TODO: Change user
 
 
-            // TODO: Notification
+            notificationService.saveAndSendCollaboratorNotification(
+                collaboration,
+                user,
+                ShoppingListCollaborationNotification.ACTION_REMOVE_COLLABORATOR
+            )
 
             ResponseEntity(list, HttpStatus.OK)
         } else {

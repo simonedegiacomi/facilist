@@ -15,10 +15,6 @@ export class LocalStorageShoppingListService implements ShoppingListService {
     constructor() {
     }
 
-    addCollaboratorByEmail(list: ShoppingList, email: string): Observable<ShoppingList> {
-        throw "unsupported operation";
-    }
-
     addProduct(list: ShoppingList, product: Product): Observable<ShoppingListProduct> {
         const relation = new ShoppingListProduct(product);
         relation.id    = new Date().getMilliseconds();
@@ -33,10 +29,6 @@ export class LocalStorageShoppingListService implements ShoppingListService {
         return this.update(list);
     }
 
-    deleteCollaboration(list: ShoppingList, toDelete: ShoppingListCollaboration): Observable<ShoppingList> {
-        throw "unsupported operation";
-    }
-
     getMyShoppingLists(): Observable<ShoppingListPreview[]> {
         const lists  = [];
         const stored = this.getListFromLocalStorageOrNull();
@@ -46,10 +38,6 @@ export class LocalStorageShoppingListService implements ShoppingListService {
         }
 
         return of(lists);
-    }
-
-    updateCollaborations(list: ShoppingList): Observable<ShoppingList> {
-        throw "unsupported operation";
     }
 
     updateProductInShoppingList(updatedRel: ShoppingListProduct): Observable<ShoppingListProduct> {
