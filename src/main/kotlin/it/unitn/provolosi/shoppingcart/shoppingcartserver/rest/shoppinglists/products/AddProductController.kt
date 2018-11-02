@@ -7,7 +7,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListProductNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
 import notFound
 import org.springframework.http.ResponseEntity
@@ -20,7 +22,7 @@ class AddProductController (
         private val productDAO: ProductDAO,
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListProductDAO: ShoppingListProductDAO,
-
+        private val notificationService: NotificationService,
         private val syncShoppingListService: SyncShoppingListService
 ) {
 
@@ -49,6 +51,12 @@ class AddProductController (
             ))
 
             syncShoppingListService.newShoppingListProduct(relation)
+
+            /*notificationService.saveAndSendProductNotification(
+                relation,
+                user,
+                ShoppingListProductNotification.
+            )*/
 
             return ResponseEntity.ok(relation)
 

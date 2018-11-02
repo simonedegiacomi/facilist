@@ -4,7 +4,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,7 +20,8 @@ import javax.validation.constraints.NotNull
 @RequestMapping("/api/shoppingLists/{id}")
 class UpdateShoppingListInfoController(
         private val shoppingListDAO: ShoppingListDAO,
-        private val syncShoppingListService: SyncShoppingListService
+        private val syncShoppingListService: SyncShoppingListService,
+        private val notificationService: NotificationService
 ) {
 
     @PutMapping()
@@ -42,6 +45,8 @@ class UpdateShoppingListInfoController(
             shoppingListDAO.save(list)
 
             syncShoppingListService.shoppingListInfoEdited(list)
+
+            notificationService.saveAndSendShoppingListInfoNotification(list, user, ShoppingListNotification.ACTION_UPDATE)
 
             ResponseEntity.ok(list)
         } else {

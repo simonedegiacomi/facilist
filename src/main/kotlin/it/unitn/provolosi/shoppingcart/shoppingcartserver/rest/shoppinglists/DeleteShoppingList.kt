@@ -3,7 +3,9 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ISyncShoppingListService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,7 +19,8 @@ import javax.annotation.security.RolesAllowed
 @RequestMapping("/api/shoppingLists")
 class DeleteShoppingList(
         private val shoppingListDAO: ShoppingListDAO,
-        private val updatesService: ISyncShoppingListService
+        private val updatesService: ISyncShoppingListService,
+        private val notificationService: NotificationService
 ) {
 
     @DeleteMapping("/{id}")
@@ -31,6 +34,8 @@ class DeleteShoppingList(
             shoppingListDAO.delete(list)
 
             updatesService.shoppingListDeleted(list)
+
+            notificationService.saveAndSendShoppingListInfoNotification(list, user, ShoppingListNotification.ACTION_UPDATE)
 
             ResponseEntity.ok().build()
         } else {
