@@ -19,7 +19,7 @@ interface InternalSpringJPANotificationDAO : JpaRepository<Notification, Long> {
 class SpringJPANotificationDAO(
         private val springRepository: InternalSpringJPANotificationDAO
 ) : NotificationDAO {
-    override fun saveAll(notifications: List<ShoppingListCollaborationNotification>) {
+    override fun saveAll(notifications: List<Notification>) {
         springRepository.saveAll(notifications)
     }
 

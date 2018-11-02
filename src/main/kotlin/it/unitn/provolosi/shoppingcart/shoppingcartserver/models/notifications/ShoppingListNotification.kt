@@ -28,7 +28,7 @@ class ShoppingListNotification(
     companion object {
         const val TYPE = "shopping_list_notification"
 
-        const val ACTION_RENAME       = "action_rename"
-        const val ACTION_UPDATE_ICON  = "action_update_icon"
+        const val ACTION_UPDATE      = "action_update"
+        const val ACTION_DELETE      = "action_delete"
     }
 }
