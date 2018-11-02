@@ -5,28 +5,22 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListN
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.IShoppingListService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.InviterCantEditCollaboratorsException
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
+import javax.validation.constraints.Email
 
 
 @RestController
 @RequestMapping("/api/shoppingLists/{id}/collaborations")
 class AddCollaboration(
         private val shoppingListDAO: ShoppingListDAO,
-        private val shoppingListService: IShoppingListService,
-        val emailService: EmailService,
-        @Value("\${app.name}")
-        private val applicationName: String
+        private val shoppingListService: IShoppingListService
 ) {
 
     @PutMapping()
@@ -34,13 +28,13 @@ class AddCollaboration(
     fun addCollaborator(
             @PathVariable id: Long,
             @AppUser user: User,
-            @RequestBody @Valid add: AddCollaboratorDTO,
+            @RequestBody @Valid @Email emailToAdd: String,
             req: HttpServletRequest
     ): ResponseEntity<ShoppingList> = try {
 
         val list = shoppingListDAO.findById(id)
 
-        shoppingListService.addUserToShoppingListByEmail(list, user, add.email!!, req)
+        shoppingListService.addUserToShoppingListByEmail(list, user, emailToAdd, req)
 
         ResponseEntity(list, HttpStatus.OK)
     } catch (ex: ShoppingListNotFoundException) {
@@ -50,16 +44,6 @@ class AddCollaboration(
 
         ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
     }
-
-    data class AddCollaboratorDTO(
-
-
-            @get:NotNull()
-            @get:javax.validation.constraints.Email()
-            val email: String?,
-
-            val id: Long? // NOTE: Do not remove this unused field! TODO: Find out why it doesn't work without
-    )
 
 
 }

@@ -6,9 +6,11 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,6 +25,8 @@ import javax.validation.constraints.NotNull
 class UpdateCollaborations(
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
+
+        private val notificationService: NotificationService,
 
         private val emailService: EmailService,
 
@@ -44,12 +48,19 @@ class UpdateCollaborations(
             update.forEach { it ->
                 val c = shoppingListCollaborationDAO.findById(it.collaborationId!!)
 
-                c.role = it.role!! // TODO: Verify!
+                if (c.role != it.role) {
+                    c.role = it.role!! // TODO: Verify!
 
-                shoppingListCollaborationDAO.save(c)
+                    shoppingListCollaborationDAO.save(c)
 
-                sendEmailToCollaborator(list, user)// TODO: Send only if change
-                // TODO: Change user
+                    sendEmailToCollaborator(list, c.user)
+
+                    notificationService.saveAndSendCollaboratorNotification(
+                        c,
+                        user,
+                        ShoppingListCollaborationNotification.ACTION_EDIT_COLLABORATOR
+                    )
+                }
             }
 
             ResponseEntity(list, HttpStatus.OK)
