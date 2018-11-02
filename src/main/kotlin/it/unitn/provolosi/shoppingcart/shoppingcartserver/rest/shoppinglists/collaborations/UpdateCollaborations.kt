@@ -4,7 +4,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
@@ -55,11 +57,7 @@ class UpdateCollaborations(
 
                     sendEmailToCollaborator(list, c.user)
 
-                    notificationService.saveAndSendCollaboratorNotification(
-                        c,
-                        user,
-                        ShoppingListCollaborationNotification.ACTION_EDIT_COLLABORATOR
-                    )
+                    sendNotificationToCollaborator(user, c)
                 }
             }
 
@@ -98,5 +96,15 @@ class UpdateCollaborations(
 
             override fun text() = "Ora hai più permessi"
         })
+    }
+
+    private fun sendNotificationToCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
+        val list = collaboration.shoppingList
+
+        notificationService.saveAndSend(Notification(
+            message = "${inviter.firstName} ha cambiato i tuoi privilegi nella lista \"${list.name}\"",
+            icon    = inviter.photo,
+            target  = collaboration.user
+        ))
     }
 }

@@ -1,65 +1,42 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.NotificationDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery.IDeliveryService
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
+/**
+ * This service persist the notifications and send them using:
+ * - WebSocket if at least one client of the destination user is connected
+ * - Push Notifications otherwise
+ */
 @Component
-class NotificationService (
+class NotificationService(
         private val notificationDAO: NotificationDAO,
-        private val deliveryService: IDeliveryService
-): INotificationService {
 
-    override fun saveAndSendCollaboratorNotification(
-            collaboration: ShoppingListCollaboration,
-            inviter: User,
-            action: String
-    ) {
-        val list = collaboration.shoppingList
-        val notifications = list.ownerAndCollaborators()
-                .asSequence() // TODO: Find out why IntelliJ suggest this call
-                .filter { u -> u != inviter }
-                .map { u ->
-                    ShoppingListCollaborationNotification(
-                        shoppingList    = list,
-                        source          = inviter,
-                        target          = u,
-                        action          = action,
-                        collaboration   = collaboration
-                    )
-                }
-                .toList()
+        webSocket: WebSocketDeliveryMethod,
+        pushNotification: PushNotificationDeliveryMethod
+) {
 
-        notificationDAO.saveAll(notifications)
+    val deliveryMethods = listOf(webSocket, pushNotification)
 
-        deliveryService.sendNotifications(notifications)
+    fun saveAndSend (notification: Notification) {
+        notificationDAO.save(notification)
+
+        send(notification)
     }
 
-    override fun saveAndSendShoppingListInfoNotification(
-            list: ShoppingList,
-            source: User,
-            action: String
-    ) {
-        val notifications = list.ownerAndCollaborators()
-                .asSequence() // TODO: Find out why IntelliJ suggest this call
-                .filter { u -> u != source }
-                .map { u ->
-                    ShoppingListNotification(
-                        shoppingList    = list,
-                        source          = source,
-                        target          = u,
-                        action          = action
-                    )
-                }
-                .toList()
-
+    fun saveAndSend(notifications: List<Notification>) {
         notificationDAO.saveAll(notifications)
 
-        deliveryService.sendNotifications(notifications)
+        notifications.forEach { n -> send(n) }
     }
+
+    private fun send(notification: Notification) = deliveryMethods
+            .firstOrNull { method -> method.canDeliver(notification) }
+            ?.deliver(notification)
+
 }

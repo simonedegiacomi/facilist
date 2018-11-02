@@ -2,6 +2,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
@@ -35,7 +37,7 @@ class DeleteShoppingList(
 
             updatesService.shoppingListDeleted(list)
 
-            notificationService.saveAndSendShoppingListInfoNotification(list, user, ShoppingListNotification.ACTION_UPDATE)
+            sendNotificationToCollaborators(user, list)
 
             ResponseEntity.ok().build()
         } else {
@@ -43,5 +45,21 @@ class DeleteShoppingList(
         }
     } catch (ex: ShoppingListNotFoundException) {
         ResponseEntity.notFound().build()
+    }
+
+
+    private fun sendNotificationToCollaborators(user: User, list: ShoppingList) {
+        val notifications = list
+                .ownerAndCollaborators()
+                .filter { u -> u != user }
+                .map { u ->
+                    Notification(
+                        message = "${user.firstName} ha eliminato la lista \"${list.name}\"",
+                        target  = u,
+                        icon    = user.photo
+                    )
+                }
+
+        notificationService.saveAndSend(notifications)
     }
 }

@@ -28,5 +28,4 @@ class UserArgumentResolver(
             binderFactory: WebDataBinderFactory?
     ) = userDAO.getUserByEmail(webRequest.userPrincipal!!.name)
 
-
 }

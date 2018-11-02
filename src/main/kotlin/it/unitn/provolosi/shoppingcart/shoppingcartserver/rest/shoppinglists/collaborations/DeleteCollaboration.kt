@@ -1,7 +1,12 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.collaborations
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
@@ -16,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
-import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/api/shoppingLists/{id}/collaborations")
@@ -50,11 +54,8 @@ class DeleteCollaboration(
             sendEmailToCollaborator(list, user) // TODO: Change user
 
 
-            notificationService.saveAndSendCollaboratorNotification(
-                collaboration,
-                user,
-                ShoppingListCollaborationNotification.ACTION_REMOVE_COLLABORATOR
-            )
+            sendNotificationToDeletedCollaborator(user, collaboration)
+            sendNotificationToCollaborators(user, collaboration)
 
             ResponseEntity(list, HttpStatus.OK)
         } else {
@@ -81,5 +82,35 @@ class DeleteCollaboration(
 
             override fun text() = "Non fai più parte della lista"
         })
+    }
+
+
+
+    private fun sendNotificationToDeletedCollaborator(user: User, collaboration: ShoppingListCollaboration) {
+        val list = collaboration.shoppingList
+
+        notificationService.saveAndSend(Notification(
+            message = "${user.firstName} ti ha rimosso dai collaboratori di ${list.name}",
+            icon    = user.photo,
+            target  = collaboration.user
+        ))
+    }
+
+    private fun sendNotificationToCollaborators(user: User, collaboration: ShoppingListCollaboration) {
+        val list    = collaboration.shoppingList
+        val removed = collaboration.user
+
+        val notifications = list
+                .ownerAndCollaborators()
+                .filter { u -> u != user && u != removed }
+                .map { u ->
+                    Notification(
+                        message = "${user.firstName} ha rimosso ${removed.firstName} dai collaboratoridella lista \"${list.name}\"",
+                        target  = u,
+                        icon    = user.photo
+                    )
+                }
+
+        notificationService.saveAndSend(notifications)
     }
 }

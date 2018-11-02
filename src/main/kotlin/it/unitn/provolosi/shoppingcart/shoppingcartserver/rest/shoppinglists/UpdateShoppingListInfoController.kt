@@ -2,7 +2,9 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListNotification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
@@ -37,16 +39,16 @@ class UpdateShoppingListInfoController(
         if (list.canUserEditList(user)) {
 
             list.apply {
-                name        = update.name!!
+                name = update.name!!
                 description = update.description!!
-                icon        = update.icon!!
+                icon = update.icon!!
             }
 
             shoppingListDAO.save(list)
 
             syncShoppingListService.shoppingListInfoEdited(list)
 
-            notificationService.saveAndSendShoppingListInfoNotification(list, user, ShoppingListNotification.ACTION_UPDATE)
+            sendNotificationToCollaborators(user, list)
 
             ResponseEntity.ok(list)
         } else {
@@ -73,5 +75,22 @@ class UpdateShoppingListInfoController(
             val icon: String?
 
     )
+
+
+    private fun sendNotificationToCollaborators(user: User, list: ShoppingList) {
+        val notifications = list
+                .ownerAndCollaborators()
+                .filter { u -> u != user }
+                .map { u ->
+                    Notification(
+                        message = "${user.firstName} ha modificato la lista \"${list.name}\"",
+                        target  = u,
+                        icon    = user.photo
+                    )
+                }
+
+        notificationService.saveAndSend(notifications)
+    }
+
 
 }

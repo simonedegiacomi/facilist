@@ -1,8 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.NotificationDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.Notification
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
