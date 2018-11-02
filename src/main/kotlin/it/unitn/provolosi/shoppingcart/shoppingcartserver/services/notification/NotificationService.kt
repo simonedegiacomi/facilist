@@ -27,7 +27,8 @@ class NotificationService (
                         shoppingList    = list,
                         source          = inviter,
                         target          = u,
-                        action          = action
+                        action          = action,
+                        collaboration   = collaboration
                     )
                 }
                 .toList()

@@ -55,7 +55,13 @@ data class User(
         val collaborations: MutableList<ShoppingListCollaboration> = mutableListOf(),
 
         @Column
-        var photo: String = "default-user-photo"
+        var photo: String = "default-user-photo",
+
+        @OneToMany(
+            mappedBy = "user",
+            cascade  = [CascadeType.REMOVE]
+        )
+        val pushSubscriptions: MutableList<PushSubscription> = mutableListOf()
 
 ) {
     companion object {
