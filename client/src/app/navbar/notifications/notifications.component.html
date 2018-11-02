@@ -1,11 +1,15 @@
-<div class="notifications-box box-open">
+<div class="notifications-box" [class.box-open]="open">
     <div class="notifications-box-content">
         <ul>
-            <li *ngFor="let notification of notifications">
-                {{ notification | json }}
+            <li class="row" *ngFor="let notification of notifications">
+                <span class="col-9">{{ notification.message }}</span>
+
+                <div class="col-3">
+                    <img class="icon normal-icon" [src]="notification.icon | image">
+                </div>
             </li>
         </ul>
     </div>
 
-    <button class="notifications-icon unread-notifications" aria-label="Notifiche"></button>
+    <button class="notifications-icon unread-notifications" aria-label="Notifiche" (click)="open = !open"></button>
 </div>

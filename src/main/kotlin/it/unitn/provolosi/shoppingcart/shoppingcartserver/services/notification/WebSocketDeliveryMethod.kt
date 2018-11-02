@@ -1,18 +1,25 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncEvent
+import org.springframework.messaging.simp.SimpMessagingTemplate
+import org.springframework.messaging.simp.user.SimpUserRegistry
 import org.springframework.stereotype.Component
 
 @Component
-class WebSocketDeliveryMethod:NotificationDeliveryMethod {
+class WebSocketDeliveryMethod(
+        private val stomp: SimpMessagingTemplate,
+        private val userRegistry: SimpUserRegistry
+):NotificationDeliveryMethod {
 
-    override fun canDeliverToUser(user: User) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    override fun canDeliver(notification: Notification) = userRegistry.getUser(notification.target.email) != null
+
+    override fun deliver(notification: Notification) {
+        stomp.convertAndSendToUser(
+            notification.target.email,
+            "/queue/notifications",
+            SyncEvent(SyncEvent.EVENT_CREATED, notification)
+        )
     }
-
-    override fun deliverToUser(user: User, notification: Notification) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 }

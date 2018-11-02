@@ -22,6 +22,6 @@ class GetNotificationsController(
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int,
             @AppUser user: User
-    ) = ResponseEntity.ok(notificationDAO.allOrderBySentAt(PageRequest.of(page, size)))
+    ) = ResponseEntity.ok(notificationDAO.allByUserOrderBySentAt(user, PageRequest.of(page, size)))
 
 }

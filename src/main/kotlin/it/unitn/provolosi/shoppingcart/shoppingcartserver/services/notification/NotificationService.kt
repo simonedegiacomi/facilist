@@ -1,11 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.NotificationDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListCollaborationNotification
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.notifications.ShoppingListNotification
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery.IDeliveryService
-import org.springframework.scheduling.annotation.Scheduled
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import org.springframework.stereotype.Component
 
 /**

@@ -1,19 +1,16 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.IShoppingListService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import javax.servlet.http.HttpServletRequest
 
 @RestController
 class ConfirmRegistration(
         private val tokenDAO: VerificationTokenDAO,
         private val userDAO: UserDAO,
-        private val shoppingListService: IShoppingListService,
         private val inviteToJoinDAO: InviteToJoinDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO
 ) {

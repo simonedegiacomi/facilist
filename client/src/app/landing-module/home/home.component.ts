@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SwPush } from "@angular/service-worker";
 
 
 @Component({

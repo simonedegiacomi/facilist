@@ -1,25 +1,14 @@
 
-
 div.notifications-box {
     position: relative;
-}
 
+    margin-top: 11.5em;
+    transform: translateY(-15em);
+    transition: transform 0.1s ease-out;
+}
 
 div.notifications-box.box-open {
-}
-
-.notifications-icon {
-    position: absolute;
-    right: 0;
-    margin-top: 0;
-
-    background: url("../../../assets/img/flag-notifications-navbar.svg");
-}
-
-.notifications-icon.unread-notifications {
-    background: url("../../../assets/img/flag-unread-notifications-navbar.svg");
-
-    height: 7.3em;
+    transform: translateY(0);
 }
 
 
@@ -28,5 +17,28 @@ div.notifications-box.box-open {
     height: 15em;
     max-width: 90vw;
 
+    color: white;
+
     background-color: var(--buttonLight);
+}
+
+.notifications-icon {
+    position: absolute;
+    right: 0;
+    margin-top: -0.3em;
+
+    background: url("../../../assets/img/flag-notifications-navbar.svg");
+
+    outline: none;
+    cursor: pointer;
+}
+
+.notifications-icon.unread-notifications {
+    background: url("../../../assets/img/flag-unread-notifications-navbar.svg");
+
+    height: 7.3em;
+}
+
+div.notifications-box.box-open .notifications-icon {
+    bottom: -7em;
 }

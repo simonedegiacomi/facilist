@@ -1,7 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import java.util.*
@@ -30,6 +29,7 @@ data class Notification(
         @ManyToOne()
         @OnDelete(action = OnDeleteAction.CASCADE)
         @JoinColumn(name = "target_user_id")
+        @JsonIgnore
         val target: User
 
 )
