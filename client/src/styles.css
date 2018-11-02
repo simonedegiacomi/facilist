@@ -13,6 +13,7 @@
 @import "global-styles/modals.css";
 @import "global-styles/notebook-sheet.css";
 @import "global-styles/images.css";
+@import "global-styles/navbar.css";
 
 
 body {
@@ -82,4 +83,3 @@ a.dark:hover {
 
     padding-left: 1.5em;
 }
-

@@ -1,0 +1,32 @@
+
+
+div.notifications-box {
+    position: relative;
+}
+
+
+div.notifications-box.box-open {
+}
+
+.notifications-icon {
+    position: absolute;
+    right: 0;
+    margin-top: 0;
+
+    background: url("../../../assets/img/flag-notifications-navbar.svg");
+}
+
+.notifications-icon.unread-notifications {
+    background: url("../../../assets/img/flag-unread-notifications-navbar.svg");
+
+    height: 7.3em;
+}
+
+
+.notifications-box-content {
+    width: 25em;
+    height: 15em;
+    max-width: 90vw;
+
+    background-color: var(--buttonLight);
+}

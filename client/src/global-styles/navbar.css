@@ -1,0 +1,20 @@
+.account-buttons {
+    height: 2em;
+}
+
+.account-buttons button {
+    width: 3em;
+    height: 5.3em;
+    margin-left: .5em;
+    margin-top: 1.2em;
+
+    border: 0;
+
+    transition: transform 0.1s ease-out;
+}
+
+
+
+.account-buttons button:hover {
+    transform: translateY(0.3em);
+}

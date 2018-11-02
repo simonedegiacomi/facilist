@@ -96,7 +96,7 @@ export class MyRestService<T extends MyRestEntity> {
     }
 
     public getAll(): Observable<T[]> {
-        const url = `${this.resourcePath}/all`
+        const url = `${this.resourcePath}/all`; // TODO: Remove the 'all' word
         return this.httpClient.get<T[]>(url);
     }
 

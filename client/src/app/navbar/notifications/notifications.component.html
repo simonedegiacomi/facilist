@@ -1,0 +1,11 @@
+<div class="notifications-box box-open">
+    <div class="notifications-box-content">
+        <ul>
+            <li *ngFor="let notification of notifications">
+                {{ notification | json }}
+            </li>
+        </ul>
+    </div>
+
+    <button class="notifications-icon unread-notifications" aria-label="Notifiche"></button>
+</div>

@@ -16,13 +16,15 @@ import { HttpInterceptorsProvider } from "./http-interceptors";
 import { UserModule } from "./user-module/user.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { NotificationsComponent } from './navbar/notifications/notifications.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         NetworkErrorDisplayComponent,
-        NavbarComponent
+        NavbarComponent,
+        NotificationsComponent
     ],
     imports: [
         BrowserModule,
