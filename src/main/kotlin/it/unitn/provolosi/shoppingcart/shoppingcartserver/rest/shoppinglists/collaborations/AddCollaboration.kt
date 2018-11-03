@@ -1,14 +1,21 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.collaborations
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.InviteToJoinDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
@@ -16,9 +23,8 @@ import javax.validation.constraints.Email
 
 
 @RestController
-@RequestMapping("/api/shoppingLists/{id}/collaborations")
+@RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
 class AddCollaboration(
-        private val shoppingListDAO: ShoppingListDAO,
         private val userDAO: UserDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val inviteToJoinDAO: InviteToJoinDAO,
@@ -32,13 +38,11 @@ class AddCollaboration(
     @PutMapping()
     @RolesAllowed(User.USER)
     fun addCollaborator(
-            @PathVariable id: Long,
+            @PathVariableBelongingShoppingList list: ShoppingList,
             @AppUser user: User,
             @RequestBody @Valid @Email emailToAdd: String,
             req: HttpServletRequest
-    ): ResponseEntity<ShoppingList> = try {
-
-        val list = shoppingListDAO.findById(id)
+    ): ResponseEntity<ShoppingList> =
 
         if (list.canUserEditCollaborations(user)) {
 
@@ -48,11 +52,6 @@ class AddCollaboration(
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
-
-    } catch (ex: ShoppingListNotFoundException) {
-
-        ResponseEntity.notFound().build()
-    }
 
 
     fun addUserToShoppingListByEmail(

@@ -1,7 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -10,14 +9,17 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 @RestController
-@RequestMapping("/api/shoppingLists/{id}")
+@RequestMapping("/api/shoppingLists/{shoppingListId}")
 class UpdateShoppingListInfoController(
         private val shoppingListDAO: ShoppingListDAO,
         private val syncShoppingListService: SyncShoppingListService,
@@ -27,34 +29,26 @@ class UpdateShoppingListInfoController(
     @PutMapping()
     @RolesAllowed(User.USER)
     fun updateInfo(
-            @PathVariable id: Long,
+            @PathVariableBelongingShoppingList list: ShoppingList,
             @AppUser user: User,
             @RequestBody @Valid update: UpdateShoppingListDTO
-    ): ResponseEntity<ShoppingList> = try {
+    ): ResponseEntity<ShoppingList> = if (list.canUserEditList(user)) {
 
-        val list = shoppingListDAO.findById(id)
-
-        if (list.canUserEditList(user)) {
-
-            list.apply {
-                name = update.name!!
-                description = update.description!!
-                icon = update.icon!!
-            }
-
-            shoppingListDAO.save(list)
-
-            syncShoppingListService.shoppingListInfoEdited(list)
-
-            sendNotificationToCollaborators(user, list)
-
-            ResponseEntity.ok(list)
-        } else {
-            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+        list.apply {
+            name        = update.name!!
+            description = update.description!!
+            icon        = update.icon!!
         }
 
-    } catch (ex: ShoppingListNotFoundException) {
-        ResponseEntity.notFound().build()
+        shoppingListDAO.save(list)
+
+        syncShoppingListService.shoppingListInfoEdited(list)
+
+        sendNotificationToCollaborators(user, list)
+
+        ResponseEntity.ok(list)
+    } else {
+        ResponseEntity.status(HttpStatus.FORBIDDEN).build()
     }
 
     data class UpdateShoppingListDTO(
@@ -63,10 +57,7 @@ class UpdateShoppingListInfoController(
             @get:NotEmpty()
             val name: String?,
 
-            @get:NotNull()
-            @get:NotEmpty()
             val description: String?,
-
 
             @get:NotNull()
             @get:NotEmpty()

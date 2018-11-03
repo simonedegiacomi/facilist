@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/shoppingListsProducts/{id}")
 class RemoveProductController {
 
+    // TODO: Implement
     @DeleteMapping
     fun removeProduct(
 
