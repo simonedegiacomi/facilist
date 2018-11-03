@@ -1,47 +1,39 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.chat
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ChatMessageDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChatMessage
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
-import org.springframework.http.HttpStatus
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
 @RestController
-@RequestMapping("/api/shoppingLists/:id/chat/messages")
+@RequestMapping("/api/shoppingLists/{shoppingListId}/chat/messages")
 class SendMessageController(
-        private val shoppingListDAO: ShoppingListDAO,
         private val chatMessageDAO: ChatMessageDAO
 ) {
 
     @PostMapping
     fun sendMessage(
             @AppUser user: User,
-            @PathVariable("id") listId: Long,
+            @PathVariableBelongingShoppingList list: ShoppingList,
             @RequestBody @Valid @NotEmpty message: String
-    ): ResponseEntity<ChatMessage> = try {
-        val list = shoppingListDAO.findById(listId)
-        if (list.isUserOwnerOrCollaborator(user)) {
+    ): ResponseEntity<ChatMessage> {
+        val message         = chatMessageDAO.save(ChatMessage(
+            user            = user,
+            shoppingList    = list,
+            message         = message
+        ))
 
-            val message = chatMessageDAO.save(ChatMessage(
-                user            = user,
-                shoppingList    = list,
-                message         = message
-            ))
+        // TODO: Sync and send notification
 
-            // TODO: Sync and send notification
-
-            ResponseEntity.ok(message)
-        } else {
-            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
-        }
-    } catch (ex: ShoppingListNotFoundException) {
-        ResponseEntity.notFound().build()
+        ResponseEntity.ok(message)
     }
 }
