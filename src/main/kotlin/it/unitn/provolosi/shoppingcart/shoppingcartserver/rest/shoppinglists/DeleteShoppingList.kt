@@ -1,7 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -11,7 +10,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
@@ -24,13 +22,12 @@ class DeleteShoppingList(
         private val notificationService: NotificationService
 ) {
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{shoppingListId}")
     @RolesAllowed(User.USER)
     fun delete(
-            @PathVariable id: Long,
+            @PathVariableBelongingShoppingList list: ShoppingList,
             @AppUser user: User
-    ): ResponseEntity<Any> = try {
-        val list = shoppingListDAO.findById(id)
+    ): ResponseEntity<Any> =
         if (list.creator == user) {
             shoppingListDAO.delete(list)
 
@@ -40,11 +37,8 @@ class DeleteShoppingList(
 
             ResponseEntity.ok().build()
         } else {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
         }
-    } catch (ex: ShoppingListNotFoundException) {
-        ResponseEntity.notFound().build()
-    }
 
 
     private fun sendNotificationToCollaborators(user: User, list: ShoppingList) {

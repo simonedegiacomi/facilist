@@ -3,26 +3,29 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.co
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 @RestController
-@RequestMapping("/api/shoppingLists/{id}/collaborations")
+@RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
 class UpdateCollaborations(
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
@@ -38,12 +41,11 @@ class UpdateCollaborations(
     @PostMapping()
     @RolesAllowed(User.USER)
     fun updateCollaborations(
-            @PathVariable id: Long,
+            @PathVariableBelongingShoppingList list: ShoppingList,
             @AppUser user: User,
             @RequestBody @Valid update: List<UpdateCollaborationsDTO>
     ): ResponseEntity<ShoppingList> = try {
 
-        val list = shoppingListDAO.findById(id)
         if (list.canUserEditCollaborations(user)) {
 
             update.forEach { it ->
@@ -67,8 +69,6 @@ class UpdateCollaborations(
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-    } catch (ex: ShoppingListNotFoundException) {
-        ResponseEntity.notFound().build()
     } catch (ex: ShoppingListCollaborationNotFoundException) {
         ResponseEntity.notFound().build()
     }

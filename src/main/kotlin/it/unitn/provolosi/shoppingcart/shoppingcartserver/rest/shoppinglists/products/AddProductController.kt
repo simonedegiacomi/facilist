@@ -3,23 +3,26 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.pr
 import forbidden
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
 import notFound
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.management.ListenerNotFoundException
 
 @RestController
-@RequestMapping("/api/shoppingLists/{id}/products")
-class AddProductController (
+@RequestMapping("/api/shoppingLists/{shoppingListId}/products")
+class AddProductController(
         private val productDAO: ProductDAO,
-        private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListProductDAO: ShoppingListProductDAO,
         private val notificationService: NotificationService,
         private val syncShoppingListService: SyncShoppingListService
@@ -27,12 +30,12 @@ class AddProductController (
 
     @PostMapping
     fun addProduct(
-        @AppUser user: User,
-        @PathVariable id: Long,
-        @RequestBody productId: Long
+            @AppUser user: User,
+            @PathVariableBelongingShoppingList list: ShoppingList,
+            @RequestBody productId: Long
     ): ResponseEntity<ShoppingListProduct> {
         try {
-            val list = shoppingListDAO.findById(id)
+
             val product = productDAO.findById(productId)
 
             if (!list.isUserOwnerOrCollaborator(user)) {
@@ -44,9 +47,9 @@ class AddProductController (
             }
 
             val relation = shoppingListProductDAO.save(ShoppingListProduct(
-                shoppingList    = list,
-                product         = product,
-                image           = product.icon
+                shoppingList = list,
+                product = product,
+                image = product.icon
             ))
 
             syncShoppingListService.newShoppingListProduct(relation)

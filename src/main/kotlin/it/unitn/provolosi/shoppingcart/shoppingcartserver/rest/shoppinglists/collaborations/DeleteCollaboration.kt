@@ -2,13 +2,12 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.co
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
@@ -22,9 +21,8 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 
 @RestController
-@RequestMapping("/api/shoppingLists/{id}/collaborations")
+@RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
 class DeleteCollaboration(
-        private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val notificationService: NotificationService,
         val emailService: EmailService,
@@ -36,15 +34,14 @@ class DeleteCollaboration(
     @DeleteMapping("{collaborationId}")
     @RolesAllowed(User.USER)
     fun deleteCollaboration(
-            @PathVariable id: Long,
+            @PathVariableBelongingShoppingList list: ShoppingList,
             @PathVariable collaborationId:Long,
             @AppUser user: User
     ): ResponseEntity<ShoppingList> = try {
         // TODO: DELETE products
 
-        val list = shoppingListDAO.findById(id)
-        if (list.canUserEditCollaborations(user)) {
 
+        if (list.canUserEditCollaborations(user)) {
 
             val collaboration = shoppingListCollaborationDAO.findById(collaborationId)
 
@@ -62,8 +59,6 @@ class DeleteCollaboration(
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-    } catch (ex: ShoppingListNotFoundException) {
-        ResponseEntity.notFound().build()
     } catch (ex: ShoppingListCollaborationNotFoundException) {
         ResponseEntity.notFound().build()
     }
