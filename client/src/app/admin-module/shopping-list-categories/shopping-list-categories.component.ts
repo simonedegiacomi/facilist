@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListCategory } from "../../core-module/models/shopping-list-category";
-import { ShoppingListCategoryService } from "../../core-module/services/shopping-list-category.service";
+import { ShoppingListCategoryService } from "../../core-module/services/rest/shopping-list-category.service";
 
 @Component({
     selector: 'app-shopping-list-categories',

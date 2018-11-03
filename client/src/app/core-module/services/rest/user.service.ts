@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { User } from "../models/user";
+import { User } from "../../models/user";
 import { catchError } from "rxjs/operators";
 import { CONFLICT, FORBIDDEN } from 'http-status-codes';
-import { NETWORK_ERROR, NetworkErrorsService } from "./network-errors.service";
+import { NETWORK_ERROR, NetworkErrorsService } from "../network-errors.service";
 import { MyRestService } from "./MyRestService";
-import { WRONG_CREDENTIALS } from "./auth.service";
+import { WRONG_CREDENTIALS } from "../auth.service";
 
 export const EMAIL_ALREADY_IN_USE = 'emailAlreadyInUse';
 

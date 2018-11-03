@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, WRONG_CREDENTIALS } from "../../services/auth.service";
-import { UserService } from "../../services/user.service";
+import { UserService } from "../../services/rest/user.service";
 import { User } from "../../models/user";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { NewPasswordComponent } from "../new-password/new-password.component";

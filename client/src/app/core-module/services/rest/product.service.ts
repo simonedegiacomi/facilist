@@ -1,11 +1,11 @@
-import { Product } from "../models/product";
+import { Product } from "../../models/product";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ProductCategory } from "../models/product-category";
+import { ProductCategory } from "../../models/product-category";
 import { MyRestService, PagedResult } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
-import { ShoppingListCategory } from "../models/shopping-list-category";
+import { ShoppingListCategory } from "../../models/shopping-list-category";
 
 
 @Injectable()

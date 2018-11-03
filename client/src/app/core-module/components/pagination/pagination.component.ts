@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MyRestEntity, PagedResult } from "../../services/MyRestService";
+import { MyRestEntity, PagedResult } from "../../services/rest/MyRestService";
 import { Observable } from "rxjs";
 
 @Component({

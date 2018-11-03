@@ -7,7 +7,7 @@ import {
 import { Subject } from "rxjs";
 import { debounceTime, switchMap, tap } from "rxjs/operators";
 import { AuthService } from "../../../core-module/services/auth.service";
-import { ShoppingListCollaborationService } from "../../../core-module/services/shopping-list-collaboration.service";
+import { ShoppingListCollaborationService } from "../../../core-module/services/rest/shopping-list-collaboration.service";
 
 @Component({
     selector: 'user-list-share-settings',

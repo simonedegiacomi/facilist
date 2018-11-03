@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ProductCategoryService } from "../../core-module/services/product-category.service";
+import { ProductCategoryService } from "../../core-module/services/rest/product-category.service";
 import { ProductCategory } from "../../core-module/models/product-category";
 import { Product } from "../../core-module/models/product";
-import { ProductService } from "../../core-module/services/product.service";
+import { ProductService } from "../../core-module/services/rest/product.service";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { PagedResult } from "../../core-module/services/MyRestService";
+import { PagedResult } from "../../core-module/services/rest/MyRestService";
 import { Subject } from "rxjs";
 import { PaginationComponent } from "../../core-module/components/pagination/pagination.component";
 

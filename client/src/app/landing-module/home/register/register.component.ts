@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { UserService } from "../../../core-module/services/user.service";
+import { UserService } from "../../../core-module/services/rest/user.service";
 import { NewPasswordComponent } from "../../../core-module/components/new-password/new-password.component";
 
 const $ = window['jQuery'];

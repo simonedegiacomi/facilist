@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MyRestService } from "./MyRestService";
-import { Notification } from "../models/notification";
+import { Notification } from "../../models/notification";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({

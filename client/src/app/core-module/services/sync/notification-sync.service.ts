@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { StompService } from "@stomp/ng2-stompjs";
 import { MySyncService } from "./MySyncService";
 import { Observable } from "rxjs";
-import { Notification } from "../models/notification";
+import { Notification } from "../../models/notification";
 import { map } from "rxjs/operators";
 
 @Injectable({

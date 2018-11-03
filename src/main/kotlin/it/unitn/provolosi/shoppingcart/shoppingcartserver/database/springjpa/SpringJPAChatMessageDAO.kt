@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 interface InternalSpringJPAChatMessageDAO : JpaRepository<ChatMessage, Long> {
 
-    override fun findByShoppingListOrderBySentAtDesc(list: ShoppingList, pageable: Pageable): Page<ChatMessage>
+    fun findByShoppingListOrderBySentAtDesc(list: ShoppingList, pageable: Pageable): Page<ChatMessage>
 
 
 }

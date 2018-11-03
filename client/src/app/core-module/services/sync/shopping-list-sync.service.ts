@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StompService } from "@stomp/ng2-stompjs";
-import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../models/shopping-list";
+import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../../models/shopping-list";
 import { filter, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { EventTypes, MySyncService } from "./MySyncService";

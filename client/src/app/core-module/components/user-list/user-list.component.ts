@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
 import { Product } from "../../models/product";
 import { AuthService } from "../../services/auth.service";
-import { ShoppingListSyncService } from "../../services/shopping-list-sync.service";
-import { ShoppingListService } from "../../services/shopping-list.service";
+import { ShoppingListSyncService } from "../../services/sync/shopping-list-sync.service";
+import { ShoppingListService } from "../../services/rest/shopping-list.service";
 
 @Component({
     selector: 'app-user-list',

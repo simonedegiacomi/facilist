@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { ProductService } from "../../../services/product.service";
+import { ProductService } from "../../../services/rest/product.service";
 import { Product } from "../../../models/product";
 import { ShoppingList } from "../../../models/shopping-list";
 

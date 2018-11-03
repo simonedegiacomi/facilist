@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { LandingModule } from "./landing-module/landing.module";
 import { CoreModule } from "./core-module/core.module";
-import { ProductService } from "./core-module/services/product.service";
+import { ProductService } from "./core-module/services/rest/product.service";
 import { NetworkErrorDisplayComponent } from './network-error-display/network-error-display.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminModule } from "./admin-module/admin.module";

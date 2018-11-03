@@ -1,5 +1,5 @@
 import { ProductCategory } from "./product-category";
-import { MyRestEntity } from "../services/MyRestService";
+import { MyRestEntity } from "../services/rest/MyRestService";
 
 export class ShoppingListCategory implements MyRestEntity {
 

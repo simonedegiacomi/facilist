@@ -1,5 +1,5 @@
 import { ShoppingListCategory } from "./shopping-list-category";
-import { MyRestEntity } from "../services/MyRestService";
+import { MyRestEntity } from "../services/rest/MyRestService";
 import { Product } from "./product";
 import { User } from "./user";
 

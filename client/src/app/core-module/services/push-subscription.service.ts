@@ -11,7 +11,7 @@ const VAPID_PUBLIC_KEY = "BArkB_1gSLGOPruj4ZC3HeRmq9ncz4vKrDomlNXpOYEeJircD7VPXC
 @Injectable({
     providedIn: 'root'
 })
-export class PushNotificationService {
+export class PushSubscriptionService {
 
     constructor(
         private httpClient: HttpClient,

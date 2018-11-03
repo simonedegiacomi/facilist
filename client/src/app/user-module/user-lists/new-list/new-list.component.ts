@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ShoppingListCategoryService } from "../../../core-module/services/shopping-list-category.service";
+import { ShoppingListCategoryService } from "../../../core-module/services/rest/shopping-list-category.service";
 import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
 import { ShoppingList } from "../../../core-module/models/shopping-list";
-import { ShoppingListService } from "../../../core-module/services/shopping-list.service";
+import { ShoppingListService } from "../../../core-module/services/rest/shopping-list.service";
 
 const $ = window['jQuery'];
 

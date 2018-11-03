@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductCategory } from "../../../core-module/models/product-category";
-import { CATEGORY_NAME_CONFLICT, ProductCategoryService } from "../../../core-module/services/product-category.service";
+import { CATEGORY_NAME_CONFLICT, ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
 import { Observable, of } from "rxjs";
-import { UploadService } from "../../../core-module/services/upload.service";
+import { UploadService } from "../../../core-module/services/rest/upload.service";
 import { catchError, map } from "rxjs/operators";
 import editorConfig from '../../../core-module/tinymceConfig';
 

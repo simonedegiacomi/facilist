@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingListService } from "../../core-module/services/shopping-list.service";
+import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
 import { LocalStorageShoppingListService } from "../services/local-storage-shopping-list.service";
 import { Router } from "@angular/router";
 import { ShoppingList } from "../../core-module/models/shopping-list";

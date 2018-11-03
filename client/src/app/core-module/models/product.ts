@@ -1,4 +1,4 @@
-import { MyRestEntity } from "../services/MyRestService";
+import { MyRestEntity } from "../services/rest/MyRestService";
 
 export class Product implements MyRestEntity {
 

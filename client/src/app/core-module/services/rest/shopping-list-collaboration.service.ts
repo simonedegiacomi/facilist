@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ShoppingList, ShoppingListCollaboration } from "../models/shopping-list";
+import { ShoppingList, ShoppingListCollaboration } from "../../models/shopping-list";
 import { Observable } from "rxjs";
 import { MyRestService } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";

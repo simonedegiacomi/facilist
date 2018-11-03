@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingList } from "../../core-module/models/shopping-list";
-import { ShoppingListService } from "../../core-module/services/shopping-list.service";
+import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
 const $ = window['jQuery'];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ShoppingListService } from "../core-module/services/shopping-list.service";
+import { ShoppingListService } from "../core-module/services/rest/shopping-list.service";
 import { BackendShoppingListService } from "./services/backend-shopping-list.service";
 
 @Component({

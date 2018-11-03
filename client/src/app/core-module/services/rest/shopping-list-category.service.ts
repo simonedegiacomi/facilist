@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MyRestService } from "./MyRestService";
-import { ShoppingListCategory } from "../models/shopping-list-category";
-import { ProductCategory } from "../models/product-category";
+import { ShoppingListCategory } from "../../models/shopping-list-category";
+import { ProductCategory } from "../../models/product-category";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
-import { ifResponseCodeThen } from "../utils";
+import { ifResponseCodeThen } from "../../utils";
 import { CONFLICT } from "http-status-codes";
 
 export const SHOPPING_LIST_CATEGORY_NAME_CONFLICT = "shoppingListCategoryNameConflict";

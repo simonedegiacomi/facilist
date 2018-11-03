@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { MyRestService } from "../../core-module/services/MyRestService";
+import { MyRestService } from "../../core-module/services/rest/MyRestService";
 import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../../core-module/models/shopping-list";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Product } from "../../core-module/models/product";
-import { ShoppingListService } from "../../core-module/services/shopping-list.service";
+import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
 
 @Injectable()
 export class BackendShoppingListService extends MyRestService<ShoppingList> implements ShoppingListService {

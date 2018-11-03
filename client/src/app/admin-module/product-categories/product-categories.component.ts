@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductCategoryService } from "../../core-module/services/product-category.service";
+import { ProductCategoryService } from "../../core-module/services/rest/product-category.service";
 import { ProductCategory } from "../../core-module/models/product-category";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { PagedResult } from "../../core-module/services/MyRestService";
+import { PagedResult } from "../../core-module/services/rest/MyRestService";
 import { PaginationComponent } from "../../core-module/components/pagination/pagination.component";
 
 const $ = window['jQuery'];

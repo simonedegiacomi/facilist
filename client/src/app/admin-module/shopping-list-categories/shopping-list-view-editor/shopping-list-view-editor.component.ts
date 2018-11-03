@@ -3,14 +3,14 @@ import { ShoppingListCategory } from "../../../core-module/models/shopping-list-
 import { Observable, of } from "rxjs";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { map, switchMap } from "rxjs/operators";
-import { UploadService } from "../../../core-module/services/upload.service";
+import { UploadService } from "../../../core-module/services/rest/upload.service";
 import editorConfig from '../../../core-module/tinymceConfig';
 
 import {
     SHOPPING_LIST_CATEGORY_NAME_CONFLICT,
     ShoppingListCategoryService
-} from "../../../core-module/services/shopping-list-category.service";
-import { ProductCategoryService } from "../../../core-module/services/product-category.service";
+} from "../../../core-module/services/rest/shopping-list-category.service";
+import { ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
 
 const $ = window['jQuery'];
 

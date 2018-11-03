@@ -1,5 +1,5 @@
 import { User } from "./user";
-import { MyRestEntity } from "../services/MyRestService";
+import { MyRestEntity } from "../services/rest/MyRestService";
 
 
 export class Notification implements MyRestEntity {

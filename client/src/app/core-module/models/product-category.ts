@@ -1,5 +1,5 @@
 import { Product } from "./product";
-import { MyRestEntity } from "../services/MyRestService";
+import { MyRestEntity } from "../services/rest/MyRestService";
 
 export class ProductCategory implements MyRestEntity{
 

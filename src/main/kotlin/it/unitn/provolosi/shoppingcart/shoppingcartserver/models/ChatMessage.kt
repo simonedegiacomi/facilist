@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import java.util.*
@@ -21,6 +22,7 @@ data class ChatMessage(
         @ManyToOne()
         @JoinColumn(name = "shopping_list_id")
         @OnDelete(action = OnDeleteAction.CASCADE)
+        @JsonIgnore
         val shoppingList: ShoppingList,
 
         @Column

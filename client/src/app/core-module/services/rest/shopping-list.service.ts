@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../models/shopping-list";
-import { Product } from "../models/product";
+import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../../models/shopping-list";
+import { Product } from "../../models/product";
 
 @Injectable()
 export abstract class ShoppingListService {

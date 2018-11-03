@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UploadService } from "../../services/upload.service";
+import { UploadService } from "../../services/rest/upload.service";
 
 @Component({
     selector: 'app-show-change-image',
