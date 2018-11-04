@@ -55,9 +55,22 @@ export class NotificationsComponent implements OnInit {
 
     private listenForNewNotifications() {
         this.notificationSyncService.newNotification()
-            .subscribe(n => this.notifications.splice(0, 0, n));
+            .subscribe(n => {
+                this.notifications.splice(0, 0, n)
+
+                if (this.shouldShowNativeNotification()) {
+                    this.showNativeNotification(n);
+                }
+            });
     }
 
+    private shouldShowNativeNotification () {
+        return document.hidden && this.pushNotificationService.hasActivatedPushNotification();
+    }
+
+    private showNativeNotification (notification: Notification) {
+        new window.Notification(notification.message);
+    }
 
     onSubscribeToPushNotifications() {
         this.pushNotificationService.enableOrUpdateSubsciprion().subscribe(
@@ -65,7 +78,6 @@ export class NotificationsComponent implements OnInit {
             () => alert("Si è verificato un errore durante l'attivazione delle notifiche"));
     }
 
-    fun
 
     onToggleNotificationBox() {
         this.open = !this.open;
