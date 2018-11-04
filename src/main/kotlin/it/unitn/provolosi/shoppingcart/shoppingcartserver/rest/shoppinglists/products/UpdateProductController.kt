@@ -40,6 +40,7 @@ class UpdateProductController(
                 note        = update.note
             }
 
+            shoppingListProductDAO.save(relation)
             syncShoppingListService.productInShoppingListEdited(relation)
 
             ResponseEntity.ok(relation)

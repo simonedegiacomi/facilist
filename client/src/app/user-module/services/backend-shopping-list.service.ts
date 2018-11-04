@@ -45,4 +45,11 @@ export class BackendShoppingListService extends MyRestService<ShoppingList> impl
             product.id
         )
     }
+
+    deleteProductFromShoppingList(relation: ShoppingListProduct): Observable<any> {
+        return this.httpClient.delete<ShoppingListProduct>(
+            `/api/shoppingListProducts/${relation.id}`
+        );
+    }
+
 }

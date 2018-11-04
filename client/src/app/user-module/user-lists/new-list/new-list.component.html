@@ -9,18 +9,21 @@
             </div>
             <div class="notebook-sheet-content">
                 <form class="new-list-form" (submit)="onCreate()" #form="ngForm">
-                    <div class="icon-title-and-category">
-                        <div>
+
+                    <div class="row">
+                        <div class="col-2 col-sm-4">
                             <app-show-change-image [(image)]="newListIcon"></app-show-change-image>
                         </div>
-                        <div class="title-and-category">
-                            <div>
+
+                        <div class="col-10 col-sm-8 row">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Nome lista"
                                            [(ngModel)]="newList.name" required name="newListName">
                                 </div>
                             </div>
-                            <div>
+
+                            <div class="col-12">
                                 <select required [(ngModel)]="newList.category" name="newListCategory">
                                     <option *ngFor="let category of categories$ | async" [ngValue]="category">
                                         {{ category.name }}
@@ -29,14 +32,13 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="newListDescription"
-                                      [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
-                        </div>
-                    </div>
 
-                    <button type="submit" class="action-button" [disabled]="!form.valid">Crea</button>
+
+                    <textarea class="form-control" name="newListDescription"
+                              [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
+
+
+                    <button type="submit" class="action-button" [disabled]="!form.valid || isSaving">Crea</button>
                 </form>
             </div>
         </div>

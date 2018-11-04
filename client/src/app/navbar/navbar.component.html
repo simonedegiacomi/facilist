@@ -28,10 +28,6 @@
         <!-- User links -->
         <ul *ngIf="isUser$ | async" class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['user', 'dashboard']" routerLinkActive="active">Dashboard</a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link" [routerLink]="['user', 'shoppingLists']" routerLinkActive="active">Le mie liste</a>
             </li>
 
@@ -65,9 +61,10 @@
 
         <app-notifications></app-notifications>
 
-        <button class="settings-icon" aria-label="Impostazioni" data-toggle="modal" data-target="#userSettingsModal"></button>
+        <button class="settings-icon d-none d-sm-block" aria-label="Impostazioni" data-toggle="modal"
+                data-target="#userSettingsModal"></button>
 
-        <button class="exit-icon" aria-label="Esci" (click)="onClickLogout()"></button>
+        <button class="exit-icon d-none d-sm-block" aria-label="Esci" (click)="onClickLogout()"></button>
 
     </div>
 </nav>

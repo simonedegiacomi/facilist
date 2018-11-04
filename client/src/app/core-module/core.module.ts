@@ -14,7 +14,7 @@ import { stompConfig } from "./stompConfig";
 import { UserListComponent } from "./components/user-list/user-list.component";
 import { RouterModule } from "@angular/router";
 import { SearchComponent } from "./components/user-list/search/search.component";
-import { UserProductListNoteComponent } from "./components/user-list/user-product-list-note/user-product-list-note.component";
+import { UserProductListNoteComponent } from "./components/user-list/user-shopping-list-product/user-product-list-note/user-product-list-note.component";
 import { UserShoppingListProductComponent } from "./components/user-list/user-shopping-list-product/user-shopping-list-product.component";
 
 @NgModule({

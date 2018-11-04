@@ -10,6 +10,7 @@ input.form-control {
 }
 
 input.form-control[type="text"],
+textarea.form-control,
 input.form-control[type="email"],
 input.form-control[type="password"] {
     border: 0 none;

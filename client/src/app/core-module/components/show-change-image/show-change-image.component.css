@@ -1,3 +1,7 @@
+input[type=file] {
+    display: none;
+}
+
 div.show-change-image {
     display: inline;
     width: 4em;

@@ -1,21 +1,33 @@
+:root {
+    --unreadNotificationIconHeight: 7em;
+    --unreadNotificationHeight: calc(var(--unreadNotificationIconHeight) + var(--accountButtonScrollY));
+}
 
 div.notifications-box {
+    max-height: 0;
     position: relative;
+    z-index: var(--zIndexNotificationsBox);
 
-    margin-top: 11.5em;
+    margin-top: -1.75em;
     transform: translateY(-15em);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.2s ease-out;
+}
+
+@media (max-width: 575.98px) {
+    div.notifications-box {
+        margin-top: -3em;
+    }
 }
 
 div.notifications-box.box-open {
     transform: translateY(0);
 }
 
-
 .notifications-box-content {
     width: 25em;
     height: 15em;
     max-width: 90vw;
+    padding: 1em;
 
     color: white;
 
@@ -25,7 +37,7 @@ div.notifications-box.box-open {
 .notifications-icon {
     position: absolute;
     right: 0;
-    margin-top: -0.3em;
+    margin-top: calc(-1 * var(--accountButtonScrollY));
 
     background: url("../../../assets/img/flag-notifications-navbar.svg");
 
@@ -36,17 +48,9 @@ div.notifications-box.box-open {
 button.notifications-icon.unread-notifications {
     background: url("../../../assets/img/flag-unread-notifications-navbar.svg");
 
-    height: 7.3em;
+    height: var(--unreadNotificationHeight);
 
     padding-top: 1.5em;
-}
-
-div.notifications-box.box-open .notifications-icon {
-    bottom: -5em;
-}
-
-div.notifications-box.box-open .notifications-icon.unread-notifications {
-    bottom: -7em;
 }
 
 button span.unread-notification-count {
@@ -54,4 +58,15 @@ button span.unread-notification-count {
     font-weight: bold;
     font-size: 1.5em;
     font-family: var(--fontTitle);
+}
+
+
+div.notifications-backdrop {
+
+    position: absolute;
+    width: 200vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: var(--zIndexBackdrop);
+    left: -100vw;
 }

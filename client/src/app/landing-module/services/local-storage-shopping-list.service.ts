@@ -39,13 +39,25 @@ export class LocalStorageShoppingListService implements ShoppingListService {
         const list  = this.getListFromLocalStorageOrNull();
         const index = list.products.findIndex(rel => rel.id == updatedRel.id);
 
-        list.products.splice(index, 1);
-        list.products.push(updatedRel);
+        list.products.splice(index, 1, updatedRel);
 
         this.saveListToLocalStorage(list);
 
         return of(updatedRel);
     }
+
+    deleteProductFromShoppingList(removedRel: ShoppingListProduct): Observable<any> {
+        const list  = this.getListFromLocalStorageOrNull();
+        const index = list.products.findIndex(rel => rel.id == removedRel.id);
+
+        list.products.splice(index, 1);
+
+        this.saveListToLocalStorage(list);
+
+        return of(null);
+    }
+
+
 
     delete(list: ShoppingList): Observable<any> {
         this.clearLocalStorage();

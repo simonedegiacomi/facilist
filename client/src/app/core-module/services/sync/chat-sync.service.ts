@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StompService } from "@stomp/ng2-stompjs";
 import { EventTypes, MySyncService } from "./MySyncService";
-import { ShoppingList, ShoppingListPreview } from "../../models/shopping-list";
+import { ShoppingList } from "../../models/shopping-list";
 import { Observable } from "rxjs";
 import { filter, map } from "rxjs/operators";
 import { ChatMessage } from "../../models/chat-message";

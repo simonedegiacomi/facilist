@@ -1,9 +1,8 @@
 <div class="show-change-image">
-    <label for="change-image-input">
+    <label>
         <img [src]="image | image" class="icon current-image"/>
         <img class="icon upload-icon" src="assets/img/ic_upload.svg">
 
+        <input type="file" (change)="onSelectFile($event)"/>
     </label>
-
-    <input id="change-image-input" type="file" (change)="onSelectFile($event)"/>
 </div>

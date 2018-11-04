@@ -46,6 +46,12 @@ export class UserListComponent implements OnInit {
                 product.quantity = updatedProduct.quantity;
                 product.bought   = updatedProduct.bought;
             });
+
+        this.shoppingListSyncService.productInShoppingListDeleted(this.list)
+            .subscribe(deletedProduct => {
+                const index = this.list.products.findIndex(p => p.id == deletedProduct.id);
+                this.list.products.splice(index, 1);
+            });
     }
 
 
@@ -62,10 +68,12 @@ export class UserListComponent implements OnInit {
         //this.notifyChange();
     }
 
+    get isDemoList ():boolean {
+        return this.auth.user == null && this.list.creator == null;
+    }
 
     get userCanEditCollaborations() {
-        // TODO: This is an hacky way to show the share button also for the demo list.
-        if (this.auth.user == null && this.list.creator == null) {
+        if (this.isDemoList) {
             return true;
         }
 
@@ -76,7 +84,21 @@ export class UserListComponent implements OnInit {
 
         const userCollaborations = this.list.collaborations.find(c => c.user.id == userId);
         return userCollaborations.role == CollaborationsRoles.SOCIAL ||
-            userCollaborations.role == CollaborationsRoles.SOCIAL;
+            userCollaborations.role == CollaborationsRoles.ADMIN;
+    }
+
+    get userCanEditInfo() {
+        if (this.isDemoList) {
+            return true;
+        }
+
+        const userId = this.auth.user.id;
+        if (userId == this.list.creator.id) {
+            return true;
+        }
+
+        const userCollaborations = this.list.collaborations.find(c => c.user.id == userId);
+        return userCollaborations.role == CollaborationsRoles.ADMIN;
     }
 
 }

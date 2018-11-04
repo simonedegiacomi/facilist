@@ -16,6 +16,7 @@ export class UserShoppingListProductComponent {
 
     sendEdits: Subject<null> = new Subject();
 
+    deleted = false;
 
     constructor(
         private listService: ShoppingListService,
@@ -31,6 +32,11 @@ export class UserShoppingListProductComponent {
     toggleToBuy(product: ShoppingListProduct) {
         product.bought = !product.bought;
         this.notifyChange();
+    }
+
+    removeProduct(product: ShoppingListProduct) {
+        this.deleted = true;
+        this.listService.deleteProductFromShoppingList(product).subscribe(() => {});
     }
 
     decrementQuantity(product: ShoppingListProduct) {

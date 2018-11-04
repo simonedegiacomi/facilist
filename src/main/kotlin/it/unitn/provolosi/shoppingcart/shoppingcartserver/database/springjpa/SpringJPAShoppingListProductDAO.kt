@@ -20,4 +20,6 @@ class SpringJPAShoppingListProductDAO(
 
     override fun findById(id: Long): ShoppingListProduct = springRepository.findById(id)
             .orElseThrow { ShoppingListProductNotFoundException() }
+
+    override fun delete(relation: ShoppingListProduct) = springRepository.delete(relation)
 }

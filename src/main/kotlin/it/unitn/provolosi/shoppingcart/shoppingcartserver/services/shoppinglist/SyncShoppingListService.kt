@@ -43,6 +43,10 @@ class SyncShoppingListService(
     )
 
 
+    override fun productInShoppingListDeleted(relation: ShoppingListProduct) = stomp.convertAndSend(
+        "/topic/shoppingLists/${relation.shoppingList.id}/products",
+        SyncEvent(EVENT_DELETED, relation)
+    )
 }
 
 

@@ -51,4 +51,12 @@ export class ShoppingListSyncService extends MySyncService {
             map(event => event.model)
         );
     }
+
+
+    productInShoppingListDeleted(list: ShoppingList) : Observable<ShoppingListProduct> {
+        return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
+            filter(event => event.event == EventTypes.DELETED),
+            map(event => event.model)
+        );
+    }
 }

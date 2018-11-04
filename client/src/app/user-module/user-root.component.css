@@ -1,13 +1,14 @@
 
 div.container.user-page {
     min-width: 100vw;
-    height: calc(100vh - var(--navbar-height));
+    height: calc(100vh - var(--navbarHeight));
     margin: 0;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background-color: var(--user-background);
+    background-image: url('../../assets/img/user-background.svg');
+    background-size: 20em;
 }
 

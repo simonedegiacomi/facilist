@@ -5,7 +5,7 @@
 /* Bootstrap */
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
-@import "global-styles/variables.css";
+@import "global-styles/common-variables.css";
 
 @import "global-styles/buttons.css";
 @import "global-styles/checkboxes.css";

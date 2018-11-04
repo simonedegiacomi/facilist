@@ -1,6 +1,11 @@
 .notebook-sheet {
     position: relative;
-    max-width: 32em;
+
+    width: 32em;
+
+    max-width: 95vw;
+    max-height: calc(85vh - var(--navbarHeight));
+
     margin: 2em 0;
     padding: 0 0.5em;
 
@@ -13,6 +18,10 @@
     box-shadow: 15px 15px 3px 0 #00000088;
 }
 
+.notebook-sheet.always-tall {
+    height: 48em;
+}
+
 .notebook-sheet-header {
     position: relative;
 
@@ -21,7 +30,7 @@
 }
 
 .notebook-sheet-content {
-    max-height: calc(80vh - var(--navbar-height));;
+    max-height: calc(80vh - var(--navbarHeight));;
     overflow-y: auto;
 }
 

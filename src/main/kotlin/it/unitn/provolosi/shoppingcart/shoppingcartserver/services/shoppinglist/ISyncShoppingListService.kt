@@ -15,4 +15,6 @@ interface ISyncShoppingListService {
     fun newShoppingListProduct(relation: ShoppingListProduct)
 
     fun productInShoppingListEdited(relation: ShoppingListProduct)
+    
+    fun productInShoppingListDeleted(relation: ShoppingListProduct)
 }

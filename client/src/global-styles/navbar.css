@@ -1,22 +1,30 @@
+:root {
+    --accountButtonIconWidth: 3em;
+    --accountButtonIconHeight: 5em;
+    --accountButtonScrollY: 0.3em;
+    --accountButtonHeight: calc(var(--accountButtonIconHeight) + var(--accountButtonScrollY));
+}
+
 .account-buttons {
-    height: 2em;
+    padding: 0;
+    height: 0;
 }
 
 .account-buttons button {
-    width: 3em;
-    height: 5.3em;
+    width: var(--accountButtonIconWidth);
+    height: var(--accountButtonHeight);
+
     margin-left: .5em;
     margin-top: 1.2em;
 
     border: 0;
 
-    transition: transform 0.1s ease-out;
+    transition: transform 0.2s ease-out;
 
     cursor: pointer;
 }
 
 
-
 .account-buttons button:hover {
-    transform: translateY(0.3em);
+    transform: translateY(var(--accountButtonScrollY));
 }

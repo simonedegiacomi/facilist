@@ -1,22 +1,26 @@
 
-.quantity-button {
+button.quantity-button {
+    font-weight: bold;
     font-size: 2em;
+    background-color: transparent;
+    border: 0;
 }
 
 .quantity-number {
     font-size: 1.5em;
-}
-
-.quantity-number {
     margin: 0 0.5em;
-}
 
-.quantity-button {
-    font-weight: bold;
-}
-
-.quantity-number.to-buy {
     text-decoration: line-through;
 }
 
 
+.quantity-number.to-buy {
+    text-decoration: none;
+}
+
+
+img.bin {
+    border: 0;
+    width: 1.5em;
+    height: 1.5em;
+}

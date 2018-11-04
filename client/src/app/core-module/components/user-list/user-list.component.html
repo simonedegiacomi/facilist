@@ -1,4 +1,4 @@
-<div class="notebook-sheet list">
+<div class="notebook-sheet always-tall list">
 
     <!-- TODO: Remove hacky margin -->
     <div class="notebook-sheet-header">
@@ -18,7 +18,7 @@
                     aria-label="Impostazioni di condivisione"
                     (click)="openShareSettings.emit()"></button>
 
-            <button type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
+            <button *ngIf="userCanEditInfo" type="button" class="settings-icon" data-dismiss="modal" aria-label="Impostazioni"
                     (click)="openSettings.emit()"></button>
 
             <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"

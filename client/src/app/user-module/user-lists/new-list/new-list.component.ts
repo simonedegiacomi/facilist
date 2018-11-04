@@ -15,8 +15,6 @@ const $ = window['jQuery'];
 })
 export class NewListComponent implements OnInit {
 
-    // TODO: Aggiungere pulsante per caricare l'icona
-
     categories$: Observable<ShoppingListCategory[]>;
 
     newList: ShoppingList = new ShoppingList();
@@ -53,6 +51,8 @@ export class NewListComponent implements OnInit {
     set newListIcon (image: string) {
         this.newList.icon = image;
     }
+
+
 
     onCreate () {
         this.isSaving = true;

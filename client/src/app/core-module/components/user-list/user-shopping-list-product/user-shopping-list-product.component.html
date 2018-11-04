@@ -1,6 +1,7 @@
-<li class="row">
-    <div class="col-2 col-sm-2" style="padding-top: 1em;">
+<li class="row" *ngIf="!deleted">
+    <div class="col-1" style="padding-top: 1em;">
         <div class="form-group list-product-bought-state">
+
             <div class="checkbox-container">
                 <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
                        [checked]="product.bought">
@@ -8,6 +9,10 @@
                 <span class="checkbox-tick"></span>
             </div>
         </div>
+    </div>
+
+    <div class="col-1" style="padding-top: 1em;">
+        <img src="/assets/img/ic_bin.svg" class="bin"  (click)="removeProduct(product)">
     </div>
 
     <div class="col-3 col-sm-2" style="height: 4em;">
@@ -18,7 +23,8 @@
         <!-- TODO: Add the remove button -->
         <!--<div><span (click)="removeProduct(product)">X</span></div>-->
     </div>
-    <div class="col-7 col-sm-5">
+
+    <div class="col-6 col-sm-5">
         <p>
             <strong>{{ product.product.name }}</strong>
 
@@ -26,9 +32,10 @@
                                     (noteChange)="notifyChange()"></user-product-list-note>
         </p>
     </div>
+
     <div class="col-12 col-sm-3 quantity-box d-flex align-items-center justify-content-end justify-content-sm-center">
-        <button class="quantity quantity-button" (click)="incrementQuantity(product)">+</button>
-        <span class="quantity quantity-number" [class.to-buy]="product.bought">{{ product.quantity }}</span>
+        <button class="quantity-button" (click)="incrementQuantity(product)">+</button>
+        <span class="quantity-number" [class.to-buy]="!product.bought">{{ product.quantity }}</span>
         <button class="quantity-button" [disabled]="product.quantity <= 1" (click)="decrementQuantity(product)">-
         </button>
     </div>
