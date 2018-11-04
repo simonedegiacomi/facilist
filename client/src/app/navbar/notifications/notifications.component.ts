@@ -69,6 +69,7 @@ export class NotificationsComponent implements OnInit {
     }
 
     private showNativeNotification (notification: Notification) {
+        // @ts-ignore
         new window.Notification(notification.message);
     }
 
