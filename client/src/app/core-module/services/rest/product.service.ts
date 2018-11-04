@@ -37,7 +37,7 @@ export class ProductService extends MyRestService<Product> {
 
 
     searchByNameAndShoppingListCategory(name: string, category: ShoppingListCategory): Observable<PagedResult<Product>> {
-        const url = `${this.resourcePath}/search?name=${name}&shoppingListCategory=${category.id}`;
+        const url = `${this.resourcePath}/search?name=${name}&shoppingListCategoryId=${category.id}`;
 
         return this.httpClient.get<PagedResult<Product>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))
