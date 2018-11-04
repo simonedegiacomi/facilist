@@ -16,6 +16,7 @@ import { RouterModule } from "@angular/router";
 import { SearchComponent } from "./components/user-list/search/search.component";
 import { UserProductListNoteComponent } from "./components/user-list/user-shopping-list-product/user-product-list-note/user-product-list-note.component";
 import { UserShoppingListProductComponent } from "./components/user-list/user-shopping-list-product/user-shopping-list-product.component";
+import { NewUserProductComponent } from './components/user-list/new-user-product/new-user-product.component';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { UserShoppingListProductComponent } from "./components/user-list/user-sh
         SearchComponent,
         UserProductListNoteComponent,
         UserShoppingListProductComponent,
+        NewUserProductComponent,
     ],
     exports: [
         ImagePipe,

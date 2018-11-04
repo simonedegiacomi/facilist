@@ -35,6 +35,8 @@ class AppSecurityConfig(
 
             "/api/shoppingListCategories/all",
 
+            "/api/productCategories/all",
+
             "/api/products/search",
 
             "/api/images/*"

@@ -5,6 +5,8 @@ import { AuthService } from "../../services/auth.service";
 import { ShoppingListSyncService } from "../../services/sync/shopping-list-sync.service";
 import { ShoppingListService } from "../../services/rest/shopping-list.service";
 
+const $ = window['jQuery'];
+
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -21,6 +23,8 @@ export class UserListComponent implements OnInit {
     isSaving = false;
 
     lastUpdate: Date;
+
+    customProductName: string;
 
     constructor(
         private listService: ShoppingListService,
@@ -102,6 +106,7 @@ export class UserListComponent implements OnInit {
     }
 
     onCreateProduct (name: string) {
-
+        this.customProductName = name;
+        $('#newUserProductModal').modal('show');
     }
 }

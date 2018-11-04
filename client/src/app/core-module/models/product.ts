@@ -9,7 +9,7 @@ export class Product implements MyRestEntity {
 
     categoryId: number;
 
-    icon: string = 'default-product-icon';
+    icon: string;
 
     category: ProductCategory;
 

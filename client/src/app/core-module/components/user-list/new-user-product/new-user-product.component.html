@@ -1,0 +1,51 @@
+<div class="modal fade" id="newUserProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content notebook-sheet">
+
+            <div class="notebook-sheet-header">
+                <h5 class="modal-title">Nuovo oggetto</h5>
+
+                <div class="notebook-sheet-buttons">
+                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div class="notebook-sheet-content">
+                <form  #form="ngForm">
+
+                    <div class="row">
+                        <div class="col-2">
+                            <app-show-change-image [(image)]="newProductIcon"></app-show-change-image>
+                        </div>
+
+                        <div class="col-10 row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Nome oggetto" [(ngModel)]="customProductName"
+                                           name="newUserProductName" id="newUserProductName" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <select required [(ngModel)]="newProduct.category" name="newUserProductCategory">
+                                    <option *ngFor="let category of categories$ | async" [ngValue]="category">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <button type="submit" class="col-4 action-button link-cta primary"
+                        [disabled]="!form.valid || isSaving"
+                        (click)="onSave()">
+                    Salva
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
