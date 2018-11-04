@@ -2,6 +2,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.co
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
@@ -11,6 +12,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.Pat
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,7 +26,9 @@ import javax.annotation.security.RolesAllowed
 @RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
 class DeleteCollaboration(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
+        private val shoppingListProductDAO: ShoppingListProductDAO,
         private val notificationService: NotificationService,
+        private val syncShoppingListService: SyncShoppingListService,
         val emailService: EmailService,
 
         @Value("\${app.name}")
@@ -38,12 +42,11 @@ class DeleteCollaboration(
             @PathVariable collaborationId:Long,
             @AppUser user: User
     ): ResponseEntity<ShoppingList> = try {
-        // TODO: DELETE products
-
-
         if (list.canUserEditCollaborations(user)) {
 
             val collaboration = shoppingListCollaborationDAO.findById(collaborationId)
+
+            removeProductsOfUserFromList(collaboration.user, list)
 
             shoppingListCollaborationDAO.deleteById(collaborationId)
 
@@ -106,5 +109,15 @@ class DeleteCollaboration(
                 }
 
         notificationService.saveAndSend(notifications)
+    }
+
+    private fun removeProductsOfUserFromList (user: User, list: ShoppingList) {
+        val relationsToRemove = list.products
+                .filter { relation -> relation.product.creator != null && relation.product.creator == user }
+
+        shoppingListProductDAO.deleteAll(relationsToRemove)
+
+        relationsToRemove
+                .forEach { relation -> syncShoppingListService.productInShoppingListDeleted(relation) }
     }
 }

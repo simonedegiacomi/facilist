@@ -13,7 +13,8 @@
                 </div>
 
                 <ul>
-                    <li *ngFor="let product of productsByCategory.value" class="row">
+                    <li *ngFor="let product of productsByCategory.value" class="row"
+                        [class.already-in-list]="isProductAlreadyInList(product)">
                         <div class="col-3">
                             <img class="result-icon icon" [src]="product.icon | image">
                         </div>
@@ -22,7 +23,7 @@
                             <span>{{ product.category.name }}</span>
                         </div>
                         <div class="col-2">
-                            <button (click)="onAddProduct(product)">+</button>
+                            <button (click)="onAddProduct(product)" [disabled]="isProductAlreadyInList(product)">+</button>
                         </div>
                     </li>
                 </ul>

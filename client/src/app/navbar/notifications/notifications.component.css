@@ -1,7 +1,4 @@
-:root {
-    --unreadNotificationIconHeight: 7em;
-    --unreadNotificationHeight: calc(var(--unreadNotificationIconHeight) + var(--accountButtonScrollY));
-}
+
 
 div.notifications-box {
     max-height: 0;
@@ -48,7 +45,13 @@ div.notifications-box.box-open {
 button.notifications-icon.unread-notifications {
     background: url("../../../assets/img/flag-unread-notifications-navbar.svg");
 
-    height: var(--unreadNotificationHeight);
+    height: 7.3em;
+    /*
+    :root {
+        --unreadNotificationIconHeight: 7em;
+        --unreadNotificationHeight: calc(var(--unreadNotificationIconHeight) + var(--accountButtonScrollY));
+    }
+    */
 
     padding-top: 1.5em;
 }

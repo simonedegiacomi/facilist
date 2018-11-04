@@ -48,3 +48,8 @@ img.result-icon {
     width: 4em;
     height: 4em;
 }
+
+
+.row.already-in-list {
+    text-decoration: line-through;
+}
