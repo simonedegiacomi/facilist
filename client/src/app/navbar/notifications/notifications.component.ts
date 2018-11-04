@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from "../../core-module/services/rest/notification.service";
 import { PagedResult } from "../../core-module/services/rest/MyRestService";
 import { Notification } from "../../core-module/models/notification";
 import { NotificationSyncService } from "../../core-module/services/sync/notification-sync.service";
-import { PushSubscriptionService } from "../../core-module/services/push-notification.service";
+import { NotificationService } from "../../core-module/services/rest/notification.service";
+import { PushSubscriptionService } from "../../core-module/services/push-subscription.service";
 
 @Component({
     selector: 'app-notifications',

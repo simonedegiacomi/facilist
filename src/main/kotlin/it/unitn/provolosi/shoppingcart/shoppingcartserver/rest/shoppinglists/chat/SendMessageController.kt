@@ -34,6 +34,6 @@ class SendMessageController(
 
         // TODO: Sync and send notification
 
-        ResponseEntity.ok(message)
+        return ResponseEntity.ok(message)
     }
 }
