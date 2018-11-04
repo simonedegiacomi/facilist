@@ -20,7 +20,7 @@ interface InternalSpringJPAProductDAO : JpaRepository<Product, Long> {
 
     fun findByCategoryIdOrderByName(categoryId: Long, pageable: Pageable): Page<Product>
 
-    @Query("FROM Product p WHERE p.name LIKE %:name% AND p.category IN (SELECT ELEMENTS(c.productCategories) FROM ShoppingListCategory c WHERE c.id = :id)")
+    @Query("FROM Product p WHERE lower(p.name) LIKE lower(concat('%', :name, '%')) AND p.category IN (SELECT ELEMENTS(c.productCategories) FROM ShoppingListCategory c WHERE c.id = :id) ORDER BY p.category.name, p.name")
     fun findByNameContainingIgnoreCaseAndShoppingListCategoryIdOrderByName(name: String, id: Long, pageable: Pageable): Page<Product>
 }
 

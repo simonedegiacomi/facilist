@@ -101,4 +101,7 @@ export class UserListComponent implements OnInit {
         return userCollaborations.role == CollaborationsRoles.ADMIN;
     }
 
+    onCreateProduct (name: string) {
+
+    }
 }

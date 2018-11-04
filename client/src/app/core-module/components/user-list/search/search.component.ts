@@ -16,11 +16,15 @@ export class SearchComponent implements OnInit {
 
     @Output() addProduct = new EventEmitter<Product>();
 
-    @Output() createProduct = new EventEmitter();
+    @Output() createProduct = new EventEmitter<string>();
 
     private filter = new Subject<string>();
 
-    results: Product[];
+    isFocused = false;
+
+    productsByCategories: { [key:string]: Product[] };
+
+    filterText: string;
 
     constructor(
         private productService: ProductService
@@ -36,15 +40,36 @@ export class SearchComponent implements OnInit {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap(filter => this.productService.searchByNameAndShoppingListCategory(filter, this.list.category))
-        ).subscribe(resultPage => this.results = resultPage.content);
+        ).subscribe(resultPage => this.onGotResults(resultPage.content));
     }
 
     onUpdateSearchFilter(searchFilter: string) {
+        this.isFocused = true;
+        this.filterText = searchFilter;
         this.filter.next(searchFilter);
     }
 
     onAddProduct (product: Product) {
         this.addProduct.emit(product);
-        this.results = null;
+        this.productsByCategories = {};
+        this.isFocused = false;
+    }
+
+    onGotResults (results: Product[]) {
+        this.productsByCategories = {};
+
+        for (let result of results) {
+
+            if (this.productsByCategories[result.category.name] == null) {
+                this.productsByCategories[result.category.name] = [];
+            }
+
+            this.productsByCategories[result.category.name].push(result);
+        }
+    }
+
+    createCustomProduct() {
+        this.createProduct.emit(this.filterText);
+        this.isFocused = false;
     }
 }

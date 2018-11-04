@@ -14,6 +14,7 @@
 @import "global-styles/notebook-sheet.css";
 @import "global-styles/images.css";
 @import "global-styles/navbar.css";
+@import "global-styles/backdrop.css";
 
 
 body {

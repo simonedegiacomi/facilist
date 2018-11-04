@@ -1,4 +1,5 @@
 import { MyRestEntity } from "../services/rest/MyRestService";
+import { ProductCategory } from "./product-category";
 
 export class Product implements MyRestEntity {
 
@@ -10,5 +11,6 @@ export class Product implements MyRestEntity {
 
     icon: string = 'default-product-icon';
 
+    category: ProductCategory;
 
 }

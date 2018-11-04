@@ -27,7 +27,8 @@
     </div>
 
     <div class="notebook-sheet-content">
-        <user-list-search [list]="list" (addProduct)="onAddProduct($event)"></user-list-search>
+        <user-list-search [list]="list" (addProduct)="onAddProduct($event)"
+        (createProduct)="onCreateProduct($event)"></user-list-search>
 
         <ul class="products-list">
             <li class="row">

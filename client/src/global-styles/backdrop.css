@@ -1,0 +1,21 @@
+div.notifications-backdrop {
+    position: absolute;
+
+    width: 200vw;
+    height: 200vh;
+
+    left: -100vw;
+    top: -100vh;
+
+    z-index: var(--zIndexBackdrop);
+
+    pointer-events: none;
+
+    transition: background-color 200ms linear;
+}
+
+div.notifications-backdrop.active {
+    pointer-events: initial;
+
+    background-color: rgba(0, 0, 0, 0.6);
+}

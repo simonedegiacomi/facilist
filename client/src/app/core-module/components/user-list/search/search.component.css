@@ -6,6 +6,10 @@ div.notebook-sheet-strip {
     height: var(--searchBarHeight);
 }
 
+.add-product-bar.focused {
+    z-index: var(--zIndexModal);
+}
+
 .add-product-bar .form-group {
     margin: 0;
 }

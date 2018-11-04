@@ -1,25 +1,38 @@
 <div class="notebook-sheet-strip-container">
-    <div class="notebook-sheet-strip green-strip add-product-bar">
+    <div class="notebook-sheet-strip green-strip add-product-bar" [class.focused]="isFocused">
         <div class="form-group">
             <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)"
                    placeholder="Aggiungi qualcosa ...">
         </div>
 
-        <div class="results" *ngIf="results">
-            <ul>
-                <li *ngFor="let result of results" class="row">
-                    <div class="col-3">
-                        <img class="result-icon icon" [src]="result.icon | image">
-                    </div>
-                    <div class="col-7">
-                        <h4>{{ result.name }}</h4>
-                        <span>{{ result.category.name }}</span>
-                    </div>
-                    <div class="col-2">
-                        <button (click)="onAddProduct(result)">+</button>
-                    </div>
-                </li>
-            </ul>
+        <div class="results" *ngIf="isFocused">
+            <div *ngFor="let productsByCategory of productsByCategories | keyvalue">
+
+                <div>
+                    {{ productsByCategory.key }}
+                </div>
+
+                <ul>
+                    <li *ngFor="let product of productsByCategory.value" class="row">
+                        <div class="col-3">
+                            <img class="result-icon icon" [src]="product.icon | image">
+                        </div>
+                        <div class="col-7">
+                            <h4>{{ product.name }}</h4>
+                            <span>{{ product.category.name }}</span>
+                        </div>
+                        <div class="col-2">
+                            <button (click)="onAddProduct(product)">+</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <a (click)="createCustomProduct()">Aggiungi "<em>{{ filterText }}</em>"</a>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="notifications-backdrop" [class.active]="isFocused" (click)="isFocused = false"></div>

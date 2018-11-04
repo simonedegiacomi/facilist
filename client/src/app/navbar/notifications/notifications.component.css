@@ -60,13 +60,3 @@ button span.unread-notification-count {
     font-family: var(--fontTitle);
 }
 
-
-div.notifications-backdrop {
-
-    position: absolute;
-    width: 200vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: var(--zIndexBackdrop);
-    left: -100vw;
-}
