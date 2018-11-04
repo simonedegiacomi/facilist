@@ -27,6 +27,18 @@ export class NotificationsComponent implements OnInit {
     ) {
     }
 
+    get unreadNotifications(): Notification[] {
+        if (this.notifications == null) {
+            return [];
+        }
+
+        return this.notifications.filter(n => n.seenAt == null)
+    }
+
+    get unreadNotificationsCount(): number {
+        return this.unreadNotifications.length;
+    }
+
     ngOnInit() {
         this.fetchNotifications();
         this.listenForNewNotifications();
@@ -51,6 +63,19 @@ export class NotificationsComponent implements OnInit {
         this.pushNotificationService.enableOrUpdateSubsciprion().subscribe(
             () => this.hasSubscribed = true,
             () => alert("Si è verificato un errore durante l'attivazione delle notifiche"));
+    }
+
+    fun
+
+    onToggleNotificationBox() {
+        this.open = !this.open;
+
+        if (this.open && this.unreadNotificationsCount > 0) {
+            const now = new Date();
+            this.notificationService.markNotificationsSentUntilDateRead(now).subscribe(() => {
+                this.unreadNotifications.forEach(notification => notification.seenAt = now);
+            });
+        }
     }
 
 }

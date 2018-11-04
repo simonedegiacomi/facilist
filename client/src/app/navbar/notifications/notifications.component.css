@@ -33,12 +33,25 @@ div.notifications-box.box-open {
     cursor: pointer;
 }
 
-.notifications-icon.unread-notifications {
+button.notifications-icon.unread-notifications {
     background: url("../../../assets/img/flag-unread-notifications-navbar.svg");
 
     height: 7.3em;
+
+    padding-top: 1.5em;
 }
 
 div.notifications-box.box-open .notifications-icon {
+    bottom: -5em;
+}
+
+div.notifications-box.box-open .notifications-icon.unread-notifications {
     bottom: -7em;
+}
+
+button span.unread-notification-count {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: var(--fontTitle);
 }

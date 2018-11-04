@@ -1,4 +1,4 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.notifications
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user.notifications
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.NotificationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/notifications")
+@RequestMapping("/api/users/me/notifications")
 class GetNotificationsController(
         private val notificationDAO: NotificationDAO
 ) {

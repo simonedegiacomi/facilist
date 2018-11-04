@@ -15,5 +15,10 @@
         </div>
     </div>
 
-    <button class="notifications-icon unread-notifications" aria-label="Notifiche" (click)="open = !open"></button>
+    <button class="notifications-icon" [class.unread-notifications]="unreadNotificationsCount > 0"
+            aria-label="Notifiche" (click)="onToggleNotificationBox()">
+        <span class="unread-notification-count" *ngIf="unreadNotificationsCount > 0">
+            {{ unreadNotificationsCount }}
+        </span>
+    </button>
 </div>
