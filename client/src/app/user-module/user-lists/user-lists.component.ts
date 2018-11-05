@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { ShoppingListSyncService } from "../../core-module/services/sync/shopping-list-sync.service";
 import { ShoppingListPreview } from "../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";

@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { ifResponseCodeThen } from "../../utils";
 import { CONFLICT } from "http-status-codes";
+import { ForesquareCategory } from "../../models/foresquare-category";
 
 export const SHOPPING_LIST_CATEGORY_NAME_CONFLICT = "shoppingListCategoryNameConflict";
 
@@ -40,5 +41,9 @@ export class ShoppingListCategoryService extends MyRestService<ShoppingListCateg
         return super.update(entity).pipe(
             catchError(ifResponseCodeThen(CONFLICT, SHOPPING_LIST_CATEGORY_NAME_CONFLICT))
         );
+    }
+
+    getAllForesquareCategories(): Observable<ForesquareCategory[]> {
+        return this.httpClient.get<ForesquareCategory[]>(`${this.resourcePath}/foresquareCategories`);
     }
 }

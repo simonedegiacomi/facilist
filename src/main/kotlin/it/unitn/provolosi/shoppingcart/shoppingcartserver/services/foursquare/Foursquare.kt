@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Value
@@ -50,7 +51,7 @@ class FoursquareService(
         FoursquareCategory(
             name        = category["name"].asText(),
             id          = category["id"].asText(),
-            categories  = if (category["categories"] == null) emptyList() else readCategories(category["categories"])
+            categories  = readCategories(category["categories"])
         )
     }
 
@@ -63,7 +64,8 @@ data class NearShops (
 
 data class FoursquareCategory (
 
-        val categories: List<FoursquareCategory> = emptyList(),
+        @JsonIgnore
+        val categories: List<FoursquareCategory>,
 
         val id: String,
 

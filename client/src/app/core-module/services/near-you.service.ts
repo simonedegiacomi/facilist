@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { UserService } from "./rest/user.service";
 
 import geodist from 'geodist';

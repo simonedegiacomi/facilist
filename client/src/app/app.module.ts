@@ -18,7 +18,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NotificationsComponent } from './navbar/notifications/notifications.component';
 
-
 @NgModule({
     declarations: [
         AppComponent,

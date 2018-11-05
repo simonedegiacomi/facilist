@@ -1,4 +1,4 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user.position
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
@@ -6,6 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.Coordinates
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.FoursquareService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.NearShops
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.WebSocketDeliveryMethod
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -39,12 +40,7 @@ class UpdatePositionController (
             update.toCoordinates()
         )
 
-
-        notificationSync.deliver(Notification(
-            message     = "Hey vai qui $shops",
-            icon        = "",
-            target      = user
-        ))
+        sendNotification(user, shops)
 
     }
 
@@ -56,5 +52,18 @@ class UpdatePositionController (
             val lon: Double?
     ) {
         fun toCoordinates () = Coordinates(lat!!, lon!!)
+    }
+
+    private fun sendNotification (user: User, shops: List<NearShops>) {
+        val shopNames = shops
+                .asSequence()
+                .map { near -> near.name }
+                .joinToString(separator = ", ")
+
+        notificationSync.deliver(Notification(
+            message = "Non farti scappare l'occasione, passa da $shopNames",
+            icon    = "",
+            target  = user
+        ))
     }
 }

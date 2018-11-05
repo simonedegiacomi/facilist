@@ -5,6 +5,9 @@
 /* Bootstrap */
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
+/* Font awesome */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
 @import "global-styles/common-variables.css";
 
 @import "global-styles/buttons.css";

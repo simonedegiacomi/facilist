@@ -25,9 +25,15 @@ class EditShoppingListCategoryController (
 
         val category = shoppingListCategoryDAO.findById(id)
 
-        category.name           = dto.name!!
-        category.description    = dto.description!!
-        category.icon           = dto.icon!!
+        with(category) {
+            name           = dto.name!!
+            description    = dto.description!!
+            icon           = dto.icon!!
+
+            foursquareCategoryIds.clear()
+            foursquareCategoryIds.addAll(dto.foursquareCategoryIds!!)
+        }
+
 
         shoppingListCategoryDAO.save(category)
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListCategory } from "../../core-module/models/shopping-list-category";
 import { ShoppingListCategoryService } from "../../core-module/services/rest/shopping-list-category.service";
+import { TreeviewItem } from "ngx-treeview";
 
 @Component({
     selector: 'app-shopping-list-categories',
@@ -8,7 +9,6 @@ import { ShoppingListCategoryService } from "../../core-module/services/rest/sho
     styleUrls: ['./shopping-list-categories.component.css']
 })
 export class ShoppingListCategoriesComponent implements OnInit {
-
 
     categories: ShoppingListCategory[];
 
@@ -27,6 +27,7 @@ export class ShoppingListCategoriesComponent implements OnInit {
         this.categoryService.getAll()
             .subscribe(categories => this.categories = categories)
     }
+
 
     onCreate () {
         const newCategory = new ShoppingListCategory();
