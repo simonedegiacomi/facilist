@@ -39,7 +39,6 @@ export class NearYouService {
 
     start() {
         navigator.geolocation.watchPosition((position: Position) => {
-            console.log('position')
             if (this.shouldSendNewPosition(position)) {
                 console.log("[NEAR-YOU] updating user position");
                 this.userService.updatePosition(position)

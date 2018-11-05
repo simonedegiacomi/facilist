@@ -5,7 +5,7 @@ export default {
     branding: false,
 
     language: 'it',
-    language_url: '/tinymce/langs/it.js',
+    language_url: '/assets/tinymce/langs/it.js',
 
-    skin_url: '/tinymce/skins/lightgray'
+    skin_url: '/assets/tinymce/skins/lightgray'
 };
