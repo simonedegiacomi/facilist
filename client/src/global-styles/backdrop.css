@@ -1,17 +1,17 @@
 div.notifications-backdrop {
-    position: absolute;
+    position: fixed;
 
-    width: 200vw;
-    height: 200vh;
+    width: 100vw;
+    height: 100vh;
 
-    left: -100vw;
-    top: -100vh;
+    left: 0;
+    top: 0;
 
     z-index: var(--zIndexBackdrop);
 
     pointer-events: none;
 
-    transition: background-color 200ms linear;
+    transition: background-color 150ms linear;
 }
 
 div.notifications-backdrop.active {

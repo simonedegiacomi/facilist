@@ -28,9 +28,10 @@ class CreateShoppingCategoryListController(
             @RequestBody @Valid dto: ShoppingListCategoryDTO
     ): ResponseEntity<ShoppingListCategory> = try {
         ResponseEntity(shoppingListCategoryDAO.save(ShoppingListCategory(
-            name = dto.name!!,
-            description = dto.description!!,
-            icon = dto.icon!!
+            name                    = dto.name!!,
+            description             = dto.description!!,
+            icon                    = dto.icon!!,
+            foursquareCategoryIds   = dto.foursquareCategoryIds!!.toMutableList()
         )), HttpStatus.CREATED)
 
     } catch (ex: ShoppingListCategoryWithSameNameAlreadyExistsException) {
@@ -50,6 +51,9 @@ class CreateShoppingCategoryListController(
 
             @get:NotNull
             @get:NotEmpty
-            val icon: String?
+            val icon: String?,
+
+            @get:NotNull
+            val foursquareCategoryIds: List<String>?
     )
 }

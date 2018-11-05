@@ -9,7 +9,6 @@ import { ShoppingListCategoryService } from "../../core-module/services/rest/sho
 })
 export class ShoppingListCategoriesComponent implements OnInit {
 
-
     categories: ShoppingListCategory[];
 
     selected: ShoppingListCategory;
@@ -27,6 +26,7 @@ export class ShoppingListCategoriesComponent implements OnInit {
         this.categoryService.getAll()
             .subscribe(categories => this.categories = categories)
     }
+
 
     onCreate () {
         const newCategory = new ShoppingListCategory();

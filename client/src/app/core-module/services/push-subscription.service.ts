@@ -7,7 +7,10 @@ import { switchMap, tap } from "rxjs/operators";
 // TODO: Ask the public key to the server at runtime
 const VAPID_PUBLIC_KEY = "BArkB_1gSLGOPruj4ZC3HeRmq9ncz4vKrDomlNXpOYEeJircD7VPXCY-3Px4MjzhvocOWFmW2c9zy9HHKKbTE4Q";
 
-
+/**
+ * This service manages the Push API subscription asking the user for the permission and sending the subscription info
+ * to the server.
+ */
 @Injectable({
     providedIn: 'root'
 })

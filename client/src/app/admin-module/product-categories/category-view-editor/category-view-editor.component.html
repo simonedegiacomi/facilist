@@ -33,7 +33,6 @@
         <!-- Edit description -->
         <editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description"></editor>
 
-
         <div class="media-bottom d-flex justify-content-end mt-2">
             <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">Modifica
             </button>

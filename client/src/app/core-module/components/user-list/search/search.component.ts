@@ -72,4 +72,11 @@ export class SearchComponent implements OnInit {
         this.createProduct.emit(this.filterText);
         this.isFocused = false;
     }
+
+
+    isProductAlreadyInList (product: Product): boolean {
+        return this.list.products
+            .map(relation => relation.product)
+            .find(inList => inList.id == product.id) != null;
+    }
 }

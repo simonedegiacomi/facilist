@@ -12,4 +12,6 @@ export class ShoppingListCategory implements MyRestEntity {
     icon: string = 'default-shopping-list-category-icon';
 
     productCategories: ProductCategory[];
+
+    foursquareCategoryIds: string[];
 }

@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { ShoppingListSyncService } from "../../core-module/services/sync/shopping-list-sync.service";
 import { ShoppingListPreview } from "../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
+import { NearYouService } from "../../core-module/services/near-you.service";
 
 @Component({
     templateUrl: './user-lists.component.html',
@@ -10,19 +11,24 @@ import { ShoppingListService } from "../../core-module/services/rest/shopping-li
 })
 export class UserListsComponent implements OnInit, OnDestroy {
 
+    isNearYouEnabled = false;
+    askingNearYouPermission = false;
+
     lists: ShoppingListPreview[];
 
     private subscriptions: Subscription[] = [];
 
     constructor(
         private listService: ShoppingListService,
-        private syncService: ShoppingListSyncService
+        private syncService: ShoppingListSyncService,
+        private nearYouService: NearYouService
     ) {
     }
 
     ngOnInit() {
         this.fetchMyShoppingLists();
         this.listenForSyncUpdatesOfNewLists();
+        this.setupNearYouService();
     }
 
     fetchMyShoppingLists() {
@@ -41,6 +47,25 @@ export class UserListsComponent implements OnInit, OnDestroy {
                     this.listenForUpdatesOfList(list);
                 })
         );
+    }
+
+    setupNearYouService () {
+        this.nearYouService.hasGivenPermissionToUseGeolocation()
+            .subscribe(enabled => {
+                this.isNearYouEnabled = enabled;
+                if (enabled) {
+                    this.nearYouService.start();
+                }
+            })
+    }
+
+    enableNearYouService () {
+        this.askingNearYouPermission = true;
+        this.nearYouService.askPermission().subscribe(() => {
+            this.isNearYouEnabled = true;
+            this.askingNearYouPermission = false;
+            this.nearYouService.start();
+        });
     }
 
     listenForUpdatesOfList(list: ShoppingListPreview) {

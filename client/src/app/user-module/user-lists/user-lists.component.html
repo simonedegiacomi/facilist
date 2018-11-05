@@ -5,6 +5,11 @@
 
     <div class="notebook-sheet-content">
 
+        <div class="alert alert-primary" *ngIf="!isNearYouEnabled">
+            <a (click)="enableNearYouService()" *ngIf="!askingNearYouPermission">Attiva la geolocalizzazione</a>
+            <span *ngIf="askingNearYouPermission">Attivazione in corso ...</span>
+        </div>
+
         <ul class="lists-list">
 
             <li *ngFor="let list of lists" class="row">
