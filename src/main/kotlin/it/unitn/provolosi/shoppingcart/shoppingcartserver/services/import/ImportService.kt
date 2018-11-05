@@ -107,13 +107,14 @@ class ImportService(
 
     private fun importShoppingListCategories () = csvFile("/import/shoppingListCategories.csv").forEach {
         val category = ShoppingListCategory(
-            name                = it["name"],
-            description         = it["description"],
-            icon                = "default-shopping-list-category-icon",
-            productCategories   = it["productCategories"]
+            name                    = it["name"],
+            description             = it["description"],
+            icon                    = "default-shopping-list-category-icon",
+            productCategories       = it["productCategories"]
                     .split(",")
                     .map { categoryByName[it]!! }
-                    .toMutableList()
+                    .toMutableList(),
+            foursquareCategoryIds   = it["foursquareCategoryIds"].split(",").toMutableList()
         )
 
         val iconFileName = it["icon"]

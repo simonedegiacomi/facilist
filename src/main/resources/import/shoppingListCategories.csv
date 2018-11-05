@@ -1,6 +1,6 @@
-name;description;productCategories;icon
-Lista del Fruttivendolo;Contiene prodotti le cui categorie riguardano i fruttivendoli, e che quindi conviene comprare quando si passa vicino ad un negozio di questo tipo.;Frutta,Verdura;latte.png
-Lista della casa;Cose casalinghe;Bagno,Domestico;
-Quando hai fame;Cose che si mangiano;Frutta,Verdura,Carne,Condimenti,Bevanda;
-Tempo libero;boh;Quidditch,Film;
-Per me;a;Salute,Abbigliamento,A,c,d;
+name;description;productCategories;icon;foursquareCategoryIds
+Lista del Fruttivendolo;Contiene prodotti le cui categorie riguardano i fruttivendoli, e che quindi conviene comprare quando si passa vicino ad un negozio di questo tipo.;Frutta,Verdura;latte.png;4bf58dd8d48988d1f9941735
+Lista della casa;Cose casalinghe;Bagno,Domestico;latte.png;4bf58dd8d48988d1f9941735
+Quando hai fame;Cose che si mangiano;Frutta,Verdura,Carne,Condimenti,Bevanda;latte.png;4bf58dd8d48988d1f9941735
+Tempo libero;boh;Quidditch,Film;latte.png;4bf58dd8d48988d1f0941735,4bf58dd8d48988d1f2941735
+Per me;a;Salute,Abbigliamento,A,c,d;latte.png;4bf58dd8d48988d1f9941735,52f2ab2ebcbc57f1066b8b36
