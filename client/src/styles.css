@@ -48,10 +48,12 @@ a {
     font-family: var(--fontTitle);
 
     transition: color 0.25s ease;
+    cursor: pointer;
 }
 
 a:hover {
     color: var(--lightDarkened);
+    text-decoration: underline;
 }
 
 a.dark {

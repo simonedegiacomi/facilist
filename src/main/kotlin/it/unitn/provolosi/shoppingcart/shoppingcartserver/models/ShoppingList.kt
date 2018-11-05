@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
@@ -60,6 +61,7 @@ data class ShoppingList(
     fun ownerAndCollaborators() = listOf(creator, *collaborations.map { c -> c.user }.toTypedArray())
 
     fun toPreview() = ShoppingListPreview(
+        shoppingList        = this,
         id                  = this.id!!,
         name                = this.name,
         description         = this.description,
@@ -73,6 +75,10 @@ data class ShoppingList(
 }
 
 data class ShoppingListPreview(
+
+        @JsonIgnore
+        val shoppingList: ShoppingList,
+
         val id: Long,
         val name: String,
         val description: String?,
@@ -82,4 +88,8 @@ data class ShoppingListPreview(
         val itemsCount: Int,
 
         val isShared: Boolean
-)
+) {
+
+    val itemsToBuy: Int
+        get() = itemsCount - boughtItemsCount
+}

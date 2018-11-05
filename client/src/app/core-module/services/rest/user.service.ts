@@ -58,6 +58,14 @@ export class UserService extends MyRestService<User> {
 
         return this.httpClient.post(`${this.resourcePath}/confirmEmailChange/${email}`, {}, options);
     }
+
+    updatePosition(position: Position):Observable<any> {
+        return this.httpClient
+            .post(`${this.resourcePath}/me/position`, {
+                lat: position.coords.latitude,
+                lon: position.coords.longitude
+            });
+    }
 }
 
 

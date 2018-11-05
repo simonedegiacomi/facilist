@@ -29,7 +29,16 @@ data class ShoppingListCategory(
             joinColumns         = [JoinColumn(name = "shopping_list_category_id")],
             inverseJoinColumns  = [JoinColumn(name = "product_category_id")]
         )
-        val productCategories: MutableList<ProductCategory> = mutableListOf()
+        val productCategories: MutableList<ProductCategory> = mutableListOf(),
+
+
+        @ElementCollection
+        @CollectionTable(
+            name = "shopping_list_category__foursquare_id",
+            joinColumns = [JoinColumn(name = "shopping_list_category_id")]
+        )
+        @Column
+        val foursquareCategoryIds: MutableList<String> = mutableListOf()
 ) {
     companion object {
         const val SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT = "shopping_list_category_unique_name_constraint"
