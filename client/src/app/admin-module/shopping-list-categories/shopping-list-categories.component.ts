@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListCategory } from "../../core-module/models/shopping-list-category";
 import { ShoppingListCategoryService } from "../../core-module/services/rest/shopping-list-category.service";
-import { TreeviewItem } from "ngx-treeview";
 
 @Component({
     selector: 'app-shopping-list-categories',
