@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist
 
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChatMessage
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -10,9 +11,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class SyncShoppingListService(
+class SyncService(
         private val stomp: SimpMessagingTemplate
-) : ISyncShoppingListService {
+) : ISyncService {
 
 
     override fun userNewShoppingList(user: User, list: ShoppingList) = stomp.convertAndSendToUser(
@@ -46,6 +47,11 @@ class SyncShoppingListService(
     override fun productInShoppingListDeleted(relation: ShoppingListProduct) = stomp.convertAndSend(
         "/topic/shoppingLists/${relation.shoppingList.id}/products",
         SyncEvent(EVENT_DELETED, relation)
+    )
+
+    override fun newMessageInShoppingList(message: ChatMessage) = stomp.convertAndSend(
+        "/topic/shoppingLists/${message.shoppingList.id}/chat/messages",
+        SyncEvent(EVENT_CREATED, message)
     )
 }
 

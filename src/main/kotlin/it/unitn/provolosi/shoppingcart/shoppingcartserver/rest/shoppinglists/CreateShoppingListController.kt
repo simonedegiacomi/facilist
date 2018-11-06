@@ -6,7 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ISyncShoppingListService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ISyncService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull
 class CreateShoppingListController (
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
-        private val syncShoppingListService: ISyncShoppingListService
+        private val syncService: ISyncService
 ) {
 
     @PostMapping
@@ -40,7 +40,7 @@ class CreateShoppingListController (
             category    = shoppingListCategoryDAO.findById(dto.shoppingListCategoryId!!)
         ))
 
-        syncShoppingListService.userNewShoppingList(user, list)
+        syncService.userNewShoppingList(user, list)
 
         ResponseEntity(list, HttpStatus.CREATED)
     } catch (ex: ShoppingListCategoryNotFoundException) {

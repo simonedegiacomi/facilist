@@ -10,15 +10,18 @@ import { NewListComponent } from './user-lists/new-list/new-list.component';
 import { ListShareSettingsComponent } from './user-list-page/list-share-settings/list-share-settings.component';
 import { ListOptionsComponent } from './user-list-page/list-options/list-options.component';
 import { UserListPageComponent } from './user-list-page/user-list-page.component';
+import { ChatComponent } from './user-list-page/chat/chat.component';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
     imports: [
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
+        InfiniteScrollModule,
 
         UserRoutingModule,
-        CoreModule
+        CoreModule,
     ],
     declarations: [
         UserRootComponent,
@@ -27,7 +30,8 @@ import { UserListPageComponent } from './user-list-page/user-list-page.component
         NewListComponent,
         ListShareSettingsComponent,
         ListOptionsComponent,
-        UserListPageComponent
+        UserListPageComponent,
+        ChatComponent
     ]
 })
 export class UserModule {
