@@ -30,15 +30,13 @@ import { NotificationsComponent } from './navbar/notifications/notifications.com
         HttpClientModule,
         ReactiveFormsModule,
         EditorModule,
-
-
-        AppRoutingModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
         CoreModule,
         LandingModule,
         AdminModule,
         UserModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+        AppRoutingModule, // When defining the modules, this MUST be the last, because it matches unknown paths (404)
     ],
     providers: [
         HttpInterceptorsProvider,
