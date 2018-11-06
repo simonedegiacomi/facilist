@@ -35,13 +35,14 @@ class UpdatePositionController (
                 .flatMap { shoppingListCategory -> shoppingListCategory.foursquareCategoryIds }
                 .distinct()
 
-        val shops = foursquareService.findShopsOfCategoryNearCoordinates(
-            foursquareCategoryIds,
-            update.toCoordinates()
-        )
+        if (foursquareCategoryIds.isNotEmpty()) {
+            val shops = foursquareService.findShopsOfCategoryNearCoordinates(
+                foursquareCategoryIds,
+                update.toCoordinates()
+            )
 
-        sendNotification(user, shops)
-
+            sendNotification(user, shops)
+        }
     }
 
     data class UpdatePositionDTO (
