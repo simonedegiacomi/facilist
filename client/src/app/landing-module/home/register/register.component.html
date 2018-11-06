@@ -66,20 +66,14 @@
                     <app-new-password [passwords]="registerForm.get('passwords')"></app-new-password>
 
                     <div class="form-group">
-                        <label class="form-check-label" for="privacy">Accetto la normativa della privacy</label>
-
-                        <div class="checkbox-container">
-                            <input type="checkbox" class="form-check-input" id="privacy"
-                                   formControlName="privacy">
-
-                            <span class="checkbox-tick"></span>
-                        </div>
+                        <label class="form-check-label" for="privacy">
+                            <app-checkbox [(checked)]="privacy" [label]="'Accetto la normativa della privacy'"></app-checkbox> </label>
                     </div>
 
 
                     <div class="modal-footer">
                         <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
-                        <button type="submit" class="action-button" [disabled]="!registerForm.valid || registering">
+                        <button type="submit" class="action-button" [disabled]="!registerForm.valid || registering || !privacy">
                             Registrati
                         </button>
                     </div>

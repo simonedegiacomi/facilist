@@ -1,0 +1,23 @@
+.checkbox-container {
+    border-right: 3px dashed var(--lightVeryDarkened);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+}
+
+.checkmark {
+    padding-left: 39px;
+    padding-top:  30px;
+    background: url("../../../../assets/img/checkbox.svg") top left;
+    transition: background-position 0.15s ease;
+    float: left;
+}
+
+.form-check-input:checked + .checkmark {
+    background-position: bottom left;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+    display: none;
+}
