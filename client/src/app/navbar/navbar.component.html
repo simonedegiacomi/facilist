@@ -27,13 +27,7 @@
 
         <!-- User links -->
         <ul *ngIf="isUser$ | async" class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['user', 'shoppingLists']" routerLinkActive="active">Le mie liste</a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['user', 'products']" routerLinkActive="active">I miei prodotti</a>
-            </li>
         </ul>
 
         <!-- Admin links -->
