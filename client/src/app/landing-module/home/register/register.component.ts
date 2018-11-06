@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
 
     emailAlreadyInUse   = false;
     registering         = false;
+    privacy             = false;
 
     constructor(
         private userService: UserService,
@@ -36,10 +37,6 @@ export class RegisterComponent implements OnInit {
             email: new FormControl(null, [
                 Validators.required,
                 Validators.email
-            ]),
-
-            privacy: new FormControl(null, [
-                Validators.requiredTrue
             ]),
         })
     }

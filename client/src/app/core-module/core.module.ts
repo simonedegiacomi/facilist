@@ -17,6 +17,7 @@ import { SearchComponent } from "./components/user-list/search/search.component"
 import { UserProductListNoteComponent } from "./components/user-list/user-shopping-list-product/user-product-list-note/user-product-list-note.component";
 import { UserShoppingListProductComponent } from "./components/user-list/user-shopping-list-product/user-shopping-list-product.component";
 import { NewUserProductComponent } from './components/user-list/new-user-product/new-user-product.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
     imports: [
@@ -46,13 +47,15 @@ import { NewUserProductComponent } from './components/user-list/new-user-product
         UserProductListNoteComponent,
         UserShoppingListProductComponent,
         NewUserProductComponent,
+        CheckboxComponent,
     ],
     exports: [
         ImagePipe,
         ShowChangeImageComponent,
         UserSettingsComponent,
         NewPasswordComponent,
-        UserListComponent
+        UserListComponent,
+        CheckboxComponent
     ]
 })
 export class CoreModule {

@@ -1,13 +1,7 @@
 <li class="row" *ngIf="!deleted">
     <div class="col-1" style="padding-top: 1em;">
         <div class="form-group list-product-bought-state">
-
-            <div class="checkbox-container">
-                <input type="checkbox" class="form-check-input" (change)="toggleToBuy(product)"
-                       [checked]="product.bought">
-
-                <span class="checkbox-tick"></span>
-            </div>
+            <app-checkbox (checkedChange)="toggleToBuy(product)" [checked]="product.bought"></app-checkbox>
         </div>
     </div>
 

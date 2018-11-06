@@ -14,11 +14,11 @@ export class LoginComponent implements OnInit {
 
     loggingIn = false;
     loginError = false;
+    rememberMe = false;
 
     loginForm = new FormGroup({
         email: new FormControl(''),
-        password: new FormControl(''),
-        rememberMe: new FormControl('')
+        password: new FormControl('')
     });
 
     constructor(
@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
         this.loginError = false;
         this.loggingIn = true;
 
-        const {email, password, rememberMe} = this.loginForm.value;
-        this.auth.login(email, password, rememberMe).subscribe(
+        const {email, password} = this.loginForm.value;
+        this.auth.login(email, password, this.rememberMe).subscribe(
             () => this.onLoggedIn(),
             error => this.onError(error));
     }
