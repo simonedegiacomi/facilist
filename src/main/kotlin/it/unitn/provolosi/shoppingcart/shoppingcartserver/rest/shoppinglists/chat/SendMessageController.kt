@@ -6,6 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,7 +18,8 @@ import javax.validation.constraints.NotEmpty
 @RestController
 @RequestMapping("/api/shoppingLists/{shoppingListId}/chat/messages")
 class SendMessageController(
-        private val chatMessageDAO: ChatMessageDAO
+        private val chatMessageDAO: ChatMessageDAO,
+        private val syncService: SyncService
 ) {
 
     @PostMapping
@@ -32,7 +34,7 @@ class SendMessageController(
             message         = message
         ))
 
-        // TODO: Sync and send notification
+        syncService.newMessageInShoppingList(message)
 
         return ResponseEntity.ok(message)
     }

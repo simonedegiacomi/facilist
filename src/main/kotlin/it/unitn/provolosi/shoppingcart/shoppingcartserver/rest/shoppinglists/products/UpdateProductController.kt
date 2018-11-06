@@ -5,7 +5,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListP
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import notFound
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,7 +19,7 @@ import javax.validation.constraints.PositiveOrZero
 @RequestMapping("/api/shoppingListProducts/{id}")
 class UpdateProductController(
         private val shoppingListProductDAO: ShoppingListProductDAO,
-        private val syncShoppingListService: SyncShoppingListService
+        private val syncShoppingListService: SyncService
 ) {
 
     @PutMapping

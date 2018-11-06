@@ -22,7 +22,7 @@ export class UserShoppingListProductComponent {
         private listService: ShoppingListService,
     ) {
         this.sendEdits.pipe(
-            debounceTime(1500),
+            //debounceTime(1500),
             switchMap(() => this.listService.updateProductInShoppingList(this.product))
         ).subscribe(updatedList => {
 

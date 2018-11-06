@@ -1,0 +1,44 @@
+div.smartphone {
+
+    width: 23.75em;
+    max-width: 95vw;
+
+    height: 48em;
+    max-height: calc(85vh - var(--navbarHeight));
+
+    background-image: url('../../../../assets/img/smartphone.svg');
+
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    div.smartphone {
+        position: fixed;
+    }
+
+    div.smartphone.open {
+        top: 2em;
+        right: 0;
+    }
+}
+
+.display {
+    width: 100%;
+    margin: 4em 1em;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+
+div.open-chat-trigger {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

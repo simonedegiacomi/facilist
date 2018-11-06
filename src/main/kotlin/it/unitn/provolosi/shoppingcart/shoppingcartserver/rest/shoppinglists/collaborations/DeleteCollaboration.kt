@@ -12,7 +12,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.Pat
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -28,7 +28,7 @@ class DeleteCollaboration(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val shoppingListProductDAO: ShoppingListProductDAO,
         private val notificationService: NotificationService,
-        private val syncShoppingListService: SyncShoppingListService,
+        private val syncShoppingListService: SyncService,
         val emailService: EmailService,
 
         @Value("\${app.name}")

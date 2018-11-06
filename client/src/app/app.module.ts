@@ -17,6 +17,7 @@ import { UserModule } from "./user-module/user.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NotificationsComponent } from './navbar/notifications/notifications.component';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
     declarations: [
@@ -30,15 +31,13 @@ import { NotificationsComponent } from './navbar/notifications/notifications.com
         HttpClientModule,
         ReactiveFormsModule,
         EditorModule,
-
-
-        AppRoutingModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
         CoreModule,
         LandingModule,
         AdminModule,
         UserModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+        AppRoutingModule, // When defining the modules, this MUST be the last, because it matches unknown paths (404)
     ],
     providers: [
         HttpInterceptorsProvider,

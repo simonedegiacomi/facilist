@@ -6,7 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncShoppingListService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PutMapping
@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull
 @RequestMapping("/api/shoppingLists/{shoppingListId}")
 class UpdateShoppingListInfoController(
         private val shoppingListDAO: ShoppingListDAO,
-        private val syncShoppingListService: SyncShoppingListService,
+        private val syncShoppingListService: SyncService,
         private val notificationService: NotificationService
 ) {
 

@@ -1,0 +1,30 @@
+<div class="smartphone" [class.open]="isOpen" *ngIf="isOpen">
+    <div class="display">
+        <div class="messages"
+             infiniteScroll
+             (scrolledUp)="onScrollUp()"
+             [scrollWindow]="false"
+        >
+
+            <div *ngFor="let message of messages" class="message">
+                <strong>{{ message.user.firstName }}</strong>
+                {{ message.message }}
+            </div>
+
+        </div>
+
+        <div class="write-message-box">
+            <form (ngSubmit)="sendMessage()" #form="ngForm">
+
+                <textarea name="message" [(ngModel)]="newMessage" required minlength="1" [disabled]="isSending"></textarea>
+
+                <!-- TODO: Disable if message empty -->
+                <button type="submit" [disabled]="isSending">Invia</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="open-chat-trigger">
+    <button (click)="toggleChat()">Apri</button>
+</div>

@@ -1,13 +1,20 @@
-<app-user-list *ngIf="list"
-          [list]="list"
-          (openSettings)="onOpenSettings()"
-          (openShareSettings)="onOpenShareSettings()"
-          (back)="onBack()"
-></app-user-list>
+<div *ngIf="list">
 
-<user-list-share-settings
-    *ngIf="list"
-    [list]="list"></user-list-share-settings>
+    <div class="d-flex flex-row">
+        <app-user-list
+            [list]="list"
+            (openSettings)="onOpenSettings()"
+            (openShareSettings)="onOpenShareSettings()"
+            (back)="onBack()"
+        ></app-user-list>
 
-<list-options *ngIf="list"
-              [list]="list"></list-options>
+
+        <list-chat [list]="list"></list-chat>
+
+    </div>
+
+    <user-list-share-settings [list]="list"></user-list-share-settings>
+
+    <list-options [list]="list"></list-options>
+
+</div>

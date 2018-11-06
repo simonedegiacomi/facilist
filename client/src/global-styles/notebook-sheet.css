@@ -1,8 +1,6 @@
 .notebook-sheet {
     position: relative;
 
-    width: 32em;
-
     max-width: 95vw;
     max-height: calc(85vh - var(--navbarHeight));
 
@@ -20,6 +18,10 @@
 
 .notebook-sheet.always-tall {
     height: 48em;
+}
+
+.notebook-sheet.always-large {
+    width: 32em;
 }
 
 .notebook-sheet-header {
