@@ -1,9 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.collaborations
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.InviteToJoinDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
@@ -46,9 +43,13 @@ class AddCollaboration(
 
         if (list.canUserEditCollaborations(user)) {
 
-            addUserToShoppingListByEmail(list, user, emailToAdd, req)
+            try {
+                addUserToShoppingListByEmail(list, user, emailToAdd, req)
 
-            ResponseEntity(list, HttpStatus.OK)
+                ResponseEntity(list, HttpStatus.OK)
+            } catch (ex: UserAlreadyCollaboratesWithShoppingListException) {
+                ResponseEntity.status(HttpStatus.CONFLICT).build<ShoppingList>()
+            }
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
