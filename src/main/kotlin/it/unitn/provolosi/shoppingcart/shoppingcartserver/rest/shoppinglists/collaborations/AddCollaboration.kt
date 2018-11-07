@@ -69,6 +69,10 @@ class AddCollaboration(
 
 
     private fun addUserToShoppingList(list: ShoppingList, user: User, inviter: User, req: HttpServletRequest) {
+        if (user == list.creator) {
+            throw UserAlreadyCollaboratesWithShoppingListException()
+        }
+
         val collaboration = shoppingListCollaborationDAO.save(ShoppingListCollaboration(
             user = user,
             shoppingList = list
