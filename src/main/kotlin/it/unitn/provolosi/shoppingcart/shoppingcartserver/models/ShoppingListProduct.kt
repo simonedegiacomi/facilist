@@ -1,12 +1,19 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct.Companion.SHOPPING_LIST_PRODUCT_UNIQUE_CONSTRAINT
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
 
 @Entity
-@Table(name = "shopping_list__product")
+@Table(
+    name = "shopping_list__product",
+    uniqueConstraints = [UniqueConstraint(
+        columnNames = ["product_id", "shopping_list_id"],
+        name = SHOPPING_LIST_PRODUCT_UNIQUE_CONSTRAINT
+    )]
+)
 data class ShoppingListProduct(
 
         @Id
@@ -37,6 +44,12 @@ data class ShoppingListProduct(
         var image: String
 
 ) {
+
+    companion object {
+        const val SHOPPING_LIST_PRODUCT_UNIQUE_CONSTRAINT = "shopping_list_product_unique_constraint"
+    }
+
+
     init {
         shoppingList.products.add(this)
     }

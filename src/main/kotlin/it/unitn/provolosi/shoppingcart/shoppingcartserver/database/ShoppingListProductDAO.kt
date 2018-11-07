@@ -3,6 +3,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 
 class ShoppingListProductNotFoundException : Exception()
+class ProductAlreadyInShoppingListException: Exception()
 
 interface ShoppingListProductDAO {
 
