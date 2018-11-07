@@ -36,9 +36,17 @@ div.smartphone {
     overflow-y: auto;
 }
 
-
 div.open-chat-trigger {
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+.message {
+    padding: .5em;
+    background-color: lightgreen;
+}
+
+.message.my-message {
+    background-color: lightblue;
 }

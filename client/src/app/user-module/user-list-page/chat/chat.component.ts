@@ -4,6 +4,7 @@ import { ChatService } from "../../../core-module/services/rest/chat.service";
 import { ChatMessage } from "../../../core-module/models/chat-message";
 import { PagedResult } from "../../../core-module/services/rest/MyRestService";
 import { ChatSyncService } from "../../../core-module/services/sync/chat-sync.service";
+import { AuthService } from "../../../core-module/services/auth.service";
 
 @Component({
     selector: 'list-chat',
@@ -16,7 +17,7 @@ export class ChatComponent implements OnInit {
 
     isOpen = false;
 
-    private lastPage: PagedResult<ChatMessage>;
+    private lastLoadedPage: PagedResult<ChatMessage>;
 
     messages: ChatMessage[] = [];
 
@@ -24,11 +25,15 @@ export class ChatComponent implements OnInit {
 
     isSending = false;
 
+    loadingPreviousMessages = false;
+
     constructor(
         private chatService: ChatService,
-        private chatSync: ChatSyncService
-    ) {
-    }
+        private chatSync: ChatSyncService,
+        private authService: AuthService
+    ) { }
+
+    get user () { return this.authService.user; }
 
     ngOnInit() {
         this.listenForNewMessages();
@@ -37,22 +42,42 @@ export class ChatComponent implements OnInit {
 
     private listenForNewMessages () {
         this.chatSync.newMessageOfShoppingList(this.list)
-            .subscribe(message => this.messages.push(message))
+            .subscribe(message => {
+                this.messages.push(message);
+                this.scrollToBottom();
+            })
     }
 
     private fetchMessages () {
-        this.chatService.getPagedMessagesOfShoppingList(this.list).subscribe(page => {
-            this.lastPage = page;
-            this.messages = page.content.reverse();
-        });
+        this.loadingPreviousMessages = true;
+        this.chatService.getPagedMessagesOfShoppingList(this.list)
+            .subscribe(page => this.onOlderMessagesLoaded(page));
     }
 
     toggleChat () {
         this.isOpen = !this.isOpen;
+        // TODO: Update last seen message
+
+        this.scrollToBottom();
+    }
+
+    private scrollToBottom () {
+        setTimeout(() => document.querySelector('.messages')
+            .scrollTo(0, document.querySelector('.smartphone').clientHeight));
     }
 
     onScrollUp () {
-        console.log('scrolled up');
+        if (this.lastLoadedPage.hasNext) {
+            this.loadingPreviousMessages = true;
+            this.chatService.getPagedMessagesOfShoppingListSentBeforeMessage(this.list, this.messages[0])
+                .subscribe(page => this.onOlderMessagesLoaded(page))
+        }
+    }
+
+    private onOlderMessagesLoaded (page:  PagedResult<ChatMessage>) {
+        this.loadingPreviousMessages = false;
+        this.lastLoadedPage = page;
+        this.messages.splice(0, 0, ...page.content.reverse());
     }
 
     sendMessage () {

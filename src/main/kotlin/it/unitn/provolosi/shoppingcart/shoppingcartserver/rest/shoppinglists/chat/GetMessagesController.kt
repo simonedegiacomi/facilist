@@ -31,4 +31,15 @@ class GetMessagesController(
     ): ResponseEntity<Page<ChatMessage>> = ResponseEntity.ok(
         chatMessageDAO.findByShoppingListOrderBySentAtDesc(list, PageRequest.of(page, size))
     )
+
+    @GetMapping(params = ["lastMessageId"])
+    fun sendMessageOlderThanMessage(
+            @AppUser user: User,
+            @PathVariableBelongingShoppingList list: ShoppingList,
+            @RequestParam(name = "page", defaultValue = "0") page: Int,
+            @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int,
+            @RequestParam(name = "lastMessageId") lastMessageId: Long
+    ): ResponseEntity<Page<ChatMessage>> = ResponseEntity.ok(
+        chatMessageDAO.findByShoppingListOlderThanMessageOrderBySentAtDesc(list, lastMessageId, PageRequest.of(page, size))
+    )
 }

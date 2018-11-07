@@ -10,5 +10,6 @@ interface ChatMessageDAO {
     fun save(chatMessage: ChatMessage): ChatMessage
 
     fun findByShoppingListOrderBySentAtDesc(list: ShoppingList, pageable: Pageable): Page<ChatMessage>
+    fun findByShoppingListOlderThanMessageOrderBySentAtDesc(list: ShoppingList, lastMessageId: Long, of: Pageable): Page<ChatMessage>
 
 }

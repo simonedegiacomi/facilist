@@ -6,7 +6,9 @@
              [scrollWindow]="false"
         >
 
-            <div *ngFor="let message of messages" class="message">
+            <div *ngIf="loadingPreviousMessages">Sto caricando i messaggi più vecchi ...</div>
+
+            <div *ngFor="let message of messages" class="message" [class.my-message]="user.id == message.user.id">
                 <strong>{{ message.user.firstName }}</strong>
                 {{ message.message }}
             </div>

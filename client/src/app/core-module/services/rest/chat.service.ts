@@ -22,13 +22,20 @@ export class ChatService extends MyRestService<ChatMessage> {
         page: number = 0,
         size: number = 20
     ): Observable<PagedResult<ChatMessage>> {
-        return this.getPaged(`/api/shoppingLists/${list.id}/chat/messages`,  page, size);
+        return this.getPaged(`/api/shoppingLists/${list.id}/chat/messages`, page, size);
     }
 
-    public sendMessage (
+    public sendMessage(
         list: ShoppingList,
         message: string
     ): Observable<any> {
         return this.httpClient.post(`/api/shoppingLists/${list.id}/chat/messages`, message);
+    }
+
+    getPagedMessagesOfShoppingListSentBeforeMessage(
+        list: ShoppingList,
+        lastMessage: ChatMessage
+    ): Observable<PagedResult<ChatMessage>> {
+        return this.getPaged(`/api/shoppingLists/${list.id}/chat/messages?lastMessageId=${lastMessage.id}`);
     }
 }
