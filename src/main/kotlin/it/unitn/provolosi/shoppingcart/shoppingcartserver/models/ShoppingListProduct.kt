@@ -34,7 +34,12 @@ data class ShoppingListProduct(
 
 
         @Column
-        var image: String
+        var image: String,
+
+
+        @ManyToOne
+        @JoinColumn(name = "recent_shopping_list_products_update_id")
+        var recentShoppingListProductsUpdate: RecentShoppingListProductsUpdate?
 
 ) {
     init {

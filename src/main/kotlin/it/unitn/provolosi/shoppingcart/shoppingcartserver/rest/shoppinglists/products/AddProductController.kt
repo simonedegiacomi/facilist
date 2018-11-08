@@ -4,6 +4,7 @@ import forbidden
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
@@ -54,11 +55,11 @@ class AddProductController(
 
             syncShoppingListService.newShoppingListProduct(relation)
 
-            /*notificationService.saveAndSendProductNotification(
-                relation,
-                user,
-                ShoppingListProductNotification.
-            )*/
+            /*notificationService.saveAndSend(Notification(
+                message = "${user.firstName} ha aggiunto ${product.name} alla lista ${list.name}",
+                icon    = relation.image,
+                target  = collaboration.user
+            ))*/
 
             return ResponseEntity.ok(relation)
 
