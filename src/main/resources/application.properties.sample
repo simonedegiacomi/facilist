@@ -7,7 +7,7 @@ spring.datasource.password=sa
 
 ## End data
 
-
+forceHerokuHttps=false
 
 # Applicatio name
 app.name="Titolo Applicazione"

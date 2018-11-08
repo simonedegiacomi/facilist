@@ -1,6 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.products
 
 import forbidden
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductAlreadyInShoppingListException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
@@ -13,6 +14,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.Pat
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import notFound
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -39,10 +41,6 @@ class AddProductController(
 
             val product = productDAO.findById(productId)
 
-            if (!list.isUserOwnerOrCollaborator(user)) {
-                return forbidden()
-            }
-
             if (product.creator != null && product.creator != user) {
                 return forbidden()
             }
@@ -67,6 +65,8 @@ class AddProductController(
             return notFound()
         } catch (ex: ProductNotFoundException) {
             return notFound()
+        } catch (ex: ProductAlreadyInShoppingListException) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build()
         }
     }
 }

@@ -3,6 +3,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.co
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserAlreadyCollaboratesWithShoppingListException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
@@ -54,7 +55,9 @@ class UpdateCollaborations(
                 if (c.role != it.role) {
                     c.role = it.role!! // TODO: Verify!
 
+
                     shoppingListCollaborationDAO.save(c)
+
 
                     sendEmailToCollaborator(list, c.user)
 

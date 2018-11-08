@@ -3,6 +3,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 
 class ShoppingListCollaborationNotFoundException : Exception()
+class UserAlreadyCollaboratesWithShoppingListException : Exception()
 
 interface ShoppingListCollaborationDAO {
     fun save(collaboration: ShoppingListCollaboration): ShoppingListCollaboration

@@ -1,6 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.security
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.util.matcher.RequestMatcher
 import javax.sql.DataSource
 
 @Configuration()
@@ -19,7 +21,10 @@ import javax.sql.DataSource
 class AppSecurityConfig(
 
         @Autowired
-        private val dataSource: DataSource
+        private val dataSource: DataSource,
+
+        @Value("\${forceHerokuHttps}")
+        private val forceHerokuHttps: Boolean
 
 ) : WebSecurityConfigurerAdapter() {
 
@@ -44,6 +49,12 @@ class AppSecurityConfig(
     }
 
     override fun configure(http: HttpSecurity?) {
+        if (forceHerokuHttps) {
+            http!!.requiresChannel()
+                .requestMatchers(RequestMatcher { r -> r.getHeader("X-Forwarded-Proto") != null })
+                .requiresSecure()
+        }
+
         http!!.authorizeRequests()
                 .antMatchers("/index.html")
                     .permitAll()
