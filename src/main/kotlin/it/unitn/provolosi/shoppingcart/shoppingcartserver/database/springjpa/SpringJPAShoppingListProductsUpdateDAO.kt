@@ -25,5 +25,9 @@ class SpringJPAShoppingListProductsUpdateDAO(
 
     override fun findByLastEditAtLessThan(lessThan: Date) = springRepository.findByLastEditAtLessThan(lessThan)
 
-    override fun delete(update: ShoppingListProductUpdatesGroup) = springRepository.delete(update)
+    override fun delete(update: ShoppingListProductUpdatesGroup) {
+        update.shoppingList.productUpdatesGroup = null
+        update.updatedProducts.forEach { p -> p.shoppingListProductUpdatesGroup = null }
+        springRepository.delete(update)
+    }
 }

@@ -14,7 +14,9 @@ data class ShoppingListProductUpdatesGroup(
         val id: Long? = null,
 
         @OneToOne()
-        @JoinColumn(name = "shopping_list_id")
+        @JoinColumn(
+            name = "shopping_list_id"
+        )
         @OnDelete(action = OnDeleteAction.CASCADE)
         val shoppingList: ShoppingList,
 

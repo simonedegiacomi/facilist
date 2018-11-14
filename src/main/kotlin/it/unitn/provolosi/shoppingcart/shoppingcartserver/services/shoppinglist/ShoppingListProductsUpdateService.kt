@@ -84,7 +84,7 @@ class ShoppingListProductsUpdateTask (
                     target  = user,
                     message = buildMessage(group),
                     icon    = group.shoppingList.icon,
-                    url     = "$websiteUrl/shoppingLists/${group.shoppingList.id}"
+                    url     = "/user/shoppingLists/${group.shoppingList.id}"
                 )
             }
 
@@ -102,7 +102,7 @@ class ShoppingListProductsUpdateTask (
                 .joinToString(separator = ", ")
 
         var message = users
-        message += if (users.length == 1) " ha" else " hanno"
+        message += if (group.users.size == 1) " ha" else " hanno"
         message += " modificato $products"
         if (products.length < group.updatedProducts.size) {
             message += " ..."

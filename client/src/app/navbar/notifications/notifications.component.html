@@ -1,8 +1,8 @@
 <div class="notifications-box" [class.box-open]="open">
     <div class="notifications-box-content">
         <ul>
-            <li class="row" *ngFor="let notification of notifications">
-                <span class="col-9">{{ notification.message }}</span>
+            <li class="row" *ngFor="let notification of notifications" >
+                <a [routerLink]="notification.url" class="col-9">{{ notification.message }}</a>
 
                 <div class="col-3">
                     <img class="icon normal-icon" [src]="notification.icon | image">

@@ -53,7 +53,7 @@ data class ShoppingList(
         @OneToOne(
             mappedBy = "shoppingList"
         )
-        private var productUpdatesGroup: ShoppingListProductUpdatesGroup? = null
+        var productUpdatesGroup: ShoppingListProductUpdatesGroup? = null
 ) {
     fun isShared() = collaborations.isNotEmpty()
 

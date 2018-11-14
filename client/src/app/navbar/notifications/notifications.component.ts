@@ -76,7 +76,10 @@ export class NotificationsComponent implements OnInit {
     onSubscribeToPushNotifications() {
         this.pushNotificationService.enableOrUpdateSubsciprion().subscribe(
             () => this.hasSubscribed = true,
-            () => alert("Si è verificato un errore durante l'attivazione delle notifiche"));
+            (err) => {
+                console.error(err)
+                alert("Si è verificato un errore durante l'attivazione delle notifiche")
+            });
     }
 
 

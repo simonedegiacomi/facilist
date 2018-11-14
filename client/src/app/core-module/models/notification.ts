@@ -15,4 +15,6 @@ export class Notification implements MyRestEntity {
     message: string;
 
     icon: string;
+
+    url: string;
 }
