@@ -1,4 +1,7 @@
 .notebook-sheet {
+    display: flex;
+    flex-direction: column;
+
     position: relative;
 
     max-width: 95vw;

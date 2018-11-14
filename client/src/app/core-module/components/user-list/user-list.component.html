@@ -26,22 +26,24 @@
         </div>
     </div>
 
+    <user-list-search [list]="list" (addProduct)="onAddProduct($event)"
+                      (createProduct)="onCreateProduct($event)"></user-list-search>
+
     <div class="notebook-sheet-content">
-        <user-list-search [list]="list" (addProduct)="onAddProduct($event)"
-        (createProduct)="onCreateProduct($event)"></user-list-search>
+        <div>
+            <ul class="products-list">
+                <li class="row">
+                    <div class="col-2 col-sm-1"></div>
+                    <div class="col-3 col-sm-2"></div>
+                    <div class="col-4 col-sm-6">Prodotto</div>
+                    <div class="col-3 col-sm-3">Qta.</div>
+                    <div></div>
+                </li>
 
-        <ul class="products-list">
-            <li class="row">
-                <div class="col-2 col-sm-1"></div>
-                <div class="col-3 col-sm-2"></div>
-                <div class="col-4 col-sm-6">Prodotto</div>
-                <div class="col-3 col-sm-3">Qta.</div>
-                <div></div>
-            </li>
-
-            <user-shopping-list-product *ngFor="let product of list.products" [product]="product">
-            </user-shopping-list-product>
-        </ul>
+                <user-shopping-list-product *ngFor="let product of list.products" [product]="product">
+                </user-shopping-list-product>
+            </ul>
+        </div>
     </div>
 </div>
 
