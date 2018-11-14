@@ -62,7 +62,14 @@ data class User(
             cascade  = [CascadeType.ALL]
         )
         @JsonIgnore
-        val pushSubscriptions: MutableList<PushSubscription> = mutableListOf()
+        val pushSubscriptions: MutableList<PushSubscription> = mutableListOf(),
+
+        @ManyToMany(
+            mappedBy = "users",
+            cascade     = [CascadeType.REMOVE] // When the user is deleted, remove the user from the update group
+        )
+        @JsonIgnore
+        val recentShoppingListProductUpdatesGroup: MutableList<ShoppingListProductUpdatesGroup> = mutableListOf()
 
 ) {
     companion object {

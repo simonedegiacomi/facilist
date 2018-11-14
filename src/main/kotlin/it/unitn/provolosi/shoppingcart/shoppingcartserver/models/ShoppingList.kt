@@ -49,6 +49,11 @@ data class ShoppingList(
             cascade = [CascadeType.REMOVE]
         )
         val products:MutableList<ShoppingListProduct> = mutableListOf(),
+
+        @OneToOne(
+            mappedBy = "shoppingList"
+        )
+        private var productUpdatesGroup: ShoppingListProductUpdatesGroup? = null
 ) {
     fun isShared() = collaborations.isNotEmpty()
 

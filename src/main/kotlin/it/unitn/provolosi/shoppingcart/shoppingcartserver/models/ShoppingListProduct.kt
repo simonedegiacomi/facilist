@@ -44,9 +44,10 @@ data class ShoppingListProduct(
         var image: String,
 
 
-        @ManyToOne
-        @JoinColumn(name = "recent_shopping_list_products_update_id")
-        var recentShoppingListProductsUpdate: RecentShoppingListProductsUpdate?
+        @OneToOne
+        @JoinColumn(name = "shopping_list_product_updates_group_id")
+        @JsonIgnore
+        var shoppingListProductUpdatesGroup: ShoppingListProductUpdatesGroup? = null
 
 ) {
 
@@ -57,5 +58,16 @@ data class ShoppingListProduct(
 
     init {
         shoppingList.products.add(this)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+
+    override fun hashCode(): Int {
+        if (id != null) {
+            return id.toInt()
+        }
+        return 0
     }
 }

@@ -5,6 +5,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListP
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import notFound
 import org.springframework.http.ResponseEntity
@@ -19,7 +20,8 @@ import javax.validation.constraints.PositiveOrZero
 @RequestMapping("/api/shoppingListProducts/{id}")
 class UpdateProductController(
         private val shoppingListProductDAO: ShoppingListProductDAO,
-        private val syncShoppingListService: SyncService
+        private val syncShoppingListService: SyncService,
+        private val shoppingListProductsUpdateService: ShoppingListProductsUpdateService
 ) {
 
     @PutMapping
@@ -42,6 +44,8 @@ class UpdateProductController(
 
             shoppingListProductDAO.save(relation)
             syncShoppingListService.productInShoppingListEdited(relation)
+
+            shoppingListProductsUpdateService.collectEvent(user, relation)
 
             ResponseEntity.ok(relation)
 

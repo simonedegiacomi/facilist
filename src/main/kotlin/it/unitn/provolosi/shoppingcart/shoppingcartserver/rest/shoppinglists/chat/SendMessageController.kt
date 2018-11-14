@@ -28,14 +28,14 @@ class SendMessageController(
             @PathVariableBelongingShoppingList list: ShoppingList,
             @RequestBody @Valid @NotEmpty message: String
     ): ResponseEntity<ChatMessage> {
-        val message         = chatMessageDAO.save(ChatMessage(
+        val chatMessage = chatMessageDAO.save(ChatMessage(
             user            = user,
             shoppingList    = list,
             message         = message
         ))
 
-        syncService.newMessageInShoppingList(message)
+        syncService.newMessageInShoppingList(chatMessage)
 
-        return ResponseEntity.ok(message)
+        return ResponseEntity.ok(chatMessage)
     }
 }

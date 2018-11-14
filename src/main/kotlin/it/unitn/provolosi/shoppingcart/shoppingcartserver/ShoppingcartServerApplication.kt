@@ -10,12 +10,18 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.ResponseEntity
 import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
+import org.springframework.orm.jpa.JpaTransactionManager
+import org.springframework.transaction.PlatformTransactionManager
+import javax.persistence.EntityManagerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
 
 
 fun main(args: Array<String>) {
@@ -37,14 +43,21 @@ class ShoppingcartServerApplication(
 }
 
 @Configuration
+@EnableTransactionManagement
 class Config(
         private val userResolver: UserArgumentResolver,
-        private val shoppingListResolver: PathVariableBelongingShoppingListResolver
+        private val shoppingListResolver: PathVariableBelongingShoppingListResolver,
+        private val entityManagerFactory: EntityManagerFactory
 ) : WebMvcConfigurer {
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
         resolvers.add(userResolver)
         resolvers.add(shoppingListResolver)
+    }
+
+    @Bean
+    fun transactionManager(): PlatformTransactionManager {
+        return JpaTransactionManager(entityManagerFactory)
     }
 
 }
