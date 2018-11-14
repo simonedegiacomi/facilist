@@ -7,6 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PutMapping
@@ -23,7 +24,10 @@ import javax.validation.constraints.NotNull
 class UpdateShoppingListInfoController(
         private val shoppingListDAO: ShoppingListDAO,
         private val syncShoppingListService: SyncService,
-        private val notificationService: NotificationService
+        private val notificationService: NotificationService,
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     @PutMapping()
@@ -74,7 +78,8 @@ class UpdateShoppingListInfoController(
                     Notification(
                         message = "${user.firstName} ha modificato la lista \"${list.name}\"",
                         target  = u,
-                        icon    = user.photo
+                        icon    = user.photo,
+                        url     = "$websiteUrl/shoppingLists/${list.id}"
                     )
                 }
 

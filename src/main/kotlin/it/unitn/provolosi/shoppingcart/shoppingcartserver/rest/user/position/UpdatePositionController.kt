@@ -8,6 +8,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.Co
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.FoursquareService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.NearShops
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.WebSocketDeliveryMethod
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,7 +21,10 @@ import javax.validation.constraints.NotNull
 class UpdatePositionController (
         private val shoppingListDAO: ShoppingListDAO,
         private val foursquareService: FoursquareService,
-        private val notificationSync: WebSocketDeliveryMethod
+        private val notificationSync: WebSocketDeliveryMethod,
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     @PostMapping
@@ -64,7 +68,8 @@ class UpdatePositionController (
         notificationSync.deliver(Notification(
             message = "Non farti scappare l'occasione, passa da $shopNames",
             icon    = "",
-            target  = user
+            target  = user,
+            url     = websiteUrl
         ))
     }
 }

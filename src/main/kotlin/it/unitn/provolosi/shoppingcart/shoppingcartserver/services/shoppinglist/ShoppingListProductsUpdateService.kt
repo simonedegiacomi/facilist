@@ -7,6 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListPro
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateTask.Companion.DEFAULT_SCHEDULE_INTERVAL
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -44,7 +45,10 @@ class ShoppingListProductsUpdateService(
 @Component
 class ShoppingListProductsUpdateTask (
         private val shoppingListProductsUpdateDAO: ShoppingListProductsUpdateDAO,
-        private val notificationService: NotificationService
+        private val notificationService: NotificationService,
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     companion object {
@@ -58,7 +62,6 @@ class ShoppingListProductsUpdateTask (
         calendar.add(Calendar.MILLISECOND, -DEFAULT_RECENT_THRESHOLD_INTERVAL)
 
         shoppingListProductsUpdateDAO.findByLastEditAtLessThan(calendar.time).forEach { recentUpdate ->
-
             buildAndSendNotification(recentUpdate)
 
             deleteGroup(recentUpdate)
@@ -70,26 +73,41 @@ class ShoppingListProductsUpdateTask (
     }
 
     private fun buildAndSendNotification (group: ShoppingListProductUpdatesGroup) {
+        val notifications = buildNotifications(group)
+        notificationService.saveAndSend(notifications)
+    }
+
+    private fun buildNotifications(group: ShoppingListProductUpdatesGroup) = group.shoppingList
+            .ownerAndCollaborators()
+            .map { user ->
+                Notification(
+                    target  = user,
+                    message = buildMessage(group),
+                    icon    = group.shoppingList.icon,
+                    url     = "$websiteUrl/shoppingLists/${group.shoppingList.id}"
+                )
+            }
+
+
+    private fun buildMessage(group: ShoppingListProductUpdatesGroup): String {
         val users = group.users
                 .asSequence()
                 .map { user -> user.firstName }
-                .joinToString(separator = ",")
+                .joinToString(separator = ", ")
 
         val products = group.updatedProducts
                 .asSequence()
                 .take(3) // TODO: Declare constant
                 .map { product -> product.product.name }
-                .joinToString(separator = ",")
-        // TODO: Improve message
-        val message =  "$users modificato $products"
+                .joinToString(separator = ", ")
 
-        notificationService.saveAndSend(
-            group.shoppingList.ownerAndCollaborators().map { user -> Notification(
-                target  = user,
-                message = message,
-                icon    = group.shoppingList.icon
-            ) }
-        )
+        var message = users
+        message += if (users.length == 1) " ha" else " hanno"
+        message += " modificato $products"
+        if (products.length < group.updatedProducts.size) {
+            message += " ..."
+        }
+        return message
     }
-
 }
+

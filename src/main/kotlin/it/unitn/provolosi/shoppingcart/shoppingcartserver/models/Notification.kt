@@ -30,6 +30,9 @@ data class Notification(
         @OnDelete(action = OnDeleteAction.CASCADE)
         @JoinColumn(name = "target_user_id")
         @JsonIgnore
-        val target: User
+        val target: User,
+
+        @Column
+        val url: String
 
 )

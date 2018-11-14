@@ -29,7 +29,11 @@ class AddCollaboration(
         private val notificationService: NotificationService,
 
         @Value("\${app.name}")
-        private val applicationName: String
+        private val applicationName: String,
+
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     @PutMapping()
@@ -91,7 +95,8 @@ class AddCollaboration(
         notificationService.saveAndSend(Notification(
             message = "${inviter.firstName} ti ha invitato a collaborare alla lista \"${list.name}\"",
             icon    = inviter.photo,
-            target  = collaboration.user
+            target  = collaboration.user,
+            url     = "$websiteUrl/shoppingLists/{$list.id}"
         ))
     }
 
@@ -106,7 +111,8 @@ class AddCollaboration(
                     Notification(
                         message = "${inviter.firstName} ha invitato ${invited.firstName} a collaborare alla lista \"${list.name}\"",
                         target  = u,
-                        icon    = inviter.photo
+                        icon    = inviter.photo,
+                        url     = "$websiteUrl/shoppingLists/{$list.id}"
                     )
                 }
 

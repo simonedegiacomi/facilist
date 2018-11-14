@@ -7,6 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ISyncService
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,7 +20,10 @@ import javax.annotation.security.RolesAllowed
 class DeleteShoppingList(
         private val shoppingListDAO: ShoppingListDAO,
         private val updatesService: ISyncService,
-        private val notificationService: NotificationService
+        private val notificationService: NotificationService,
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     @DeleteMapping("/{shoppingListId}")
@@ -49,7 +53,8 @@ class DeleteShoppingList(
                     Notification(
                         message = "${user.firstName} ha eliminato la lista \"${list.name}\"",
                         target  = u,
-                        icon    = user.photo
+                        icon    = user.photo,
+                        url     = websiteUrl
                     )
                 }
 

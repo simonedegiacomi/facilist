@@ -5,8 +5,8 @@ spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
 spring.datasource.username=sa
 spring.datasource.password=sa
 
-## End data
-
+# Deployment environment and domain
+websiteUrl=http://localhost:4200
 forceHerokuHttps=false
 
 # Applicatio name
@@ -33,3 +33,8 @@ emails.server.sender=ds197and.sd@gmail.com
 # Push API
 pushAPI.VAPID.base64PublicKey=
 pushAPI.VAPID.base64PrivateKey=
+
+
+# Foursquare API
+foursquareAPI.clientId=
+foursquareAPI.clientSecret=

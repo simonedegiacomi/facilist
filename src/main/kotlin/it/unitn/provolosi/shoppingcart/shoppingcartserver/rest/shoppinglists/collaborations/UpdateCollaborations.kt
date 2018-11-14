@@ -36,7 +36,10 @@ class UpdateCollaborations(
         private val emailService: EmailService,
 
         @Value("\${app.name}")
-        private val applicationName: String
+        private val applicationName: String,
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     @PostMapping()
@@ -106,7 +109,8 @@ class UpdateCollaborations(
         notificationService.saveAndSend(Notification(
             message = "${inviter.firstName} ha cambiato i tuoi privilegi nella lista \"${list.name}\"",
             icon    = inviter.photo,
-            target  = collaboration.user
+            target  = collaboration.user,
+            url     = "$websiteUrl/shoppingLists/{$list.id}"
         ))
     }
 }

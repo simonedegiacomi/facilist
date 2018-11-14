@@ -32,7 +32,10 @@ class DeleteCollaboration(
         val emailService: EmailService,
 
         @Value("\${app.name}")
-        private val applicationName: String
+        private val applicationName: String,
+
+        @Value("\${websiteUrl}")
+        private val websiteUrl: String
 ) {
 
     @DeleteMapping("{collaborationId}")
@@ -89,7 +92,8 @@ class DeleteCollaboration(
         notificationService.saveAndSend(Notification(
             message = "${user.firstName} ti ha rimosso dai collaboratori di ${list.name}",
             icon    = user.photo,
-            target  = collaboration.user
+            target  = collaboration.user,
+            url     = "$websiteUrl/shoppingLists/{$list.id}"
         ))
     }
 
@@ -104,7 +108,8 @@ class DeleteCollaboration(
                     Notification(
                         message = "${user.firstName} ha rimosso ${removed.firstName} dai collaboratoridella lista \"${list.name}\"",
                         target  = u,
-                        icon    = user.photo
+                        icon    = user.photo,
+                        url     = "$websiteUrl/shoppingLists/{$list.id}"
                     )
                 }
 
