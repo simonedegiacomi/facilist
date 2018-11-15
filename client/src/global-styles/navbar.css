@@ -15,7 +15,7 @@
     height: var(--accountButtonHeight);
 
     margin-left: .5em;
-    margin-top: 1.2em;
+    margin-top: -1.5em;
 
     border: 0;
 
@@ -24,7 +24,19 @@
     cursor: pointer;
 }
 
+@media (min-width: 992px) {
+    .account-buttons button {
+        margin-top: 1.2em;
+    }
+}
 
 .account-buttons button:hover {
     transform: translateY(var(--accountButtonScrollY));
+}
+
+
+
+.navbar-collapse.collapsing + .account-buttons .notifications-box-content-container,
+.navbar-collapse.show + .account-buttons .notifications-box-content-container {
+    visibility: hidden;
 }

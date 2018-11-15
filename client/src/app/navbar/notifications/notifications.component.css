@@ -1,12 +1,10 @@
-
-
 div.notifications-box {
     max-height: 0;
     position: relative;
     z-index: var(--zIndexNotificationsBox);
 
-    margin-top: -1.75em;
-    transform: translateY(-15em);
+    margin-top: -3em;
+    transform: translateY(-16em);
     transition: transform 0.2s ease-out;
 }
 
@@ -16,25 +14,29 @@ div.notifications-box {
     }
 }
 
+@media (min-width: 992px) {
+    div.notifications-box {
+        margin-top: -1.6em;
+    }
+}
+
+
 div.notifications-box.box-open {
     transform: translateY(0);
 }
 
 .notifications-box-content {
     width: 25em;
-    height: 15em;
+    height: 14em;
     max-width: 90vw;
-    padding: 1em;
 
     color: white;
-
-    background-color: var(--buttonLight);
 }
 
 .notifications-icon {
     position: absolute;
     right: 0;
-    margin-top: calc(-1 * var(--accountButtonScrollY));
+    margin-top: -0.45em;
 
     background: url("../../../assets/img/flag-notifications-navbar.svg");
 
@@ -63,3 +65,37 @@ button span.unread-notification-count {
     font-family: var(--fontTitle);
 }
 
+.notifications-box-content-container {
+    background-color: var(--notification);
+    padding: 1em;
+}
+
+.notifications-box-content {
+    overflow-y: auto;
+}
+
+ul {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.notification {
+    padding: 0.35em 0;
+
+    cursor: pointer;
+    border-top: 1px solid white;
+    border-left: 10px solid transparent;
+}
+
+img.normal-icon {
+    width: 3em;
+    height: 3em;
+}
+
+.notification.unread {
+    border-left: 10px solid white;
+}
+
+.notification:hover {
+    background-color: var(--notificationLight);
+}

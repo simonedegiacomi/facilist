@@ -10,6 +10,8 @@
     --buttonDisabled: gray;
     --buttonDanger: red;
     --buttonDangerDark: darkred;
+    --notification: #0a3c6b;
+    --notificationLight: #145c9e;
 
     --fontTitle: 'Lobster', serif;
     --fontRegular: 'Lato', sans-serif;

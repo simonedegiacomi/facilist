@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsableItems"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            [class.v-sm-hidden]="isUser$ | async">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -25,11 +26,6 @@
             </li>
         </ul>
 
-        <!-- User links -->
-        <ul *ngIf="isUser$ | async" class="navbar-nav mr-auto">
-
-        </ul>
-
         <!-- Admin links -->
         <ul *ngIf="isAdmin$ | async" class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -48,12 +44,23 @@
             </li>
         </ul>
 
+
+        <ul *ngIf="!(isGuest$ | async)" class="d-block d-sm-none navbar-nav mr-auto">
+            <li class="nav-item" >
+                <a class="nav-link" data-toggle="modal" data-target="#userSettingsModal">Impostazioni</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" (click)="onClickLogout()">Esci</a>
+            </li>
+        </ul>
+
     </div>
 
     <!-- User profile and logout -->
     <div *ngIf="!(isGuest$ | async)" class="navbar navbar-right account-buttons">
 
-        <app-notifications></app-notifications>
+        <app-notifications *ngIf="isUser$ | async"></app-notifications>
 
         <button class="settings-icon d-none d-sm-block" aria-label="Impostazioni" data-toggle="modal"
                 data-target="#userSettingsModal"></button>

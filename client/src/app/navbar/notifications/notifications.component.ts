@@ -20,6 +20,8 @@ export class NotificationsComponent implements OnInit {
 
     private currentPage: PagedResult<Notification>;
 
+    private lastOpenTime: Date;
+
     constructor(
         private notificationService: NotificationService,
         private notificationSyncService: NotificationSyncService,
@@ -87,11 +89,17 @@ export class NotificationsComponent implements OnInit {
         this.open = !this.open;
 
         if (this.open && this.unreadNotificationsCount > 0) {
-            const now = new Date();
-            this.notificationService.markNotificationsSentUntilDateRead(now).subscribe(() => {
-                this.unreadNotifications.forEach(notification => notification.seenAt = now);
+            this.lastOpenTime = new Date();
+            this.notificationService.markNotificationsSentUntilDateRead(this.lastOpenTime).subscribe(() => {
+                this.unreadNotifications.forEach(notification => notification.seenAt = this.lastOpenTime);
             });
+        } else {
+            this.lastOpenTime = null;
         }
+    }
+
+    isUnreadOrJustRead (notification: Notification): boolean {
+       return notification.seenAt == null ||  notification.seenAt == this.lastOpenTime;
     }
 
 }

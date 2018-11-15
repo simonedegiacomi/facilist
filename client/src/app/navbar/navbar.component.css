@@ -5,3 +5,20 @@
 .exit-icon {
     background: url("../../assets/img/flag-exit-navbar.svg");
 }
+
+.account-buttons {
+    width: 100%;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.navbar-collapse {
+    width: 100%;
+}
+
+
+@media (max-width: 992px) {
+    .v-sm-hidden {
+        visibility: hidden;
+    }
+}

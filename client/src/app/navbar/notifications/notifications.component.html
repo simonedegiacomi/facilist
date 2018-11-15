@@ -1,17 +1,23 @@
 <div class="notifications-box" [class.box-open]="open">
-    <div class="notifications-box-content">
-        <ul>
-            <li class="row" *ngFor="let notification of notifications" >
-                <a [routerLink]="notification.url" class="col-9">{{ notification.message }}</a>
+    <div class="notifications-box-content-container">
+        <div class="notifications-box-content">
 
-                <div class="col-3">
-                    <img class="icon normal-icon" [src]="notification.icon | image">
-                </div>
-            </li>
-        </ul>
+            <!-- Alert -->
+            <div class="alert alert-primary" role="alert" *ngIf="!hasSubscribed">
+                <a (click)="onSubscribeToPushNotifications()">Abilita le notifiche su questo dispositivo</a>
+            </div>
 
-        <div class="alert alert-primary" role="alert" *ngIf="!hasSubscribed">
-            <a (click)="onSubscribeToPushNotifications()">Abilita le notifiche su questo dispositivo</a>
+            <!-- Notifications list -->
+            <ul>
+                <li class="row notification" *ngFor="let notification of notifications"  [routerLink]="notification.url"
+                    [class.unread]="isUnreadOrJustRead(notification)">
+                    <span class="col-9">{{ notification.message }}</span>
+
+                    <div class="col-3">
+                        <img class="icon normal-icon" [src]="notification.icon | image">
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 
