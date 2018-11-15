@@ -5,6 +5,8 @@ import { NotificationSyncService } from "../../core-module/services/sync/notific
 import { NotificationService } from "../../core-module/services/rest/notification.service";
 import { PushSubscriptionService } from "../../core-module/services/push-subscription.service";
 
+const $ = window['jQuery'];
+
 @Component({
     selector: 'app-notifications',
     templateUrl: './notifications.component.html',
@@ -66,11 +68,11 @@ export class NotificationsComponent implements OnInit {
             });
     }
 
-    private shouldShowNativeNotification () {
+    private shouldShowNativeNotification() {
         return document.hidden && this.pushNotificationService.hasActivatedPushNotification();
     }
 
-    private showNativeNotification (notification: Notification) {
+    private showNativeNotification(notification: Notification) {
         // @ts-ignore
         new window.Notification(notification.message);
     }
@@ -86,20 +88,42 @@ export class NotificationsComponent implements OnInit {
 
 
     onToggleNotificationBox() {
-        this.open = !this.open;
-
-        if (this.open && this.unreadNotificationsCount > 0) {
-            this.lastOpenTime = new Date();
-            this.notificationService.markNotificationsSentUntilDateRead(this.lastOpenTime).subscribe(() => {
-                this.unreadNotifications.forEach(notification => notification.seenAt = this.lastOpenTime);
-            });
+        if (this.open) {
+            this.open = false;
+            this.onNotificationBoxClosed();
         } else {
-            this.lastOpenTime = null;
+            this.open = true;
+            this.closeNavbar();
+            this.onNotificationBoxOpened();
         }
     }
 
-    isUnreadOrJustRead (notification: Notification): boolean {
-       return notification.seenAt == null ||  notification.seenAt == this.lastOpenTime;
+    private closeNavbar () {
+        const box = $('.notifications-box-content-container');
+        box.addClass('visible');
+        $('.navbar-collapse').collapse('hide');
+        setTimeout(() => box.removeClass('visible'),350);
+    }
+
+    private onNotificationBoxOpened () {
+        if (this.unreadNotificationsCount > 0) {
+            this.markUnreadNotificationsAsRead();
+        }
+    }
+
+    private onNotificationBoxClosed () {
+        this.lastOpenTime = null;
+    }
+
+    private markUnreadNotificationsAsRead() {
+        this.lastOpenTime = new Date();
+        this.notificationService.markNotificationsSentUntilDateRead(this.lastOpenTime).subscribe(() => {
+            this.unreadNotifications.forEach(notification => notification.seenAt = this.lastOpenTime);
+        });
+    }
+
+    isUnreadOrJustRead(notification: Notification): boolean {
+        return notification.seenAt == null || notification.seenAt == this.lastOpenTime;
     }
 
 }

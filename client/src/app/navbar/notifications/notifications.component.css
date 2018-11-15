@@ -99,3 +99,7 @@ img.normal-icon {
 .notification:hover {
     background-color: var(--notificationLight);
 }
+
+.visible {
+    visibility: visible;
+}
