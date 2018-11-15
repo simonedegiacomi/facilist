@@ -26,7 +26,7 @@ body {
     font-family: var(--fontRegular);
     line-height: 1.25;
 
-    background: var(--light);
+    background: var(--dark) url('assets/img/user-background.svg');
     color: var(--dark);
 }
 

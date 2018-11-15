@@ -59,6 +59,7 @@
 
 .presentation-area {
     padding-top: 4em;
+    padding-bottom: 4em;
     max-width: 900px;
 }
 
@@ -69,6 +70,10 @@
 .home-image {
     max-width: 150px;
     max-height: 250px;
+}
+
+.light-background {
+    background: var(--light);
 }
 
 
