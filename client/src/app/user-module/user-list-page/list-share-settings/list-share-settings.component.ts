@@ -1,13 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
     CollaborationsRoles,
     ShoppingList,
     ShoppingListCollaboration
 } from "../../../core-module/models/shopping-list";
 import { Subject } from "rxjs";
-import { debounceTime, switchMap, tap } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, switchMap, tap } from "rxjs/operators";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { ShoppingListCollaborationService } from "../../../core-module/services/rest/shopping-list-collaboration.service";
+import { UserService } from "../../../core-module/services/rest/user.service";
+import { User } from "../../../core-module/models/user";
 
 @Component({
     selector: 'user-list-share-settings',
@@ -27,15 +29,22 @@ export class ListShareSettingsComponent implements OnInit {
 
     newCollaborator: string;
 
+
+    private filter = new Subject<string>();
+
+    suggestedUsers: User[] = [];
+
     constructor(
         private listService: ShoppingListCollaborationService,
-        private authService: AuthService
+        private authService: AuthService,
+        private userService: UserService
     ) {
 
     }
 
     ngOnInit() {
         this.setUpSendEdits();
+        this.setupSearch();
     }
 
     private setUpSendEdits() {
@@ -47,6 +56,18 @@ export class ListShareSettingsComponent implements OnInit {
             this.lastUpdate = new Date();
             this.isSaving   = false;
         });
+    }
+
+    private setupSearch () {
+        this.filter.pipe(
+            debounceTime(300),
+            distinctUntilChanged(),
+            switchMap(email => this.userService.findUsersByEmail(email))
+        ).subscribe(users => this.suggestedUsers = users);
+    }
+
+    onUpdateSearchFilter (searchFilter: string) {
+        this.filter.next(searchFilter);
     }
 
     notifyChanges() {
@@ -66,4 +87,8 @@ export class ListShareSettingsComponent implements OnInit {
     }
 
     get isUserTheCreator () { return this.authService.user.id == this.list.creator.id }
+
+    isUserByEmailCollaborating (email: string) {
+        return this.list.collaborations.map(c => c.user).findIndex(u => u.email == email);
+    }
 }

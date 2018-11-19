@@ -20,37 +20,45 @@
                 </h6>
 
                 <!-- Collaborators -->
-                <ul>
-                    <li *ngFor="let collaboration of list.collaborations" class="row">
-                        <div class="col-2">
+                <ul class="collaborators">
+                    <li *ngFor="let collaboration of list.collaborations" class="collaborator">
+                        <!-- Photo -->
+                        <div class="collaborator-photo">
                             <img class="icon small-icon" [src]="collaboration.user.photo | image">
                         </div>
 
-                        <div class="col-5">
+                        <!-- Name -->
+                        <div class="collaborator-name">
                             {{ collaboration.user.firstName }} ({{ collaboration.user.email }})
                         </div>
 
-                        <div class="col-5 permission">
-                            <label [for]="'admin' + collaboration.id">
-                                <input type="radio" [name]="'permission' + collaboration.id"
-                                       [(ngModel)]="collaboration.role" class="admin" [id]="'admin' + collaboration.id"
-                                       [value]="roles.ADMIN" (change)="notifyChanges()">
-                                <img>
-                            </label>
+                        <!-- Permissions -->
+                        <div class="collaborator-permission permission">
+                            <div class="permissions-radios">
+                                <label [for]="'admin' + collaboration.id">
+                                    <input type="radio" [name]="'permission' + collaboration.id"
+                                           [(ngModel)]="collaboration.role" class="admin"
+                                           [id]="'admin' + collaboration.id"
+                                           [value]="roles.ADMIN" (change)="notifyChanges()">
+                                    <img>
+                                </label>
 
-                            <label [for]="'social' + collaboration.id">
-                            <input type="radio" [name]="'permission' + collaboration.id" [id]="'social' + collaboration.id"
-                                   [(ngModel)]="collaboration.role" class="social"
-                                   [value]="roles.SOCIAL" (change)="notifyChanges()">
-                                <img>
-                            </label>
+                                <label [for]="'social' + collaboration.id">
+                                    <input type="radio" [name]="'permission' + collaboration.id"
+                                           [id]="'social' + collaboration.id"
+                                           [(ngModel)]="collaboration.role" class="social"
+                                           [value]="roles.SOCIAL" (change)="notifyChanges()">
+                                    <img>
+                                </label>
 
-                            <label [for]="'basic' + collaboration.id">
-                            <input type="radio" [name]="'permission' + collaboration.id"
-                                   [(ngModel)]="collaboration.role" class="basic" [id]="'basic' + collaboration.id"
-                                   [value]="roles.BASIC" (change)="notifyChanges()">
-                                <img>
-                            </label>
+                                <label [for]="'basic' + collaboration.id">
+                                    <input type="radio" [name]="'permission' + collaboration.id"
+                                           [(ngModel)]="collaboration.role" class="basic"
+                                           [id]="'basic' + collaboration.id"
+                                           [value]="roles.BASIC" (change)="notifyChanges()">
+                                    <img>
+                                </label>
+                            </div>
 
                             <button class="action-button link-cta danger"
                                     (click)="onDeleteCollaboration(collaboration)">Rimuovi
@@ -70,9 +78,19 @@
                 <!-- Add collaborator -->
                 <div>
                     <div class="form-group">
-                        <input class="form-control" [(ngModel)]="newCollaborator" type="email">
+                        <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email" (keyup)="onUpdateSearchFilter(searchFilter.value)">
                     </div>
                     <button (click)="addCollaborator()">Aggiungi</button>
+                </div>
+
+                <!-- TODO: CReate a dropdown -->
+                <div class="suggestions" *ngIf="suggestedUsers.length > 0">
+                    <ul>
+                        <li *ngFor="let user of suggestedUsers" [class.already-collaborating]="isUserByEmailCollaborating(user.email)">
+                            <img [src]="user.photo | image" class="icon small-icon">
+                            <span>{{ user.email }}</span>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- Legenda -->

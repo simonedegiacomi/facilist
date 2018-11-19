@@ -1,10 +1,32 @@
 ul {
-    padding:0;
+    padding: 0;
 }
 
-li {
+li.collaborator {
+    display: flex;
     list-style: none;
     margin: 0;
+}
+
+li.collaborator div {
+    margin: 0 1em;
+}
+
+.collaborator-photo {
+
+}
+
+.collaborator-name {
+    flex-grow: 1;
+}
+
+.collaborator-permission {
+    display: flex;
+    flex-direction: column;
+}
+
+.permissions-radios {
+    display: flex;
 }
 
 
@@ -25,22 +47,28 @@ input[type=radio] {
 input[type=radio].admin + img {
     content: url("../../../../assets/img/ic_admin_permission_off.svg");
 }
+
 input[type=radio].admin:checked + img {
     content: url("../../../../assets/img/ic_admin_permission_on.svg");
 }
 
-
 input[type=radio].social + img {
     content: url("../../../../assets/img/ic_ham_permission_off.svg");
 }
+
 input[type=radio].social:checked + img {
     content: url("../../../../assets/img/ic_social_permission_on.svg");
 }
 
-
 input[type=radio].basic + img {
     content: url("../../../../assets/img/ic_ham_permission_off.svg");
 }
+
 input[type=radio].basic:checked + img {
     content: url("../../../../assets/img/ic_ham_permission_on.svg");
+}
+
+
+.already-collaborating {
+    text-decoration: line-through;
 }
