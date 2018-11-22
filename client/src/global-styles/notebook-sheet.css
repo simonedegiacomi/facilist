@@ -8,7 +8,7 @@
     max-height: calc(85vh - var(--navbarHeight));
 
     margin: 2em 0;
-    padding: 0 0.5em;
+    padding: 0 1em 1em 1em;
 
     background: transparent url("../assets/img/modal-top.svg") top center;
     border-radius: 0;
@@ -41,6 +41,7 @@
 
 .notebook-sheet h5 {
     font-size: 2em;
+    padding-top: .5em;
 }
 
 .notebook-sheet li {
@@ -52,7 +53,7 @@
 .notebook-sheet-buttons {
     position: absolute;
     top: 3em;
-    right: -63px;
+    right: -71px;
 
     display: flex;
     flex-direction: column;
