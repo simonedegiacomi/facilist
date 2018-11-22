@@ -61,12 +61,10 @@ class ImportService(
             emailVerified   = true
         )
 
-/*
         val photoFileName = it["photo"]
         if (photoFileName.isNotEmpty()) {
             user.photo = importImageIfExists("user-photos", photoFileName)
         }
-*/
 
         userDAO.save(user)
         userByEmail[user.email] = user
