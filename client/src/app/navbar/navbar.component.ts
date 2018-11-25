@@ -11,7 +11,7 @@ import { Roles } from "../core-module/models/user";
 })
 export class NavbarComponent implements OnInit {
 
-    applicationName = "Nome applicazione";
+    applicationName = "Facilist";
 
     constructor(
         private auth: AuthService,
