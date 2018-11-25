@@ -19,19 +19,13 @@ export class ListOptionsComponent  {
 
     constructor(
         private listService: ShoppingListService,
-        private authService: AuthService,
-        private router: Router
+        private authService: AuthService
     ) {
     }
 
     onDeleteList () {
-        // TODO: Ask for confirmation
-        this.isSaving = true;
-        this.listService.delete(this.list).subscribe(() => {
-            this.isSaving = false;
-            this.closeModal();
-            this.router.navigateByUrl('/');
-        });
+        this.closeModal();
+        this.openConfirmDeleteModal();
     }
 
     onCancel () {
@@ -48,6 +42,10 @@ export class ListOptionsComponent  {
 
     closeModal () {
         $('#closeListOptions').click();
+    }
+
+    openConfirmDeleteModal () {
+        $('#confirmDeleteListModal').modal('show');
     }
 
     get isUserTheCreator () { return this.authService.user.id == this.list.creator.id }

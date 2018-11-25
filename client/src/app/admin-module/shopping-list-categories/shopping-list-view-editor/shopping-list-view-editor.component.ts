@@ -92,8 +92,6 @@ export class ShoppingListViewEditorComponent implements OnInit {
         }
     }
 
-    // TODO: Refactor duplicated code
-
     isIncluded(category: ProductCategory): boolean {
         return this.includedProductCategories
             .find(includedCategory => includedCategory.id == category.id) != null;

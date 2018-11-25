@@ -12,6 +12,7 @@ import { ListOptionsComponent } from './user-list-page/list-options/list-options
 import { UserListPageComponent } from './user-list-page/user-list-page.component';
 import { ChatComponent } from './user-list-page/chat/chat.component';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { ConfirmDeleteListComponent } from './user-list-page/list-options/confirm-delete-list/confirm-delete-list.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
         ListShareSettingsComponent,
         ListOptionsComponent,
         UserListPageComponent,
-        ChatComponent
+        ChatComponent,
+        ConfirmDeleteListComponent
     ]
 })
 export class UserModule {

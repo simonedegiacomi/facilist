@@ -1,0 +1,27 @@
+<div class="modal fade" id="confirmDeleteListModal" tabindex="-1" role="dialog" aria-hidden="true" *ngIf="list">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content notebook-sheet">
+            <div class="notebook-sheet-header">
+                <h5 class="modal-title">Eliminazione definitiva</h5>
+            </div>
+
+            <div class="notebook-sheet-content">
+
+                <p>Sei sicuro di voler eliminare definitivamente la lista <strong>{{ list.name }}?</strong></p>
+
+                <!-- Buttons -->
+                <div class="row">
+                    <button class="col-4 action-button link-cta danger" (click)="onDelete()" [disabled]="isDeleting">
+                        Elimina
+                    </button>
+
+                    <button class="col-4 action-button link-cta" (click)="onCancel()" [disabled]="isDeleting">
+                        Mantieni
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
