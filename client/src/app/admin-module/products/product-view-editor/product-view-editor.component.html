@@ -1,39 +1,40 @@
 <div class="card">
     <div class="card-body">
 
-        <img class="mr-3" *ngIf="!isNew" [src]="product.icon | image" width="64" alt="Icona della prodotto" style="float: left;">
-        <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
-
-        <div class="form-group" *ngIf="isEditing">
-            <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
-                   [(ngModel)]="product.name" (keyup.enter)="onEditName()" >
-        </div>
-
-        <!-- Upload icon -->
-        <div class="form-group form-inline" *ngIf="isEditing">
-            <label>Cambia icona
-                <input type="file" (change)="onSelectIconFile($event)" class="mr-3">
-            </label>
+        <div class="mr-3">
+            <app-show-change-image [(image)]="product.icon" [editable]="isEditing"></app-show-change-image>
         </div>
 
 
-        <div *ngIf="isNew">
-            <select [(ngModel)]="product.categoryId">
-                <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
-            </select>
-        </div>
+        <form #form="ngForm">
+            <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
 
-        <div class="d-flex justify-content-end product-buttons mt-5">
-            <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
+            <div class="form-group" *ngIf="isEditing">
+                <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
+                       [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
+            </div>
 
-            <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()" [disabled]="!isValid || isSaving">
-                {{ isNew ? 'Crea' : 'Salva'}}</button>
+            <div *ngIf="isNew">
+                <select [(ngModel)]="product.category" (change)="onSelectCategory()" required name="category">
+                    <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-end product-buttons mt-5">
+                <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
+
+                <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()"
+                        [disabled]="!form.valid || isSaving">
+                    {{ isNew ? 'Crea' : 'Salva'}}
+                </button>
 
 
-            <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
+                <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
 
-            <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
-        </div>
+                <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
+            </div>
+
+        </form>
     </div>
 </div>
 
@@ -42,14 +43,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" >Cancellare il prodotto?</h5>
+                <h5 class="modal-title">Cancellare il prodotto?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>
                     Sei sicuro di voler eliminare la categoria <strong>{{ product.name }}</strong> e tutti i suoi
                     prodotti?<br>
-                    Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire misteriosamente
+                    Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire
+                    misteriosamente
                     questi prodotti!
                 </p>
 

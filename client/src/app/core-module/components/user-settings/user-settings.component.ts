@@ -20,7 +20,7 @@ export class UserSettingsComponent implements OnInit {
 
     user: User;
 
-    isSaving: boolean; // TODO: Handle error
+    isSaving: boolean;
 
     constructor(
         private authService: AuthService,

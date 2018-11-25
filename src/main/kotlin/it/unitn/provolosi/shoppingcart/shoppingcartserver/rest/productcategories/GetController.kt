@@ -15,13 +15,13 @@ class GetController (
         private val productCategoryDAO: ProductCategoryDAO
 ) {
 
-    @GetMapping
+    @GetMapping(params = ["page", "size"])
     fun getAllPaginated (
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
     ) = ResponseEntity.ok(productCategoryDAO.findAllByOrderByNameAsc(PageRequest.of(page, size)))
 
 
-    @GetMapping("/all")
+    @GetMapping()
     fun getAll () = ResponseEntity.ok(productCategoryDAO.findAllByOrderByNameAsc())
 }

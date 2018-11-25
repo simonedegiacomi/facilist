@@ -10,6 +10,8 @@ export class ShowChangeImageComponent implements OnInit {
 
     @Input() image: string;
 
+    @Input() editable: boolean = true;
+
     @Output() imageChange = new EventEmitter<string>();
 
     constructor(
@@ -32,9 +34,7 @@ export class ShowChangeImageComponent implements OnInit {
     }
 
     startUpload (file: File) {
-        this.uploadService.uploadImage(file).pipe(
-            // TODO: Catch error
-        ).subscribe(id => this.imageChange.emit(id));
+        this.uploadService.uploadImage(file).subscribe(id => this.imageChange.emit(id));
     }
 
 }

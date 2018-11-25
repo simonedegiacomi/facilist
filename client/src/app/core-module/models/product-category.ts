@@ -3,7 +3,7 @@ import { MyRestEntity } from "../services/rest/MyRestService";
 
 export class ProductCategory implements MyRestEntity{
 
-    id: number = -1; // TODO: Use null
+    id: number = -1;
 
     name: string;
 

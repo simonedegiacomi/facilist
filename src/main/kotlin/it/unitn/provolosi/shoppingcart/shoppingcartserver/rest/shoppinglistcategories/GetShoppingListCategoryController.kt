@@ -12,7 +12,7 @@ class GetShoppingListCategoryController (
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO
 ) {
 
-    @GetMapping("/all")
+    @GetMapping()
     fun getAll () = ResponseEntity.ok(shoppingListCategoryDAO.findAllByOrderByNameAsc())
 
 }

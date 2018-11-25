@@ -1,99 +1,94 @@
+<app-show-change-image [(image)]="category.icon" [editable]="isEditing"></app-show-change-image>
+
 <!-- Name -->
 <h3 *ngIf="!isEditing">{{ category.name }}</h3>
 
-<!-- Edit name -->
-<div class="form-group" *ngIf="isEditing">
-    <label for="nameInput">Nome</label>
-    <input type="text" class="form-control" id="nameInput"
-           placeholder="Nome" [(ngModel)]="category.name">
+<form #form="ngForm">
+    <!-- Edit name -->
+    <div class="form-group" *ngIf="isEditing">
+        <label for="nameInput">Nome</label>
+        <input type="text" class="form-control" id="nameInput" name="name" required placeholder="Nome" [(ngModel)]="category.name">
 
-    <div *ngIf="nameError" class="alert alert-danger">
-        <div>
-            Un'altra categoria ha già questo nome.
-        </div>
-    </div>
-</div>
-
-<!-- Upload icon -->
-<div class="form-group form-inline" *ngIf="isEditing">
-    <label>Cambia icona
-        <input type="file" (change)="onSelectIconFile($event)" class="mr-3">
-    </label>
-</div>
-
-<!-- Description -->
-<p *ngIf="!isEditing" [innerHTML]="category.description"></p>
-
-<!-- Edit description -->
-<editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description"></editor>
-
-<div class="row">
-    <div class="col-12 col-md-6">
-        <!-- List of product categories included -->
-        <div *ngIf="productCategories && includedProductCategories">
-            <ul class="list-group" style="max-height: 50vh; overflow-y: scroll;">
-                <li class="list-group-item" *ngFor="let productCategory of productCategories">
-                    <label>
-                        <input type="checkbox" #checkbox [checked]="isIncluded(productCategory)"
-                               [disabled]="!isEditing"
-                               (change)="onToggleProductCategory(productCategory, checkbox.checked)"> {{
-                        productCategory.name }}
-                    </label>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6">
-        <div *ngIf="foresquareCategories">
-            <ul class="list-group" style="max-height: 50vh; overflow-y: scroll;">
-                <li class="list-group-item" *ngFor="let category of foresquareCategories">
-                    <label>
-                        <input type="checkbox" #checkbox [checked]="isForesquareCategoryIncluded(category)"
-                               [disabled]="!isEditing"
-                               (change)="onToggleForesquareCategory(category, checkbox.checked)"> {{
-                        category.name }}
-                    </label>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="d-flex justify-content-end mt-2">
-    <button class="action-button link-cta" *ngIf="!isEditing" (click)="isEditing = true">Modifica</button>
-
-    <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()"
-            [disabled]="!isValid || isSaving">{{ isNew ? 'Crea' :
-        'Salva'}}
-    </button>
-
-    <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
-
-    <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
-</div>
-
-
-<!-- Delete warning -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="delete-category-{{ category.id }}-warning">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Cancellare la categoria di lista della spesa?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div *ngIf="nameError" class="alert alert-danger">
+            <div>
+                Un'altra categoria ha già questo nome.
             </div>
-            <div class="modal-body">
-                <p>
-                    Sei sicuro di voler eliminare la categoria <strong>{{ category.name }}</strong> e tutti le sue liste
-                    della spesa?<br>
-                    Gli utenti che utilizzano liste della spesa appartenenti a questa categoria rimarranno senza
-                    liste!!!
-                </p>
-
-                <button class="action-button link-cta danger" (click)="onDeleteAfterWarning()">Elimina</button>
-            </div>
-
         </div>
     </div>
-</div>
 
+    <!-- Description -->
+    <p *ngIf="!isEditing" [innerHTML]="category.description"></p>
+
+    <!-- Edit description -->
+    <editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description" name="description" required></editor>
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <!-- List of product categories included -->
+            <div *ngIf="productCategories && includedProductCategories">
+                <ul class="list-group" style="max-height: 50vh; overflow-y: scroll;">
+                    <li class="list-group-item" *ngFor="let productCategory of productCategories">
+                        <label>
+                            <input type="checkbox" #checkbox [checked]="isIncluded(productCategory)"
+                                   [disabled]="!isEditing"
+                                   (change)="onToggleProductCategory(productCategory)"> {{ productCategory.name }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div *ngIf="foresquareCategories">
+                <ul class="list-group" style="max-height: 50vh; overflow-y: scroll;">
+                    <li class="list-group-item" *ngFor="let category of foresquareCategories">
+                        <label>
+                            <input type="checkbox" #checkbox [checked]="isForesquareCategoryIncluded(category)"
+                                   [disabled]="!isEditing"
+                                   (change)="onToggleForesquareCategory(category)">
+                            {{ category.name }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-2">
+        <button class="action-button link-cta" *ngIf="!isEditing" (click)="isEditing = true">Modifica</button>
+
+        <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()"
+                [disabled]="!form.valid || isSaving">{{ isNew ? 'Crea' : 'Salva'}}
+        </button>
+
+        <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
+
+        <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
+    </div>
+
+
+    <!-- Delete warning -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+         id="delete-category-{{ category.id }}-warning">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancellare la categoria di lista della spesa?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Sei sicuro di voler eliminare la categoria <strong>{{ category.name }}</strong> e tutti le sue
+                        liste
+                        della spesa?<br>
+                        Gli utenti che utilizzano liste della spesa appartenenti a questa categoria rimarranno senza
+                        liste!!!
+                    </p>
+
+                    <button class="action-button link-cta danger" (click)="onDeleteAfterWarning()">Elimina</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,10 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { ChatService } from "../../../core-module/services/rest/chat.service";
 import { ChatMessage } from "../../../core-module/models/chat-message";
 import { PagedResult } from "../../../core-module/services/rest/MyRestService";
 import { ChatSyncService } from "../../../core-module/services/sync/chat-sync.service";
 import { AuthService } from "../../../core-module/services/auth.service";
+import { NgForm } from "@angular/forms";
+
+const $ = window['jQuery'];
 
 @Component({
     selector: 'list-chat',
@@ -26,6 +29,8 @@ export class ChatComponent implements OnInit {
     isSending = false;
 
     loadingPreviousMessages = false;
+
+    @ViewChild('form') form: NgForm;
 
     constructor(
         private chatService: ChatService,
@@ -82,9 +87,19 @@ export class ChatComponent implements OnInit {
 
     sendMessage () {
         this.isSending = true;
-        this.chatService.sendMessage(this.list, this.newMessage).subscribe(() => {
-            this.isSending = false;
-            this.newMessage = "";
-        });
+        this.chatService.sendMessage(this.list, this.newMessage).subscribe(() => this.isSending = false);
+
+        this.newMessage = "";
+    }
+
+    onKeyDown (event: KeyboardEvent) {
+        if (event.keyCode == 13 && !event.shiftKey) {
+            if (this.form.valid) {
+                this.sendMessage();
+            }
+            return false;
+        }
+
+        return true;
     }
 }

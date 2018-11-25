@@ -1,8 +1,8 @@
-<div class="show-change-image">
+<div class="show-change-image" [class.editable]="editable">
     <label>
         <img [src]="image | image" class="icon current-image"/>
         <img class="icon upload-icon" src="assets/img/ic_upload.svg">
 
-        <input type="file" (change)="onSelectFile($event)"/>
+        <input type="file" (change)="onSelectFile($event)" *ngIf="editable"/>
     </label>
 </div>

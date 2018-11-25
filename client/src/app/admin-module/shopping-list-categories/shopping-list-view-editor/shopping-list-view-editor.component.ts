@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
-import { Observable, of } from "rxjs";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { map, switchMap } from "rxjs/operators";
-import { UploadService } from "../../../core-module/services/rest/upload.service";
 import editorConfig from '../../../core-module/tinymceConfig';
 
 import {
@@ -39,8 +37,6 @@ export class ShoppingListViewEditorComponent implements OnInit {
     foresquareCategories: ForesquareCategory[];
     includedForesquareCategories: string[];
 
-    iconUploaded: Observable<void> = of(null);
-
     editorConfig = editorConfig;
 
     @Output() cancel: EventEmitter<ShoppingListCategory>  = new EventEmitter<ShoppingListCategory>();
@@ -48,8 +44,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
     constructor(
         private categoryService: ShoppingListCategoryService,
-        private productCategoryService: ProductCategoryService,
-        private uploadService: UploadService
+        private productCategoryService: ProductCategoryService
     ) {
     }
 
@@ -108,56 +103,42 @@ export class ShoppingListViewEditorComponent implements OnInit {
         return this.includedForesquareCategories.find(includedId => includedId == category.id) != null;
     }
 
-    onToggleProductCategory(category: ProductCategory, checked: boolean) {
+    onToggleProductCategory(category: ProductCategory) {
         let index = this.includedProductCategories.findIndex(included => included.id == category.id);
 
-        if (checked && index < 0) {
+        if (index < 0) {
+            console.log('aggiungo');
             this.includedProductCategories.push(category);
-        } else if (!checked && index >= 0) {
+        } else if (index >= 0) {
+            console.log('rimuovo');
             this.includedProductCategories.splice(index, 1);
         }
     }
 
-    onToggleForesquareCategory(category: ForesquareCategory, checked: boolean) {
+    onToggleForesquareCategory(category: ForesquareCategory) {
         let index = this.includedForesquareCategories.findIndex(includedId => includedId == category.id);
 
-        if (checked && index < 0) {
+        if (index < 0) {
             this.includedForesquareCategories.push(category.id);
         } else {
             this.includedForesquareCategories.splice(index, 1);
         }
     }
 
-    onSelectIconFile() {
-        const files = event.target['files'];
-        if (files.length < 0) {
-            return;
-        }
-
-        const file = files[0];
-
-        this.iconUploaded = this.uploadService.uploadImage(file).pipe(
-            map(id => {
-                this.category.icon = id
-            })
-        );
-    }
 
     onSaveOrCreate() {
         this.isSavingOrCreating = true;
         this.nameError          = false;
 
-        // TODO: Async lock the selection
+        let observable;
+        if (this.isNew) {
+            observable = this.categoryService.create(this.category);
+        } else {
+            observable = this.categoryService.update(this.category);
+        }
 
-        this.iconUploaded.pipe(
-            switchMap(_ => {
-                if (this.isNew) {
-                    return this.categoryService.create(this.category);
-                } else {
-                    return this.categoryService.update(this.category);
-                }
-            }),
-            switchMap(c => this.categoryService.updateProductCategories(c, this.includedProductCategories))
+        observable.pipe(
+            switchMap(c => this.categoryService.updateProductCategories(this.category, this.includedProductCategories))
         ).subscribe(_ => {
             if (this.isNew) {
                 this.isNew = false;
@@ -190,11 +171,5 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
         this.categoryService.delete(toDelete)
             .subscribe(_ => this.deleted.emit(toDelete));
-    }
-
-    // TODO: Use Angular Form so validation is automatic
-    get isValid(): boolean {
-        return this.category.name != null && this.category.name != ""
-            && this.category.description != null && this.category.description != "";
     }
 }

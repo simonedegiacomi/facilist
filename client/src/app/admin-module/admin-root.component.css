@@ -1,6 +1,10 @@
 .container.admin {
     width: 90vw;
-    margin: 1rem auto;
+    margin-top: 2em;
+
+    background-color: var(--light);
+    padding: 1em;
+    border-radius: 8px;
 }
 
 @media (max-width: 576px) {
