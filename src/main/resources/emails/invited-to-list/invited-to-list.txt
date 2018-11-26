@@ -1,0 +1,1 @@
+Iscriviti a {{ applicationName }}, i tuoi amici ti stanno aspettando!

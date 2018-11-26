@@ -12,5 +12,10 @@ class InvitedToJoinEmail(
 
     override val emailTemplateName = "invited-to-list/invited-to-list"
 
-    override val data = mapOf("" to "")
+    override val data = mapOf(
+        "applicationName"   to applicationName,
+        "inviterName"       to invite.inviter.firstName,
+        "listName"          to invite.shoppingList.name,
+        "link"              to websiteUrl
+    )
 }

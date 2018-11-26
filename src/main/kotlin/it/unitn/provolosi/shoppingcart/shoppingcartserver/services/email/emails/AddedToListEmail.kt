@@ -7,7 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Resourc
 class AddedToListEmail(
         collaboration: ShoppingListCollaboration,
         inviter: User
-): ResourceEmail() {
+) : ResourceEmail() {
 
     override val emailTemplateName = "added-to-list/added-to-list"
 
@@ -15,5 +15,10 @@ class AddedToListEmail(
 
     override val subject = "$applicationName - Sei stato aggiunto alla lista ${collaboration.shoppingList.name}"
 
-    override val data = mapOf("" to "")
+    override val data = mapOf(
+        "applicationName"   to applicationName,
+        "listName"          to collaboration.shoppingList.name,
+        "inviterName"       to inviter.firstName,
+        "link"              to "$websiteUrl/user/shoppingLists/${collaboration.shoppingList.id}"
+    )
 }

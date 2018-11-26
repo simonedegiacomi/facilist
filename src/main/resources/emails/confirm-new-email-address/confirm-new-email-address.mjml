@@ -3,32 +3,27 @@
 
     <mj-attributes>
       <mj-text align="center" color="#555" />
-      <mj-include path="./includes/classes.mjml" />
+      <mj-include path="../common/classes.mjml" />
     </mj-attributes>
 
-    <mj-include path="./includes/fonts.mjml" />
+    <mj-include path="../common/fonts.mjml" />
   </mj-head>
 
   <mj-body background-color="#eee">
 
-    <mj-include path="./includes/header.mjml" />
+    <mj-include path="../common/header.mjml" />
 
     <mj-section background-color="#fff">
       <mj-column>
-        <mj-text align="center" font-family="Lobster">
-          <h2>Benvenuto {{ firstName }}!</h3>
-        </mj-text>
-        
         <mj-text align="center" font-family="Lato">
-          <p>Mancano pochi passi per completare la tua registrazione.</p>
-          <p>Clicca sul pulsante qui sotto per verificare il tuo indirizzo E-email!</p>
+          <p>Clicca sul link qui sotto per confermare il tuo nuovo indirizzo email:</p>
         </mj-text>
-        
+
         <mj-button mj-class="button-cta" href="{{ link }}">Conferma</mj-button>
       </mj-column>
     </mj-section>
 
-    <mj-include path="./includes/footer.mjml" />
+    <mj-include path="../common/footer.mjml" />
 
   </mj-body>
 </mjml>

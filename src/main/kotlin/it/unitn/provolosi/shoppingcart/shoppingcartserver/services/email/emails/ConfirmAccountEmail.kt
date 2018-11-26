@@ -10,10 +10,10 @@ class ConfirmAccountEmail (
 
     override val emailTemplateName = "confirm-account/confirm-account"
 
-    override val data: Map<String, String> = mapOf(
-            "applicationName" to applicationName,
-            "firstName" to token.user.firstName,
-            "link" to generateConfirmationLink()
+    override val data = mapOf(
+            "applicationName"   to applicationName,
+            "firstName"         to token.user.firstName,
+            "link"              to generateConfirmationLink()
         )
 
     override val to = token.user.email

@@ -15,8 +15,8 @@ class RecoverPasswordEmail(
     override val subject = "$applicationName - Password dimenticata"
 
     override val data: Map<String, String> = mapOf(
-        "applicationName" to applicationName,
-        "link" to generateConfirmationLink()
+        "applicationName"   to applicationName,
+        "link"              to generateConfirmationLink()
     )
 
     private fun generateConfirmationLink() = UriComponentsBuilder
