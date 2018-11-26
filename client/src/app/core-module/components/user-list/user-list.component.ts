@@ -38,6 +38,12 @@ export class UserListComponent implements OnInit {
     }
 
     private listenForSyncUpdates() {
+        this.shoppingListSyncService.shoppingListInfoEdited(this.list)
+            .subscribe(edited => {
+                this.list.name        = edited.name;
+                this.list.description = edited.description;
+            });
+
         this.shoppingListSyncService.newProductInShoppingList(this.list)
             .subscribe(p => this.list.products.push(p));
 
@@ -72,7 +78,7 @@ export class UserListComponent implements OnInit {
         //this.notifyChange();
     }
 
-    get isDemoList ():boolean {
+    get isDemoList(): boolean {
         return this.auth.user == null && this.list.creator == null;
     }
 
@@ -105,7 +111,7 @@ export class UserListComponent implements OnInit {
         return userCollaborations.role == CollaborationsRoles.ADMIN;
     }
 
-    onCreateProduct (name: string) {
+    onCreateProduct(name: string) {
         this.customProductName = name;
         $('#newUserProductModal').modal('show');
     }
