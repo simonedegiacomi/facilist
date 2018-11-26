@@ -54,8 +54,7 @@ class DeleteCollaboration(
             shoppingListCollaborationDAO.deleteById(collaborationId)
 
             sendEmailToCollaborator(list, user) // TODO: Change user
-
-
+            syncShoppingListService.collaborationDeleted(collaboration)
             sendNotificationToDeletedCollaborator(user, collaboration)
             sendNotificationToCollaborators(user, collaboration)
 

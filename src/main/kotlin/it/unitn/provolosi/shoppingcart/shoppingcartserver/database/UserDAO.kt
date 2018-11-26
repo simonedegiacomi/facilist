@@ -1,8 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user.UserPreview
-import org.springframework.http.ResponseEntity
 
 class EmailAlreadyInUseException : Exception()
 class UserNotFoundException : Exception()

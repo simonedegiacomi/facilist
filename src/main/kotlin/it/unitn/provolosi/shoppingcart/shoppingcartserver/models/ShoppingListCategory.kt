@@ -43,4 +43,8 @@ data class ShoppingListCategory(
     companion object {
         const val SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT = "shopping_list_category_unique_name_constraint"
     }
+
+    override fun toString() = "ShoppingListCategory(name='$name')"
+
+
 }

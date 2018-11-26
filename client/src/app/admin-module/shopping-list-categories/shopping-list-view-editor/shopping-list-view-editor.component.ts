@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
 import { ProductCategory } from "../../../core-module/models/product-category";
-import { map, switchMap } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 import editorConfig from '../../../core-module/tinymceConfig';
 
 import {

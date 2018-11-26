@@ -24,7 +24,11 @@ export class UserListPageComponent implements OnInit {
     }
 
     fetchShoppingList () {
-        this.shoppingListService.getById(this.shoppingListId).subscribe(list => this.list = list);
+        this.shoppingListService.getById(this.shoppingListId)
+            .subscribe(
+                list => this.list = list,
+                _ => this.router.navigateByUrl('/')
+            );
     }
 
     get shoppingListId() {

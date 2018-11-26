@@ -1,8 +1,8 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductsUpdateDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProductUpdatesGroup
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProductUpdatesGroup
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 import java.util.*

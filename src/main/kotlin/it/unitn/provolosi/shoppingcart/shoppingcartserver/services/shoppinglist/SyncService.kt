@@ -1,9 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChatMessage
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncEvent.Companion.EVENT_CREATED
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncEvent.Companion.EVENT_DELETED
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncEvent.Companion.EVENT_MODIFIED
@@ -52,6 +49,22 @@ class SyncService(
     override fun newMessageInShoppingList(message: ChatMessage) = stomp.convertAndSend(
         "/topic/shoppingLists/${message.shoppingList.id}/chat/messages",
         SyncEvent(EVENT_CREATED, message)
+    )
+
+
+    override fun newCollaborator(collaboration: ShoppingListCollaboration) = stomp.convertAndSend(
+        "/topic/shoppingLists/${collaboration.shoppingList.id}/collaborations",
+        SyncEvent(EVENT_CREATED, collaboration)
+    )
+
+    override fun collaborationEdited(collaboration: ShoppingListCollaboration) = stomp.convertAndSend(
+        "/topic/shoppingLists/${collaboration.shoppingList.id}/collaborations",
+        SyncEvent(EVENT_MODIFIED, collaboration)
+    )
+
+    override fun collaborationDeleted(collaboration: ShoppingListCollaboration) = stomp.convertAndSend(
+        "/topic/shoppingLists/${collaboration.shoppingList.id}/collaborations",
+        SyncEvent(EVENT_DELETED, collaboration)
     )
 }
 

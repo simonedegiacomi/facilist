@@ -36,4 +36,8 @@ data class ProductCategory(
     companion object {
         const val PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT = "product_category_unique_name_constraint"
     }
+
+    override fun toString() = "ProductCategory(name='$name')"
+
+
 }

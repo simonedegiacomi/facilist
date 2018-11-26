@@ -6,6 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -27,6 +28,7 @@ class AddCollaboration(
         private val inviteToJoinDAO: InviteToJoinDAO,
         private val emailService: EmailService,
         private val notificationService: NotificationService,
+        private val syncShoppingListService: SyncService,
 
         @Value("\${app.name}")
         private val applicationName: String,
@@ -82,7 +84,7 @@ class AddCollaboration(
             shoppingList = list
         ))
 
-
+        syncShoppingListService.newCollaborator(collaboration)
         sendNotificationToNewCollaborator(inviter, collaboration)
         sendNotificationToExistingCollaborators(inviter, collaboration)
         sendEmailToNewCollaborator(collaboration, req)

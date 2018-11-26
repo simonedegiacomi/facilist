@@ -5,14 +5,12 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductAlread
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import notFound
 import org.springframework.http.HttpStatus

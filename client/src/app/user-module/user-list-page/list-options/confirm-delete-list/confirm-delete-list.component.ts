@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from "../../../../core-module/services/auth.service";
+import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
 import { ShoppingList } from "../../../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../../../core-module/services/rest/shopping-list.service";

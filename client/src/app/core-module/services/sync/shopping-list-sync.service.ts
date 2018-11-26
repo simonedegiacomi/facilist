@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { StompService } from "@stomp/ng2-stompjs";
-import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../../models/shopping-list";
+import {
+    ShoppingList,
+    ShoppingListCollaboration,
+    ShoppingListPreview,
+    ShoppingListProduct
+} from "../../models/shopping-list";
 import { filter, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { EventTypes, MySyncService } from "./MySyncService";
@@ -30,14 +35,14 @@ export class ShoppingListSyncService extends MySyncService {
         )
     }
 
-    shoppingListDeleted (list: ShoppingList | ShoppingListPreview): Observable<ShoppingList | ShoppingListPreview> {
+    shoppingListDeleted(list: ShoppingList | ShoppingListPreview): Observable<ShoppingList | ShoppingListPreview> {
         return this.subscribe(`/topic/shoppingLists/${list.id}`).pipe(
             filter(event => event.event == EventTypes.DELETED),
             map(_ => list)
         );
     }
 
-    newProductInShoppingList(list:ShoppingList): Observable<ShoppingListProduct> {
+    newProductInShoppingList(list: ShoppingList): Observable<ShoppingListProduct> {
         return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
             filter(event => event.event == EventTypes.CREATED),
             map(event => event.model)
@@ -45,7 +50,7 @@ export class ShoppingListSyncService extends MySyncService {
     }
 
 
-    productInShoppingListEdited(list: ShoppingList) : Observable<ShoppingListProduct> {
+    productInShoppingListEdited(list: ShoppingList): Observable<ShoppingListProduct> {
         return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
             filter(event => event.event == EventTypes.MODIFIED),
             map(event => event.model)
@@ -53,8 +58,29 @@ export class ShoppingListSyncService extends MySyncService {
     }
 
 
-    productInShoppingListDeleted(list: ShoppingList) : Observable<ShoppingListProduct> {
+    productInShoppingListDeleted(list: ShoppingList): Observable<ShoppingListProduct> {
         return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
+            filter(event => event.event == EventTypes.DELETED),
+            map(event => event.model)
+        );
+    }
+
+    newCollaboration(list: ShoppingList): Observable<ShoppingListCollaboration> {
+        return this.subscribe<ShoppingListCollaboration>(`/topic/shoppingLists/${list.id}/collaborations`).pipe(
+            filter(event => event.event == EventTypes.CREATED),
+            map(event => event.model)
+        );
+    }
+
+    collaborationEdited(list: ShoppingList): Observable<ShoppingListCollaboration> {
+        return this.subscribe<ShoppingListCollaboration>(`/topic/shoppingLists/${list.id}/collaborations`).pipe(
+            filter(event => event.event == EventTypes.MODIFIED),
+            map(event => event.model)
+        );
+    }
+
+    collaborationDeleted(list: ShoppingList): Observable<ShoppingListCollaboration> {
+        return this.subscribe<ShoppingListCollaboration>(`/topic/shoppingLists/${list.id}/collaborations`).pipe(
             filter(event => event.event == EventTypes.DELETED),
             map(event => event.model)
         );

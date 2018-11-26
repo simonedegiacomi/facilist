@@ -33,6 +33,7 @@ data class ShoppingListCollaboration (
 
         @ManyToOne
         @JoinColumn(name = "recent_shopping_list_products_update_id")
+        @JsonIgnore
         var shoppingListProductUpdatesGroup: ShoppingListProductUpdatesGroup? = null
 ) {
 
@@ -52,4 +53,8 @@ data class ShoppingListCollaboration (
     fun canEditCollaborations() = role == SOCIAL || role == ADMIN
 
     fun canEditList() = role == ADMIN
+
+    override fun toString() =  "ShoppingListCollaboration(id=$id, user=$user)"
+
+
 }

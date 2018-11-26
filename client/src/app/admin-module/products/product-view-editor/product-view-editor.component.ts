@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from "../../../core-module/models/product";
 import { ProductService } from "../../../core-module/services/rest/product.service";
-import { map, switchMap } from "rxjs/operators";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
 
