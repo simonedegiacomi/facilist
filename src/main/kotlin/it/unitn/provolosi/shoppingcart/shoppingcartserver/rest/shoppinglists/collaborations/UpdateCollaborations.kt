@@ -2,15 +2,12 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.co
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.beans.factory.annotation.Value
@@ -28,16 +25,10 @@ import javax.validation.constraints.NotNull
 @RestController
 @RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
 class UpdateCollaborations(
-        private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
-
         private val notificationService: NotificationService,
-
-        private val emailService: EmailService,
         private val syncShoppingListService: SyncService,
 
-        @Value("\${app.name}")
-        private val applicationName: String,
 
         @Value("\${websiteUrl}")
         private val websiteUrl: String
@@ -63,7 +54,6 @@ class UpdateCollaborations(
                     shoppingListCollaborationDAO.save(c)
 
                     syncShoppingListService.collaborationEdited(c)
-                    sendEmailToCollaborator(list, c.user)
                     sendNotificationToCollaborator(user, c)
                 }
             }
@@ -87,21 +77,6 @@ class UpdateCollaborations(
             @get:NotEmpty
             val role: String?
     )
-
-
-    private fun sendEmailToCollaborator(
-            list: ShoppingList,
-            user: User
-    ) {
-        // TODO: Improve email
-        emailService.sendEmail(object : Email() {
-            override fun to() = user.email
-
-            override fun subject() = "$applicationName - Sei stato potenziato"
-
-            override fun text() = "Ora hai più permessi"
-        })
-    }
 
     private fun sendNotificationToCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList

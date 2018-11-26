@@ -4,7 +4,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordR
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import org.springframework.context.annotation.Bean
 import org.springframework.security.crypto.password.PasswordEncoder
-import javax.servlet.http.HttpServletRequest
 
 class WrongCurrentPasswordException: Exception()
 
@@ -14,9 +13,10 @@ interface IUserService {
     fun passwordEncoder(): PasswordEncoder
 
 
+
     fun changeUserPassword (user: User, currentPassword: String, newPassword: String): User
 
-    fun changeUserEmail(user: User, email: String, req: HttpServletRequest): ChangePasswordRequest
+    fun changeUserEmail(user: User, email: String): ChangePasswordRequest
 
     fun confirmChangeUserEmail(email: String, tokenString: String): User
 }

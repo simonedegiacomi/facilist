@@ -7,7 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.Coordinates
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.FoursquareService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.NearShops
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.WebSocketDeliveryMethod
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery.WebSocketDeliveryMethod
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

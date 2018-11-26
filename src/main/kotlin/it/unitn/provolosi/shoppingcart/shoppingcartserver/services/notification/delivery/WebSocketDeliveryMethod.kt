@@ -1,4 +1,4 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncEvent
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class WebSocketDeliveryMethod(
         private val stomp: SimpMessagingTemplate,
         private val userRegistry: SimpUserRegistry
-):NotificationDeliveryMethod {
+): NotificationDeliveryMethod {
 
 
     override fun canDeliver(notification: Notification) = userRegistry.getUser(notification.target.email) != null

@@ -5,15 +5,12 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordRequest
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationToken
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.ConfigNewEmailAddressEmail
 import org.springframework.context.annotation.Bean
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
-import org.springframework.web.util.UriComponentsBuilder
-import protocolPortAndDomain
-import javax.servlet.http.HttpServletRequest
 
 @Component
 class UserService(
@@ -37,38 +34,16 @@ class UserService(
     }
 
 
-    override fun changeUserEmail(user: User, email: String, req: HttpServletRequest): ChangePasswordRequest {
+    override fun changeUserEmail(user: User, email: String): ChangePasswordRequest {
         val request = changePasswordRequestDAO.save(ChangePasswordRequest(
             token       = VerificationToken(user = user),
             newEmail    = email
         ))
 
-        sendChangeEmailAddressEmail(request, req)
+        emailService.sendEmail(ConfigNewEmailAddressEmail(request))
 
         return request
     }
-
-    private fun sendChangeEmailAddressEmail(
-            change: ChangePasswordRequest,
-            req: HttpServletRequest
-    ) {
-        val verificationLink = generateConfirmationLink(change, req)
-        emailService.sendEmail(object : Email() {
-            override fun to() = change.newEmail
-
-            override fun subject() = "Cambia la tua email"
-
-            override fun text() = "Conferma il tuo indirizzo email usando questo link: $verificationLink"
-        })
-    }
-
-
-    private fun generateConfirmationLink(change: ChangePasswordRequest, req: HttpServletRequest) = UriComponentsBuilder
-            .fromHttpUrl("${req.protocolPortAndDomain()}/verifyNewEmail/{email}")
-            .queryParam("token", change.token.token)
-            .buildAndExpand(mapOf("email" to change.newEmail))
-            .toUriString()
-
 
     override fun confirmChangeUserEmail(email: String, tokenString: String): User {
         val req     = changePasswordRequestDAO.findByNewEmailAndTokenByToken(email, tokenString)

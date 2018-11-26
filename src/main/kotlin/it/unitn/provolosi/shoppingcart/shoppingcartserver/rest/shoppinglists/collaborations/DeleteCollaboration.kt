@@ -9,8 +9,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCol
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.beans.factory.annotation.Value
@@ -29,10 +27,6 @@ class DeleteCollaboration(
         private val shoppingListProductDAO: ShoppingListProductDAO,
         private val notificationService: NotificationService,
         private val syncShoppingListService: SyncService,
-        val emailService: EmailService,
-
-        @Value("\${app.name}")
-        private val applicationName: String,
 
         @Value("\${websiteUrl}")
         private val websiteUrl: String
@@ -53,7 +47,6 @@ class DeleteCollaboration(
 
             shoppingListCollaborationDAO.deleteById(collaborationId)
 
-            sendEmailToCollaborator(list, user) // TODO: Change user
             syncShoppingListService.collaborationDeleted(collaboration)
             sendNotificationToDeletedCollaborator(user, collaboration)
             sendNotificationToCollaborators(user, collaboration)
@@ -67,23 +60,6 @@ class DeleteCollaboration(
     } catch (ex: ShoppingListCollaborationNotFoundException) {
         ResponseEntity.notFound().build()
     }
-
-
-    private fun sendEmailToCollaborator(
-            list: ShoppingList,
-            user: User
-    ) {
-        // TODO: Improve email
-        emailService.sendEmail(object : Email() {
-            override fun to() = user.email
-
-            override fun subject() = "$applicationName - Sei stato bannato"
-
-            override fun text() = "Non fai più parte della lista"
-        })
-    }
-
-
 
     private fun sendNotificationToDeletedCollaborator(user: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList

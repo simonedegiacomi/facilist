@@ -36,13 +36,13 @@ class SimpleJavaEmailService (
         val simpleJavaEmail = EmailBuilder
                 .startingBlank()
                 .from(sender)
-                .to(email.to())
-                .withSubject(email.subject())
+                .to(email.to)
+                .withSubject(email.subject)
                 .withPlainText(email.text())
                 .withHTMLText(email.html())
                 .buildEmail()
 
-        //mailer.sendMail(simpleJavaEmail, true)
+        mailer.sendMail(simpleJavaEmail, true)
 
         println("Sent email: ${email.text()}")
     }
