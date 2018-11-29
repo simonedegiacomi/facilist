@@ -114,14 +114,35 @@
     }
 }
 
-.notebook-sheet-strip {
+.notebook-sheet-strip {/*
     position: absolute;
     width: calc(100% + 0.5em);
-    z-index: 3;
+    z-index: 3;*/
 
     margin-left: -1em;
     padding: .5em 2em;
 }
+
+.scroll-container {
+    margin-left: -60px;/*
+    height: 80px;*/
+    overflow-y: auto;
+  }
+
+  .my-container {
+    margin-left: 60px;/*
+    height: 300px;
+    width: 200px;
+    background-color: blue;*/
+    margin-right: auto;
+  }
+
+  .bar {/*
+    height: 30px;
+    width: 200px;*/
+    background-color: green;
+    margin-left: -60px;
+  }
 
 .green-strip {
     background-color: var(--lightDarkened);
@@ -133,4 +154,9 @@
 
 .blue-strip h6 {
     color: white;
+}
+
+.notebook-sheet-text {
+    font-weight: bold;
+    font-family: var(--fontTitle);
 }
