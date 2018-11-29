@@ -16,6 +16,7 @@ div.show-change-image > input {
 
 div.show-change-image label {
     position: relative;
+    margin-bottom: 0;
 }
 
 img.icon {
