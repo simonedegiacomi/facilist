@@ -17,8 +17,7 @@ const $ = window['jQuery'];
 export class ChatComponent implements OnInit {
 
     @Input() list: ShoppingList;
-
-    isOpen = false;
+    @Input() isOpen = false;
 
     private lastLoadedPage: PagedResult<ChatMessage>;
 
@@ -93,7 +92,7 @@ export class ChatComponent implements OnInit {
     }
 
     onKeyDown (event: KeyboardEvent) {
-        if (event.keyCode == 13 && !event.shiftKey) {
+        if (event.keyCode == 13) {
             if (this.form.valid) {
                 this.sendMessage();
             }

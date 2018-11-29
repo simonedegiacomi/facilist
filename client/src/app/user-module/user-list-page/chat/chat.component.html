@@ -17,15 +17,11 @@
 
         <div class="write-message-box">
             <form (ngSubmit)="sendMessage()"  #form="ngForm">
-                <textarea class="new-message" name="message" [(ngModel)]="newMessage" required
-                          (keydown)="onKeyDown($event)"></textarea>
-
-                <button type="submit" [disabled]="!form.valid || isSending">Invia</button>
+                <textarea class="new-message" name="message"
+                          [(ngModel)]="newMessage" required
+                          (keydown)="onKeyDown($event)"
+                          placeholder="Digita il tuo messaggio..."></textarea>
             </form>
         </div>
     </div>
-</div>
-
-<div class="open-chat-trigger">
-    <button (click)="toggleChat()">Apri</button>
 </div>

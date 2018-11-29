@@ -19,6 +19,7 @@ export class UserListComponent implements OnInit {
     @Output() back              = new EventEmitter();
     @Output() openShareSettings = new EventEmitter();
     @Output() openSettings      = new EventEmitter();
+    @Output() openChat          = new EventEmitter();
 
     isSaving = false;
 
