@@ -40,7 +40,7 @@ class AppSecurityConfig(
 
             "/api/shoppingListCategories",
 
-            "/api/productCategories/all",
+            "/api/productCategories",
 
             "/api/products/search",
 
