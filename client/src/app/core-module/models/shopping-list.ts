@@ -13,7 +13,7 @@ export class ShoppingList implements MyRestEntity {
 
     icon: string;
 
-    category: ShoppingListCategory;
+    category: ShoppingListCategory = null;
 
     products: ShoppingListProduct[] = [];
 
