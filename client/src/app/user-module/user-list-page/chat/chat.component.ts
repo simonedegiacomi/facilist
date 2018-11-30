@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { ChatService } from "../../../core-module/services/rest/chat.service";
 import { ChatMessage } from "../../../core-module/models/chat-message";
@@ -18,6 +18,8 @@ export class ChatComponent implements OnInit {
 
     @Input() list: ShoppingList;
     @Input() isOpen = false;
+
+    @Output() isOpenChange = new EventEmitter<boolean>();
 
     private lastLoadedPage: PagedResult<ChatMessage>;
 
@@ -56,13 +58,6 @@ export class ChatComponent implements OnInit {
         this.loadingPreviousMessages = true;
         this.chatService.getPagedMessagesOfShoppingList(this.list)
             .subscribe(page => this.onOlderMessagesLoaded(page));
-    }
-
-    toggleChat () {
-        this.isOpen = !this.isOpen;
-        // TODO: Update last seen message
-
-        this.scrollToBottom();
     }
 
     private scrollToBottom () {
@@ -104,5 +99,6 @@ export class ChatComponent implements OnInit {
 
     closeChat() {
         this.isOpen = false;
+        this.isOpenChange.emit(false);
     }
 }

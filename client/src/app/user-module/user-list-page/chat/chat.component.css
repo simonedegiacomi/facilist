@@ -50,6 +50,7 @@ div.smartphone {
 .exit-flag {
     width: 40px;
     height: 69px;
+    cursor: pointer;
 }
 
 .exit-flag-container {
