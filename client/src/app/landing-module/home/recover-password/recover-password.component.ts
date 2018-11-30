@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService, EMAIL_NOT_REGISTERED } from "../../../core-module/services/auth.service";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -10,6 +11,13 @@ const $ = window['jQuery'];
     styleUrls: ['./recover-password.component.css']
 })
 export class RecoverPasswordComponent implements OnInit {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => $('#recoverPasswordModal').modal('hide')
+    }];
+
 
     recoverPasswordForm = new FormGroup({
         email: new FormControl(null, [

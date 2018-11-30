@@ -1,3 +1,8 @@
 form label {
     font-weight: bold;
 }
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}

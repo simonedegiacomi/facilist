@@ -2,53 +2,45 @@
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content notebook-sheet">
-
-            <div class="notebook-sheet-header">
-                <h5 class="modal-title" id="loginModalLabel">Accedi</h5>
-                <div class="notebook-sheet-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+        <app-notebook-sheet title="Accedi" [buttons]="buttons">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="row">
+                <!-- Email -->
+                <div class="form-group col-12">
+                    <label for="emailInput">Indirizzo email</label>
+                    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
+                           placeholder="Email" formControlName="email" required autocomplete="email">
                 </div>
-            </div>
 
-            <div class="notebook-sheet-content">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                        <label for="emailInput">Indirizzo email</label>
-                        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
-                               placeholder="Email" formControlName="email" required autocomplete="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordInput">Password</label>
-                        <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordInput"
-                               placeholder="Password" formControlName="password" required
-                               autocomplete="current-password">
-                    </div>
-                    <div class="form-group">
-                        <app-checkbox [(checked)]="rememberMe" [label]="'Ricordami'"></app-checkbox>
-                    </div>
-
-                    <div class="alert alert-warning" *ngIf="loginError">
-                        Indirizzo E-email o password errati.
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
-                        <button type="submit" class="action-button" [disabled]="!loginForm.valid || loggingIn">Accedi
-                        </button>
-                    </div>
-                </form>
-                <hr>
-                <div class="text-center">
-                    <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
-                       data-target="#recoverPasswordModal">Recupera password</a><br>
-                    <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
-                       data-target="#registerModal">Non sei registrato? Crea un nuovo account</a>
+                <!-- Password -->
+                <div class="form-group col-12">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordInput"
+                           placeholder="Password" formControlName="password" required
+                           autocomplete="current-password">
                 </div>
+
+                <div class="form-group col-12">
+                    <app-checkbox [(checked)]="rememberMe" [label]="'Ricordami'"></app-checkbox>
+                </div>
+
+                <div class="alert alert-warning" *ngIf="loginError">
+                    Indirizzo E-email o password errati.
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="action-button" [disabled]="!loginForm.valid || loggingIn">Accedi
+                    </button>
+                </div>
+            </form>
+            <hr>
+            <div class="text-center">
+                <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
+                   data-target="#recoverPasswordModal">Recupera password</a><br>
+                <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
+                   data-target="#registerModal">Non sei registrato? Crea un nuovo account</a>
             </div>
-
-        </div>
-
+        </app-notebook-sheet>
     </div>
 </div>

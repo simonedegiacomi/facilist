@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService, WRONG_CREDENTIALS } from "../../../core-module/services/auth.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -11,6 +12,12 @@ const $ = window['jQuery'];
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => $('#loginModal').modal('hide')
+    }];
 
     loggingIn = false;
     loginError = false;

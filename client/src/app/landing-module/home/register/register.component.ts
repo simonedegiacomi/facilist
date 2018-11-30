@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../../../core-module/services/rest/user.service";
 import { NewPasswordComponent } from "../../../core-module/components/new-password/new-password.component";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -12,6 +13,13 @@ const $ = window['jQuery'];
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => $('#registerModal').modal('hide')
+    }];
+
 
     registerForm: FormGroup;
 

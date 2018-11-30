@@ -18,11 +18,11 @@ export class UserListComponent implements OnInit {
     buttons: NotebookSheetButton[] = [{
         title: 'Impostazioni di condivisione',
         iconClass: 'share-icon',
-        onClick: () => this.openSettings.emit()
+        onClick: () => this.openShareSettings.emit()
     }, {
         title: 'Impostazioni',
         iconClass: 'settings-icon',
-        onClick: () => this.openShareSettings.emit()
+        onClick: () => this.openSettings.emit()
     },  {
         title: 'Apri chat',
         iconClass: 'message-icon',

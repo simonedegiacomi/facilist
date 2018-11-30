@@ -3,7 +3,7 @@
     <user-list-search [list]="list" (addProduct)="onAddProduct($event)"
                       (createProduct)="onCreateProduct($event)"></user-list-search>
 
-    <div class="scoll-container">
+    <div class="scroll-container container-fluid">
         <user-shopping-list-product *ngFor="let product of list.products" [product]="product">
         </user-shopping-list-product>
     </div>

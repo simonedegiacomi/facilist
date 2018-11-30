@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../../core-module/services/rest/shopping-list.service";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -14,6 +15,13 @@ const $ = window['jQuery'];
     styleUrls: ['./new-list.component.css']
 })
 export class NewListComponent implements OnInit {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => $('#newListModal').modal('hide')
+    }];
+
 
     categories$: Observable<ShoppingListCategory[]>;
 

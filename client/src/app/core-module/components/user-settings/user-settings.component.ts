@@ -6,6 +6,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { NewPasswordComponent } from "../new-password/new-password.component";
 import { NotebookSheetButton } from "../notebook-sheet/notebook-sheet.component";
 
+const $ = window['jQuery'];
+
 @Component({
     selector: 'app-user-settings',
     templateUrl: './user-settings.component.html',
@@ -16,7 +18,7 @@ export class UserSettingsComponent implements OnInit {
     buttons: NotebookSheetButton[] = [{
         iconClass: 'close-icon',
         title: 'Chiudi',
-        onClick: () => console.log('click')
+        onClick: () => $('#userSettingsModal').modal('hide')
     }];
 
     changeEmailForm: FormGroup;
