@@ -1,5 +1,9 @@
-div.smartphone {
 
+:root {
+    --smartphoneWidth: 23.75em;
+}
+
+div.smartphone {
     width: 23.75em;
     height: 100%;
 
@@ -15,6 +19,21 @@ div.smartphone {
     margin: 2em 0 2em 4em;
 
     box-shadow: 15px 15px 3px 0 #00000088;
+
+    align-items: center;
+
+    position: relative;
+}
+
+@keyframes opening {
+    0%   {width: 0;}
+    100% {width: 23.75em;}
+}
+
+.open {
+    animation-name: opening;
+    animation-duration: 250ms;
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -28,9 +47,25 @@ div.smartphone {
     }
 }
 
+.exit-flag {
+    width: 40px;
+    height: 69px;
+}
+
+.exit-flag-container {
+    position: absolute;
+    top: 0;
+    left: 7px;
+}
+
+.camera-container {
+    margin-left: 1em;
+}
+
 .display {
     width: 100%;
-    margin: 1em 3em;
+    height: calc(100% - 2em);
+    margin: 0 1.25em 0 1em;
     background-color: white;
 
     display: flex;
@@ -43,7 +78,7 @@ div.smartphone {
 }
 
 .message {
-    padding: .5em;
+    padding: .25em;
     background-color: lightgreen;
 }
 

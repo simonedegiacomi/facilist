@@ -23,6 +23,10 @@ export class UserListComponent implements OnInit {
         title: 'Impostazioni',
         iconClass: 'settings-icon',
         onClick: () => this.openShareSettings.emit()
+    },  {
+        title: 'Apri chat',
+        iconClass: 'message-icon',
+        onClick: () => this.openChat.emit()
     }, {
         title: 'Chiudi',
         iconClass: 'close-icon',
