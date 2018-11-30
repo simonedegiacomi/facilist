@@ -11,6 +11,9 @@ import { ShoppingListCollaborationService } from "../../../core-module/services/
 import { UserService } from "../../../core-module/services/rest/user.service";
 import { User } from "../../../core-module/models/user";
 import { ShoppingListSyncService } from "../../../core-module/services/sync/shopping-list-sync.service";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
+
+const $ = window['jQuery'];
 
 @Component({
     selector: 'user-list-share-settings',
@@ -18,6 +21,13 @@ import { ShoppingListSyncService } from "../../../core-module/services/sync/shop
     styleUrls: ['./list-share-settings.component.css']
 })
 export class ListShareSettingsComponent implements OnInit {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => $('#listSharingSettingsModal').modal('hide')
+    }];
+
 
     @Input() list: ShoppingList;
 

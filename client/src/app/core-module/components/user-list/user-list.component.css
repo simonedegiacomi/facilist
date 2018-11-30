@@ -1,7 +1,4 @@
-ul.products-list {
-    padding: 0;
-}
-
-li.row {
-    margin: 0;
+.scroll-container {
+    overflow-y: auto;
+    max-height: calc(100vh - 20em);
 }

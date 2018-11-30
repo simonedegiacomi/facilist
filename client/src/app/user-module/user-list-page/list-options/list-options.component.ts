@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { ShoppingListService } from "../../../core-module/services/rest/shopping-list.service";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -11,6 +12,13 @@ const $ = window['jQuery'];
     styleUrls: ['./list-options.component.css']
 })
 export class ListOptionsComponent  {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => $('#listOptionsModal').modal('hide')
+    }];
+
 
     @Input() list: ShoppingList;
 

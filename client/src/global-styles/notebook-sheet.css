@@ -1,43 +1,3 @@
-.notebook-sheet {
-    display: flex;
-    flex-direction: column;
-
-    position: relative;
-
-    max-width: 95vw;
-    max-height: calc(85vh - var(--navbarHeight));
-
-    margin: 2em 0;
-    padding: 0 1em 1em 1em;
-
-    background: transparent url("../assets/img/modal-top.svg") top center;
-    border-radius: 0;
-    border: none 0;
-
-    background-size: cover;
-
-    box-shadow: 15px 15px 3px 0 #00000088;
-}
-
-.notebook-sheet.always-tall {
-    height: 48em;
-}
-
-.notebook-sheet.always-large {
-    width: 32em;
-}
-
-.notebook-sheet-header {
-    position: relative;
-
-    padding-top: 1.5em;
-    margin-bottom: 1em;
-}
-
-.notebook-sheet-content {
-    max-height: calc(80vh - var(--navbarHeight));;
-    overflow-y: auto;
-}
 
 .notebook-sheet h5 {
     font-size: 2em;
@@ -60,6 +20,7 @@
 }
 
 .notebook-sheet-buttons button {
+    cursor: pointer;
 
     width: 55px;
     height: 55px;
@@ -119,9 +80,9 @@
 }
 
 .notebook-sheet-strip {
-    margin-left: -3em;
-    margin-right: -2em;
-    min-width: calc(100% + 5em);
+    margin-left: -2em;
+    margin-right: -1.1em;
+    min-width: calc(100% + 3.1em);
     padding: .25em 0 0 2em;
 
     margin-bottom: 1em;
@@ -140,7 +101,7 @@
     background-color: var(--buttonLight);
 }
 
-
+/* End strip */
 
 .notebook-sheet-text {
     font-weight: bold;
