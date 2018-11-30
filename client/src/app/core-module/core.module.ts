@@ -60,7 +60,8 @@ import { SelectComponent } from './components/select/select.component';
         NewPasswordComponent,
         UserListComponent,
         CheckboxComponent,
-        SelectComponent
+        SelectComponent,
+        NotebookSheetComponent
     ]
 })
 export class CoreModule {

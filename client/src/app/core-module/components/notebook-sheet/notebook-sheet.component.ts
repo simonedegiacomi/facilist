@@ -14,7 +14,7 @@ export interface NotebookSheetButton {
 export class NotebookSheetComponent implements OnInit {
 
     @Input()
-    buttons: NotebookSheetButton[];
+    buttons: NotebookSheetButton[] = [];
 
     @Input()
     title: string;

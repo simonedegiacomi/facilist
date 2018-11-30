@@ -4,7 +4,7 @@
 
     position: relative;
 
-    max-width: 95vw;
+    max-width: 32em;
     max-height: calc(85vh - var(--navbarHeight));
 
     margin: 2em 0;

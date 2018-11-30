@@ -18,15 +18,15 @@ export class UserListComponent implements OnInit {
     buttons: NotebookSheetButton[] = [{
         title: 'Impostazioni di condivisione',
         iconClass: 'share-icon',
-        onClick: () => console.log('ok')
+        onClick: () => this.openSettings.emit()
     }, {
         title: 'Impostazioni',
         iconClass: 'settings-icon',
-        onClick: () => console.log('ok')
+        onClick: () => this.openShareSettings.emit()
     }, {
         title: 'Chiudi',
         iconClass: 'close-icon',
-        onClick: () => console.log('ok')
+        onClick: () => this.back.emit()
     }];
 
     @Input() list: ShoppingList;

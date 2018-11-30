@@ -4,6 +4,7 @@ import { ShoppingListSyncService } from "../../core-module/services/sync/shoppin
 import { ShoppingListPreview } from "../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
 import { NearYouService } from "../../core-module/services/near-you.service";
+import { NotebookSheetButton } from "../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 @Component({
     templateUrl: './user-lists.component.html',

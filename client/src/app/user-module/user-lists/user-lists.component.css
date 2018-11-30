@@ -1,34 +1,30 @@
-.lists-list ul {
-    padding: 0;
+.row {
+    padding: 1em 0;
+    border-bottom: 2px dashed var(--lightDarkened);
 }
 
-li.row {
-    margin: 0;
-}
-
-.lists-list a {
+a {
     color: black;
 }
 
-.lists-list a:hover {
+a:hover {
     text-decoration: none;
 }
 
-.lists-list img.icon {
+img.icon {
     width: 100%;
     padding-right: .25em;
 }
 
-.lists-list .list-counter {
+.list-counter {
     margin: 0 1em;
 }
 
-.lists-list img.counter-icon,
-.lists-list img.share-flag {
+img.counter-icon,
+img.share-flag {
     width: 100%;
     max-width: 2em;
 }
-
 
 .counter-and-share-flag {
     display: flex;
