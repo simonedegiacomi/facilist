@@ -1,4 +1,4 @@
-.scroll-container {
+.container-fluid {
     overflow-y: auto;
-    max-height: calc(100vh - 20em);
+    flex-grow: 1;
 }
