@@ -101,4 +101,8 @@ export class ChatComponent implements OnInit {
 
         return true;
     }
+
+    closeChat() {
+        this.isOpen = false;
+    }
 }

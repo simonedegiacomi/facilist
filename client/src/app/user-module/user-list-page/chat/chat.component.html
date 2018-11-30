@@ -1,4 +1,10 @@
 <div class="smartphone" [class.open]="isOpen" *ngIf="isOpen">
+    <div class="exit-flag-container" (click)="closeChat()">
+        <img class="exit-flag" src="/assets/img/flag-exit-navbar.svg" />
+    </div>
+    <div class="camera-container">
+        <img src="/assets/img/frame-camera.svg" />
+    </div>
     <div class="display">
         <div class="messages"
              infiniteScroll

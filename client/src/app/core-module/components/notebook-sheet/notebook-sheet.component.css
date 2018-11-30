@@ -159,6 +159,10 @@
     background: url("../../../../assets/img/flag-settings.svg");
 }
 
+.message-icon {
+    background: url("../../../../assets/img/flag-message.svg");
+}
+
 
 @media (max-width: 576px) {
     .share-icon {
