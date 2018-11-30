@@ -77,6 +77,10 @@ data class ShoppingList(
 
         isShared            = this.isShared()
     )
+
+    override fun toString() = "ShoppingList(id=$id, name='$name')"
+
+
 }
 
 data class ShoppingListPreview(

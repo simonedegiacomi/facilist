@@ -40,7 +40,7 @@ class UpdateShoppingListInfoController(
 
         list.apply {
             name        = update.name!!
-            description = update.description!!
+            description = update.description
             icon        = update.icon!!
         }
 

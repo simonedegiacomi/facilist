@@ -16,17 +16,12 @@
         </div>
 
         <div class="write-message-box">
-            <form (ngSubmit)="sendMessage()" #form="ngForm">
-
-                <textarea name="message" [(ngModel)]="newMessage" required minlength="1" [disabled]="isSending"></textarea>
-
-                <!-- TODO: Disable if message empty -->
-                <button type="submit" [disabled]="isSending">Invia</button>
+            <form (ngSubmit)="sendMessage()"  #form="ngForm">
+                <textarea class="new-message" name="message"
+                          [(ngModel)]="newMessage" required
+                          (keydown)="onKeyDown($event)"
+                          placeholder="Digita il tuo messaggio..."></textarea>
             </form>
         </div>
     </div>
-</div>
-
-<div class="open-chat-trigger">
-    <button (click)="toggleChat()">Apri</button>
 </div>

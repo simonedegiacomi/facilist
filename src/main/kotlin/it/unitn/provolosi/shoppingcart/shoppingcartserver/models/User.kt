@@ -82,5 +82,8 @@ data class User(
     @Transient()
     fun isAdmin () = role == ADMIN
 
+    override fun toString() = "User(id=$id, email='$email')"
+
+
 }
 

@@ -1,0 +1,11 @@
+<div class="input-group mb-3">
+    <select class="custom-select" required [(ngModel)]="selected" (change)="onChange()"
+            name="newListCategory">
+
+        <option selected [ngValue]="null" disabled>Categoria</option>
+
+        <option *ngFor="let value of values" [ngValue]="value">
+            {{ value.name }}
+        </option>
+    </select>
+</div>

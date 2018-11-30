@@ -6,22 +6,21 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.import.Import
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.boot.web.servlet.error.ErrorController
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.ResponseEntity
+import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import javax.annotation.PostConstruct
-import javax.servlet.http.HttpServletRequest
-import org.springframework.orm.jpa.JpaTransactionManager
-import org.springframework.transaction.PlatformTransactionManager
 import javax.persistence.EntityManagerFactory
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
+import javax.servlet.http.HttpServletRequest
 
 
 fun main(args: Array<String>) {

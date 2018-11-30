@@ -1,4 +1,4 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 

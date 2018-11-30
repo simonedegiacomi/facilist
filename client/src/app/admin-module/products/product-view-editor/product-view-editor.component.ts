@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from "../../../core-module/models/product";
 import { ProductService } from "../../../core-module/services/rest/product.service";
-import { UploadService } from "../../../core-module/services/rest/upload.service";
-import { Observable, of } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
 
@@ -16,32 +13,30 @@ const $ = window['jQuery'];
 })
 export class ProductViewEditorComponent implements OnInit {
 
-    isNew = false;
+    isNew     = false;
     isEditing = false;
-    isSaving = false;
+    isSaving  = false;
 
     @Input() product: Product;
 
     private originalName: string;
 
-    iconUploaded: Observable<void> = of(null);
-
     categories: ProductCategory[];
 
-    @Output() cancel: EventEmitter<void> = new EventEmitter();
+    @Output() cancel: EventEmitter<void>     = new EventEmitter();
     @Output() created: EventEmitter<Product> = new EventEmitter();
-    @Output() deleted: EventEmitter<void> = new EventEmitter();
+    @Output() deleted: EventEmitter<void>    = new EventEmitter();
 
     constructor(
         private productService: ProductService,
-        private categoryService: ProductCategoryService,
-        private uploadService: UploadService
-    ) { }
+        private categoryService: ProductCategoryService
+    ) {
+    }
 
     ngOnInit() {
         if (this.product.id == null) {
-            this.isNew      = true;
-            this.isEditing  = true;
+            this.isNew     = true;
+            this.isEditing = true;
 
             this.fetchCategories();
         } else {
@@ -49,62 +44,45 @@ export class ProductViewEditorComponent implements OnInit {
         }
     }
 
-    private fetchCategories () {
+    private fetchCategories() {
         this.categoryService.getAll()
             .subscribe(categories => this.categories = categories);
     }
 
-    onSelectIconFile (event: Event) {
-        const files = event.target['files'];
-        if (files.length < 0) {
-            return;
+    onSelectCategory () {
+        if (this.product.icon == null) {
+            this.product.icon = this.product.category.icon;
         }
-
-        const file = files[0];
-
-       this.iconUploaded = this.uploadService.uploadImage(file).pipe(
-            map(id => { this.product.icon = id })
-        );
     }
 
-
-    onSaveOrCreate () {
+    onSaveOrCreate() {
         this.isSaving = true;
 
-        this.iconUploaded.pipe(
-            switchMap(_ => {
-                if (this.isNew) {
-                    return this.productService.create(this.product);
-                } else {
-                    return this.productService.update(this.product);
-                }
-            })
-        ).subscribe(_ => {
-            if (this.isNew) {
+        if (this.isNew) {
+            this.product.categoryId = this.product.category.id;
+            return this.productService.create(this.product).subscribe(_ => {
                 this.created.emit(this.product);
                 this.isNew = false;
-            }
-
-            this.isSaving = false;
-            this.isEditing = false;
-        });
+            });
+        } else {
+            return this.productService.update(this.product).subscribe(_ => {
+                this.isSaving  = false;
+                this.isEditing = false;
+            });
+        }
     }
 
-    // TODO: Use Angular Form so validation is automatic
-    get isValid (): boolean { return this.product.name != null && this.product.name != ""
-        && this.product.categoryId != null; }
-
-    onCancel () {
-        this.isEditing      = false;
-        this.product.name   = this.originalName;
+    onCancel() {
+        this.isEditing    = false;
+        this.product.name = this.originalName;
         this.cancel.emit();
     }
 
-    onDelete () {
+    onDelete() {
         $(`#delete-product-${this.product.id}-warning`).modal('show');
     }
 
-    onDeleteProductAfterWarning () {
+    onDeleteProductAfterWarning() {
         $(`#delete-product-${this.product.id}-warning`).modal('hide');
         this.productService.delete(this.product)
             .subscribe(_ => this.deleted.emit());

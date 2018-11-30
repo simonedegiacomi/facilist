@@ -1,0 +1,3 @@
+Grazie per esserti registrato alla nostra app!
+Clicca sul link qui sotto per verificare il tuo indirizzo E-email:
+{{ link }}

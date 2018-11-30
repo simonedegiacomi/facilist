@@ -1,9 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChatMessage
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 
 interface ISyncService {
 
@@ -13,11 +10,20 @@ interface ISyncService {
 
     fun shoppingListDeleted(list: ShoppingList)
 
+
     fun newShoppingListProduct(relation: ShoppingListProduct)
 
     fun productInShoppingListEdited(relation: ShoppingListProduct)
     
     fun productInShoppingListDeleted(relation: ShoppingListProduct)
 
+
     fun newMessageInShoppingList(message: ChatMessage)
+
+
+    fun newCollaborator(collaboration: ShoppingListCollaboration)
+
+    fun collaborationEdited(collaboration: ShoppingListCollaboration)
+
+    fun collaborationDeleted(collaboration: ShoppingListCollaboration)
 }

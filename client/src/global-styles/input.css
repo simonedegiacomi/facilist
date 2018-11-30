@@ -5,24 +5,29 @@
     font-size: 1.2em;
 }
 
-input.form-control {
+input.form-control,
+select.custom-select {
     border-radius: 50px;
 }
 
 input.form-control[type="text"],
 textarea.form-control,
 input.form-control[type="email"],
-input.form-control[type="password"] {
+input.form-control[type="password"],
+select.custom-select{
     border: 0 none;
     border-top: 3px solid var(--lightDarkened);
 }
 
 input.form-control[type="text"]:focus,
 input.form-control[type="email"]:focus,
-input.form-control[type="password"]:focus {
+input.form-control[type="password"]:focus,
+select.custom-select:focus {
     box-shadow: 0 0 0 0.2rem var(--light);
 }
 
 input.form-check-input {
     margin-left: .75em;
 }
+
+

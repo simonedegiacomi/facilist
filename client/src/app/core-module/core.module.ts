@@ -19,6 +19,7 @@ import { UserShoppingListProductComponent } from "./components/user-list/user-sh
 import { NewUserProductComponent } from './components/user-list/new-user-product/new-user-product.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { NotebookSheetComponent } from './components/notebook-sheet/notebook-sheet.component';
+import { SelectComponent } from './components/select/select.component';
 
 @NgModule({
     imports: [
@@ -50,6 +51,7 @@ import { NotebookSheetComponent } from './components/notebook-sheet/notebook-she
         NewUserProductComponent,
         CheckboxComponent,
         NotebookSheetComponent,
+        SelectComponent,
     ],
     exports: [
         ImagePipe,
@@ -57,7 +59,8 @@ import { NotebookSheetComponent } from './components/notebook-sheet/notebook-she
         UserSettingsComponent,
         NewPasswordComponent,
         UserListComponent,
-        CheckboxComponent
+        CheckboxComponent,
+        SelectComponent
     ]
 })
 export class CoreModule {

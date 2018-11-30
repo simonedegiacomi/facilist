@@ -1,45 +1,47 @@
 <div class="modal fade new-list" id="newListModal" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content notebook-sheet">
-            <div class="notebook-sheet-header">
-                <h5 class="modal-title">Nuova lista</h5>
-                <div class="notebook-sheet-buttons">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body">
+
+                <div class="notebook-sheet-header">
+                    <h5 class="modal-title">Nuova lista</h5>
+                    <div class="notebook-sheet-buttons">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
                 </div>
-            </div>
-            <div class="notebook-sheet-content">
-                <form class="new-list-form" (submit)="onCreate()" #form="ngForm">
 
-                    <div class="row">
-                        <div class="col-2 col-sm-4">
-                            <app-show-change-image [(image)]="newListIcon"></app-show-change-image>
-                        </div>
+                <div class="notebook-sheet-content">
+                    <div class="container-fluid">
+                        <form class="new-list-form row" (submit)="onCreate()" #form="ngForm">
 
-                        <div class="col-10 col-sm-8 row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Nome lista"
-                                           [(ngModel)]="newList.name" required name="newListName">
+                            <div class="col-2 col-sm-4">
+                                <app-show-change-image [(image)]="newListIcon"></app-show-change-image>
+                            </div>
+
+                            <div class="col-10 col-sm-8 row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nome lista"
+                                               [(ngModel)]="newList.name" required name="newListName">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <app-select [values]="categories$ | async"
+                                                [(selected)]="newList.category"></app-select>
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <select required [(ngModel)]="newList.category" name="newListCategory">
-                                    <option *ngFor="let category of categories$ | async" [ngValue]="category">
-                                        {{ category.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+
+                            <textarea class="form-control mb-3" name="newListDescription"
+                                      [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
+
+
+                            <button type="submit" class="action-button" [disabled]="!form.valid || isSaving">Crea
+                            </button>
+                        </form>
                     </div>
-
-
-                    <textarea class="form-control" name="newListDescription"
-                              [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
-
-
-                    <button type="submit" class="action-button" [disabled]="!form.valid || isSaving">Crea</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>

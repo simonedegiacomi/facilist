@@ -38,9 +38,9 @@ class AppSecurityConfig(
             "/api/users/*/recoverPassword",
             "/api/users/completeRecoverPassword",
 
-            "/api/shoppingListCategories/all",
+            "/api/shoppingListCategories",
 
-            "/api/productCategories/all",
+            "/api/productCategories",
 
             "/api/products/search",
 

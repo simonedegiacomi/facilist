@@ -24,6 +24,7 @@ function namedPatter(name: string, pattern: RegExp): ValidatorFn {
     };
 }
 
+const MIN_PASSWORD_LENGTH = 6;
 
 @Component({
     selector: 'app-new-password',
@@ -38,7 +39,7 @@ export class NewPasswordComponent implements OnInit {
         return formBuilder.group({
             password: new FormControl(null, [
                 Validators.required,
-                Validators.minLength(6), // TODO: Extract constant
+                Validators.minLength(MIN_PASSWORD_LENGTH),
                 namedPatter('mustContainANumber', /.*(?=.*\d).*/),
                 namedPatter('mustContainASymbol', /.*(?=.*[#$@!%&*?]).*/)
             ]),

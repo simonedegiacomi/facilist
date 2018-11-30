@@ -18,28 +18,28 @@ button.action-button {
     cursor: pointer;
 }
 
-button.action-button.danger {
-    background-color: var(--buttonDanger);
-    border-bottom: 5px solid var(--buttonDangerDark);
-}
-
-button.action-button:hover {
+button.action-button:hover:not(:disabled) {
     margin-top: -2px;
     border-bottom-width: 7px;
 }
 
-button.action-button:active {
+button.action-button:active:not(:disabled) {
     margin-top: 4px;
     border-bottom-width: 1px;
 }
 
 button.action-button:disabled {
     background-color: var(--buttonDisabled);
-    border-bottom-width: 1px;
+    border-bottom-color: var(--buttonDisabledDark);
 }
 
 button.action-button:focus {
     outline: none;
+}
+
+button.action-button.danger {
+    background-color: var(--buttonDanger);
+    border-bottom: 5px solid var(--buttonDangerDark);
 }
 
 button.action-button.big {

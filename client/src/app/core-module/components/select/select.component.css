@@ -1,0 +1,23 @@
+/**
+    Inspired by https://codepen.io/vkjgr/pen/VYMeXp
+ */
+
+select {
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--buttonDark) 50%),
+        linear-gradient(135deg, var(--buttonDark) 50%, transparent 50%),
+        radial-gradient(var(--lightDarkened), var(--lightDarkened));
+
+    background-position:
+        calc(100% - 20px) calc(1em - 3px),
+        calc(100% - 10px) calc(1em - 3px),
+        100% 0;
+
+    background-size:
+        10px 10px,
+        10px 10px,
+        2.5em 2.5em;
+
+    background-repeat: no-repeat;
+}

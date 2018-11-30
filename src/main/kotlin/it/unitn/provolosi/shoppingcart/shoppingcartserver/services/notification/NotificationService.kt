@@ -2,6 +2,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.NotificationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery.PushNotificationDeliveryMethod
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery.WebSocketDeliveryMethod
 import org.springframework.stereotype.Component
 
 /**

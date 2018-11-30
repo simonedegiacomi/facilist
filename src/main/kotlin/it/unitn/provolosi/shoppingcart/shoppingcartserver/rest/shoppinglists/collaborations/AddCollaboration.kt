@@ -5,7 +5,10 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.AddedToListEmail
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.InvitedToJoinEmail
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
-import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 import javax.validation.constraints.Email
 
@@ -27,6 +29,7 @@ class AddCollaboration(
         private val inviteToJoinDAO: InviteToJoinDAO,
         private val emailService: EmailService,
         private val notificationService: NotificationService,
+        private val syncShoppingListService: SyncService,
 
         @Value("\${app.name}")
         private val applicationName: String,
@@ -41,14 +44,13 @@ class AddCollaboration(
     fun addCollaborator(
             @PathVariableBelongingShoppingList list: ShoppingList,
             @AppUser user: User,
-            @RequestBody @Valid @Email emailToAdd: String,
-            req: HttpServletRequest
+            @RequestBody @Valid @Email emailToAdd: String
     ): ResponseEntity<ShoppingList> =
 
         if (list.canUserEditCollaborations(user)) {
 
             try {
-                addUserToShoppingListByEmail(list, user, emailToAdd, req)
+                addUserToShoppingListByEmail(list, user, emailToAdd)
 
                 ResponseEntity(list, HttpStatus.OK)
             } catch (ex: UserAlreadyCollaboratesWithShoppingListException) {
@@ -62,17 +64,16 @@ class AddCollaboration(
     fun addUserToShoppingListByEmail(
             list: ShoppingList,
             inviter: User,
-            email: String,
-            req: HttpServletRequest
+            email: String
     ) = try {
         val user = userDAO.getUserByEmail(email)
-        addUserToShoppingList(list, user, inviter, req)
+        addUserToShoppingList(list, user, inviter)
     } catch (ex: UserNotFoundException) {
-        inviteUserByEmailToList(inviter, list, email, req)
+        inviteUserByEmailToList(inviter, list, email)
     }
 
 
-    private fun addUserToShoppingList(list: ShoppingList, user: User, inviter: User, req: HttpServletRequest) {
+    private fun addUserToShoppingList(list: ShoppingList, user: User, inviter: User) {
         if (user == list.creator) {
             throw UserAlreadyCollaboratesWithShoppingListException()
         }
@@ -82,10 +83,10 @@ class AddCollaboration(
             shoppingList = list
         ))
 
-
+        syncShoppingListService.newCollaborator(collaboration)
         sendNotificationToNewCollaborator(inviter, collaboration)
         sendNotificationToExistingCollaborators(inviter, collaboration)
-        sendEmailToNewCollaborator(collaboration, req)
+        emailService.sendEmail(AddedToListEmail(collaboration, inviter))
     }
 
 
@@ -120,49 +121,13 @@ class AddCollaboration(
     }
 
 
-
-    private fun sendEmailToNewCollaborator(
-            collaboration: ShoppingListCollaboration,
-            req: HttpServletRequest
-    ) {
-        // TODO: Improve email
-        emailService.sendEmail(object : it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email() {
-            override fun to() = collaboration.user.email
-
-            override fun subject() = "$applicationName - Sei stato aggiunto ad una lista!"
-
-            override fun text() = "Apri la pagina"
-        })
-    }
-
-    private fun inviteUserByEmailToList(inviter: User, list: ShoppingList, email: String, req: HttpServletRequest) {
+    private fun inviteUserByEmailToList(inviter: User, list: ShoppingList, email: String) {
         val invite = inviteToJoinDAO.save(InviteToJoin(
             shoppingList = list,
             email = email,
             inviter = inviter
         ))
 
-        sendInviteEmail(invite, req)
-    }
-
-    private fun sendInviteEmail(invite: InviteToJoin, req: HttpServletRequest) {
-        val inviter = invite.inviter
-        val list = invite.shoppingList
-
-        emailService.sendEmail(object : it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.Email() {
-            override fun to() = invite.email
-
-            override fun subject() = "Iscriviti a $applicationName!"
-
-            override fun text() = "${inviter.firstName} ti ha invitato a collaborare alla lista ${list.name}. Iscriviti subito!"
-
-            // TODO: Create email template
-            /*override fun html() = htmlEmailEngine.render("verify-email", mapOf(
-                "applicationName" to applicationName,
-                "inviterName" to user.firstName,
-                "listName" to list.name,
-                "link" to req.protocolPortAndDomain()
-            ))*/
-        })
+        emailService.sendEmail(InvitedToJoinEmail(invite))
     }
 }

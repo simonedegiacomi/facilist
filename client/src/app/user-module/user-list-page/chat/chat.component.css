@@ -1,14 +1,20 @@
 div.smartphone {
 
     width: 23.75em;
-    max-width: 95vw;
+    height: 100%;
 
-    height: 48em;
+    max-width: 95vw;
     max-height: calc(85vh - var(--navbarHeight));
 
-    background-image: url('../../../../assets/img/smartphone.svg');
-
     display: flex;
+
+    background-image: linear-gradient(to bottom, #2e2e2e , #0e0e0e);
+    border: 1px solid #0e0e0e;
+    border-radius: 20px;
+
+    margin: 2em 0 2em 4em;
+
+    box-shadow: 15px 15px 3px 0 #00000088;
 }
 
 @media (max-width: 768px) {
@@ -24,7 +30,7 @@ div.smartphone {
 
 .display {
     width: 100%;
-    margin: 4em 1em;
+    margin: 1em 3em;
     background-color: white;
 
     display: flex;
@@ -36,12 +42,6 @@ div.smartphone {
     overflow-y: auto;
 }
 
-div.open-chat-trigger {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}
-
 .message {
     padding: .5em;
     background-color: lightgreen;
@@ -49,4 +49,14 @@ div.open-chat-trigger {
 
 .message.my-message {
     background-color: lightblue;
+}
+
+.new-message {
+    width: 100%;
+    resize: none;
+
+    border: 0;
+    border-top: 2px solid var(--lightDarkened);
+
+    padding: 0.5em;
 }

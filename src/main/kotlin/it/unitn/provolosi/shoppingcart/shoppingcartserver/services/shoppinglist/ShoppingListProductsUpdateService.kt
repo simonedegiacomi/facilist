@@ -2,8 +2,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductsUpdateDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProductUpdatesGroup
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProductUpdatesGroup
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateTask.Companion.DEFAULT_SCHEDULE_INTERVAL

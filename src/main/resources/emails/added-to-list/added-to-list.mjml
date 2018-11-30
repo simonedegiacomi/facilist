@@ -1,0 +1,33 @@
+<mjml>
+  <mj-head>
+
+    <mj-attributes>
+      <mj-text align="center" color="#555" />
+      <mj-include path="../common/classes.mjml" />
+    </mj-attributes>
+
+    <mj-include path="../common/fonts.mjml" />
+  </mj-head>
+
+  <mj-body background-color="#eee">
+
+    <mj-include path="../common/header.mjml" />
+
+    <mj-section background-color="#fff">
+      <mj-column>
+        <mj-text align="center" font-family="Lobster">
+          <h2>Sei stato aggiunto alla lista "{{ listName }}"!</h3>
+        </mj-text>
+
+        <mj-text align="center" font-family="Lato">
+          <p><strong>{{ inviterName }}</strong> ti ha aggiunto alla lista <strong>{{ listName }}</strong>.</p>
+        </mj-text>
+
+        <mj-button mj-class="button-cta" href="{{ link }}">Apri la lista</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="../common/footer.mjml" />
+
+  </mj-body>
+</mjml>

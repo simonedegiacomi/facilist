@@ -4,9 +4,6 @@ import {
     CATEGORY_NAME_CONFLICT,
     ProductCategoryService
 } from "../../../core-module/services/rest/product-category.service";
-import { Observable, of } from "rxjs";
-import { UploadService } from "../../../core-module/services/rest/upload.service";
-import { catchError, map } from "rxjs/operators";
 import editorConfig from '../../../core-module/tinymceConfig';
 
 @Component({
@@ -31,13 +28,10 @@ export class CategoryViewEditorComponent implements OnInit {
 
     nameConflict        = false;
 
-    iconUploaded: Observable<void> = of(null);
-
     editorConfig = editorConfig;
 
     constructor(
-        private categories: ProductCategoryService,
-        private uploadService: UploadService
+        private categories: ProductCategoryService
     ) { }
 
     ngOnInit() {
@@ -50,14 +44,13 @@ export class CategoryViewEditorComponent implements OnInit {
         }
     }
 
-    onSaveOrCreate () {
+    private onSaveOrCreate () {
         this.isSavingOrCreating = true;
         this.nameConflict       = false;
-
-       this.iconUploaded.subscribe(_ => this.saveOrCreate());
     }
 
     saveOrCreate () {
+        this.onSaveOrCreate();
         if (this.isNew) {
             this.categories.create(this.category).subscribe(
                 category => this.onSavedOrCreated(category),
@@ -88,29 +81,6 @@ export class CategoryViewEditorComponent implements OnInit {
             this.nameConflict = true;
         }
     }
-
-    onSelectIconFile (evt: Event) {
-        const files = evt.target['files'];
-        if (files.length < 0) {
-            return;
-        }
-
-        const file = files[0];
-
-        this.startIconUpload(file);
-    }
-
-    startIconUpload (file: File) {
-        this.iconUploaded = this.uploadService.uploadImage(file).pipe(
-            map(id => { this.category.icon = id }),
-            catchError(_ => <Observable<void>> of(null))
-        );
-    }
-
-    // TODO: Use Angular Form so validation is automatic
-    get isValid (): boolean { return this.category.name != null && this.category.name != ""
-        && this.category.description != null && this.category.description != ""; }
-
     onCancel () {
         this.isEditing              = false;
         this.category.name          = this.originalName;

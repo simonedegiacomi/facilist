@@ -12,6 +12,7 @@ const $ = window['jQuery'];
 export class UserListPageComponent implements OnInit {
 
     list: ShoppingList;
+    isChatOpen: Boolean = false;
 
     constructor(
         private shoppingListService: ShoppingListService,
@@ -24,7 +25,11 @@ export class UserListPageComponent implements OnInit {
     }
 
     fetchShoppingList () {
-        this.shoppingListService.getById(this.shoppingListId).subscribe(list => this.list = list);
+        this.shoppingListService.getById(this.shoppingListId)
+            .subscribe(
+                list => this.list = list,
+                _ => this.router.navigateByUrl('/')
+            );
     }
 
     get shoppingListId() {
@@ -41,5 +46,9 @@ export class UserListPageComponent implements OnInit {
 
     onOpenSettings () {
         $('#listOptionsModal').modal('show');
+    }
+
+    onOpenChat() {
+        this.isChatOpen = !this.isChatOpen;
     }
 }

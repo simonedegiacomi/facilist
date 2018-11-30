@@ -3,9 +3,7 @@ import { from, Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { SwPush } from "@angular/service-worker";
 import { switchMap, tap } from "rxjs/operators";
-
-// TODO: Ask the public key to the server at runtime
-const VAPID_PUBLIC_KEY = "BArkB_1gSLGOPruj4ZC3HeRmq9ncz4vKrDomlNXpOYEeJircD7VPXCY-3Px4MjzhvocOWFmW2c9zy9HHKKbTE4Q";
+import { environment } from "../../../environments/environment";
 
 /**
  * This service manages the Push API subscription asking the user for the permission and sending the subscription info
@@ -39,7 +37,7 @@ export class PushSubscriptionService {
 
     private requestPushNotificationPermission (): Observable<PushSubscription> {
         return from(this.swPush.requestSubscription({
-            serverPublicKey: VAPID_PUBLIC_KEY
+            serverPublicKey: environment.publicVAPIDKey
         }));
     }
 

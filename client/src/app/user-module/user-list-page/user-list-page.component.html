@@ -6,10 +6,11 @@
             (openSettings)="onOpenSettings()"
             (openShareSettings)="onOpenShareSettings()"
             (back)="onBack()"
+            (openChat)="onOpenChat()"
         ></app-user-list>
 
 
-        <list-chat [list]="list"></list-chat>
+        <list-chat [list]="list" [isOpen]="isChatOpen"></list-chat>
 
     </div>
 

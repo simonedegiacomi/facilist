@@ -1,0 +1,2 @@
+Clicca sul link qui sotto per confermare il tuo nuovo indirizzo email:
+{{ link }}

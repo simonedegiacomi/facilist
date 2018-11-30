@@ -1,0 +1,1 @@
+{{ inviterName }} ti ha aggiunto alla lista {{ listName }}.
