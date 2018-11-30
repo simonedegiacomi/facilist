@@ -1,5 +1,5 @@
-<div class="notebook-sheet-strip-container">
-    <div class="notebook-sheet-strip green-strip add-product-bar" [class.focused]="isFocused">
+<div class="row">
+    <div class="col-12 notebook-sheet-strip green-strip" [class.focused]="isFocused">
         <div class="form-group">
             <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)"
                    placeholder="Aggiungi qualcosa ...">
@@ -35,5 +35,6 @@
         </div>
     </div>
 </div>
+
 
 <div class="notifications-backdrop" [class.active]="isFocused" (click)="isFocused = false"></div>

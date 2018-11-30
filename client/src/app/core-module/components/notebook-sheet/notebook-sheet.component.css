@@ -10,7 +10,7 @@
     margin: 2em 0;
     padding: 0 1em 1em 1em;
 
-    background: transparent url("../assets/img/modal-top.svg") top center;
+    background: transparent url("../../../../assets/img/modal-top.svg") top center;
     border-radius: 0;
     border: none 0;
 
@@ -104,13 +104,29 @@
 /* END*/
 
 .close-icon {
-    background: url("../assets/img/flag-close.svg");
+    background: url("../../../../assets/img/flag-close.svg");
 }
 
 @media (max-width: 576px) {
     .close-icon {
-        background: url("../assets/img/flag-close-rotated.svg");
+        background: url("../../../../assets/img/flag-close-rotated.svg");
     }
+}
+
+.scroll-container {
+    margin-left: -60px;
+    /*
+        height: 80px;*/
+    overflow-y: auto;
+}
+
+.my-container {
+    margin-left: 60px;
+    /*
+        height: 300px;
+        width: 200px;
+        background-color: blue;*/
+    margin-right: auto;
 }
 
 /* Strip */
@@ -119,12 +135,9 @@
 }
 
 .notebook-sheet-strip {
-    margin-left: -3em;
-    margin-right: -2em;
-    min-width: calc(100% + 5em);
-    padding: .25em 0 0 2em;
-
-    margin-bottom: 1em;
+    margin-left: -70px;
+    margin-right: -30px;
+    min-width: calc(100% + 100px);
 }
 
 .notebook-sheet-strip h6 {
@@ -141,8 +154,29 @@
 }
 
 
-
 .notebook-sheet-text {
     font-weight: bold;
     font-family: var(--fontTitle);
 }
+
+
+/* Start icons */
+.share-icon {
+    background: url("../../../../assets/img/flag-share.svg");
+}
+
+.settings-icon {
+    background: url("../../../../assets/img/flag-settings.svg");
+}
+
+
+@media (max-width: 576px) {
+    .share-icon {
+        background: url("../../../../assets/img/flag-share-rotated.svg");
+    }
+
+    .settings-icon {
+        background: url("../../../../assets/img/flag-settings-rotated.svg");
+    }
+}
+/* End icons */

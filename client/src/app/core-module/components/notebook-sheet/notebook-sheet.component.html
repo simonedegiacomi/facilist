@@ -1,0 +1,21 @@
+<div class="modal-content notebook-sheet">
+    <div class="modal-header notebook-sheet-header">
+        <h5 class="modal-title">
+            <app-show-change-image *ngIf="headerIcon" [image]="headerIcon"
+                                   (imageChange)="onImageChanged($event)"></app-show-change-image>
+
+            {{ title }}
+        </h5>
+
+        <div class="notebook-sheet-buttons">
+            <button *ngFor="let button of buttons" type="button" [ngClass]="button.iconClass" [title]="button.title"
+            (click)="button.onClick()"></button>
+        </div>
+    </div>
+
+    <div class="modal-body notebook-sheet-content with-strip">
+        <div class="container-fluid">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

@@ -1,145 +1,74 @@
 <div class="modal fade" id="userSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
+        <app-notebook-sheet [buttons]="buttons" [title]="user.firstName" [(headerIcon)]="user.photo">
 
-        <div class="modal-content notebook-sheet">
-            <div class="notebook-sheet-header modal-header">
-                <h5 class="modal-title">
-                    <app-show-change-image [image]="user.photo"
-                                           (imageChange)="onImageChanged($event)"></app-show-change-image>
-                    {{ user.firstName }}
-                </h5>
-
-                <div class="notebook-sheet-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Chiudi"
-                            [disabled]="isSaving"></button>
+            <!-- Email strip -->
+            <div class="row">
+                <div class="col-12 notebook-sheet-strip blue-strip">
+                    <h6>Cambia Email</h6>
                 </div>
             </div>
 
+            <!-- Change email -->
+            <form [formGroup]="changeEmailForm" (ngSubmit)="onChangeEmail()" class="row">
+                <div class="form-group col-12 col-sm-9">
+                    <input placeholder="Nuovo indirizzo email" type="email" class="form-control"
+                           formControlName="email">
+                </div>
+                <div class="col-12 col-sm-3">
+                    <button type="submit" class="action-button"
+                            [disabled]="!changeEmailForm.valid || isSaving">Cambia
+                    </button>
+                </div>
+                <div class="col-12">
+                    <p class="notebook-sheet-text"> Ti verrà inviata una mail per verificare il
+                        nuovo
+                        indirizzo.<br>
+                        Il cambio avverrà dopo la conferma.</p>
+                </div>
 
-            <div class="modal-body notebook-sheet-content row">
-                <div class="scroll-container col-12">
-                    <div class="my-container row">
-                        <!-- <div class="notebook-sheet-strip-container mb-2"> -->
-                            <div class="notebook-sheet-strip blue-strip col-12 bar">
-                                <h6>Cambia Email</h6>
-                            </div>
-                        <!-- </div> -->
-
-                        <div class="col-12">
-                            <form [formGroup]="changeEmailForm" (ngSubmit)="onChangeEmail()" class="row">
-                                <div class="form-group col-12 col-sm-9">
-                                    <input placeholder="Nuovo indirizzo email" type="email" class="form-control"
-                                        formControlName="email">
-                                </div>
-                                <div class="col-12 col-sm-3">
-                                    <button type="submit" class="action-button"
-                                            [disabled]="!changeEmailForm.valid || isSaving">Cambia
-                                    </button>
-                                </div>
-                                <div class="col-12">
-                                    <p class="notebook-sheet-text"> Ti verrà inviata una mail per verificare il nuovo indirizzo.<br>
-                                    Il cambio avverrà dopo la conferma.</p>
-                                </div>
-
-                                <div *ngIf="emailRequestSent">
-                                    Email di verifica inviata
-                                </div>
-                            </form>
-                        </div>
-                    
-
-                        <!-- <div class="notebook-sheet-strip-container mb-2">
-                            <div class="notebook-sheet-strip blue-strip">
-                                <h6>Cambia password</h6>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
-
-                                <div class="form-group">
-                                    <input type="password" class="form-control" required formControlName="currentPassword">
-                                </div>
-                                <div class="alert alert-warning" *ngIf="changePasswordError">
-                                    Password corrente errata.
-                                </div>
-
-                                <app-new-password [passwords]="changePasswordForm.get('passwords')"></app-new-password>
+                <div *ngIf="emailRequestSent">
+                    Email di verifica inviata
+                </div>
+            </form>
 
 
-                                <div class="col-12">
-                                    <button type="submit" class="action-button"
-                                            [disabled]="!changePasswordForm.valid || isSaving">Cambia
-                                    </button>
-                                </div>
-                            </form>
-                        </div> -->
-                    </div>
+            <!-- Change password strip -->
+            <div class="row">
+                <div class="notebook-sheet-strip blue-strip col-12 bar">
+                    <h6>Cambia Password</h6>
                 </div>
             </div>
-            
 
-            <!-- 
-            <div class="notebook-sheet-content modal-body">
-                <div>
-                    <div class="notebook-sheet-strip-container mb-2">
-                        <div class="notebook-sheet-strip blue-strip">
-                            <h6>Cambia Email</h6>
+            <!-- Change password -->
+            <form class="row" [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
+
+
+                <!-- Current password -->
+                <div class="form-group">
+                    <label for="currentPassword">Password attuale</label>
+                    <input type="password" class="form-control" id="currentPassword"
+                           placeholder=">Password attuale">
+
+                    <div *ngIf="changePasswordError"
+                         class="alert alert-danger">
+
+                        <div>
+                            Password corrente errata.
                         </div>
                     </div>
-
-                    <form [formGroup]="changeEmailForm" (ngSubmit)="onChangeEmail()">
-                        <div class="row">
-                            <div class="form-group col-12 col-sm-9">
-                                <input placeholder="Nuovo indirizzo email" type="email" class="form-control"
-                                       formControlName="email">
-                            </div>
-                            <div class="col-12 col-sm-3">
-                                <button type="submit" class="action-button"
-                                        [disabled]="!changeEmailForm.valid || isSaving">Cambia
-                                </button>
-                            </div>
-                            <div class="col-12">
-                                <p class="notebook-sheet-text"> Ti verrà inviata una mail per verificare il nuovo indirizzo.<br>
-                                Il cambio avverrà dopo la conferma.</p>
-                            </div>
-                        </div>
-
-                        <div *ngIf="emailRequestSent">
-                            Email di verifica inviata
-                        </div>
-                    </form>
                 </div>
 
-                <div>
-                    <div class="notebook-sheet-strip-container mb-2">
-                        <div class="notebook-sheet-strip blue-strip">
-                            <h6>Cambia password</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
-
-                            <div class="form-group">
-                                <input type="password" class="form-control" required formControlName="currentPassword">
-                            </div>
-                            <div class="alert alert-warning" *ngIf="changePasswordError">
-                                Password corrente errata.
-                            </div>
-
-                            <app-new-password [passwords]="changePasswordForm.get('passwords')"></app-new-password>
+                <!-- New password -->
+                <app-new-password [passwords]="changePasswordForm.get('passwords')"></app-new-password>
 
 
-                            <div class="col-12">
-                                <button type="submit" class="action-button"
-                                        [disabled]="!changePasswordForm.valid || isSaving">Cambia
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-12">
+                    <button type="submit" class="action-button"
+                            [disabled]="!changePasswordForm.valid || isSaving">Cambia
+                    </button>
                 </div>
-            </div> -->
-        </div>
+            </form>
+        </app-notebook-sheet>
     </div>
 </div>

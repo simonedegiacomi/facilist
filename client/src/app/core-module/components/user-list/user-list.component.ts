@@ -4,6 +4,7 @@ import { Product } from "../../models/product";
 import { AuthService } from "../../services/auth.service";
 import { ShoppingListSyncService } from "../../services/sync/shopping-list-sync.service";
 import { ShoppingListService } from "../../services/rest/shopping-list.service";
+import { NotebookSheetButton } from "../notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -13,6 +14,20 @@ const $ = window['jQuery'];
     styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'Impostazioni di condivisione',
+        iconClass: 'share-icon',
+        onClick: () => console.log('ok')
+    }, {
+        title: 'Impostazioni',
+        iconClass: 'settings-icon',
+        onClick: () => console.log('ok')
+    }, {
+        title: 'Chiudi',
+        iconClass: 'close-icon',
+        onClick: () => console.log('ok')
+    }];
 
     @Input() list: ShoppingList;
 

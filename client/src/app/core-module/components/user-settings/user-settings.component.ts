@@ -4,6 +4,7 @@ import { UserService } from "../../services/rest/user.service";
 import { User } from "../../models/user";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { NewPasswordComponent } from "../new-password/new-password.component";
+import { NotebookSheetButton } from "../notebook-sheet/notebook-sheet.component";
 
 @Component({
     selector: 'app-user-settings',
@@ -12,11 +13,17 @@ import { NewPasswordComponent } from "../new-password/new-password.component";
 })
 export class UserSettingsComponent implements OnInit {
 
+    buttons: NotebookSheetButton[] = [{
+        iconClass: 'close-icon',
+        title: 'Chiudi',
+        onClick: () => console.log('click')
+    }];
+
     changeEmailForm: FormGroup;
     changePasswordForm: FormGroup;
 
     changePasswordError = false;
-    emailRequestSent = false;
+    emailRequestSent    = false;
 
     user: User;
 
