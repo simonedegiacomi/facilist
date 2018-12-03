@@ -1,0 +1,47 @@
+<div *ngFor="let collaboration of list.collaborations" class="row notebook-sheet-list-item">
+    <!-- Photo -->
+    <div class="col-2 col-sm-1">
+        <img class="icon small-icon" [src]="collaboration.user.photo | image">
+    </div>
+
+    <!-- Name -->
+    <div class="col-10 col-sm-7">
+        {{ collaboration.user.firstName }} ({{ collaboration.user.email }})
+    </div>
+
+    <!-- Permissions -->
+    <div class="col-6 col-sm-3 collaborator-permission permission">
+        <div class="permissions-radios">
+            <label [for]="'admin' + collaboration.id">
+                <input type="radio" [name]="'permission' + collaboration.id"
+                       [(ngModel)]="collaboration.role" class="admin"
+                       [id]="'admin' + collaboration.id"
+                       [value]="roles.ADMIN" (change)="notifyChanges()">
+                <div></div>
+            </label>
+
+            <label [for]="'social' + collaboration.id">
+                <input type="radio" [name]="'permission' + collaboration.id"
+                       [id]="'social' + collaboration.id"
+                       [(ngModel)]="collaboration.role" class="social"
+                       [value]="roles.SOCIAL" (change)="notifyChanges()">
+                <div></div>
+            </label>
+
+            <label [for]="'basic' + collaboration.id">
+                <input type="radio" [name]="'permission' + collaboration.id"
+                       [(ngModel)]="collaboration.role" class="basic"
+                       [id]="'basic' + collaboration.id"
+                       [value]="roles.BASIC" (change)="notifyChanges()">
+                <div></div>
+            </label>
+        </div>
+    </div>
+
+
+    <div class="col-2 col-sm-1">
+        <button (click)="onDeleteCollaboration(collaboration)">
+            <img src="/assets/img/ic_eraser.svg">
+        </button>
+    </div>
+</div>

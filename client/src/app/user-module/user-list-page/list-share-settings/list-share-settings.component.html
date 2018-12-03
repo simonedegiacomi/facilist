@@ -2,78 +2,45 @@
     <div class="modal-dialog" role="document">
         <app-notebook-sheet title="Condivisione lista" [buttons]="buttons">
             <!-- Creator -->
-            <h6>
-                <strong class="pr-4">Creata da</strong>
-                <img [src]="list.creator.photo | image" class="icon normal-icon">
-                {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
-            </h6>
-
-            <!-- Collaborators -->
-            <ul class="collaborators">
-                <li *ngFor="let collaboration of list.collaborations" class="collaborator">
-                    <!-- Photo -->
-                    <div class="collaborator-photo">
-                        <img class="icon small-icon" [src]="collaboration.user.photo | image">
-                    </div>
-
-                    <!-- Name -->
-                    <div class="collaborator-name">
-                        {{ collaboration.user.firstName }} ({{ collaboration.user.email }})
-                    </div>
-
-                    <!-- Permissions -->
-                    <div class="collaborator-permission permission">
-                        <div class="permissions-radios">
-                            <label [for]="'admin' + collaboration.id">
-                                <input type="radio" [name]="'permission' + collaboration.id"
-                                       [(ngModel)]="collaboration.role" class="admin"
-                                       [id]="'admin' + collaboration.id"
-                                       [value]="roles.ADMIN" (change)="notifyChanges()">
-                                <img>
-                            </label>
-
-                            <label [for]="'social' + collaboration.id">
-                                <input type="radio" [name]="'permission' + collaboration.id"
-                                       [id]="'social' + collaboration.id"
-                                       [(ngModel)]="collaboration.role" class="social"
-                                       [value]="roles.SOCIAL" (change)="notifyChanges()">
-                                <img>
-                            </label>
-
-                            <label [for]="'basic' + collaboration.id">
-                                <input type="radio" [name]="'permission' + collaboration.id"
-                                       [(ngModel)]="collaboration.role" class="basic"
-                                       [id]="'basic' + collaboration.id"
-                                       [value]="roles.BASIC" (change)="notifyChanges()">
-                                <img>
-                            </label>
-                        </div>
-
-                        <button class="action-button link-cta danger"
-                                (click)="onDeleteCollaboration(collaboration)">Rimuovi
-                        </button>
-                    </div>
-                </li>
-            </ul>
-
-            <!-- Invites -->
-            <h6>Inviti a persone non registrate</h6>
-            <ul>
-                <li *ngFor="let invite of list.invites" class="row">
-                    {{ invite.email }}
-                </li>
-            </ul>
-
-            <!-- Add collaborator -->
-            <div>
-                <div class="form-group">
-                    <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email"
-                           (keyup)="onUpdateSearchFilter(searchFilter.value)">
-                </div>
-                <button (click)="addCollaborator()">Aggiungi</button>
+            <div class="row">
+                <h6 class="col-12">
+                    <strong class="pl-3 pr-2">Creata da</strong>
+                    <img [src]="list.creator.photo | image" class="icon small-icon">
+                    {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
+                </h6>
             </div>
 
-            <!-- TODO: CReate a dropdown -->
+            <!-- Collaborators -->
+            <div class="container-fluid">
+                <share-collaborators [list]="list"></share-collaborators>
+            </div>
+
+            <!-- Add collaborator -->
+            <div class="row mt-1 mb-2">
+                <div class="col-1"></div>
+                <div class="col-7">
+                    <div class="form-group">
+                        <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email"
+                               (keyup)="onUpdateSearchFilter(searchFilter.value)">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button class="action-button" (click)="addCollaborator()">Aggiungi</button>
+                </div>
+            </div>
+
+            <!-- Invites -->
+            <!-- TODO: Check style -->
+            <div class="row" *ngIf="list.invites.length > 0">
+                <h6>Inviti a persone non registrate</h6>
+                <ul>
+                    <li *ngFor="let invite of list.invites" class="row">
+                        {{ invite.email }}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- TODO: Create a dropdown -->
             <div class="suggestions" *ngIf="suggestedUsers.length > 0">
                 <ul>
                     <li *ngFor="let user of suggestedUsers"
@@ -85,29 +52,7 @@
             </div>
 
             <!-- Legenda -->
-            <div>
-                <div>
-                    <h6>Significato dei simboli</h6>
-                </div>
-                <div>
-                    <div>
-                        <img>
-                        <p>Può aggiungere e rimuovere oggetti alla lista</p>
-                    </div>
-
-                    <div>
-                        <img>
-                        <p>Può aggiungere e rimuovere oggetti alla lista ed invitare altre persone</p>
-                    </div>
-
-                    <div>
-                        <img>
-                        <p>Può aggiungere e rimuovere oggetti alla lista, invitare altre persone e modificare i
-                            dettagli
-                            della lista</p>
-                    </div>
-                </div>
-            </div>
+            <share-legenda></share-legenda>
         </app-notebook-sheet>
     </div>
 </div>

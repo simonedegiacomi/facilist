@@ -1,0 +1,10 @@
+div.col-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    width: 4em;
+    margin-bottom: .5em;
+}

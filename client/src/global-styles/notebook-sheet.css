@@ -107,3 +107,12 @@
     font-weight: bold;
     font-family: var(--fontTitle);
 }
+
+.notebook-sheet-list-item {
+    padding: 1em 0;
+    border-bottom: 2px dashed var(--lightDarkened);
+}
+
+.notebook-sheet-list-item:last-child {
+    border-bottom: none;
+}
