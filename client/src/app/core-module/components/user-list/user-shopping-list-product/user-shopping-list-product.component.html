@@ -1,4 +1,4 @@
-<div class="row notebook-sheet-list-item" *ngIf="!deleted">
+<div class="row" *ngIf="!deleted">
     <div class="col-1" style="padding-top: 1em;">
         <div class="form-group list-product-bought-state">
             <app-checkbox (checkedChange)="toggleToBuy(product)" [checked]="product.bought"></app-checkbox>
