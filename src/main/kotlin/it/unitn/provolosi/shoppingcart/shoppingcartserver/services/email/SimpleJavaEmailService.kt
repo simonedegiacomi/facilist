@@ -23,7 +23,10 @@ class SimpleJavaEmailService (
         private val password: String,
 
         @Value("\${emails.server.sender}")
-        private val sender: String
+        private val sender: String,
+
+        @Value("\${emails.sendEmails}")
+        private val sendEmails: Boolean
 ): EmailService {
 
     val mailer: Mailer = MailerBuilder
@@ -42,7 +45,9 @@ class SimpleJavaEmailService (
                 .withHTMLText(email.html())
                 .buildEmail()
 
-        mailer.sendMail(simpleJavaEmail, true)
+        if (sendEmails) {
+            mailer.sendMail(simpleJavaEmail, true)
+        }
 
         println("Sent email: ${email.text()}")
     }

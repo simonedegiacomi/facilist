@@ -28,6 +28,7 @@ emails.server.port=465
 emails.server.username=ds197and.sd@gmail.com
 emails.server.password=
 emails.server.sender=ds197and.sd@gmail.com
+emails.sendEmails=false
 
 
 # Push API
