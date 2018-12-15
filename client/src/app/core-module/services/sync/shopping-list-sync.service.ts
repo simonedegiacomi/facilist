@@ -7,7 +7,7 @@ import {
     ShoppingListPreview,
     ShoppingListProduct
 } from "../../models/shopping-list";
-import { filter, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { EventTypes, MySyncService } from "./MySyncService";
 

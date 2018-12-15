@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
     CollaborationsRoles,
+    Invite,
     ShoppingList,
     ShoppingListCollaboration
 } from "../../../../core-module/models/shopping-list";
-import { ShoppingListService } from "../../../../core-module/services/rest/shopping-list.service";
 import { AuthService } from "../../../../core-module/services/auth.service";
 import { ShoppingListCollaborationService } from "../../../../core-module/services/rest/shopping-list-collaboration.service";
 import { Router } from "@angular/router";
@@ -34,7 +34,6 @@ export class ShareCollaboratorsComponent {
 
     onDeleteCollaboration(toDelete: ShoppingListCollaboration) {
         this.isSaving = true;
-
         this.collaborationService.deleteCollaboration(this.list, toDelete)
             .subscribe(_ => {
                 this.isSaving = false;
@@ -45,8 +44,10 @@ export class ShareCollaboratorsComponent {
             });
     }
 
-    onDeleteInvite(email: string) {
-        // TODO: Implement
+    onDeleteInvite(email: Invite) {
+        this.isSaving = true;
+        this.collaborationService.deleteInvite(this.list, email)
+            .subscribe(_ => this.isSaving = false);
     }
 
 
@@ -54,12 +55,12 @@ export class ShareCollaboratorsComponent {
         return this.authService.user.id == collaboration.user.id;
     }
 
-    private redirectToHome () {
+    private redirectToHome() {
         this.closeListShareSettingsModal();
         this.router.navigateByUrl('/');
     }
 
-    private closeListShareSettingsModal () {
+    private closeListShareSettingsModal() {
         $('#listSharingSettingsModal').modal('hide');
     }
 }

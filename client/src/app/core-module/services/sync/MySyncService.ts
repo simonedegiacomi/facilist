@@ -1,7 +1,6 @@
 import { StompService } from "@stomp/ng2-stompjs";
 import { Observable } from "rxjs";
 import { filter, map } from "rxjs/operators";
-import { ShoppingListPreview } from "../../models/shopping-list";
 
 export class MySyncService {
 

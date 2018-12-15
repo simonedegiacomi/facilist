@@ -72,9 +72,9 @@ class SyncService(
         SyncEvent(EVENT_CREATED, invite)
     )
 
-    override fun inviteDeleted(list: ShoppingList, invite: InviteToJoin) = stomp.convertAndSend(
+    override fun inviteDeleted(list: ShoppingList, inviteId: Long) = stomp.convertAndSend(
         "/topic/shoppingLists/${list.id}/invites",
-        SyncEvent(EVENT_DELETED, invite)
+        SyncEvent(EVENT_DELETED, mapOf("id" to inviteId))
     )
 }
 

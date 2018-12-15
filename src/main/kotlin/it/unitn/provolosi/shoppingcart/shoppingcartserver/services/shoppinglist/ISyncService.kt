@@ -29,5 +29,5 @@ interface ISyncService {
 
     fun newInvite(list: ShoppingList, invite: InviteToJoin)
 
-    fun inviteDeleted(list: ShoppingList, invite: InviteToJoin)
+    fun inviteDeleted(list: ShoppingList, inviteId: Long)
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ShoppingList, ShoppingListCollaboration } from "../../models/shopping-list";
+import { Invite, ShoppingList, ShoppingListCollaboration } from "../../models/shopping-list";
 import { Observable } from "rxjs";
 import { MyRestService } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
@@ -37,5 +37,9 @@ export class ShoppingListCollaborationService extends MyRestService<ShoppingList
         return this.httpClient.delete<ShoppingList>(url)
     }
 
+    deleteInvite(list: ShoppingList, toDelete: Invite): Observable<void> {
+        const url = `${this.resourcePath}/${list.id}/invites/${toDelete.id}`;
+        return this.httpClient.delete<void>(url);
+    }
 
 }
