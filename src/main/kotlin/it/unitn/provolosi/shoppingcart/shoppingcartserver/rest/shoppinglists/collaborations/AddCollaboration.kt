@@ -129,5 +129,6 @@ class AddCollaboration(
         ))
 
         emailService.sendEmail(InvitedToJoinEmail(invite))
+        syncShoppingListService.newInvite(list, invite)
     }
 }

@@ -7,6 +7,33 @@ import { NotebookSheetButton } from "../../../core-module/components/notebook-sh
 
 const $ = window['jQuery'];
 
+// TODO: Move utility somewhere else
+function removeFromArrayIfPresent (array, item) {
+    const index = array.indexOf(item);
+
+    if (index >= 0) {
+        array.splice(index, 1);
+    }
+}
+
+// TODO: Move utility somewhere else
+function removeFromArrayByIdIfPresent(array, id) {
+    const index = array.findIndex(c => c.id == id);
+
+    if (index >= 0) {
+        array.splice(index, 1);
+    }
+}
+
+// TODO: Move utility somewhere else
+function replaceArrayItemByIdIfPresent(array, id, newItem) {
+    const index = array.findIndex(c => c.id == id);
+
+    if (index >= 0) {
+        array.splice(index, 1, newItem);
+    }
+}
+
 @Component({
     selector: 'user-list-share-settings',
     templateUrl: './list-share-settings.component.html',
@@ -44,22 +71,17 @@ export class ListShareSettingsComponent implements OnInit {
             .subscribe(collaboration => this.list.collaborations.push(collaboration));
 
         this.shoppingListSyncService.collaborationEdited(this.list)
-            .subscribe(editedCollaboration => {
-                const index = this.list.collaborations.findIndex(c => c.id == editedCollaboration.id);
-
-                if (index >= 0) {
-                    this.list.collaborations.splice(index, 1, editedCollaboration);
-                }
-            });
+            .subscribe(edited => replaceArrayItemByIdIfPresent(this.list.collaborations, edited.id, edited));
 
         this.shoppingListSyncService.collaborationDeleted(this.list)
-            .subscribe(deletedCollaboration => {
-                const index = this.list.collaborations.findIndex(c => c.id == deletedCollaboration.id);
+            .subscribe(deleted => removeFromArrayByIdIfPresent(this.list.collaborations, deleted.id));
 
-                if (index >= 0) {
-                    this.list.collaborations.splice(index, 1);
-                }
-            });
+        this.shoppingListSyncService.newInvite(this.list)
+            .subscribe(invite => this.list.invites.push(invite));
+
+        this.shoppingListSyncService.inviteDeleted(this.list)
+            .subscribe(deleted => removeFromArrayByIdIfPresent(this.list.invites, deleted.id));
+
     }
 
     get isUserTheCreator() {

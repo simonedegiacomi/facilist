@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StompService } from "@stomp/ng2-stompjs";
 import {
+    Invite,
     ShoppingList,
     ShoppingListCollaboration,
     ShoppingListPreview,
@@ -9,6 +10,8 @@ import {
 import { filter, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { EventTypes, MySyncService } from "./MySyncService";
+
+const {CREATED, MODIFIED, DELETED} = EventTypes;
 
 @Injectable({
     providedIn: 'root'
@@ -29,60 +32,45 @@ export class ShoppingListSyncService extends MySyncService {
     }
 
     shoppingListInfoEdited(list: ShoppingList | ShoppingListPreview): Observable<ShoppingListPreview> {
-        return this.subscribe<ShoppingListPreview>(`/topic/shoppingLists/${list.id}`).pipe(
-            filter(event => event.event == EventTypes.MODIFIED),
-            map(event => event.model)
-        )
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}`, MODIFIED);
     }
 
     shoppingListDeleted(list: ShoppingList | ShoppingListPreview): Observable<ShoppingList | ShoppingListPreview> {
-        return this.subscribe(`/topic/shoppingLists/${list.id}`).pipe(
-            filter(event => event.event == EventTypes.DELETED),
-            map(_ => list)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}`, DELETED);
     }
 
     newProductInShoppingList(list: ShoppingList): Observable<ShoppingListProduct> {
-        return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
-            filter(event => event.event == EventTypes.CREATED),
-            map(event => event.model)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}/products`, CREATED);
     }
 
 
     productInShoppingListEdited(list: ShoppingList): Observable<ShoppingListProduct> {
-        return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
-            filter(event => event.event == EventTypes.MODIFIED),
-            map(event => event.model)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}/products`, MODIFIED);
     }
 
 
     productInShoppingListDeleted(list: ShoppingList): Observable<ShoppingListProduct> {
-        return this.subscribe<ShoppingListProduct>(`/topic/shoppingLists/${list.id}/products`).pipe(
-            filter(event => event.event == EventTypes.DELETED),
-            map(event => event.model)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}/products`, DELETED);
     }
 
     newCollaboration(list: ShoppingList): Observable<ShoppingListCollaboration> {
-        return this.subscribe<ShoppingListCollaboration>(`/topic/shoppingLists/${list.id}/collaborations`).pipe(
-            filter(event => event.event == EventTypes.CREATED),
-            map(event => event.model)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}/collaborations`, CREATED);
     }
 
     collaborationEdited(list: ShoppingList): Observable<ShoppingListCollaboration> {
-        return this.subscribe<ShoppingListCollaboration>(`/topic/shoppingLists/${list.id}/collaborations`).pipe(
-            filter(event => event.event == EventTypes.MODIFIED),
-            map(event => event.model)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}/collaborations`, MODIFIED);
     }
 
     collaborationDeleted(list: ShoppingList): Observable<ShoppingListCollaboration> {
-        return this.subscribe<ShoppingListCollaboration>(`/topic/shoppingLists/${list.id}/collaborations`).pipe(
-            filter(event => event.event == EventTypes.DELETED),
-            map(event => event.model)
-        );
+        return this.subscribeByEventTypeAndMapModel(`/topic/shoppingLists/${list.id}/collaborations`, DELETED);
     }
+
+    newInvite(list: ShoppingList): Observable<Invite> {
+        return this.subscribeByEventTypeAndMapModel<Invite>(`/topic/shoppingLists/${list.id}/invites`, CREATED);
+    }
+
+    inviteDeleted(list: ShoppingList): Observable<Invite> {
+        return this.subscribeByEventTypeAndMapModel<Invite>(`/topic/shoppingLists/${list.id}/invites`, DELETED);
+    }
+
 }

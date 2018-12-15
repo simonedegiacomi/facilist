@@ -14,7 +14,7 @@ interface ISyncService {
     fun newShoppingListProduct(relation: ShoppingListProduct)
 
     fun productInShoppingListEdited(relation: ShoppingListProduct)
-    
+
     fun productInShoppingListDeleted(relation: ShoppingListProduct)
 
 
@@ -26,4 +26,8 @@ interface ISyncService {
     fun collaborationEdited(collaboration: ShoppingListCollaboration)
 
     fun collaborationDeleted(collaboration: ShoppingListCollaboration)
+
+    fun newInvite(list: ShoppingList, invite: InviteToJoin)
+
+    fun inviteDeleted(list: ShoppingList, invite: InviteToJoin)
 }
