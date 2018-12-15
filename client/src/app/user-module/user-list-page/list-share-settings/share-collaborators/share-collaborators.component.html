@@ -17,7 +17,7 @@
     </div>
 
     <!-- Permissions -->
-    <div class="col-6 col-sm-3 collaborator-permission permission">
+    <div class="col-6 col-sm-3 collaborator-permission permission" *ngIf="!isMyCollaboration(collaboration)">
         <div class="permissions-radios">
             <label [for]="'admin' + collaboration.id">
                 <input type="radio" [name]="'permission' + collaboration.id"
@@ -46,9 +46,16 @@
     </div>
 
     <!-- Delete -->
-    <div class="col-2 col-sm-2">
+    <div class="col-2 col-sm-2" *ngIf="!isMyCollaboration(collaboration)">
         <button class="delete" (click)="onDeleteCollaboration(collaboration)">
             <img src="/assets/img/ic_eraser.svg">
+        </button>
+    </div>
+
+    <!-- Remove myself from list -->
+    <div class="col-sm-5 text-center" *ngIf="isMyCollaboration(collaboration)">
+        <button class="action-button link-cta danger" (click)="onDeleteCollaboration(collaboration)" [disabled]="isDeleting">
+            Abbandona
         </button>
     </div>
 </div>

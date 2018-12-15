@@ -5,6 +5,9 @@ import {
     ShoppingListCollaboration
 } from "../../../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../../../core-module/services/rest/shopping-list.service";
+import { AuthService } from "../../../../core-module/services/auth.service";
+import { ShoppingListCollaborationService } from "../../../../core-module/services/rest/shopping-list-collaboration.service";
+import { Router } from "@angular/router";
 
 const $ = window['jQuery'];
 
@@ -13,7 +16,7 @@ const $ = window['jQuery'];
     templateUrl: './share-collaborators.component.html',
     styleUrls: ['./share-collaborators.component.css']
 })
-export class ShareCollaboratorsComponent implements OnChanges {
+export class ShareCollaboratorsComponent {
 
     isSaving = false;
 
@@ -22,19 +25,41 @@ export class ShareCollaboratorsComponent implements OnChanges {
 
     roles = CollaborationsRoles;
 
-    constructor (
-        private listService: ShoppingListService
-    ) {}
+    constructor(
+        private collaborationService: ShoppingListCollaborationService,
+        private authService: AuthService,
+        private router: Router
+    ) {
+    }
 
     onDeleteCollaboration(toDelete: ShoppingListCollaboration) {
         this.isSaving = true;
-        // TODO: Remove comment
-        /*this.listService.deleteCollaboration(this.list, toDelete)
-            .subscribe(_ => this.isSaving = false);*/
+
+        this.collaborationService.deleteCollaboration(this.list, toDelete)
+            .subscribe(_ => {
+                this.isSaving = false;
+
+                if (this.isMyCollaboration(toDelete)) {
+                    this.redirectToHome();
+                }
+            });
     }
+
     onDeleteInvite(email: string) {
         // TODO: Implement
     }
 
 
+    isMyCollaboration(collaboration: ShoppingListCollaboration) {
+        return this.authService.user.id == collaboration.user.id;
+    }
+
+    private redirectToHome () {
+        this.closeListShareSettingsModal();
+        this.router.navigateByUrl('/');
+    }
+
+    private closeListShareSettingsModal () {
+        $('#listSharingSettingsModal').modal('hide');
+    }
 }

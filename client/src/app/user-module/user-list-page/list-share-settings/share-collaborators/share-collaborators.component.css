@@ -62,7 +62,6 @@ input[type=radio].basic:checked + div {
 button {
     border: none;
     background: none;
-    padding: 0;
 }
 
 .remove-container {
