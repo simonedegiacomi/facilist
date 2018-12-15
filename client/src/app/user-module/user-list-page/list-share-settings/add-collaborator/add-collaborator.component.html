@@ -1,0 +1,28 @@
+<!-- Add collaborator -->
+<div class="row mt-2">
+    <h6 class="col-12">Aggiungi collaboratore</h6>
+    <p class="col-12">
+        Inserisci l'indirizzo email di un tuo amico. Se il tuo amico non è ancora iscritto, gli invieremo un email di invito.
+    </p>
+
+    <div class="col-1"></div>
+    <div class="col-7">
+        <form #form="ngForm" class="form-group">
+            <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email" name="email" required
+                   (keyup)="onUpdateSearchFilter(searchFilter.value)" placeholder="Aggiungi tramite email" email>
+        </form>
+    </div>
+    <div class="col-3">
+        <button class="action-button" (click)="addCollaborator(newCollaborator)" [disabled]="isSaving || !form.valid">Invita</button>
+    </div>
+</div>
+
+<div class="suggestions" *ngIf="suggestedUsers.length > 0 && newCollaborator.length > 0">
+    <ul>
+        <li *ngFor="let user of suggestedUsers" (click)="addCollaborator(user.email)"
+            [class.already-collaborating]="isUserByEmailCollaborating(user.email)">
+            <img [src]="user.photo | image" class="icon small-icon mr-2">
+            <span>{{ user.email }}</span>
+        </li>
+    </ul>
+</div>

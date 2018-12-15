@@ -15,6 +15,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ConfirmDeleteListComponent } from './user-list-page/list-options/confirm-delete-list/confirm-delete-list.component';
 import { LegendaComponent } from './user-list-page/list-share-settings/legenda/legenda.component';
 import { ShareCollaboratorsComponent } from './user-list-page/list-share-settings/share-collaborators/share-collaborators.component';
+import { AddCollaboratorComponent } from './user-list-page/list-share-settings/add-collaborator/add-collaborator.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { ShareCollaboratorsComponent } from './user-list-page/list-share-setting
         ChatComponent,
         ConfirmDeleteListComponent,
         LegendaComponent,
-        ShareCollaboratorsComponent
+        ShareCollaboratorsComponent,
+        AddCollaboratorComponent
     ]
 })
 export class UserModule {

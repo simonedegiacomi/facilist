@@ -10,49 +10,18 @@
                 </h6>
             </div>
 
-            <!-- Collaborators -->
+            <!-- Collaborators and invites -->
             <div class="container-fluid mb-2">
-                <share-collaborators [list]="list"></share-collaborators>
+                <share-collaborators-and-invites [list]="list"></share-collaborators-and-invites>
             </div>
 
             <!-- Add collaborator -->
-            <div class="row mt-2">
-                <div class="col-1"></div>
-                <div class="col-7">
-                    <div class="form-group">
-                        <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email"
-                               (keyup)="onUpdateSearchFilter(searchFilter.value)">
-                    </div>
-                </div>
-                <div class="col-3">
-                    <button class="action-button" (click)="addCollaborator()">Aggiungi</button>
-                </div>
-            </div>
-
-            <!-- Invites -->
-            <!-- TODO: Check style -->
-            <div class="row" *ngIf="list.invites.length > 0">
-                <h6>Inviti a persone non registrate</h6>
-                <ul>
-                    <li *ngFor="let invite of list.invites" class="row">
-                        {{ invite.email }}
-                    </li>
-                </ul>
-            </div>
-
-            <!-- TODO: Create a dropdown -->
-            <div class="suggestions" *ngIf="suggestedUsers.length > 0">
-                <ul>
-                    <li *ngFor="let user of suggestedUsers"
-                        [class.already-collaborating]="isUserByEmailCollaborating(user.email)">
-                        <img [src]="user.photo | image" class="icon small-icon">
-                        <span>{{ user.email }}</span>
-                    </li>
-                </ul>
+            <div class="container-fluid mb-2">
+                <add-collaborator [list]="list"></add-collaborator>
             </div>
 
             <!-- Legenda -->
-            <share-legenda></share-legenda>
+            <!--<share-legenda></share-legenda>-->
         </app-notebook-sheet>
     </div>
 </div>

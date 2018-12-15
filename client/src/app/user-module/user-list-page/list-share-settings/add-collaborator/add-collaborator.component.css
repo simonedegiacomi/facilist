@@ -1,0 +1,17 @@
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    cursor: pointer;
+}
+
+li:hover {
+    text-decoration: underline;
+}
+
+li.already-collaborating {
+    text-decoration: line-through;
+    cursor: not-allowed;
+}

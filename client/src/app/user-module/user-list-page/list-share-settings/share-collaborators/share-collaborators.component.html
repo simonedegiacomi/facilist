@@ -1,3 +1,4 @@
+<!-- Collaborators -->
 <div *ngFor="let collaboration of list.collaborations" class="row notebook-sheet-list-item">
     <!-- Photo -->
     <div class="col-2 col-sm-1">
@@ -5,8 +6,14 @@
     </div>
 
     <!-- Name -->
-    <div class="col-10 col-sm-7">
-        {{ collaboration.user.firstName }} ({{ collaboration.user.email }})
+    <div class="col-10 col-sm-6" [attr.aria-label]="collaboration.user.email">
+        <span>
+            <strong>{{ collaboration.user.firstName }}</strong>
+        </span>
+        <br>
+        <span class="collaborator-email">
+            <em>{{ collaboration.user.email }}</em>
+        </span>
     </div>
 
     <!-- Permissions -->
@@ -38,9 +45,50 @@
         </div>
     </div>
 
+    <!-- Delete -->
+    <div class="col-2 col-sm-2">
+        <button class="delete" (click)="onDeleteCollaboration(collaboration)">
+            <img src="/assets/img/ic_eraser.svg">
+        </button>
+    </div>
+</div>
 
+
+<!-- Invites -->
+<div *ngFor="let invite of list.invites" class="row notebook-sheet-list-item invite">
+    <!-- Photo -->
     <div class="col-2 col-sm-1">
-        <button (click)="onDeleteCollaboration(collaboration)">
+        <img class="icon small-icon" src="/assets/img/ic_invited_user.svg">
+    </div>
+
+    <!-- Name -->
+    <div class="col-10 col-sm-6">
+        {{ invite.email }}
+    </div>
+
+    <!-- Permissions -->
+    <div class="col-6 col-sm-3 collaborator-permission permission">
+        <div class="permissions-radios">
+            <label>
+                <input type="radio" class="admin" disabled>
+                <div></div>
+            </label>
+
+            <label>
+                <input type="radio" class="social" disabled>
+                <div></div>
+            </label>
+
+            <label>
+                <input type="radio" class="basic" checked disabled>
+                <div></div>
+            </label>
+        </div>
+    </div>
+
+    <!-- Delete -->
+    <div class="col-2 col-sm-2">
+        <button class="delete" (click)="onDeleteInvite(invite.email)">
             <img src="/assets/img/ic_eraser.svg">
         </button>
     </div>

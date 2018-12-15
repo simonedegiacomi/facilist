@@ -1,15 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-    CollaborationsRoles,
-    ShoppingList,
-    ShoppingListCollaboration
-} from "../../../core-module/models/shopping-list";
+import { CollaborationsRoles, ShoppingList } from "../../../core-module/models/shopping-list";
 import { Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap, tap } from "rxjs/operators";
 import { AuthService } from "../../../core-module/services/auth.service";
-import { ShoppingListCollaborationService } from "../../../core-module/services/rest/shopping-list-collaboration.service";
-import { UserService } from "../../../core-module/services/rest/user.service";
-import { User } from "../../../core-module/models/user";
 import { ShoppingListSyncService } from "../../../core-module/services/sync/shopping-list-sync.service";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
@@ -35,49 +27,17 @@ export class ListShareSettingsComponent implements OnInit {
 
     sendEdits: Subject<null> = new Subject();
 
-    isSaving         = false;
-    lastUpdate: Date = null;
-
-    newCollaborator: string;
-
-
-    private filter = new Subject<string>();
-
-    suggestedUsers: User[] = [];
-
     constructor(
-        private listService: ShoppingListCollaborationService,
         private authService: AuthService,
-        private userService: UserService,
         private shoppingListSyncService: ShoppingListSyncService
     ) {
 
     }
 
     ngOnInit() {
-        this.setUpSendEdits();
-        this.setupSearch();
         this.listenForSyncUpdates();
     }
 
-    private setUpSendEdits() {
-        this.sendEdits.pipe(
-            debounceTime(3000),
-            tap(() => this.isSaving = true),
-            switchMap(() => this.listService.updateCollaborations(this.list))
-        ).subscribe(updatedList => {
-            this.lastUpdate = new Date();
-            this.isSaving   = false;
-        });
-    }
-
-    private setupSearch() {
-        this.filter.pipe(
-            debounceTime(300),
-            distinctUntilChanged(),
-            switchMap(email => this.userService.findUsersByEmail(email))
-        ).subscribe(users => this.suggestedUsers = users);
-    }
 
     private listenForSyncUpdates () {
         this.shoppingListSyncService.newCollaboration(this.list)
@@ -102,35 +62,7 @@ export class ListShareSettingsComponent implements OnInit {
             });
     }
 
-    onUpdateSearchFilter(searchFilter: string) {
-        this.filter.next(searchFilter);
-    }
-
-    notifyChanges() {
-        this.sendEdits.next();
-    }
-
-    addCollaborator() {
-        this.isSaving = true;
-        this.listService.addCollaboratorByEmail(this.list, this.newCollaborator)
-            .subscribe(_ => {
-                this.isSaving = false;
-                this.newCollaborator = "";
-            });
-    }
-
-    onDeleteCollaboration(toDelete: ShoppingListCollaboration) {
-        this.isSaving = true;
-        this.listService.deleteCollaboration(this.list, toDelete)
-            .subscribe(_ => this.isSaving = false);
-    }
-
     get isUserTheCreator() {
         return this.authService.user.id == this.list.creator.id
-    }
-
-    isUserByEmailCollaborating(email: string) {
-        return this.list.creator.email == email ||
-            this.list.collaborations.map(c => c.user).find(u => u.email == email) != null;
     }
 }
