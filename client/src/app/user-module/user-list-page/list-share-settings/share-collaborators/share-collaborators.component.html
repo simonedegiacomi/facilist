@@ -1,12 +1,12 @@
 <!-- Collaborators -->
-<div *ngFor="let collaboration of list.collaborations" class="row notebook-sheet-list-item">
+<div *ngFor="let collaboration of list.collaborations" class="row notebook-sheet-list-item pb-0 pb-sm-2">
     <!-- Photo -->
-    <div class="col-2 col-sm-1">
+    <div class="col-2 col-sm-1 mb-2 mb-sm-0">
         <img class="icon small-icon" [src]="collaboration.user.photo | image">
     </div>
 
     <!-- Name -->
-    <div class="col-10 col-sm-6" [attr.aria-label]="collaboration.user.email">
+    <div class="col-10 col-sm-6 mb-2 mb-sm-0" [attr.aria-label]="collaboration.user.email">
         <span>
             <strong>{{ collaboration.user.firstName }}</strong>
         </span>
@@ -16,8 +16,11 @@
         </span>
     </div>
 
+    <!-- Space if small screen -->
+    <div class="d-block d-sm-none col-6"></div>
+
     <!-- Permissions -->
-    <div class="col-6 col-sm-3 collaborator-permission permission" *ngIf="!isMyCollaboration(collaboration)">
+    <div class="col-4 col-sm-3 collaborator-permission permission" *ngIf="!isMyCollaboration(collaboration)">
         <div class="permissions-radios">
             <label [for]="'admin' + collaboration.id">
                 <input type="radio" [name]="'permission' + collaboration.id"
@@ -53,8 +56,9 @@
     </div>
 
     <!-- Remove myself from list -->
-    <div class="col-sm-5 text-center" *ngIf="isMyCollaboration(collaboration)">
-        <button class="action-button link-cta danger" (click)="onDeleteCollaboration(collaboration)" [disabled]="isDeleting">
+    <div class="col-sm-5 text-right text-sm-center mb-1 mb-sm-0" *ngIf="isMyCollaboration(collaboration)">
+        <button class="action-button link-cta danger" (click)="onDeleteCollaboration(collaboration)"
+                [disabled]="isDeleting">
             Abbandona
         </button>
     </div>
@@ -62,7 +66,7 @@
 
 
 <!-- Invites -->
-<div *ngFor="let invite of list.invites" class="row notebook-sheet-list-item invite">
+<div *ngFor="let invite of list.invites" class="row notebook-sheet-list-item invite pb-0 pb-sm-2">
     <!-- Photo -->
     <div class="col-2 col-sm-1">
         <img class="icon small-icon" src="/assets/img/ic_invited_user.svg">
@@ -73,8 +77,11 @@
         {{ invite.email }}
     </div>
 
+    <!-- Space if small screen -->
+    <div class="d-block d-sm-none col-6"></div>
+
     <!-- Permissions -->
-    <div class="col-6 col-sm-3 collaborator-permission permission">
+    <div class="col-4 col-sm-3 collaborator-permission permission">
         <div class="permissions-radios">
             <label>
                 <input type="radio" class="admin" disabled>

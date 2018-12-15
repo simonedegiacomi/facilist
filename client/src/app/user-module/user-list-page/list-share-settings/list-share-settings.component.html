@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <app-notebook-sheet title="Condivisione lista" [buttons]="buttons">
             <!-- Creator -->
-            <div class="row">
+            <div class="row creator">
                 <h6 class="col-12">
                     <strong class="pl-3 pr-2">Creata da</strong>
                     <img [src]="list.creator.photo | image" class="icon small-icon">
@@ -11,7 +11,7 @@
             </div>
 
             <!-- Collaborators and invites -->
-            <div class="container-fluid mb-2">
+            <div class="container-fluid mb-2 collaborators-container">
                 <share-collaborators-and-invites [list]="list"></share-collaborators-and-invites>
             </div>
 
@@ -21,7 +21,7 @@
             </div>
 
             <!-- Legenda -->
-            <!--<share-legenda></share-legenda>-->
+            <share-legenda class="d-none d-sm-block"></share-legenda>
         </app-notebook-sheet>
     </div>
 </div>
