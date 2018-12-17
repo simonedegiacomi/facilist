@@ -31,7 +31,8 @@
                 </div>
 
                 <div class="col-12 text-right">
-                    <button type="submit" class="action-button" [disabled]="!form.valid || isSaving">Crea
+                    <button type="submit" class="action-button"
+                            [disabled]="!form.valid || newList.category == null|| isSaving">Crea
                     </button>
                 </div>
             </form>
