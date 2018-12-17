@@ -25,12 +25,15 @@
                 </div>
 
 
-                <textarea class="form-control col-12 mb-3" name="newListDescription"
-                          [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
+                <div class="col-12">
+                    <textarea class="form-control col-12 mb-3" name="newListDescription"
+                              [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
+                </div>
 
-
-                <button type="submit" class="action-button" [disabled]="!form.valid || isSaving">Crea
-                </button>
+                <div class="col-12 text-right">
+                    <button type="submit" class="action-button" [disabled]="!form.valid || isSaving">Crea
+                    </button>
+                </div>
             </form>
         </app-notebook-sheet>
     </div>
