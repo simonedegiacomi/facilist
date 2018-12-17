@@ -11,20 +11,17 @@
 
             <!-- Change email -->
             <form [formGroup]="changeEmailForm" (ngSubmit)="onChangeEmail()" class="row">
-                <div class="form-group col-12 col-sm-9">
+                <div class="form-group col-12 col-sm-8">
                     <input placeholder="Nuovo indirizzo email" type="email" class="form-control"
                            formControlName="email">
                 </div>
-                <div class="col-12 col-sm-3">
+                <div class="col-12 col-sm-4">
                     <button type="submit" class="action-button"
                             [disabled]="!changeEmailForm.valid || isSaving">Cambia
                     </button>
                 </div>
                 <div class="col-12">
-                    <p class="notebook-sheet-text"> Ti verrà inviata una mail per verificare il
-                        nuovo
-                        indirizzo.<br>
-                        Il cambio avverrà dopo la conferma.</p>
+                    <p class="notebook-sheet-text"> Ti verrà inviata una mail per verificare il nuovo indirizzo.</p>
                 </div>
 
                 <div *ngIf="emailRequestSent">
@@ -41,11 +38,11 @@
             </div>
 
             <!-- Change password -->
-            <form class="row" [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
+            <form class="row change-password" [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
 
 
                 <!-- Current password -->
-                <div class="form-group">
+                <div class="form-group col-12">
                     <label for="currentPassword">Password attuale</label>
                     <input type="password" class="form-control" id="currentPassword"
                            placeholder=">Password attuale">
@@ -60,10 +57,10 @@
                 </div>
 
                 <!-- New password -->
-                <app-new-password [passwords]="changePasswordForm.get('passwords')"></app-new-password>
+                <app-new-password class="col-12" [passwords]="changePasswordForm.get('passwords')"></app-new-password>
 
 
-                <div class="col-12">
+                <div class="col-12 text-right">
                     <button type="submit" class="action-button"
                             [disabled]="!changePasswordForm.valid || isSaving">Cambia
                     </button>

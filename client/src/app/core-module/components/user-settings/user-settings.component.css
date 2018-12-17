@@ -5,3 +5,8 @@ div.notebook-sheet-strip-container {
 div.notebook-sheet-strip {
     height: var(--titleStripHeight);
 }
+
+
+.change-password {
+    overflow-y: auto;
+}
