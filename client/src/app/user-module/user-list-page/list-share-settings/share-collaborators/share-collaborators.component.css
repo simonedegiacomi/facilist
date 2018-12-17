@@ -16,11 +16,6 @@ div.permission label {
     height: 2em;
 }
 
-.invite .permissions-radios div {
-    cursor: not-allowed;
-}
-
-
 input[type=radio] {
     display: none;
 }
@@ -33,6 +28,11 @@ label div {
 
 input[type=radio] + div {
     cursor: pointer;
+}
+
+input[type=radio]:disabled + div,
+button.delete:disabled {
+    cursor: not-allowed;
 }
 
 input[type=radio].admin + div {

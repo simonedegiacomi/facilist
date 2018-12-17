@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CollaborationsRoles, ShoppingList } from "../../../core-module/models/shopping-list";
+import {
+    CollaborationsRoles,
+    ShoppingList,
+    ShoppingListCollaboration
+} from "../../../core-module/models/shopping-list";
 import { Subject } from "rxjs";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { ShoppingListSyncService } from "../../../core-module/services/sync/shopping-list-sync.service";
@@ -8,7 +12,7 @@ import { NotebookSheetButton } from "../../../core-module/components/notebook-sh
 const $ = window['jQuery'];
 
 // TODO: Move utility somewhere else
-function removeFromArrayIfPresent (array, item) {
+function removeFromArrayIfPresent(array, item) {
     const index = array.indexOf(item);
 
     if (index >= 0) {
@@ -66,7 +70,7 @@ export class ListShareSettingsComponent implements OnInit {
     }
 
 
-    private listenForSyncUpdates () {
+    private listenForSyncUpdates() {
         this.shoppingListSyncService.newCollaboration(this.list)
             .subscribe(collaboration => this.list.collaborations.push(collaboration));
 
@@ -84,7 +88,20 @@ export class ListShareSettingsComponent implements OnInit {
 
     }
 
-    get isUserTheCreator() {
+    get isUserTheCreator(): boolean {
         return this.authService.user.id == this.list.creator.id
+    }
+
+    get userCollaboration(): ShoppingListCollaboration {
+        return this.list.collaborations.find(c => c.user.id == this.authService.user.id);
+    }
+
+    get userHasSocialPermission() {
+        if (this.isUserTheCreator) {
+            return true;
+        }
+
+        const role = this.userCollaboration.role;
+        return role == CollaborationsRoles.SOCIAL || role == CollaborationsRoles.ADMIN;
     }
 }

@@ -26,7 +26,8 @@
                 <input type="radio" [name]="'permission' + collaboration.id"
                        [(ngModel)]="collaboration.role" class="admin"
                        [id]="'admin' + collaboration.id"
-                       [value]="roles.ADMIN" (change)="notifyChanges()">
+                       [value]="roles.ADMIN" (change)="notifyChanges()"
+                       [disabled]="!canChangeOtherUsersPermissions">
                 <div></div>
             </label>
 
@@ -34,7 +35,8 @@
                 <input type="radio" [name]="'permission' + collaboration.id"
                        [id]="'social' + collaboration.id"
                        [(ngModel)]="collaboration.role" class="social"
-                       [value]="roles.SOCIAL" (change)="notifyChanges()">
+                       [value]="roles.SOCIAL" (change)="notifyChanges()"
+                       [disabled]="!canChangeOtherUsersPermissions">
                 <div></div>
             </label>
 
@@ -42,7 +44,8 @@
                 <input type="radio" [name]="'permission' + collaboration.id"
                        [(ngModel)]="collaboration.role" class="basic"
                        [id]="'basic' + collaboration.id"
-                       [value]="roles.BASIC" (change)="notifyChanges()">
+                       [value]="roles.BASIC" (change)="notifyChanges()"
+                       [disabled]="!canChangeOtherUsersPermissions">
                 <div></div>
             </label>
         </div>
@@ -50,7 +53,7 @@
 
     <!-- Delete -->
     <div class="col-2 col-sm-2" *ngIf="!isMyCollaboration(collaboration)">
-        <button class="delete" (click)="onDeleteCollaboration(collaboration)">
+        <button class="delete" (click)="onDeleteCollaboration(collaboration)" [disabled]="!canChangeOtherUsersPermissions">
             <img src="/assets/img/ic_eraser.svg">
         </button>
     </div>
@@ -102,7 +105,7 @@
 
     <!-- Delete -->
     <div class="col-2 col-sm-2">
-        <button class="delete" (click)="onDeleteInvite(invite)">
+        <button class="delete" (click)="onDeleteInvite(invite)" [disabled]="!canChangeOtherUsersPermissions">
             <img src="/assets/img/ic_eraser.svg">
         </button>
     </div>

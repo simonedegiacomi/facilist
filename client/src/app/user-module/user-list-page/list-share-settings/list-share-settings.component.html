@@ -12,11 +12,13 @@
 
             <!-- Collaborators and invites -->
             <div class="container-fluid mb-2 collaborators-container">
-                <share-collaborators-and-invites [list]="list"></share-collaborators-and-invites>
+                <share-collaborators-and-invites
+                    [list]="list"
+                    [canChangeOtherUsersPermissions]="userHasSocialPermission"></share-collaborators-and-invites>
             </div>
 
             <!-- Add collaborator -->
-            <div class="container-fluid mb-2">
+            <div class="container-fluid mb-2" *ngIf="userHasSocialPermission">
                 <add-collaborator [list]="list"></add-collaborator>
             </div>
 

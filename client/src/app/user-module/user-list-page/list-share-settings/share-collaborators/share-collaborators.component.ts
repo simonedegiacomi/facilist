@@ -23,6 +23,9 @@ export class ShareCollaboratorsComponent {
     @Input()
     list: ShoppingList;
 
+    @Input()
+    canChangeOtherUsersPermissions: boolean;
+
     roles = CollaborationsRoles;
 
     constructor(
