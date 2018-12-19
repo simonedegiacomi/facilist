@@ -1,0 +1,16 @@
+<div class="cookie-container" *ngIf="showMessage">
+
+    <div class="card">
+
+        <div class="card-body">
+            <img class="card-img-top" src="/assets/img/cookie-pacman.gif">
+
+            Questa webapp utilizza cookie tecnici.
+        </div>
+
+        <div class="text-right">
+            <a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" class="btn">Informazioni</a>
+            <button class="action-button" (click)="hideMessage()">Ok</button>
+        </div>
+    </div>
+</div>
