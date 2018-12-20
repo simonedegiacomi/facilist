@@ -52,6 +52,10 @@ export class AddCollaboratorComponent implements OnInit {
     }
 
     addCollaborator(email: string) {
+        if (this.isUserByEmailCollaborating(email)) {
+            return;
+        }
+
         this.isSaving = true;
         this.listService.addCollaboratorByEmail(this.list, email)
             .subscribe(_ => {
