@@ -47,7 +47,7 @@ class SyncService(
     )
 
     override fun newMessageInShoppingList(message: ChatMessage) = stomp.convertAndSend(
-        "/topic/shoppingLists/${message.shoppingList.id}/chat/messages",
+        "/topic/shoppingLists/${message.shoppingList.id}/chat/chatMessages",
         SyncEvent(EVENT_CREATED, message)
     )
 

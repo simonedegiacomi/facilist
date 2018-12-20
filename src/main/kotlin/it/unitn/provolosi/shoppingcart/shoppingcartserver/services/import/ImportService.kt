@@ -27,7 +27,8 @@ class ImportService(
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
-        private val shoppingListProductDAO: ShoppingListProductDAO
+        private val shoppingListProductDAO: ShoppingListProductDAO,
+        private val chatMessageDAO: ChatMessageDAO
 
 ) {
 
@@ -35,7 +36,8 @@ class ImportService(
     val categoryByName                  = mutableMapOf<String, ProductCategory>()
     val productByName                   = mutableMapOf<String, Product>()
     val shoppingListCategoriesByName    = mutableMapOf<String, ShoppingListCategory>()
-    var shoppingLists                   = 0
+    var shoppingListsByName             = mutableMapOf<String, ShoppingList>()
+    var chatMessages                        = 0
 
     fun importDataFromResources() {
         println("\nImport started")
@@ -45,6 +47,7 @@ class ImportService(
         importProducts()
         importShoppingListCategories()
         importShoppingLists()
+        importChatMessages()
 
         importDefaultImages()
 
@@ -170,7 +173,16 @@ class ImportService(
             shoppingList.icon = importImageIfExists("shopping-list-icons", iconFileName)
         }
 
-        shoppingLists++
+        shoppingListsByName[shoppingList.name] = shoppingList
+    }
+
+    private fun importChatMessages () = csvFile("/import/chatMessages.csv").forEach {
+        chatMessageDAO.save(ChatMessage(
+            user = userByEmail[it["user"]]!!,
+            shoppingList = shoppingListsByName[it["shoppingList"]]!!,
+            message = it["message"]
+        ))
+        chatMessages++
     }
 
     private fun importDefaultImages() =
@@ -193,8 +205,9 @@ class ImportService(
         println("Users:                     ${userByEmail.size}")
         println("Products:                  ${productByName.size}")
         println("Product categories:        ${categoryByName.size}")
-        println("Shopping lists:            $shoppingLists")
-        println("Shopping list categories:  ${shoppingListCategoriesByName.size}\n")
+        println("Shopping lists:            ${shoppingListsByName.size}")
+        println("Shopping list categories:  ${shoppingListCategoriesByName.size}")
+        println("Chat messages:             $chatMessages")
         println("\n\n")
     }
 
