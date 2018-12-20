@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/shoppingLists/{shoppingListId}/invites")
-class DeleteInvite(
+class DeleteInviteController(
         private val inviteToJoinDAO: InviteToJoinDAO,
         private val syncShoppingListService: SyncService
         ) {

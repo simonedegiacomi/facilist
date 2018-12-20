@@ -4,9 +4,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.Coordinates
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.FoursquareService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.NearShops
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.Coordinates
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.FoursquareNearShopsService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.NearShops
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.delivery.WebSocketDeliveryMethod
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull
 @RequestMapping("/api/users/me/position")
 class UpdatePositionController (
         private val shoppingListDAO: ShoppingListDAO,
-        private val foursquareService: FoursquareService,
+        private val foursquareService: FoursquareNearShopsService,
         private val notificationSync: WebSocketDeliveryMethod,
 
         @Value("\${websiteUrl}")

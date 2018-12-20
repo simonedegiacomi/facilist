@@ -2,7 +2,6 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.co
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
@@ -14,44 +13,53 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
+import javax.validation.Valid
+import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
-class DeleteCollaboration(
+class UpdateCollaborationsController(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
-        private val shoppingListProductDAO: ShoppingListProductDAO,
         private val notificationService: NotificationService,
         private val syncShoppingListService: SyncService,
+
 
         @Value("\${websiteUrl}")
         private val websiteUrl: String
 ) {
 
-    @DeleteMapping("{collaborationId}")
+    @PostMapping()
     @RolesAllowed(User.USER)
-    fun deleteCollaboration(
+    fun updateCollaborations(
             @PathVariableBelongingShoppingList list: ShoppingList,
-            @PathVariable collaborationId:Long,
-            @AppUser user: User
+            @AppUser user: User,
+            @RequestBody @Valid update: List<UpdateCollaborationsDTO>
     ): ResponseEntity<ShoppingList> = try {
+
         if (list.canUserEditCollaborations(user)) {
 
-            val collaboration = shoppingListCollaborationDAO.findById(collaborationId)
+            update.forEach { it ->
+                val c = shoppingListCollaborationDAO.findById(it.collaborationId!!)
 
-            removeProductsOfUserFromList(collaboration.user, list)
+                if (c.role != it.role) {
+                    c.role = it.role!! // TODO: Verify!
 
-            shoppingListCollaborationDAO.deleteById(collaborationId)
 
-            syncShoppingListService.collaborationDeleted(collaboration)
-            sendNotificationToDeletedCollaborator(user, collaboration)
-            sendNotificationToCollaborators(user, collaboration)
+                    shoppingListCollaborationDAO.save(c)
+
+                    syncShoppingListService.collaborationEdited(c)
+                    sendNotificationToCollaborator(user, c)
+                }
+            }
 
             ResponseEntity(list, HttpStatus.OK)
+
         } else {
 
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
@@ -61,43 +69,23 @@ class DeleteCollaboration(
         ResponseEntity.notFound().build()
     }
 
-    private fun sendNotificationToDeletedCollaborator(user: User, collaboration: ShoppingListCollaboration) {
+    data class UpdateCollaborationsDTO(
+            @get:NotNull
+            val collaborationId: Long?,
+
+            @get:NotNull
+            @get:NotEmpty
+            val role: String?
+    )
+
+    private fun sendNotificationToCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList
 
         notificationService.saveAndSend(Notification(
-            message = "${user.firstName} ti ha rimosso dai collaboratori di ${list.name}",
-            icon    = user.photo,
+            message = "${inviter.firstName} ha cambiato i tuoi privilegi nella lista \"${list.name}\"",
+            icon    = inviter.photo,
             target  = collaboration.user,
             url     = "$websiteUrl/shoppingLists/{$list.id}"
         ))
-    }
-
-    private fun sendNotificationToCollaborators(user: User, collaboration: ShoppingListCollaboration) {
-        val list    = collaboration.shoppingList
-        val removed = collaboration.user
-
-        val notifications = list
-                .ownerAndCollaborators()
-                .filter { u -> u != user && u != removed }
-                .map { u ->
-                    Notification(
-                        message = "${user.firstName} ha rimosso ${removed.firstName} dai collaboratoridella lista \"${list.name}\"",
-                        target  = u,
-                        icon    = user.photo,
-                        url     = "$websiteUrl/shoppingLists/{$list.id}"
-                    )
-                }
-
-        notificationService.saveAndSend(notifications)
-    }
-
-    private fun removeProductsOfUserFromList (user: User, list: ShoppingList) {
-        val relationsToRemove = list.products
-                .filter { relation -> relation.product.creator != null && relation.product.creator == user }
-
-        shoppingListProductDAO.deleteAll(relationsToRemove)
-
-        relationsToRemove
-                .forEach { relation -> syncShoppingListService.productInShoppingListDeleted(relation) }
     }
 }

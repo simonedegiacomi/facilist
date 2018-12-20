@@ -17,7 +17,7 @@ import javax.annotation.security.RolesAllowed
 
 @RestController
 @RequestMapping("/api/shoppingLists")
-class DeleteShoppingList(
+class DeleteShoppingListController(
         private val shoppingListDAO: ShoppingListDAO,
         private val updatesService: ISyncService,
         private val notificationService: NotificationService,

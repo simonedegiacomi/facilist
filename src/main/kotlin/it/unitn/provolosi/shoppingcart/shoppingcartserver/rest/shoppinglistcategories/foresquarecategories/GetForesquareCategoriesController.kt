@@ -1,7 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglistcategories.foresquarecategories
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare.FoursquareService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.FoursquareNearShopsService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -11,7 +11,7 @@ import javax.annotation.security.RolesAllowed
 @RestController
 @RequestMapping("/api/shoppingListCategories/foresquareCategories")
 class GetForesquareCategoriesController (
-        private val foresquareService: FoursquareService
+        private val foresquareService: FoursquareNearShopsService
 ) {
 
     @GetMapping

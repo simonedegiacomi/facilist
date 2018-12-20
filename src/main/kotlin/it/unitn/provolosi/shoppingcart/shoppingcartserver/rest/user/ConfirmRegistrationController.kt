@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class ConfirmRegistration(
+class ConfirmRegistrationController(
         private val tokenDAO: VerificationTokenDAO,
         private val userDAO: UserDAO,
         private val inviteToJoinDAO: InviteToJoinDAO,

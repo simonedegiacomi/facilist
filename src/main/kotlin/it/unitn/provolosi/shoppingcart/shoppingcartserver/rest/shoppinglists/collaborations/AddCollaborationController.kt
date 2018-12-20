@@ -23,7 +23,7 @@ import javax.validation.constraints.Email
 
 @RestController
 @RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
-class AddCollaboration(
+class AddCollaborationController(
         private val userDAO: UserDAO,
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val inviteToJoinDAO: InviteToJoinDAO,

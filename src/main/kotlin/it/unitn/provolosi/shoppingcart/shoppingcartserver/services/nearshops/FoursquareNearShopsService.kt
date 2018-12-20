@@ -1,4 +1,4 @@
-package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.foursquare
+package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.JsonNode
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component
 import java.net.URL
 
 @Component
-class FoursquareService(
+class FoursquareNearShopsService(
         @Value("\${foursquareAPI.clientId}")
         private val clientId: String,
 
         @Value("\${foursquareAPI.clientSecret}")
         private val clientSecret: String
-) {
+) : NearShopsService {
 
-    fun findShopsOfCategoryNearCoordinates(categories: List<String>, coordinates: Coordinates): List<NearShops> {
+    override fun findShopsOfCategoryNearCoordinates(categories: List<String>, coordinates: Coordinates): List<NearShops> {
         val latLon = coordinates.toFoursquareLatLon()
         val url = URL(
-            "https://api.foursquare.com/v2/venues/search?" +
+            "https://api.nearshops.com/v2/venues/search?" +
                     "client_id=$clientId&" +
                     "client_secret=$clientSecret&" +
                     "v=20181103&" +
@@ -34,9 +34,9 @@ class FoursquareService(
                 .map { venue -> NearShops(venue["name"].asText()) }
     }
 
-    fun getCategories ():List<FoursquareCategory> {
+    override fun getCategories(): List<NearShopCategory> {
         val url = URL(
-            "https://api.foursquare.com/v2/venues/categories?" +
+            "https://api.nearshops.com/v2/venues/categories?" +
                     "client_id=$clientId&" +
                     "client_secret=$clientSecret&" +
                     "v=20181103"
@@ -47,34 +47,17 @@ class FoursquareService(
     }
 
 
-    private fun readCategories(categories: JsonNode):List<FoursquareCategory> = categories.map { category ->
-        FoursquareCategory(
-            name        = category["name"].asText(),
-            id          = category["id"].asText(),
-            categories  = readCategories(category["categories"])
+    private fun readCategories(categories: JsonNode): List<NearShopCategory> = categories.map { category ->
+        NearShopCategory(
+            name = category["name"].asText(),
+            id = category["id"].asText(),
+            categories = readCategories(category["categories"])
         )
     }
 
 
 }
 
-data class NearShops (
-        val name: String
-)
+private fun Coordinates.toFoursquareLatLon() = "$lat,$lon"
 
-data class FoursquareCategory (
 
-        @JsonIgnore
-        val categories: List<FoursquareCategory>,
-
-        val id: String,
-
-        val name: String
-)
-
-data class Coordinates(
-        val lat: Double,
-        val lon: Double
-) {
-    fun toFoursquareLatLon() = "$lat,$lon"
-}

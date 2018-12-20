@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 
 @RestController
-class GetUserShoppingLists(
+class GetUserShoppingListsController(
         private val shoppingListDAO: ShoppingListDAO
 ) {
 
