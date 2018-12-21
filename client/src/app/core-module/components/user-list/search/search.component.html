@@ -6,31 +6,33 @@
         </div>
 
         <div class="results" *ngIf="isFocused">
-            <div *ngFor="let productsByCategory of productsByCategories | keyvalue">
+            <div *ngIf="isLoading" class="text-center loading">
+                <em>Caricamento in corso...</em>
+            </div>
 
-                <div>
-                    {{ productsByCategory.key }}
+            <div *ngFor="let productsByCategory of productsByCategories | keyvalue"  ><!--[disabled]="isProductAlreadyInList(product)"-->
+
+                <div class="category-header">
+                    <h6>{{ productsByCategory.key }}</h6>
                 </div>
 
                 <ul>
-                    <li *ngFor="let product of productsByCategory.value" class="row"
-                        [class.already-in-list]="isProductAlreadyInList(product)">
-                        <div class="col-3">
+                    <li *ngFor="let product of productsByCategory.value" class="row product"
+                        [class.already-in-list]="isProductAlreadyInList(product)" (click)="onAddProduct(product)">
+                        <div class="col-3 col-sm-2">
                             <img class="result-icon icon" [src]="product.icon | image">
                         </div>
-                        <div class="col-7">
+                        <div class="col-9 col-sm-10">
                             <h4>{{ product.name }}</h4>
                             <span>{{ product.category.name }}</span>
-                        </div>
-                        <div class="col-2">
-                            <button (click)="onAddProduct(product)" [disabled]="isProductAlreadyInList(product)">+</button>
                         </div>
                     </li>
                 </ul>
             </div>
 
-            <div>
-                <a (click)="createCustomProduct()">Aggiungi "<em>{{ filterText }}</em>"</a>
+            <!-- Add product -->
+            <div *ngIf="!isLoading" class="add-product-container text-center">
+                <button class="action-button" (click)="createCustomProduct()">Aggiungi "<em>{{ filterText }}</em>"</button>
             </div>
         </div>
     </div>

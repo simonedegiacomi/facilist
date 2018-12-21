@@ -26,6 +26,8 @@ export class SearchComponent implements OnInit {
 
     filterText: string;
 
+    isLoading = false;
+
     constructor(
         private productService: ProductService
     ) {
@@ -39,7 +41,10 @@ export class SearchComponent implements OnInit {
         this.filter.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            switchMap(filter => this.productService.searchByNameAndShoppingListCategory(filter, this.list.category))
+            switchMap(filter => {
+                this.isLoading = true;
+                return this.productService.searchByNameAndShoppingListCategory(filter, this.list.category)
+            })
         ).subscribe(resultPage => this.onGotResults(resultPage.content));
     }
 
@@ -50,12 +55,17 @@ export class SearchComponent implements OnInit {
     }
 
     onAddProduct (product: Product) {
+        if (this.isProductAlreadyInList(product)) {
+            return;
+        }
+
         this.addProduct.emit(product);
         this.productsByCategories = {};
         this.isFocused = false;
     }
 
     onGotResults (results: Product[]) {
+        this.isLoading = false
         this.productsByCategories = {};
 
         for (let result of results) {
