@@ -16,10 +16,14 @@ class FoursquareNearShopsService(
         private val clientSecret: String
 ) : NearShopsService {
 
+    companion object {
+        const val FOURSQUARE_API_URL = "https://api.foursquare.com"
+    }
+
     override fun findShopsOfCategoryNearCoordinates(categories: List<String>, coordinates: Coordinates): List<NearShops> {
         val latLon = coordinates.toFoursquareLatLon()
         val url = URL(
-            "https://api.nearshops.com/v2/venues/search?" +
+            "$FOURSQUARE_API_URL/v2/venues/search?" +
                     "client_id=$clientId&" +
                     "client_secret=$clientSecret&" +
                     "v=20181103&" +
@@ -36,7 +40,7 @@ class FoursquareNearShopsService(
 
     override fun getCategories(): List<NearShopCategory> {
         val url = URL(
-            "https://api.nearshops.com/v2/venues/categories?" +
+            "$FOURSQUARE_API_URL/v2/venues/categories?" +
                     "client_id=$clientId&" +
                     "client_secret=$clientSecret&" +
                     "v=20181103"
