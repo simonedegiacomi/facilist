@@ -1,7 +1,7 @@
 <app-notebook-sheet [title]="list.name" [buttons]="buttons" class="notebook-sheet">
 
     <user-list-search [list]="list" (addProduct)="onAddProduct($event)"
-                      (createProduct)="onCreateProduct($event)"></user-list-search>
+                      (createProduct)="onCreateProduct($event)" [allowNewProducts]="allowNewProducts"></user-list-search>
 
     <div class="products container-fluid">
         <user-shopping-list-product *ngFor="let product of list.products" [product]="product">

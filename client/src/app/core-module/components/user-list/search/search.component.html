@@ -31,8 +31,13 @@
             </div>
 
             <!-- Add product -->
-            <div *ngIf="!isLoading" class="add-product-container text-center">
+            <div *ngIf="allowNewProducts && !isLoading" class="add-product-container text-center">
                 <button class="action-button" (click)="createCustomProduct()">Aggiungi "<em>{{ filterText }}</em>"</button>
+            </div>
+
+            <!-- No results -->
+            <div *ngIf="emptyResults && !allowNewProducts && !isLoading" class="text-center empty-results">
+                <em>Nessun risultato</em>
             </div>
         </div>
     </div>

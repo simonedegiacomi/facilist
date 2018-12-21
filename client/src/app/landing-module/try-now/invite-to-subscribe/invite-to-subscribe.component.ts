@@ -22,11 +22,11 @@ export class InviteToSubscribeComponent {
 
     register() {
         this.closeModal();
+        this.router.navigateByUrl('/home?openRegisterModal=true');
     }
 
     closeModal() {
         $('#inviteToSubscribe').modal('hide');
-        this.router.navigateByUrl('/home?openRegisterModal=true');
     }
 
 }

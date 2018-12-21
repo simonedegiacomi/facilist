@@ -13,6 +13,7 @@ import { ShoppingList } from "../../../models/shopping-list";
 export class SearchComponent implements OnInit {
 
     @Input() list: ShoppingList;
+    @Input() allowNewProducts: boolean;
 
     @Output() addProduct = new EventEmitter<Product>();
 
@@ -27,6 +28,7 @@ export class SearchComponent implements OnInit {
     filterText: string;
 
     isLoading = false;
+    emptyResults = false;
 
     constructor(
         private productService: ProductService
@@ -65,8 +67,9 @@ export class SearchComponent implements OnInit {
     }
 
     onGotResults (results: Product[]) {
-        this.isLoading = false
+        this.isLoading = false;
         this.productsByCategories = {};
+        this.emptyResults = results.length <= 0;
 
         for (let result of results) {
 

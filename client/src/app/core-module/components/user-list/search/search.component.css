@@ -29,7 +29,8 @@
 
 }
 
-div.loading {
+div.loading,
+div.empty-results {
     color: white;
     padding: .5em;
     font-family: var(--fontRegular);
@@ -68,7 +69,6 @@ div.category-header {
 div.category-header h6 {
     margin-bottom: 0;
 }
-
 
 div.add-product-container {
     padding: .75em 0;

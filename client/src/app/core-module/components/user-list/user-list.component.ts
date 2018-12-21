@@ -35,6 +35,7 @@ export class UserListComponent implements OnInit {
     }];
 
     @Input() list: ShoppingList;
+    @Input() allowNewProducts: boolean = true;
 
     @Output() back              = new EventEmitter();
     @Output() openShareSettings = new EventEmitter();
