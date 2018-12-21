@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
 import { Product } from "../../models/product";
 import { AuthService } from "../../services/auth.service";
@@ -11,7 +11,8 @@ const $ = window['jQuery'];
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.css']
+    styleUrls: ['./user-list.component.css'],
+    encapsulation : ViewEncapsulation.None
 })
 export class UserListComponent implements OnInit {
 
@@ -56,6 +57,8 @@ export class UserListComponent implements OnInit {
     ngOnInit() {
         this.listenForSyncUpdates();
     }
+
+
 
     private listenForSyncUpdates() {
         this.shoppingListSyncService.shoppingListInfoEdited(this.list)

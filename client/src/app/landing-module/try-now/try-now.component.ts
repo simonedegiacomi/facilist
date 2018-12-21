@@ -4,6 +4,8 @@ import { LocalStorageShoppingListService } from "../services/local-storage-shopp
 import { Router } from "@angular/router";
 import { ShoppingList } from "../../core-module/models/shopping-list";
 
+const $ = window['jQuery'];
+
 @Component({
     templateUrl: './try-now.component.html',
     styleUrls: ['./try-now.component.css'],
@@ -43,11 +45,7 @@ export class TryNowComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
 
-    onOpenShareSettings () {
-        alert('Iscriviti!!1!');
-    }
-
-    onOpenSettings () {
-        alert('Iscriviti!!1!');
+    inviteToSubscribe () {
+        $('#inviteToSubscribe').modal('show');
     }
 }

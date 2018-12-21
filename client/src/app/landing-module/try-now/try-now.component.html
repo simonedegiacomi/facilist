@@ -3,8 +3,11 @@
 
     <app-user-list *ngIf="list"
                    [list]="list"
-                   (openSettings)="onOpenSettings()"
-                   (openShareSettings)="onOpenShareSettings()"
+                   (openSettings)="inviteToSubscribe()"
+                   (openShareSettings)="inviteToSubscribe()"
                    (back)="onBack()"
+                   (openChat)="inviteToSubscribe()"
     ></app-user-list>
 </div>
+
+<invite-to-subscribe></invite-to-subscribe>

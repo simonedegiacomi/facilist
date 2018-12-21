@@ -4,6 +4,7 @@ import { ShoppingListCategoryService } from "../../../core-module/services/rest/
 import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
 import { ShoppingListService } from "../../../core-module/services/rest/shopping-list.service";
+import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 
 @Component({
     selector: 'app-new-demo-list',
@@ -17,6 +18,12 @@ export class NewDemoListComponent implements OnInit {
     categories$: Observable<ShoppingListCategory[]>;
 
     newList = new ShoppingList();
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'Chiudi',
+        iconClass: 'close-icon',
+        onClick: () => {}
+    }];
 
     constructor(
         private shoppingListCategoryService: ShoppingListCategoryService,

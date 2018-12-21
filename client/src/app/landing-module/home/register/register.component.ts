@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { UserService } from "../../../core-module/services/rest/user.service";
 import { NewPasswordComponent } from "../../../core-module/components/new-password/new-password.component";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
+import { ActivatedRoute } from "@angular/router";
 
 const $ = window['jQuery'];
 
@@ -29,7 +30,8 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        formBuilder: FormBuilder
+        formBuilder: FormBuilder,
+        private route: ActivatedRoute
     ) {
         this.registerForm = formBuilder.group({
             firstName: new FormControl(null, [
@@ -50,6 +52,11 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route.queryParamMap.subscribe(params => {
+            if (params.has('openRegisterModal')) {
+                $('#registerModal').modal('show');
+            }
+        });
     }
 
     get firstName () { return this.registerForm.get('firstName'); }

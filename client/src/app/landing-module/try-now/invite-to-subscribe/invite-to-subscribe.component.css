@@ -1,0 +1,27 @@
+img {
+    width: 6em;
+}
+
+.feature {
+    margin: 1.5em 0;
+}
+
+.container-fluid {
+    overflow-y: auto;
+}
+
+.feature-description,
+.feature-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--fontTitle);
+    font-size: 1.5rem;
+}
+
+@media (max-width: 576px) {
+    .feature-image {
+        margin-bottom: 1em;
+    }
+}
