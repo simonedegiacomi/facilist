@@ -12,7 +12,7 @@ button.quantity-button {
 
 .quantity-number {
     font-size: 1.5em;
-    margin: 0 0.5em;
+    margin: 0 0.35em;
 
     text-decoration: line-through;
 }
@@ -23,8 +23,16 @@ button.quantity-button {
 }
 
 
-img.bin {
-    border: 0;
-    width: 1.5em;
-    height: 1.5em;
+button {
+    border: none;
+    background: none;
+}
+
+
+button img {
+    width: 2em;
+}
+
+button {
+    cursor: pointer;
 }
