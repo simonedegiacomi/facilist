@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div *ngIf="newProduct">
+        <div *ngIf="newProduct" class="mb-2">
             <admin-product-view-editor [product]="newProduct" (created)="onProductCreated($event)"
                                        (cancel)="newProduct = null"></admin-product-view-editor>
         </div>

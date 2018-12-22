@@ -1,42 +1,46 @@
-<div class="card">
+<div class="card" [class.new-product]="isNew">
     <div class="card-body">
-
-        <div class="mr-3">
+        <div class="media">
             <app-show-change-image [(image)]="product.icon" [editable]="isEditing"></app-show-change-image>
+            <div class="media-body ml-3 pt-2">
+
+
+                <form #form="ngForm">
+                    <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
+
+                    <div class="form-group row" *ngIf="isEditing">
+                        <label class="col-12 col-sm-3">Nome</label>
+                        <div class="col-12 col-sm-9">
+                            <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
+                                   [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="isNew">
+                        <label class="col-12 col-sm-3">Categoria</label>
+                        <div class="col-12 col-sm-9">
+                            <app-select [values]="categories" [(selected)]="product.category"></app-select>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
+        <div class="d-flex justify-content-end product-buttons mt-5">
+            <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
 
-        <form #form="ngForm">
-            <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
-
-            <div class="form-group" *ngIf="isEditing">
-                <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
-                       [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
-            </div>
-
-            <div *ngIf="isNew">
-                <select [(ngModel)]="product.category" (change)="onSelectCategory()" required name="category">
-                    <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
-                </select>
-            </div>
-
-            <div class="d-flex justify-content-end product-buttons mt-5">
-                <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
-
-                <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()"
-                        [disabled]="!form.valid || isSaving">
-                    {{ isNew ? 'Crea' : 'Salva'}}
-                </button>
+            <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()"
+                    [disabled]="!form.valid || product.category || isSaving">
+                {{ isNew ? 'Crea' : 'Salva'}}
+            </button>
 
 
-                <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla
-                </button>
+            <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla
+            </button>
 
-                <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina
-                </button>
-            </div>
-
-        </form>
+            <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina
+            </button>
+        </div>
     </div>
 </div>
 

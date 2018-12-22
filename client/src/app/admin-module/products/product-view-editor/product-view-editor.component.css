@@ -5,3 +5,9 @@
 div.product-buttons button:not(:last-child) {
     margin-right: 0.5rem;
 }
+
+
+
+div.card.new-product {
+    background-color: #e8d3be;
+}
