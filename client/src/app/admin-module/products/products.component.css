@@ -21,6 +21,8 @@ div.select-category .list-group-item img {
         padding: 0;
         margin-right: 15px;
         margin-left: 15px;
+
+        max-width: calc(100% - 30px);
     }
 
     div.select-category .list-group-item {

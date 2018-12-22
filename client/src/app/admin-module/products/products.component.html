@@ -51,7 +51,7 @@
         <div *ngIf="loadingProducts">Caricamento...</div>
 
         <div *ngIf="!loadingProducts" class="row">
-            <div class="col-6 col-xl-4 mb-2" *ngFor="let product of products">
+            <div class="col-12 col-md-6 mb-2" *ngFor="let product of products">
                 <admin-product-view-editor [product]="product"
                                            (deleted)="onProductDeleted()"></admin-product-view-editor>
             </div>
