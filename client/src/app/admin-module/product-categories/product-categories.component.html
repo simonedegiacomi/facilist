@@ -21,18 +21,17 @@
 </div>
 
 
-<!-- Editor of the new category -->
-<div class="list-group-item mb-3" *ngIf="newCategory">
-    <admin-category-view-editor [category]="newCategory" (cancel)="newCategory = null"
-                                (created)="onNewCategoryCreated($event)"></admin-category-view-editor>
-</div>
 
 <!-- Display results -->
 <div *ngIf="!loading">
     <ul class="list-group">
-        <li class="list-group-item" *ngFor="let category of categories">
-            <admin-category-view-editor [category]="category" (delete)="onDelete($event)"></admin-category-view-editor>
-        </li>
+        <!-- Editor of the new category -->
+        <admin-category-view-editor *ngIf="newCategory" class="mb-3" [category]="newCategory" (cancel)="newCategory = null"
+                                    (created)="onNewCategoryCreated($event)"></admin-category-view-editor>
+
+        <!-- Existing categories -->
+        <admin-category-view-editor *ngFor="let category of categories" [category]="category"
+                                    (delete)="onDelete($event)"></admin-category-view-editor>
     </ul>
 
     <app-pagination #pagination [(page)]="page"></app-pagination>

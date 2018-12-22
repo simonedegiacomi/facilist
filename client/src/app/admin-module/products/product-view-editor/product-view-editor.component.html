@@ -1,4 +1,4 @@
-<div class="card" [class.new-product]="isNew">
+<div class="card" [class.is-editing]="isEditing">
     <div class="card-body">
         <div class="media">
             <app-show-change-image [(image)]="product.icon" [editable]="isEditing"></app-show-change-image>
@@ -8,12 +8,19 @@
                 <form #form="ngForm">
                     <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
 
-                    <div class="form-group row" *ngIf="isEditing">
+                    <!-- Insert new name -->
+                    <div class="form-group row" *ngIf="isEditing && isNew">
                         <label class="col-12 col-sm-3">Nome</label>
                         <div class="col-12 col-sm-9">
                             <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
                                    [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
                         </div>
+                    </div>
+
+                    <!-- Edit name -->
+                    <div class="form-group row" *ngIf="isEditing && !isNew">
+                        <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
+                                   [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
                     </div>
 
                     <div class="form-group row" *ngIf="isNew">
@@ -27,17 +34,23 @@
         </div>
 
         <div class="d-flex justify-content-end product-buttons mt-5">
+            <!-- Edit -->
             <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
 
-            <button class="action-button link-cta" *ngIf="isEditing" (click)="onSaveOrCreate()"
-                    [disabled]="!form.valid || product.category || isSaving">
-                {{ isNew ? 'Crea' : 'Salva'}}
-            </button>
+            <!-- Save -->
+            <button class="action-button link-cta" *ngIf="isEditing && !isNew" (click)="onSaveOrCreate()"
+                    [disabled]="!form.valid || isSaving">Salva</button>
+
+            <!-- Create -->
+            <button class="action-button link-cta" *ngIf="isEditing && isNew" (click)="onSaveOrCreate()"
+                    [disabled]="!form.valid || product.category || isSaving">Crea</button>
 
 
+            <!-- Cancel -->
             <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla
             </button>
 
+            <!-- Delete -->
             <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina
             </button>
         </div>

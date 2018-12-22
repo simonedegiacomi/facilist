@@ -1,48 +1,55 @@
-<div class="media">
-    <div class="mr-3">
-        <app-show-change-image [(image)]="category.icon" [editable]="isEditing"></app-show-change-image>
-    </div>
+<li class="list-group-item" [class.is-editing]="isEditing">
+    <div class="media">
+        <div class="mr-3">
+            <app-show-change-image [(image)]="category.icon" [editable]="isEditing"></app-show-change-image>
+        </div>
 
-    <div class="media-body">
-        <form #form="ngForm">
+        <div class="media-body">
+            <form #form="ngForm">
 
-            <!-- Show name -->
-            <h5 class="mt-0" *ngIf="!isEditing">{{ category.name }}</h5>
+                <!-- Show name -->
+                <h5 class="mt-0" *ngIf="!isEditing">{{ category.name }}</h5>
 
-            <!-- Edit name -->
-            <div class="form-group form-inline" *ngIf="isEditing">
-                <label for="categoryName">Nome</label>
-                <input type="text" class="form-control ml-3" id="categoryName" [(ngModel)]="category.name" name="name"
-                       required>
+                <!-- Edit name -->
+                <div class="form-group row" *ngIf="isEditing">
+                    <label class="col-12 col-sm-2">Nome</label>
+                    <div class="col-12 col-sm-10">
+                        <input type="text" class="form-control ml-3" [(ngModel)]="category.name"
+                               name="name"
+                               required>
+                    </div>
 
-                <div *ngIf="nameConflict" class="alert alert-danger">
-                    <div>
-                        Un'altra categoria ha già questo nome.
+                    <div *ngIf="nameConflict" class="col-12 mt-2 alert alert-danger">
+                        <div>
+                            Un'altra categoria ha già questo nome.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Show description -->
-            <div *ngIf="!isEditing" [innerHTML]="category.description"></div>
+                <!-- Show description -->
+                <div *ngIf="!isEditing" [innerHTML]="category.description"></div>
 
-            <!-- Edit description -->
-            <editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description" name="description"
-                    required></editor>
+                <!-- Edit description -->
+                <editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description" name="description"
+                        required></editor>
 
-            <div class="media-bottom d-flex justify-content-end mt-2">
-                <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">Modifica
-                </button>
+                <div class="media-bottom d-flex justify-content-end mt-2">
+                    <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">Modifica
+                    </button>
 
-                <button class="action-button link-cta mr-1" *ngIf="isEditing"
-                        [disabled]="!(form.valid && category.icon != null) || isSavingOrCreating"
-                        (click)="saveOrCreate()">{{ isNew ? 'Crea' : 'Salva' }}
-                </button>
+                    <button class="action-button link-cta mr-1" *ngIf="isEditing"
+                            [disabled]="!(form.valid && category.icon != null) || isSavingOrCreating"
+                            (click)="saveOrCreate()">{{ isNew ? 'Crea' : 'Salva' }}
+                    </button>
 
-                <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla</button>
+                    <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla
+                    </button>
 
-                <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina</button>
-            </div>
+                    <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina
+                    </button>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+</li>

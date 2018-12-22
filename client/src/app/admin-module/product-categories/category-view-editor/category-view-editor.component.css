@@ -1,3 +1,7 @@
 button.change-icon {
     width: 64px;
 }
+
+li.is-editing {
+    background-color: var(--adminEditingItem);
+}

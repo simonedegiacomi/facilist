@@ -8,6 +8,6 @@ div.product-buttons button:not(:last-child) {
 
 
 
-div.card.new-product {
-    background-color: #e8d3be;
+div.card.is-editing {
+    background-color: var(--adminEditingItem);
 }

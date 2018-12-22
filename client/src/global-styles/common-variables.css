@@ -27,4 +27,6 @@
     --zIndexBackdrop: 100;
     --zIndexModal: 200;
     --zIndexNotificationsBox: 300;
+
+    --adminEditingItem: #e8d3be;
 }
