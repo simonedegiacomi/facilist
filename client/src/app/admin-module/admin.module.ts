@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from "./admin-routing.module";
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductCategoriesComponent } from './product-categories/product-categories.component';
 import { ProductsComponent } from './products/products.component';
 import { EditorModule } from "@tinymce/tinymce-angular";
@@ -25,7 +24,6 @@ import { CoreModule } from "../core-module/core.module";
     declarations: [
         PaginationComponent,
 
-        DashboardComponent,
         ProductCategoriesComponent,
         ProductsComponent,
         CategoryViewEditorComponent,

@@ -29,14 +29,11 @@
         <!-- Admin links -->
         <ul *ngIf="isAdmin$ | async" class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['admin', 'dashboard']" routerLinkActive="active">Dashboard</a>
+                <a class="nav-link" [routerLink]="['admin', 'products']" routerLinkActive="active">Prodotti</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['admin', 'productCategories']" routerLinkActive="active">Categorie
                     prodotti</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['admin', 'products']" routerLinkActive="active">Prodotti</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['admin', 'shoppingListCategories']" routerLinkActive="active">Categorie

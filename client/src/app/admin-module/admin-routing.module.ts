@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { NotLoggedInGuard } from "../core-module/services/guards/not-logged-in-guard.service";
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { AdminGuard } from "../core-module/services/guards/admin-guard.service";
 import { ProductCategoriesComponent } from "./product-categories/product-categories.component";
 import { ProductsComponent } from "./products/products.component";
@@ -15,9 +14,6 @@ const routes: Routes = [
         component: AdminRootComponent,
         children: [
             {
-                path: 'dashboard',
-                component: DashboardComponent
-            }, {
                 path: 'productCategories',
                 component: ProductCategoriesComponent
             }, {
@@ -26,6 +22,9 @@ const routes: Routes = [
             }, {
                 path: 'shoppingListCategories',
                 component: ShoppingListCategoriesComponent
+            }, {
+                path: '**',
+                redirectTo: 'products'
             }
         ],
         canActivate: [
