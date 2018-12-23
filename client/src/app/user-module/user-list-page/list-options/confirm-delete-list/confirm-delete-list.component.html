@@ -1,27 +1,33 @@
 <div class="modal fade" id="confirmDeleteListModal" tabindex="-1" role="dialog" aria-hidden="true" *ngIf="list">
     <div class="modal-dialog" role="document">
-        <div class="modal-content notebook-sheet">
-            <div class="notebook-sheet-header">
-                <h5 class="modal-title">Eliminazione definitiva</h5>
+        <app-notebook-sheet title="Eliminazione definitiva" [buttons]="[]">
+
+            <div class="row">
+
+                <div class="col-12 d-flex justify-content-center mb-2">
+                    <img src="/assets/img/ic_warning.svg">
+                </div>
+
+                <div class="col-12">
+                    <p>Sei sicuro di voler eliminare definitivamente la lista <strong>{{ list.name }}?</strong>
+                    </p>
+                </div>
             </div>
 
-            <div class="notebook-sheet-content">
-
-                <p>Sei sicuro di voler eliminare definitivamente la lista <strong>{{ list.name }}?</strong></p>
-
-                <!-- Buttons -->
-                <div class="row">
-                    <button class="col-4 action-button link-cta danger" (click)="onDelete()" [disabled]="isDeleting">
+            <!-- Buttons -->
+            <div class="row d-flex justify-content-between">
+                <div class="col-4">
+                    <button class="action-button link-cta danger" (click)="onDelete()" [disabled]="isDeleting">
                         Elimina
-                    </button>
-
-                    <button class="col-4 action-button link-cta" (click)="onCancel()" [disabled]="isDeleting">
-                        Mantieni
                     </button>
                 </div>
 
-
+                <div class="col-4 d-flex justify-content-end">
+                    <button class="action-button link-cta" (click)="onCancel()" [disabled]="isDeleting">
+                        Mantieni
+                    </button>
+                </div>
             </div>
-        </div>
+        </app-notebook-sheet>
     </div>
 </div>

@@ -28,7 +28,7 @@ export class UserListPageComponent implements OnInit {
         this.shoppingListService.getById(this.shoppingListId)
             .subscribe(
                 list => this.list = list,
-                _ => this.router.navigateByUrl('/')
+                _ => this.router.navigateByUrl('/user')
             );
     }
 

@@ -66,4 +66,10 @@ export class ShareCollaboratorsComponent {
     private closeListShareSettingsModal() {
         $('#listSharingSettingsModal').modal('hide');
     }
+
+    notifyChanges () {
+        this.isSaving = true;
+        this.collaborationService.updateCollaborations(this.list)
+            .subscribe(() => this.isSaving = false);
+    }
 }

@@ -48,7 +48,7 @@ export class ListOptionsComponent  {
     }
 
     closeModal () {
-        $('#closeListOptions').click();
+        $('#listOptionsModal').modal('hide');
     }
 
     openConfirmDeleteModal () {
