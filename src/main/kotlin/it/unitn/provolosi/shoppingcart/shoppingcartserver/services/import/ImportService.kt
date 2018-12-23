@@ -50,6 +50,7 @@ class ImportService(
         importChatMessages()
 
         importDefaultImages()
+        importNotificationImages()
 
         printStatistics()
     }
@@ -199,6 +200,12 @@ class ImportService(
                         .toFile(File("$uploadsFolderPath/$file.png"))
             }
 
+
+    private fun  importNotificationImages () = listOf(
+        "near-you-notification-icon"
+    ).forEach { ImportService::class.java.getResourceAsStream("/import/images/notifications/$it.png")
+                .toFile(File("$uploadsFolderPath/$it.png"))
+    }
 
     private fun printStatistics () {
         println("\nImport completed")

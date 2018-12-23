@@ -67,7 +67,7 @@ class UpdatePositionController (
 
         notificationSync.deliver(Notification(
             message = "Non farti scappare l'occasione, passa da $shopNames",
-            icon    = "",
+            icon    = "near-you-notification-icon",
             target  = user,
             url     = websiteUrl
         ))
