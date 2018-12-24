@@ -20,8 +20,8 @@ class ShoppingListProductsUpdateService(
 ) {
 
     fun collectEvent(user: User, product: ShoppingListProduct) {
-        val list            = product.shoppingList
-        val previousUpdate  = shoppingListProductsUpdateDAO.findByShoppingListOrNull(list)
+        val list = product.shoppingList
+        val previousUpdate = shoppingListProductsUpdateDAO.findByShoppingListOrNull(list)
                 ?: ShoppingListProductUpdatesGroup(shoppingList = list)
 
         with(previousUpdate) {
@@ -39,11 +39,11 @@ class ShoppingListProductsUpdateService(
      * to make the @Transactional work we need to call a transactional method from another class.
      */
     @Scheduled(fixedRate = DEFAULT_SCHEDULE_INTERVAL.toLong())
-    @Transactional fun checkRecentUpdates () = shoppingListProductsUpdateTask.onTick()
+    @Transactional fun checkRecentUpdates() = shoppingListProductsUpdateTask.onTick()
 }
 
 @Component
-class ShoppingListProductsUpdateTask (
+class ShoppingListProductsUpdateTask(
         private val shoppingListProductsUpdateDAO: ShoppingListProductsUpdateDAO,
         private val notificationService: NotificationService,
 
@@ -52,12 +52,14 @@ class ShoppingListProductsUpdateTask (
 ) {
 
     companion object {
-        const val DEFAULT_RECENT_THRESHOLD_INTERVAL  = 10 * 1000
-        const val DEFAULT_SCHEDULE_INTERVAL          = 1000
+        const val DEFAULT_RECENT_THRESHOLD_INTERVAL = 10 * 1000
+        const val DEFAULT_SCHEDULE_INTERVAL = 1000
+
+        const val MAX_PRODUCTS_NAME_IN_NOTIFICATION = 3
     }
 
     @Transactional
-    fun onTick () {
+    fun onTick() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.MILLISECOND, -DEFAULT_RECENT_THRESHOLD_INTERVAL)
 
@@ -68,26 +70,41 @@ class ShoppingListProductsUpdateTask (
         }
     }
 
-    private fun deleteGroup (group: ShoppingListProductUpdatesGroup) {
+    private fun deleteGroup(group: ShoppingListProductUpdatesGroup) {
         shoppingListProductsUpdateDAO.delete(group)
     }
 
-    private fun buildAndSendNotification (group: ShoppingListProductUpdatesGroup) {
+    private fun buildAndSendNotification(group: ShoppingListProductUpdatesGroup) {
         val notifications = buildNotifications(group)
+
         notificationService.saveAndSend(notifications)
     }
 
-    private fun buildNotifications(group: ShoppingListProductUpdatesGroup) = group.shoppingList
-            .ownerAndCollaborators()
+    private fun buildNotifications(group: ShoppingListProductUpdatesGroup) = getDestinationUsersOfNotification(group)
             .map { user ->
                 Notification(
-                    target  = user,
+                    target = user,
                     message = buildMessage(group),
-                    icon    = group.shoppingList.icon,
-                    url     = "/user/shoppingLists/${group.shoppingList.id}"
+                    icon = group.shoppingList.icon,
+                    url = "/user/shoppingLists/${group.shoppingList.id}"
                 )
             }
 
+    /**
+     * Return a list of users that collaborate in the list. If only one user have edited products of the list, that user
+     * will not be present in the list
+     */
+    private fun getDestinationUsersOfNotification(group: ShoppingListProductUpdatesGroup): List<User> {
+        val collaborators = group.shoppingList
+                .ownerAndCollaborators()
+                .toMutableList()
+
+        if (group.users.size == 1) {
+            collaborators.removeAll(group.users)
+        }
+
+        return collaborators
+    }
 
     private fun buildMessage(group: ShoppingListProductUpdatesGroup): String {
         val users = group.users
@@ -97,7 +114,7 @@ class ShoppingListProductsUpdateTask (
 
         val products = group.updatedProducts
                 .asSequence()
-                .take(3) // TODO: Declare constant
+                .take(MAX_PRODUCTS_NAME_IN_NOTIFICATION)
                 .map { product -> product.product.name }
                 .joinToString(separator = ", ")
 
