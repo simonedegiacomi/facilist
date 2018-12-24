@@ -12,69 +12,91 @@ class SyncService(
         private val stomp: SimpMessagingTemplate
 ) : ISyncService {
 
+    private fun sendSyncQueueEvent(email: String, destination: String, event: String, model: Any) = stomp.convertAndSendToUser(
+        email,
+        destination,
+        SyncEvent(event, model)
+    )
 
-    override fun userNewShoppingList(user: User, list: ShoppingList) = stomp.convertAndSendToUser(
+    private fun sendSyncTopicEvent(destination: String, event: String, model: Any? = null) = stomp.convertAndSend(
+        destination,
+        SyncEvent(event, model)
+    )
+
+
+    override fun userNewShoppingList(user: User, list: ShoppingList) = sendSyncQueueEvent(
         user.email,
         "/queue/shoppingLists",
-        SyncEvent(EVENT_CREATED, list.toPreview())
+        EVENT_CREATED,
+        list.toPreview()
     )
 
-    override fun shoppingListInfoEdited(list: ShoppingList) = stomp.convertAndSend(
+    override fun shoppingListInfoEdited(list: ShoppingList) = sendSyncTopicEvent(
         "/topic/shoppingLists/${list.id}",
-        SyncEvent(EVENT_MODIFIED, list.toPreview())
+        EVENT_MODIFIED,
+        list.toPreview()
     )
 
-    override fun shoppingListDeleted(list: ShoppingList) = stomp.convertAndSend(
+    override fun shoppingListDeleted(list: ShoppingList) = sendSyncTopicEvent(
         "/topic/shoppingLists/${list.id}",
-        SyncEvent<ShoppingList>(EVENT_DELETED)
+        EVENT_DELETED
+
     )
 
-
-    override fun newShoppingListProduct(relation: ShoppingListProduct) = stomp.convertAndSend(
+    override fun newShoppingListProduct(relation: ShoppingListProduct) = sendSyncTopicEvent(
         "/topic/shoppingLists/${relation.shoppingList.id}/products",
-        SyncEvent(EVENT_CREATED, relation)
+        EVENT_CREATED,
+        relation
     )
 
-    override fun productInShoppingListEdited(relation: ShoppingListProduct) = stomp.convertAndSend(
+    override fun productInShoppingListEdited(relation: ShoppingListProduct) = sendSyncTopicEvent(
         "/topic/shoppingLists/${relation.shoppingList.id}/products",
-        SyncEvent(EVENT_MODIFIED, relation)
+        EVENT_MODIFIED,
+        relation
     )
 
 
-    override fun productInShoppingListDeleted(relation: ShoppingListProduct) = stomp.convertAndSend(
+    override fun productInShoppingListDeleted(relation: ShoppingListProduct) = sendSyncTopicEvent(
         "/topic/shoppingLists/${relation.shoppingList.id}/products",
-        SyncEvent(EVENT_DELETED, relation)
+        EVENT_DELETED,
+        relation
     )
 
-    override fun newMessageInShoppingList(message: ChatMessage) = stomp.convertAndSend(
-        "/topic/shoppingLists/${message.shoppingList.id}/chat/chatMessages",
-        SyncEvent(EVENT_CREATED, message)
+    override fun newMessageInShoppingList(message: ChatMessage) = sendSyncTopicEvent(
+        "/topic/shoppingLists/${message.shoppingList.id}/chat/messages",
+        EVENT_CREATED,
+        message
     )
 
 
-    override fun newCollaborator(collaboration: ShoppingListCollaboration) = stomp.convertAndSend(
+    override fun newCollaborator(collaboration: ShoppingListCollaboration) = sendSyncTopicEvent(
         "/topic/shoppingLists/${collaboration.shoppingList.id}/collaborations",
-        SyncEvent(EVENT_CREATED, collaboration)
+        EVENT_CREATED,
+        collaboration
     )
 
-    override fun collaborationEdited(collaboration: ShoppingListCollaboration) = stomp.convertAndSend(
+    override fun collaborationEdited(collaboration: ShoppingListCollaboration) = sendSyncTopicEvent(
         "/topic/shoppingLists/${collaboration.shoppingList.id}/collaborations",
-        SyncEvent(EVENT_MODIFIED, collaboration)
+        EVENT_MODIFIED,
+        collaboration
     )
 
-    override fun collaborationDeleted(collaboration: ShoppingListCollaboration) = stomp.convertAndSend(
+    override fun collaborationDeleted(collaboration: ShoppingListCollaboration) = sendSyncTopicEvent(
         "/topic/shoppingLists/${collaboration.shoppingList.id}/collaborations",
-        SyncEvent(EVENT_DELETED, collaboration)
+        EVENT_DELETED,
+        collaboration
     )
 
-    override fun newInvite(list: ShoppingList, invite: InviteToJoin) = stomp.convertAndSend(
+    override fun newInvite(list: ShoppingList, invite: InviteToJoin) = sendSyncTopicEvent(
         "/topic/shoppingLists/${list.id}/invites",
-        SyncEvent(EVENT_CREATED, invite)
+        EVENT_CREATED,
+        invite
     )
 
-    override fun inviteDeleted(list: ShoppingList, inviteId: Long) = stomp.convertAndSend(
+    override fun inviteDeleted(list: ShoppingList, inviteId: Long) = sendSyncTopicEvent(
         "/topic/shoppingLists/${list.id}/invites",
-        SyncEvent(EVENT_DELETED, mapOf("id" to inviteId))
+        EVENT_DELETED,
+        mapOf("id" to inviteId)
     )
 }
 
