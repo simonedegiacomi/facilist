@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
 import { Product } from "../../models/product";
 import { AuthService } from "../../services/auth.service";

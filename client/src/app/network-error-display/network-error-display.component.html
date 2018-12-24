@@ -1,19 +1,17 @@
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content notebook-sheet">
-            <div class="notebook-sheet-header">
-                <h5 class="modal-title" id="errorModalLabel">Ops! Errore di connessione</h5>
-
-                <div class="notebook-sheet-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+        <app-notebook-sheet title="Ops! Errore di connessione" [buttons]="[]">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <img src="/assets/img/ic_error.svg">
+                </div>
+                <div class="col-12 d-flex justify-content-center text-center mt-2">
+                    <p>Si è verificato un errore temporaneo. Verifica la tua connessione ad Internet ed
+                    aggiorna la pagina.</p>
                 </div>
             </div>
-            <div class="notebook-sheet-content">
-                <p>
-                    Scrivere qualcosa con un'immagine che rappresenti l'errore
-                </p>
-            </div>
-        </div>
+        </app-notebook-sheet>
+
     </div>
 </div>

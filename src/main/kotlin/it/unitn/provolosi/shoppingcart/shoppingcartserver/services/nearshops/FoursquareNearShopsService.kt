@@ -1,6 +1,5 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Value
