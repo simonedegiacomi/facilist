@@ -1,13 +1,30 @@
 <app-notebook-sheet title="Le mie liste della spesa">
     <div class="scroll-container container-fluid">
+
+        <!-- Activate geolocation -->
         <div class="row">
-            <div class="alert alert-primary" *ngIf="!isNearYouEnabled">
-                <a (click)="enableNearYouService()" *ngIf="!askingNearYouPermission">Attiva la geolocalizzazione</a>
+            <div class="col-12 alert alert-primary" *ngIf="!isNearYouEnabled">
+
+                <div class="row">
+                    <div class="col-2 col-sm-3 enable-geolocation-icon-container">
+                        <img src="/assets/img/path.svg" class="enable-geolocation-icon">
+                    </div>
+
+                    <div class="col-10 col-sm-9">
+                        Vuoi essere notificato quando passi vicino a un supermercato che vende i prodotti che ti
+                        interessano?<br>
+
+                        <a (click)="enableNearYouService()" *ngIf="!askingNearYouPermission">
+                            Attiva la geolocalizzazione!
+                        </a>
+                    </div>
+                </div>
                 <span *ngIf="askingNearYouPermission">Attivazione in corso ...</span>
             </div>
         </div>
 
-        <div *ngFor="let list of lists" class="row">
+        <!-- List of shopping lists -->
+        <div *ngFor="let list of lists" class="row list">
             <div class="col-4 col-sm-2">
                 <a [routerLink]="['/user', 'shoppingLists', list.id]">
                     <img [src]="list.icon | image" class="icon">
@@ -33,7 +50,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row pt-3 mb-1">
             <div class="col-4 col-sm-2">
                 <!-- Hacky space -->
                 <p></p>

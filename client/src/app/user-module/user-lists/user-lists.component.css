@@ -3,7 +3,7 @@
     max-height: calc(100vh - 20em);
 }
 
-.row {
+.row.list {
     padding: 1em 0;
     border-bottom: 2px dashed var(--lightDarkened);
 }
@@ -40,4 +40,15 @@ img.share-flag {
 
 .counter-and-share-flag div {
     padding-right: 0.5em;
+}
+
+.enable-geolocation-icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.enable-geolocation-icon {
+    width: 3em;
 }
