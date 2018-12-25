@@ -1,0 +1,44 @@
+img.category-icon {
+    width: 100%;
+    min-width: 3em;
+}
+
+.list-group-item .category-name {
+    word-wrap: break-word;
+}
+
+button.new-category-button {
+    background-color: #307CF6;
+    color: white;
+}
+
+div.categories div.category {
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 992px) {
+    img.category-icon {
+        width: 3rem;
+    }
+
+    div.categories {
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        padding: 0;
+
+        margin-right: 15px;
+        margin-left: 15px;
+
+        max-width: calc(100% - 30px);
+    }
+
+    div.category {
+        max-width: 12rem;
+        min-width: 12rem;
+        height: 7rem;
+        max-height: 7rem;
+    }
+}

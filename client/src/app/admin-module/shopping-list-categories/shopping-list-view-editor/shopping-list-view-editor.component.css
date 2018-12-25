@@ -1,0 +1,10 @@
+.loading-categories {
+    display: flex;
+    justify-content: center;
+    font-family: var(--fontTitle);
+    font-weight: bold;
+}
+
+button {
+    margin-left: .25em;
+}
