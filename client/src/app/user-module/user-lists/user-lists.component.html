@@ -1,4 +1,4 @@
-<app-notebook-sheet title="Le mie liste della spesa">
+<app-notebook-sheet [title]="'user.lists.title' | translate">
     <div class="scroll-container container-fluid">
 
         <!-- Activate geolocation -->
@@ -11,11 +11,10 @@
                     </div>
 
                     <div class="col-10 col-sm-9">
-                        Vuoi essere notificato quando passi vicino a un supermercato che vende i prodotti che ti
-                        interessano?<br>
-
+                        {{ 'user.lists.geolocation.description' | translate }}
+                        <br>
                         <a (click)="enableNearYouService()" *ngIf="!askingNearYouPermission">
-                            Attiva la geolocalizzazione!
+                            {{ 'user.lists.geolocation.enableLink' | translate }}
                         </a>
                     </div>
                 </div>
@@ -57,7 +56,7 @@
             </div>
 
             <div class="col-8 col-sm-6">
-                <a data-toggle="modal" data-target="#newListModal">Crea una nuova lista...</a>
+                <a data-toggle="modal" data-target="#newListModal">{{ 'user.lists.newListButton' | translate }}</a>
             </div>
 
         </div>

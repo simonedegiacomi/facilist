@@ -1,16 +1,16 @@
 <!-- Add collaborator -->
 <div class="row mt-2">
-    <h6 class="col-12 mb-1">Aggiungi collaboratore</h6>
+    <h6 class="col-12 mb-1">{{ 'user.listPage.share.addCollaborator.title' | translate }}</h6>
 
     <div class="col-1"></div>
     <div class="col-7">
         <form #form="ngForm" class="form-group">
             <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email" name="email" required
-                   (keyup)="onUpdateSearchFilter(searchFilter.value)" placeholder="Aggiungi tramite email" email>
+                   (keyup)="onUpdateSearchFilter(searchFilter.value)" [placeholder]="'user.listPage.share.addCollaborator.emailPlaceholder' | translate" email>
         </form>
     </div>
     <div class="col-3">
-        <button class="action-button" (click)="addCollaborator(newCollaborator)" [disabled]="isSaving || !form.valid">Invita</button>
+        <button class="action-button" (click)="addCollaborator(newCollaborator)" [disabled]="isSaving || !form.valid">{{ 'user.listPage.share.addCollaborator.addButton' | translate }}</button>
     </div>
 </div>
 

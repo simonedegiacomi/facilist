@@ -62,7 +62,7 @@
     <div class="col-sm-5 text-right text-sm-center mb-1 mb-sm-0" *ngIf="isMyCollaboration(collaboration)">
         <button class="action-button link-cta danger" (click)="onDeleteCollaboration(collaboration)"
                 [disabled]="isDeleting">
-            Abbandona
+            {{ 'user.listPage.share.collaborationOptions.leaveButton' | translate }}
         </button>
     </div>
 </div>

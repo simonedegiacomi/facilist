@@ -1,17 +1,19 @@
-<h2>Categorie di prodotti</h2>
+<h2>{{ 'admin.productCategories.title' | translate }}</h2>
 
 <!-- Top bar -->
 <div class="row">
 
     <!-- Search -->
     <form class="form-inline col-12 col-md-8">
-        <input class="form-control w-100" type="search" placeholder="Filtra per nome" aria-label="Search"
+        <input class="form-control w-100" type="search" [placeholder]="'admin.productCategories.filterPlaceholder' | translate" aria-label="Search"
                #searchFilter (keyup)="onUpdateSearchFilter(searchFilter.value)">
     </form>
 
     <!-- Create new -->
     <div *ngIf="!newCategory" class="col-12 col-md-4 d-flex justify-content-end">
-        <button class="btn" (click)="createCategory()">Crea categoria</button>
+        <button class="btn" (click)="createCategory()">
+            {{ 'admin.productCategories.createButton' | translate }}
+        </button>
     </div>
 </div>
 
@@ -44,21 +46,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteCategoryModalLabel">Cancellare la categoria?</h5>
+                <h5 class="modal-title" id="deleteCategoryModalLabel">
+                    {{ 'admin.productCategories.delete.title' | translate }}
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p *ngIf="deletingCategory">
-                    Sei sicuro di voler eliminare la categoria <strong>{{ deletingCategory.name }}</strong> e tutti i
-                    suoi
-                    prodotti?<br>
-                    Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire
-                    misteriosamente
-                    questi prodotti!
+                    {{ 'admin.productCategories.delete.description.pre' | translate }}
+                    <strong>{{ deletingCategory.name }}</strong>
+                    {{ 'admin.productCategories.delete.description.post' | translate }}
+                    <br>
+                    {{ 'admin.productCategories.delete.warning' | translate }}
                 </p>
 
                 <button class="action-button link-cta danger" (click)="onDeleteCategoryAfterWarning(deletingCategory)">
-                    Elimina
+                    {{ 'common.buttons.delete' | translate }}
                 </button>
             </div>
 

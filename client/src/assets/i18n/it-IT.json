@@ -89,9 +89,113 @@
             "error": "Si è verificato un errore durante la vericica."
         }
     },
+    "user": {
+        "lists": {
+            "title": "Le mie liste della spesa",
+            "newListButton": "Crea una nuova lista...",
+            "geolocation": {
+                "description": "Vuoi essere notificato quando passi vicino a un supermercato che vende i prodotti che ti interessano?",
+                "enableLink": "Attiva la geolocalizzazione!"
+            },
+            "newList": {
+                "title": "Nuova lista",
+                "namePlaceholder": "Nome lista",
+                "categoryPlaceholder": "Categoria ...",
+                "descriptionPlaceholder": "Descrizione"
+            }
+        },
+        "listPage": {
+            "share": {
+                "title": "Condivisione lista",
+                "createdBy": "Creata da",
+                "collaborationOptions": {
+                    "leaveButton": "Abbandona"
+                },
+                "addCollaborator": {
+                    "title": "Aggiungi collaboratore",
+                    "addButton": "Invita",
+                    "emailPlaceholder": "Aggiungi tramite email"
+                },
+                "legend": {
+                    "title": "Significato simboli",
+                    "roles": {
+                        "admin": "Gestisce gli oggetti, le collaborazioni e i dettagli",
+                        "social": "Gestisce gli oggetti e le collaborazioni",
+                        "ham": "Gestisce gli oggetti"
+                    }
+                }
+            },
+            "options": {
+                "title": "Opzioni",
+                "name": "Nome",
+                "description": "Descrizione",
+                "createdBy": "Creata da",
+                "deleteButton": "Elimina lista",
+                "category": "Descrizione",
+                "confirmDelete": {
+                    "title": "Eliminazione definitiva",
+                    "question": "Sei sicuro di voler eliminare definitivamente la lista",
+                    "cancelButton": "Mantieni"
+                }
+            }
+        }
+    },
+    "admin": {
+        "products": {
+            "title": "Prodotti",
+            "createButton": "Crea prodotto",
+            "filterPlaceholder": "Filtra per nome",
+            "viewAll": "Visualizza tutti",
+            "delete": {
+                "title": "Cancellare il prodotto?",
+                "description": "Sei sicuro di voler eliminare il prodotto",
+                "warning": "Gli utenti che hanno questo prodotto nella loro lista della spesa lo vedranno sparire misteriosamente!"
+            }
+        },
+        "productCategories": {
+            "title": "Categorie prodotti",
+            "filterPlaceholder": "Filtra per nome",
+            "createButton": "Crea categoria",
+            "errors": {
+                "categoryNameConflict": "Un'altra categoria ha già questo nome."
+            },
+            "delete": {
+                "title": "Cancellare la categoria?",
+                "description": {
+                    "pre": "Sei sicuro di voler eliminare la categoria",
+                    "post": "e tutti i prodotti che le appartengono?"
+                },
+                "warning": "Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire misteriosamente questi prodotti!"
+            }
+        },
+        "listCategories": {
+            "title": "Categorie liste",
+            "foursquareCategories": "Categorie di Foursquare",
+            "delete": {
+                "title": "Cancellare la categoria di lista della spesa?",
+                "description": {
+                    "pre": "Sei sicuro di voler eliminare la categoria",
+                    "post": "e tutti le sue liste della spesa?"
+                },
+                "warning": "Gli utenti che utilizzano liste della spesa appartenenti a questa categoria rimarranno senza liste!!!"
+            }
+        }
+    },
     "core": {
         "profile": {
-            "changeEmailTitle": "Cambia Email"
+            "email": {
+                "title": "Cambia Email",
+                "emailPlaceholder": "Nuovo indirizzo email",
+                "changeButton": "Cambia",
+                "note": "Ti verrà inviata una mail per verificare il nuovo indirizzo."
+            },
+            "changeLanguageTitle": "Cambia lingua",
+            "password": {
+                "title": "Cambia password",
+                "changeButton": "Cambia password",
+                "currentPassword": "Password attuale",
+                "wrongCurrentPassword": "Password corrente errata"
+            }
         },
         "navbar": {
             "login": "Accedi",
@@ -106,11 +210,37 @@
                 "atLeastOneSymbol": "La password deve contenere almeno un carattere speciale (tra #, $, @, !, %, &, *, ?).",
                 "atLeastSixCharacters": "La password deve essere lunga almeno 6 caratteri."
             }
+        },
+        "list": {
+            "item": {
+                "addNoteButton": "Aggiungi nota ...",
+                "editNoteButton": "Modifica nota ..."
+            },
+            "search": {
+                "placeholder": "Aggiungi qualcosa ...",
+                "loading": "Caricamento in corso ...",
+                "noResults": "Nessun risultato",
+                "addButton": "Aggiungi"
+            }
+        },
+        "pagination": {
+            "previousButton": "Precedente",
+            "nextButton": "Prossimo"
         }
     },
     "common": {
         "buttons": {
-            "close": "Chiudi"
+            "close": "Chiudi",
+            "create": "Crea",
+            "save": "Salva",
+            "delete": "Elimina",
+            "edit": "Modifica",
+            "cancel": "Annulla"
+        },
+        "fields": {
+            "name": "Nome",
+            "description": "Descrizione",
+            "category": "Categoria"
         }
     }
 }

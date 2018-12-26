@@ -1,13 +1,27 @@
 <nav class="d-flex justify-content-center mt-3" *ngIf="page && page.totalPages > 0">
     <ul class="pagination">
-        <li *ngIf="page.hasPrevious" class="page-item"><a class="page-link" (click)="loadPage(page.previous)">Precedente</a>
+
+        <!-- Previous -->
+        <li *ngIf="page.hasPrevious" class="page-item">
+            <a class="page-link" (click)="loadPage(page.previous)">
+                {{ 'core.pagination.previousButton' | translate }}
+            </a>
         </li>
 
+        <!-- Number -->
         <li *ngFor="let otherPage of page.pages; let i = index;" class="page-item"
-            [class.active]="i === page.number"><a class="page-link" (click)="loadPage(otherPage)">{{ i + 1
-            }}</a></li>
+            [class.active]="i === page.number">
+            <a class="page-link" (click)="loadPage(otherPage)">
+                {{ i + 1 }}
+            </a>
+        </li>
 
-        <li *ngIf="page.hasNext" class="page-item"><a class="page-link"
-                                                      (click)="loadPage(page.next)">Prossima</a></li>
+        <!-- Next -->
+        <li *ngIf="page.hasNext" class="page-item">
+            <a class="page-link" (click)="loadPage(page.next)">
+                {{ 'core.pagination.nextButton' | translate }}
+            </a>
+        </li>
+
     </ul>
 </nav>

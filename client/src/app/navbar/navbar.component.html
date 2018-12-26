@@ -16,28 +16,38 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="/tryNow" routerLinkActive="active">{{ 'landing.home.tryNowButton' | translate }}</a>
+                <a class="nav-link" routerLink="/tryNow" routerLinkActive="active">
+                    {{ 'landing.home.tryNowButton' | translate }}
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">{{ 'core.navbar.login' | translate }}</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">
+                    {{ 'core.navbar.login' | translate }}
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">{{ 'core.navbar.register' | translate }}</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">
+                    {{ 'core.navbar.register' | translate }}
+                </a>
             </li>
         </ul>
 
         <!-- Admin links -->
         <ul *ngIf="isAdmin$ | async" class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['admin', 'products']" routerLinkActive="active">Prodotti</a>
+                <a class="nav-link" [routerLink]="['admin', 'products']" routerLinkActive="active">
+                    {{ 'admin.products.title' | translate }}
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['admin', 'productCategories']" routerLinkActive="active">Categorie
-                    prodotti</a>
+                <a class="nav-link" [routerLink]="['admin', 'productCategories']" routerLinkActive="active">
+                    {{ 'admin.productCategories.title' | translate }}
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['admin', 'shoppingListCategories']" routerLinkActive="active">Categorie
-                    liste</a>
+                <a class="nav-link" [routerLink]="['admin', 'shoppingListCategories']" routerLinkActive="active">
+                    {{ 'admin.listCategories.title' | translate }}
+                </a>
             </li>
         </ul>
 

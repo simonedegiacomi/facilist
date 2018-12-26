@@ -1,7 +1,7 @@
 <div class="modal fade new-list" id="newListModal" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
-        <app-notebook-sheet title="Nuova lista" [buttons]="buttons">
+        <app-notebook-sheet [title]="'user.lists.newList.title' | translate" [buttons]="buttons">
             <form class="new-list-form row" (submit)="onCreate()" #form="ngForm">
 
                 <div class="col-2 col-sm-4">
@@ -12,14 +12,15 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Nome lista"
+                                <input type="text" class="form-control" [placeholder]="'user.lists.newList.namePlaceholder' | translate"
                                        [(ngModel)]="newList.name" required name="newListName">
                             </div>
                         </div>
 
                         <div class="col-12">
                             <app-select [values]="categories$ | async"
-                                        [(selected)]="newList.category"></app-select>
+                                        [(selected)]="newList.category"
+                            [placeholder]="'user.lists.newList.categoryPlaceholder' | translate"></app-select>
                         </div>
                     </div>
                 </div>
@@ -27,13 +28,12 @@
 
                 <div class="col-12">
                     <textarea class="form-control col-12 mb-3" name="newListDescription"
-                              [(ngModel)]="newList.description" placeholder="Descrizione"></textarea>
+                              [(ngModel)]="newList.description" [placeholder]="'user.lists.newList.descriptionPlaceholder' | translate"></textarea>
                 </div>
 
                 <div class="col-12 text-right">
                     <button type="submit" class="action-button"
-                            [disabled]="!form.valid || newList.category == null|| isSaving">Crea
-                    </button>
+                            [disabled]="!form.valid || newList.category == null|| isSaving">{{ 'common.buttons.create' | translate}}</button>
                 </div>
             </form>
         </app-notebook-sheet>

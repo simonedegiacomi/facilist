@@ -1,6 +1,6 @@
 <div class="modal fade" id="confirmDeleteListModal" tabindex="-1" role="dialog" aria-hidden="true" *ngIf="list">
     <div class="modal-dialog" role="document">
-        <app-notebook-sheet title="Eliminazione definitiva" [buttons]="[]">
+        <app-notebook-sheet [title]="'user.listPage.options.confirmDelete.title' | translate" [buttons]="[]">
 
             <div class="row">
 
@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="col-12">
-                    <p>Sei sicuro di voler eliminare definitivamente la lista <strong>{{ list.name }}?</strong>
+                    <p>{{ 'user.listPage.options.confirmDelete.question' | translate }} <strong>{{ list.name }}?</strong>
                     </p>
                 </div>
             </div>
@@ -18,13 +18,13 @@
             <div class="row d-flex justify-content-between">
                 <div class="col-4">
                     <button class="action-button link-cta danger" (click)="onDelete()" [disabled]="isDeleting">
-                        Elimina
+                        {{ 'common.buttons.delete' | translate }}
                     </button>
                 </div>
 
                 <div class="col-4 d-flex justify-content-end">
                     <button class="action-button link-cta" (click)="onCancel()" [disabled]="isDeleting">
-                        Mantieni
+                        {{ 'user.listPage.options.confirmDelete.cancelButton' | translate }}
                     </button>
                 </div>
             </div>

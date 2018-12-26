@@ -12,7 +12,9 @@
 
                 <!-- Edit name -->
                 <div class="form-group row" *ngIf="isEditing">
-                    <label class="col-12 col-sm-2">Nome</label>
+                    <label class="col-12 col-sm-2">
+                        {{ 'common.fields.name' | translate }}
+                    </label>
                     <div class="col-12 col-sm-10">
                         <input type="text" class="form-control ml-3" [(ngModel)]="category.name"
                                name="name"
@@ -21,7 +23,7 @@
 
                     <div *ngIf="nameConflict" class="col-12 mt-2 alert alert-danger">
                         <div>
-                            Un'altra categoria ha già questo nome.
+                            {{ 'admin.productCategories.errors.categoryNameConflict' | translate}}
                         </div>
                     </div>
                 </div>
@@ -34,18 +36,22 @@
                         required></editor>
 
                 <div class="media-bottom d-flex justify-content-end mt-2">
-                    <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">Modifica
+                    <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">
+                        {{ 'common.buttons.edit' | translate }}
                     </button>
 
                     <button class="action-button link-cta mr-1" *ngIf="isEditing"
                             [disabled]="!(form.valid && category.icon != null) || isSavingOrCreating"
-                            (click)="saveOrCreate()">{{ isNew ? 'Crea' : 'Salva' }}
+                            (click)="saveOrCreate()">
+                        {{ ('common.buttons.' + (isNew ? 'create' : 'save')) | translate}}
                     </button>
 
-                    <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla
+                    <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">
+                        {{ 'common.buttons.cancel' | translate }}
                     </button>
 
-                    <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina
+                    <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">
+                        {{ 'common.buttons.delete' | translate }}
                     </button>
                 </div>
 

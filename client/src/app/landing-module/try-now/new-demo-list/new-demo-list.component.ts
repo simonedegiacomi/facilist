@@ -25,7 +25,7 @@ export class NewDemoListComponent implements OnInit {
         title: 'Chiudi',
         iconClass: 'close-icon',
         onClick: () => this.router.navigateByUrl('/')
-    ];
+    }];
 
     constructor(
         private shoppingListCategoryService: ShoppingListCategoryService,

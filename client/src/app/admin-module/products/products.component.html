@@ -1,11 +1,11 @@
-<h2>Prodotti</h2>
+<h2>{{ 'admin.products.title' | translate }}</h2>
 
 <div class="row">
     <div class="col-12 d-flex col-lg-4 d-lg-block select-category">
 
         <button class="list-group-item btn btn-block mb-2" [class.active]="!selectedCategory"
                 (click)="onShowAllProducts()">
-            Visualizza tutti
+            {{ 'admin.products.viewAll' | translate }}
         </button>
 
         <!-- List of categories -->
@@ -32,13 +32,13 @@
 
             <!-- Search -->
             <form class="form-inline col-12 col-md-8 mb-2">
-                <input class="form-control w-100" type="search" placeholder="Filtra per nome" aria-label="Search"
+                <input class="form-control w-100" type="search" [placeholder]="'admin.products.filterPlaceholder' | translate" aria-label="Search"
                        #searchFilter (keyup)="onUpdateSearchFilter(searchFilter.value)">
             </form>
 
             <!-- Create new -->
             <div *ngIf="!newProduct" class="col-12 col-md-4 d-flex justify-content-end mb-2">
-                <button class="btn" (click)="onCreateProduct()">Crea prodotto</button>
+                <button class="btn" (click)="onCreateProduct()">{{ 'admin.products.createButton' | translate }}</button>
             </div>
         </div>
 

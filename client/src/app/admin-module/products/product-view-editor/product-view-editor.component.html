@@ -10,21 +10,25 @@
 
                     <!-- Insert new name -->
                     <div class="form-group row" *ngIf="isEditing && isNew">
-                        <label class="col-12 col-sm-3">Nome</label>
+                        <label class="col-12 col-sm-3">
+                            {{ 'common.fields.name' | translate }}
+                        </label>
                         <div class="col-12 col-sm-9">
-                            <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
+                            <input type="text" class="form-control" [placeholder]="'common.fields.name' | translate" [disabled]="isSaving"
                                    [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
                         </div>
                     </div>
 
                     <!-- Edit name -->
                     <div class="form-group row" *ngIf="isEditing && !isNew">
-                        <input type="text" class="form-control" placeholder="Nome" [disabled]="isSaving"
-                                   [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
+                        <input type="text" class="form-control" [placeholder]="'common.fields.name' | translate" [disabled]="isSaving"
+                               [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
                     </div>
 
                     <div class="form-group row" *ngIf="isNew">
-                        <label class="col-12 col-sm-3">Categoria</label>
+                        <label class="col-12 col-sm-3">
+                            {{ 'common.fields.category' | translate }}
+                        </label>
                         <div class="col-12 col-sm-9">
                             <app-select [values]="categories" [(selected)]="product.category"></app-select>
                         </div>
@@ -35,23 +39,31 @@
 
         <div class="d-flex justify-content-end product-buttons mt-5">
             <!-- Edit -->
-            <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">Modifica</button>
+            <button class="action-button link-cta" (click)="isEditing = true" *ngIf="!isEditing">
+                {{ 'common.buttons.edit' | translate }}
+            </button>
 
             <!-- Save -->
-            <button class="action-button link-cta" *ngIf="isEditing && !isNew" (click)="onSaveOrCreate()"
-                    [disabled]="!form.valid || isSaving">Salva</button>
+            <button class="action-button link-cta" *ngIf="isEditing && !isNew"
+                    (click)="onSaveOrCreate()" [disabled]="!form.valid || isSaving">
+                {{ 'common.buttons.save' | translate }}
+            </button>
 
             <!-- Create -->
             <button class="action-button link-cta" *ngIf="isEditing && isNew" (click)="onSaveOrCreate()"
-                    [disabled]="!form.valid || product.category || isSaving">Crea</button>
+                    [disabled]="!form.valid || product.category || isSaving">
+                {{ 'common.buttons.create' | translate }}
+            </button>
 
 
             <!-- Cancel -->
-            <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">Annulla
+            <button class="action-button link-cta danger" *ngIf="isEditing" (click)="onCancel()">
+                {{ 'common.buttons.cancel' | translate }}
             </button>
 
             <!-- Delete -->
-            <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">Elimina
+            <button class="action-button link-cta danger" *ngIf="!isEditing" (click)="onDelete()">
+                {{ 'common.buttons.delete' | translate }}
             </button>
         </div>
     </div>
@@ -62,19 +74,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Cancellare il prodotto?</h5>
+                <h5 class="modal-title">{{ 'admin.products.delete.title' | translate }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>
-                    Sei sicuro di voler eliminare la categoria <strong>{{ product.name }}</strong> e tutti i suoi
-                    prodotti?<br>
-                    Gli utenti che hanno prodotti di questa categoria nella loro lista della spesa vedranno sparire
-                    misteriosamente
-                    questi prodotti!
+                    {{ 'admin.products.delete.description' | translate }}
+                    <strong>{{ product.name }}</strong> ?
+                    <br>
+                    {{ 'admin.products.delete.warning' | translate }}
                 </p>
 
-                <button class="action-button link-cta danger" (click)="onDeleteProductAfterWarning()">Elimina</button>
+                <button class="action-button link-cta danger" (click)="onDeleteProductAfterWarning()">
+                    {{ 'common.buttons.delete' | translate }}
+                </button>
             </div>
 
         </div>

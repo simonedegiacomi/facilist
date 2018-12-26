@@ -89,9 +89,113 @@
             "error": "There has been an error while verifying your email address."
         }
     },
+    "user": {
+        "lists": {
+            "title": "My shopping lists",
+            "newListButton": "Create a new list ...",
+            "geolocation": {
+                "description": "Do you want to be notified when you pass by a supermarket that sells products that you need?",
+                "enableLink": "Enable geolocation!"
+            },
+            "newList": {
+                "title": "New list",
+                "namePlaceholder": "List name",
+                "categoryPlaceholder": "Category ...",
+                "descriptionPlaceholder": "Description"
+            }
+        },
+        "listPage": {
+            "share": {
+                "title": "List sharing options",
+                "createdBy": "Created by",
+                "collaborationOptions": {
+                    "leaveButton": "Leave list"
+                },
+                "addCollaborator": {
+                    "title": "Add collaborator",
+                    "addButton": "Invite",
+                    "emailPlaceholder": "Invite by email"
+                },
+                "legend": {
+                    "title": "Symbol legend",
+                    "roles": {
+                        "admin": "Manage products, collaborations and list details",
+                        "social": "Manage products and collaborations",
+                        "ham": "Manage products"
+                    }
+                }
+            },
+            "options": {
+                "title": "Options",
+                "name": "Name",
+                "category": "Category",
+                "description": "Description",
+                "createdBy": "Created by",
+                "deleteButton": "Delete list",
+                "confirmDelete": {
+                    "title": "Definitive elimination",
+                    "question": "You're sure you want to permanently delete the list",
+                    "cancelButton": "Keep list"
+                }
+            }
+        }
+    },
+    "admin": {
+        "products": {
+            "title": "Products",
+            "createButton": "Create product",
+            "filterPlaceholder": "Filter by name",
+            "viewAll": "View all",
+            "delete": {
+                "title": "Delete the product?",
+                "description": "Are you sure you want to delete the product",
+                "warning": "Users that have this product in their lists will see this product disappear mysteriously!"
+            }
+        },
+        "productCategories": {
+            "title": "Product categories",
+            "filterPlaceholder": "Filter by name",
+            "createButton": "Create category",
+            "errors": {
+                "categoryNameConflict": "Another category already has this name."
+            },
+            "delete": {
+                "title": "Delete the category?",
+                "description": {
+                    "pre": "Are you sure you want to delete the category",
+                    "post": "and all the products that belong to it?"
+                },
+                "warning": "Users that have products of this category in their lists will see these products disappear mysteriously!"
+            }
+        },
+        "listCategories": {
+            "title": "List categories",
+            "foursquareCategories": "Foursquare categories",
+            "delete": {
+                "title": "Delete the list category?",
+                "description": {
+                    "pre": "Are you sure you want to delete the category",
+                    "post": "and all the list that belong to it?"
+                },
+                "warning": "Users that have lists of this category will lose all these lists!!!"
+            }
+        }
+    },
     "core": {
         "profile": {
-            "changeEmailTitle": "Change Email"
+            "email": {
+                "title": "Change Email",
+                "emailPlaceholder": "New email address",
+                "changeButton": "Change",
+                "note": "We'll send you an email to verify the new address."
+            },
+            "changeLanguageTitle": "Change language",
+            "password": {
+                "title": "Change password",
+                "changeButton": "Change password",
+                "currentPassword": "Current password",
+                "wrongCurrentPassword": "Wrong current password"
+            }
         },
         "navbar": {
             "login": "Login",
@@ -106,11 +210,37 @@
                 "atLeastOneSymbol": "Password must contains at least one symbol (#, $, @, !, %, &, *, ?).",
                 "atLeastSixCharacters": "Password must be at least six characters long."
             }
+        },
+        "list": {
+            "item": {
+                "addNoteButton": "Add note ...",
+                "editNoteButton": "Edit note ..."
+            },
+            "search": {
+                "placeholder": "Add something ...",
+                "loading": "Loading ...",
+                "noResults": "No results",
+                "addButton": "Add"
+            }
+        },
+        "pagination": {
+            "previousButton": "Previous",
+            "nextButton": "Next"
         }
     },
     "common": {
         "buttons": {
-            "close": "Close"
+            "close": "Close",
+            "create": "Create",
+            "save": "Save",
+            "delete": "Delete",
+            "edit": "Edit",
+            "cancel": "Cancel"
+        },
+        "fields": {
+            "name": "Name",
+            "description": "Description",
+            "category": "Category"
         }
     }
 }

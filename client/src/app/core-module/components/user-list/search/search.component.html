@@ -2,12 +2,12 @@
     <div class="col-12 notebook-sheet-strip green-strip" [class.focused]="isFocused">
         <div class="form-group">
             <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)"
-                   placeholder="Aggiungi qualcosa ...">
+                   [placeholder]="'core.list.search.placeholder' | translate">
         </div>
 
         <div class="results" *ngIf="isFocused">
             <div *ngIf="isLoading" class="text-center loading">
-                <em>Caricamento in corso...</em>
+                <em>{{ 'core.list.search.loading' | translate }}</em>
             </div>
 
             <div *ngFor="let productsByCategory of productsByCategories | keyvalue"  ><!--[disabled]="isProductAlreadyInList(product)"-->
@@ -32,12 +32,12 @@
 
             <!-- Add product -->
             <div *ngIf="allowNewProducts && !isLoading" class="add-product-container text-center">
-                <button class="action-button" (click)="createCustomProduct()">Aggiungi "<em>{{ filterText }}</em>"</button>
+                <button class="action-button" (click)="createCustomProduct()">{{ 'core.list.search.addButton' | translate }} "<em>{{ filterText }}</em>"</button>
             </div>
 
             <!-- No results -->
             <div *ngIf="emptyResults && !allowNewProducts && !isLoading" class="text-center empty-results">
-                <em>Nessun risultato</em>
+                <em>{{ 'core.list.search.noResults' | translate }}</em>
             </div>
         </div>
     </div>

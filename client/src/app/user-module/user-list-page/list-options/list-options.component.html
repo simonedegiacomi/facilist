@@ -1,10 +1,10 @@
 <div class="modal fade" id="listOptionsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-notebook-sheet title="Opzioni" [buttons]="buttons">
+        <app-notebook-sheet [title]="'user.listPage.options.title' | translate" [buttons]="buttons">
             <form #form="ngForm">
                 <!-- Name -->
                 <div class="form-group row">
-                    <label for="name" class="col-12 col-sm-4">Nome</label>
+                    <label for="name" class="col-12 col-sm-4">{{ 'user.listPage.options.name' | translate }}</label>
                     <div class="col-12 col-sm-8">
                         <input type="text" class="form-control" [(ngModel)]="list.name" placeholder="Nome"
                                id="name" name="name" required>
@@ -14,7 +14,7 @@
 
                 <!-- Category -->
                 <div class="form-group row">
-                    <label for="category" class="col-12 col-sm-4">Categoria</label>
+                    <label for="category" class="col-12 col-sm-4">{{ 'user.listPage.options.category' | translate }}</label>
                     <div class="col-12 col-sm-8">
                         <input type="text" readonly class="form-control-plaintext" [ngModel]="list.category.name"
                                id="category" name="category">
@@ -23,10 +23,10 @@
 
                 <!-- Description -->
                 <div class="form-group row">
-                    <label for="category" class="col-12 col-sm-4">Descrizione</label>
+                    <label for="category" class="col-12 col-sm-4">{{ 'user.listPage.options.description' | translate }}</label>
                     <div class="col-12 col-sm-8">
                         <textarea type="text" class="form-control" [(ngModel)]="list.description"
-                                  placeholder="Descrizione"
+                                  [placeholder]="'user.listPage.options.description' | translate"
                                   id="description" name="description"></textarea>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
 
                 <!-- Created by -->
                 <div class="form-group row">
-                    <label for="category" class="col-12 col-sm-4">Creata da</label>
+                    <label for="category" class="col-12 col-sm-4">{{ 'user.listPage.options.createdBy' | translate }}</label>
                     <div class="col-12 col-sm-8">
                         <img [src]="list.creator.photo | image" class="icon small-icon mr-2">
                         {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
@@ -46,13 +46,13 @@
                 <div class="buttons mt-2">
                     <button [disabled]="!isUserTheCreator" class="col-4 action-button link-cta danger"
                             (click)="onDeleteList()">
-                        Elimina lista
+                        {{ 'user.listPage.options.deleteButton' | translate }}
                     </button>
 
                     <button type="submit" class="col-4 action-button link-cta primary"
                             [disabled]="!form.valid || isSaving"
                             (click)="onSave()">
-                        Salva
+                        {{ 'common.buttons.save' | translate }}
                     </button>
                 </div>
 

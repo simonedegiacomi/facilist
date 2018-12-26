@@ -1,10 +1,10 @@
 <div class="modal fade" id="listSharingSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-notebook-sheet title="Condivisione lista" [buttons]="buttons">
+        <app-notebook-sheet [title]="'user.listPage.share.title' | translate" [buttons]="buttons">
             <!-- Creator -->
             <div class="row creator">
                 <h6 class="col-12">
-                    <strong class="pl-3 pr-2">Creata da</strong>
+                    <strong class="pl-3 pr-2">{{ 'user.listPage.share.createdBy' | translate }}</strong>
                     <img [src]="list.creator.photo | image" class="icon small-icon">
                     {{ list.creator.firstName }} <span *ngIf="isUserTheCreator">(Io)</span>
                 </h6>
