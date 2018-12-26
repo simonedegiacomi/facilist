@@ -23,6 +23,8 @@ export class User implements MyRestEntity {
     firstName: string;
     lastName: string;
 
+    locale: string;
+
     emailVerified: boolean;
     role: string;
 

@@ -3,5 +3,10 @@
         "home": {
             "subtitleDescription": "From now on you will never forget anything and your life will be easier. Enter, edit and delete the items you need to buy with just one click."
         }
+    },
+    "core": {
+        "profile": {
+            "changeEmailTitle": "Change Email"
+        }
     }
 }

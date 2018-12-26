@@ -1,11 +1,11 @@
 <div class="modal fade" id="userSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-notebook-sheet [buttons]="buttons" [title]="user.firstName" [(headerIcon)]="user.photo">
+        <app-notebook-sheet [buttons]="buttons" [title]="user.firstName" [(headerIcon)]="userPhoto">
 
             <!-- Email strip -->
             <div class="row">
                 <div class="col-12 notebook-sheet-strip blue-strip">
-                    <h6>Cambia Email</h6>
+                    <h6 [innerHTML]="'core.profile.changeEmailTitle' | translate"></h6>
                 </div>
             </div>
 
@@ -30,18 +30,30 @@
             </form>
 
             <!-- Language -->
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12 notebook-sheet-strip blue-strip">
                     <h6>Lingua</h6>
                 </div>
             </div>
             <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-block language-button" [disabled]="isSaving" [class.current-language]="currentLocale == 'it-IT'"
+                            (click)="currentLocale = 'it-IT'">
+                        <img src="/assets/img/flag_it-IT.svg"> <span class="ml-2">Italiano</span>
+                    </button>
+                </div>
 
+                <div class="col-6">
+                    <button class="btn btn-block language-button" [disabled]="isSaving" [class.current-language]="currentLocale == 'en-US'"
+                            (click)="currentLocale = 'en-US'">
+                        <img src="/assets/img/flag_en-US.svg"> <span class="ml-2">English</span>
+                    </button>
+                </div>
             </div>
 
 
             <!-- Change password strip -->
-            <div class="row">
+            <div class="row mt-4">
                 <div class="notebook-sheet-strip blue-strip col-12 bar">
                     <h6>Cambia Password</h6>
                 </div>

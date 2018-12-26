@@ -50,6 +50,9 @@ class RegistrationController (
             val email: String,
 
             @get:NotEmpty
+            val locale: String,
+
+            @get:NotEmpty
             val firstName: String,
 
             @get:NotEmpty

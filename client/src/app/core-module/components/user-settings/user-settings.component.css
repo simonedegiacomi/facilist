@@ -10,3 +10,15 @@ div.notebook-sheet-strip {
 .change-password {
     overflow-y: auto;
 }
+
+.language-button {
+    cursor: pointer;
+}
+
+.language-button.current-language {
+    background-color: #E0D4CE;
+}
+
+.language-button img {
+    width: 2em;
+}

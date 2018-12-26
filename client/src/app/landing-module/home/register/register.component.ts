@@ -4,6 +4,7 @@ import { UserService } from "../../../core-module/services/rest/user.service";
 import { NewPasswordComponent } from "../../../core-module/components/new-password/new-password.component";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
 import { ActivatedRoute } from "@angular/router";
+import { I18nService } from "../../../core-module/services/i18n.service";
 
 const $ = window['jQuery'];
 
@@ -24,14 +25,15 @@ export class RegisterComponent implements OnInit {
 
     registerForm: FormGroup;
 
-    emailAlreadyInUse   = false;
-    registering         = false;
-    privacy             = false;
+    emailAlreadyInUse = false;
+    registering       = false;
+    privacy           = false;
 
     constructor(
         private userService: UserService,
         formBuilder: FormBuilder,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private i18n: I18nService
     ) {
         this.registerForm = formBuilder.group({
             firstName: new FormControl(null, [
@@ -59,30 +61,40 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    get firstName () { return this.registerForm.get('firstName'); }
+    get firstName() {
+        return this.registerForm.get('firstName');
+    }
 
-    get lastName () { return this.registerForm.get('lastName'); }
+    get lastName() {
+        return this.registerForm.get('lastName');
+    }
 
-    get email () { return this.registerForm.get('email'); }
+    get email() {
+        return this.registerForm.get('email');
+    }
 
-    shouldShowErrors (field: AbstractControl): boolean {
+    shouldShowErrors(field: AbstractControl): boolean {
         return field.invalid && (field.dirty || field.touched);
     }
 
-    onSubmit () {
+    onSubmit() {
         this.emailAlreadyInUse = false;
-        this.registering = true;
+        this.registering       = true;
 
-        const data = this.registerForm.value;
+        const data    = this.registerForm.value;
         data.password = data.passwords.password;
 
-        this.userService.register(data).subscribe(
+        this.userService.register({
+            ...this.registerForm.value,
+            password: data.passwords.password,
+            locale: this.i18n.getCurrentLocale()
+        }).subscribe(
             _ => this.onRegistered(),
             error => this.onRegisterError(error)
         );
     }
 
-    onRegistered () {
+    onRegistered() {
         this.registering = false;
 
         $('#registerModal').modal('hide');
@@ -95,7 +107,6 @@ export class RegisterComponent implements OnInit {
             this.emailAlreadyInUse = true;
         }
     }
-
 
 
 }

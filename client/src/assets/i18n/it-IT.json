@@ -3,5 +3,10 @@
         "home": {
             "subtitleDescription": "D'ora in avanti non ti dimenticherai più niente e la tua vita sarà più semplice. Inserisci, modifica ed elimina gli elementi che devi comprare con un solo click."
         }
+    },
+    "core": {
+        "profile": {
+            "changeEmailTitle": "Cambia Email"
+        }
     }
 }

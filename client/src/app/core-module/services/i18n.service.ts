@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from "@ngx-translate/core";
+import { AuthService } from "./auth.service";
 
 const SUPPORTED_LOCALES = ['it-IT', 'en-US'];
 const DEFAULT_LOCALE = 'it-IT';
@@ -9,8 +10,15 @@ const DEFAULT_LOCALE = 'it-IT';
 })
 export class I18nService {
 
-    constructor(private i18n: TranslateService) {
-
+    constructor(
+        private i18n: TranslateService,
+        authService: AuthService
+    ) {
+        authService.user$.subscribe(user => {
+            if (user != null) {
+                this.setCurrentLocale(user.locale)
+            }
+        });
     }
 
     /**
@@ -27,6 +35,7 @@ export class I18nService {
     }
 
     setCurrentLocale (locale: string) {
+        console.log(`[i18n] Switched to ${locale}`)
         this.i18n.use(locale);
     }
 }

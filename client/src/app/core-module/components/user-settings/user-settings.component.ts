@@ -54,10 +54,15 @@ export class UserSettingsComponent implements OnInit {
         this.user = this.authService.user;
     }
 
-    onImageChanged(imageId: string) {
+    get userPhoto () {
+        return this.user.photo;
+    }
+
+    set userPhoto(imageId: string) {
         this.isSaving   = true;
         this.user.photo = imageId;
-        this.userService.changeUserPhoto(this.user).subscribe(() => this.isSaving = false);
+        this.userService.updateUser(this.user)
+            .subscribe(() => this.isSaving = false);
     }
 
     onChangePassword() {
@@ -91,6 +96,22 @@ export class UserSettingsComponent implements OnInit {
             .subscribe(() => {
                 this.isSaving         = false;
                 this.emailRequestSent = true;
+            });
+    }
+
+    get currentLocale () {
+        return this.i18n.getCurrentLocale();
+    }
+
+    set currentLocale (locale: string) {
+        this.isSaving = true;
+
+        this.user.locale = locale;
+        this.userService.updateUser(this.user)
+            .subscribe(() => {
+                this.isSaving = false;
+
+                this.i18n.setCurrentLocale(locale);
             });
     }
 }

@@ -33,6 +33,9 @@ data class User(
         @JsonIgnore()
         var password: String,
 
+        @Column()
+        var locale: String = DEFAULT_LOCALE,
+
         @OneToMany(
             mappedBy    = "creator",
             cascade     = [CascadeType.REMOVE]
@@ -75,6 +78,8 @@ data class User(
     companion object {
         const val USER = "ROLE_USER"
         const val ADMIN = "ROLE_ADMIN"
+
+        const val DEFAULT_LOCALE = "it-IT"
 
         const val USER_EMAIL_UNIQUE_NAME_CONSTRAINT = "user_email_unique_name_constraint"
     }

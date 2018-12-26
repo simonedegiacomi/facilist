@@ -32,10 +32,16 @@ export class UserService extends MyRestService<User> {
             );
     }
 
-    changeUserPhoto(user: User): Observable<User> {
+    /**
+     * Updates the user photo and locale
+     */
+    updateUser(user: User): Observable {
         return this.httpClient
-            .post<User>(`${this.resourcePath}/me/photo`, user.photo);
-    }
+            .put(`${this.resourcePath}/me`, {
+                photo: user.photo,
+                locale: user.locale
+            });
+    },
 
     changeUserPassword(update: UpdatePassword): Observable<any> {
         return this.httpClient
