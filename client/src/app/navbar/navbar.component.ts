@@ -3,6 +3,7 @@ import { AuthService } from "../core-module/services/auth.service";
 import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
 import { Roles } from "../core-module/models/user";
+import { I18nService } from "../core-module/services/i18n.service";
 
 @Component({
     selector: 'app-navbar',
@@ -15,7 +16,8 @@ export class NavbarComponent implements OnInit {
 
     constructor(
         private auth: AuthService,
-        private router: Router
+        private router: Router,
+        private i18n: I18nService
     ) { }
 
     ngOnInit() { }
@@ -34,5 +36,13 @@ export class NavbarComponent implements OnInit {
 
     onLoggedOut () {
         this.router.navigate(['/home']);
+    }
+
+    get currentLocale () {
+        return this.i18n.getCurrentLocale();
+    }
+
+    set currentLocale (locale: string) {
+        this.i18n.setCurrentLocale(locale);
     }
 }

@@ -41,9 +41,23 @@
             </li>
         </ul>
 
+        <!-- internationalization menu for not logged in users -->
+        <ul *ngIf="isGuest$ | async" class="navbar-nav">
+            <li class="nav-item" *ngIf="currentLocale != 'it-IT'">
+                <a class="nav-link language-link" (click)="currentLocale = 'it-IT'">
+                    <img src="/assets/img/flag_it-IT.svg">
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="currentLocale != 'en-US'">
+                <a class="nav-link language-link" (click)="currentLocale = 'en-US'">
+                    <img src="/assets/img/flag_en-US.svg">
+                </a>
+            </li>
+        </ul>
 
+        <!-- Profile settings and logout (small screen) -->
         <ul *ngIf="!(isGuest$ | async)" class="d-block d-sm-none navbar-nav mr-auto">
-            <li class="nav-item" >
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#userSettingsModal">Impostazioni</a>
             </li>
 
@@ -54,7 +68,7 @@
 
     </div>
 
-    <!-- User profile and logout -->
+    <!-- User profile and logout (big screen) -->
     <div *ngIf="!(isGuest$ | async)" class="navbar navbar-right account-buttons">
 
         <app-notifications *ngIf="isUser$ | async"></app-notifications>

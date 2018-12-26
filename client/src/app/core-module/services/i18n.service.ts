@@ -20,5 +20,13 @@ export class I18nService {
     onAppSetup() {
         this.i18n.addLangs(SUPPORTED_LOCALES);
         this.i18n.setDefaultLang(DEFAULT_LOCALE);
+    },
+
+    getCurrentLocale () {
+        return this.i18n.currentLang || DEFAULT_LOCALE;
+    }
+
+    setCurrentLocale (locale: string) {
+        this.i18n.use(locale);
     }
 }

@@ -5,6 +5,7 @@ import { User } from "../../models/user";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { NewPasswordComponent } from "../new-password/new-password.component";
 import { NotebookSheetButton } from "../notebook-sheet/notebook-sheet.component";
+import { I18nService } from "../../services/i18n.service";
 
 const $ = window['jQuery'];
 
@@ -34,7 +35,8 @@ export class UserSettingsComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private userService: UserService,
-        formBuilder: FormBuilder
+        formBuilder: FormBuilder,
+        private i18n: I18nService
     ) {
         this.changeEmailForm    = formBuilder.group({
             email: new FormControl(null, [
@@ -91,5 +93,4 @@ export class UserSettingsComponent implements OnInit {
                 this.emailRequestSent = true;
             });
     }
-
 }
