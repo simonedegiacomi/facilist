@@ -12,6 +12,9 @@ export interface OptionWithName {
 export class SelectComponent {
 
     @Input()
+    placeholder: string = "Categoria";
+
+    @Input()
     values: OptionWithName[];
 
     @Input()

@@ -1,12 +1,58 @@
 {
     "landing": {
         "home": {
-            "subtitleDescription": "From now on you will never forget anything and your life will be easier. Enter, edit and delete the items you need to buy with just one click."
+            "subtitleDescription": "From now on you will never forget anything and your life will be easier. Add, edit and delete items you need to buy with just one click.",
+            "tryNowButton": "Try now!",
+            "alreadyRegisteredLink": "Already registered?",
+            "theVirtualShoppingList": {
+                "subtitle": "The VIRTUAL shopping list",
+                "description": "With this application you can make convenient and easy shopping lists. You can modify them at any time adding, editing and removing items."
+            },
+            "shareYourLists": {
+                "subtitle": "Share lists with your friends!",
+                "description": "Do you have to organize a party and you have to make a list of what to buy? Make it using our app! You will have your list ready and easy to share with whoever you want in seconds!"
+            },
+            "remindWhatToBuy": {
+                "subtitle": "It reminds you when to shop!",
+                "description": "You won't have anymore the problem of remembering when to shop because our wonderful app will notify you whenever you are near a supermarket!"
+            },
+            "whatAreYouWaitingSubtitle": "What are you waiting?",
+            "buildYouTooYourListPhrase": "Build you too your shopping list",
+            "bottomLinks": {
+                "whoAreWe": "Who are we",
+                "legalInformation": "Legal information"
+            },
+            "cookieConsent": {
+                "thisAppUsesCookies": "This webapp uses technical cookies.",
+                "informationButton": "Information"
+            }
+        },
+        "tryNow": {
+            "newDemoList": {
+                "title": "Create a demo list",
+                "selectCategory": "Choose the category",
+                "createButton": "Create",
+                "categoryPlaceholder": "Category ...",
+                "list": {
+                    "name": "Demo list",
+                    "description": "A demo list"
+                }
+            },
+            "inviteToSubscribe": {
+                "title": "Unlock all the features!",
+                "share": "Share lists and chat woth your friends",
+                "customize": "Add or create custom products with your images",
+                "moreLists": "Manage more lists to get more organized"
+            }
         }
     },
     "core": {
         "profile": {
             "changeEmailTitle": "Change Email"
+        },
+        "navbar": {
+            "login": "Login",
+            "register": "Register"
         }
     }
 }

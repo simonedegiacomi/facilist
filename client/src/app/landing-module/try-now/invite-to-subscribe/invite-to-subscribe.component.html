@@ -1,7 +1,7 @@
 <div class="modal fade new-list" id="inviteToSubscribe" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
-        <app-notebook-sheet title="Sblocca le funzionalità!" [buttons]="buttons">
+        <app-notebook-sheet [title]="'landing.tryNow.inviteToSubscribe.title' | translate" [buttons]="buttons">
            <div class="container-fluid">
                <!-- Sharing -->
                <div class="row feature">
@@ -9,7 +9,7 @@
                        <img src="/assets/img/ic_sharing.svg">
                    </div>
                    <div class="col-12 col-sm-8 feature-description">
-                       Condivi la lista e chatta con i tuoi amici
+                       {{ 'landing.tryNow.inviteToSubscribe.share' | translate}}
                    </div>
                </div>
 
@@ -19,7 +19,7 @@
                        <img src="/assets/img/ic_customize.svg">
                    </div>
                    <div class="col-10 col-sm-8 feature-description">
-                        Aggiungi o creo prodotti con immagini personalizzate
+                        {{ 'landing.tryNow.inviteToSubscribe.customize' | translate}}
                    </div>
                    <div class="d-none d-sm-block col-sm-4 feature-image">
                        <img src="/assets/img/ic_customize.svg">
@@ -32,13 +32,13 @@
                        <img src="/assets/img/ic_organize.svg">
                    </div>
                    <div class="col-12 col-sm-8 feature-description">
-                        Gestisci più list per mantenerti organizzato
+                       {{ 'landing.tryNow.inviteToSubscribe.moreLists' | translate}}
                    </div>
                </div>
 
                <!-- Register -->
                <div class="row mt-2 mb-2 d-flex justify-content-center">
-                   <button class="action-button" (click)="register()" >Registrati</button>
+                   <button class="action-button" (click)="register()" >{{ 'core.navbar.register' | translate }}</button>
                </div>
            </div>
         </app-notebook-sheet>

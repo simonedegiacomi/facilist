@@ -5,6 +5,8 @@ import { Observable } from "rxjs";
 import { ShoppingListCategory } from "../../../core-module/models/shopping-list-category";
 import { ShoppingListService } from "../../../core-module/services/rest/shopping-list.service";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-new-demo-list',
@@ -22,15 +24,20 @@ export class NewDemoListComponent implements OnInit {
     buttons: NotebookSheetButton[] = [{
         title: 'Chiudi',
         iconClass: 'close-icon',
-        onClick: () => {}
-    }];
+        onClick: () => this.router.navigateByUrl('/')
+    ];
 
     constructor(
         private shoppingListCategoryService: ShoppingListCategoryService,
-        private shoppingListService: ShoppingListService
+        private shoppingListService: ShoppingListService,
+        private router: Router,
+        private translate: TranslateService
     ) {
-        this.newList.name        = "Lista demo";
-        this.newList.description = "Una lista di prova";
+        translate.get('landing.tryNow.newDemoList.list.name')
+            .subscribe(name => this.newList.name = name);
+
+        translate.get('landing.tryNow.newDemoList.list.description')
+            .subscribe(description => this.newList.description = description);
     }
 
     ngOnInit() {

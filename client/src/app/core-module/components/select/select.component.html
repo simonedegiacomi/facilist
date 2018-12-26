@@ -2,7 +2,7 @@
     <select class="custom-select" required [(ngModel)]="selected" (change)="onChange()"
             name="newListCategory">
 
-        <option selected [ngValue]="null" disabled>Categoria</option>
+        <option selected [ngValue]="null" disabled>{{ placeholder }}</option>
 
         <option *ngFor="let value of values" [ngValue]="value">
             {{ value.name }}

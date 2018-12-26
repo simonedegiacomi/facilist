@@ -1,7 +1,7 @@
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-notebook-sheet title="Registrati" [buttons]="buttons">
+        <app-notebook-sheet [title]="'core.navbar.register' | translate" [buttons]="buttons">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="firstNameInput">Nome</label>

@@ -4,10 +4,10 @@
             <h1>Facilist</h1>
             <p class="description mt-3" [innerHTML]="'landing.home.subtitleDescription' | translate"></p>
             <div>
-                <button class="action-button big" routerLink="/tryNow">Prova ora!</button>
+                <button class="action-button big" routerLink="/tryNow" [innerHTML]="'landing.home.tryNowButton' | translate"></button>
             </div>
             <div class="mt-3">
-                <a class="link-cta" href="#" data-toggle="modal" data-target="#loginModal">Hai già un account?</a>
+                <a class="link-cta" href="#" data-toggle="modal" data-target="#loginModal" [innerHTML]="'landing.home.alreadyRegisteredLink' | translate"></a>
             </div>
         </div>
     </div>
@@ -23,8 +23,8 @@
             </div>
             <div class="col-md-8 align-middle d-flex align-items-center">
                 <div>
-                    <h2>La lista della spesa VIRTUALE</h2>
-                    <p class="text-justify">Con quest'applicazione potrai fare delle comode e facili liste della spesa. Le potrai modificare in qualsiasi momento: aggiugendo, eliminando e modificando la lista.</p>
+                    <h2 [innerHTML]="'landing.home.theVirtualShoppingList.subtitle' | translate"></h2>
+                    <p class="text-justify" [innerHTML]="'landing.home.theVirtualShoppingList.description' | translate"></p>
                 </div>
             </div>
         </div>
@@ -36,10 +36,8 @@
             </div>
             <div class="col-md-8 order-md-1 align-middle d-flex align-items-center">
                 <div>
-                    <h2>Potrai condividere le tue liste con gli amici!</h2>
-                    <p class="text-justify">Devi organizzare una festa e dovete fare una lista su cosa comprare? Falla con la nostra applicazione! In breve tempo avrai pronta la tua lista, facile da usare e potrai condivederla con chi vuoi!
-                       Ti dimentichi di comprare ciò che dice la morosa?
-                       D'ora in poi non dimenticherai più niente! Crea una lista condivisa e sarai sempre aggiornato e pronto!</p>
+                    <h2 [innerHTML]="'landing.home.shareYourLists.subtitle' | translate"></h2>
+                    <p class="text-justify" [innerHTML]="'landing.home.shareYourLists.description' | translate"></p>
                 </div>
             </div>
 
@@ -53,8 +51,8 @@
             </div>
             <div class="col-md-8 align-middle d-flex align-items-center">
                 <div>
-                    <h2>Ti ricorda quando fare la spesa!</h2>
-                    <p class="text-justify">Non avrai più il problema di ricordarti quando fare la spesa perchè la nostra splendida applicazione imparerà a conoscerti e ti suggerirà quando farla. Ogni volta che sarai vicino a un supermercato, ti invierà una notifica per informarti su ciò che devi comprare.</p>
+                    <h2 [innerHTML]="'landing.home.remindWhatToBuy.subtitle' | translate"></h2>
+                    <p class="text-justify" [innerHTML]="'landing.home.remindWhatToBuy.description' | translate"></p>
                 </div>
             </div>
 
@@ -64,11 +62,11 @@
 
 <div class="ending">
     <div class="container">
-        <h2>Che cosa aspetti?</h2>
-        <p class="description">Crea anche tu la tua lista della spesa virtuale!</p>
-        <button class="action-button big" routerLink="/tryNow">Prova ora!</button>
+        <h2  [innerHTML]="'landing.home.whatAreYouWaitingSubtitle' | translate"></h2>
+        <p class="description" [innerHTML]="'landing.home.buildYouTooYourListPhrase' | translate"></p>
+        <button class="action-button big" routerLink="/tryNow" [innerHTML]="'landing.home.tryNowButton' | translate"></button>
         <div class="mt-3">
-            <a class="link-cta" href="index.html" data-toggle="modal" data-target="#loginModal">Hai già un account?</a>
+            <a class="link-cta" href="index.html" data-toggle="modal" data-target="#loginModal"></a>
         </div>
     </div>
 </div>
@@ -77,9 +75,9 @@
     <div class="footer-content">
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#">Informazioni legali</a></li>
+                <a href="#" [innerHTML]="'landing.home.bottomLinks.legalInformation' | translate"></a></li>
             <li class="list-inline-item">
-                <a href="#">Chi siamo</a></li>
+                <a href="#" [innerHTML]="'landing.home.bottomLinks.whoAreWe' | translate"></a></li>
             <li class="list-inline-item">
                 <a href="#">Privacy</a></li>
         </ul>

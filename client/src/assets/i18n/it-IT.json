@@ -1,12 +1,58 @@
 {
     "landing": {
         "home": {
-            "subtitleDescription": "D'ora in avanti non ti dimenticherai più niente e la tua vita sarà più semplice. Inserisci, modifica ed elimina gli elementi che devi comprare con un solo click."
+            "subtitleDescription": "D'ora in avanti non ti dimenticherai più niente e la tua vita sarà più semplice. Inserisci, modifica ed elimina gli elementi che devi comprare con un solo click.",
+            "tryNowButton": "Prova ora!",
+            "alreadyRegisteredLink": "Hai già un account?",
+            "theVirtualShoppingList": {
+                "subtitle": "La lista della spesa VIRTUALE",
+                "description": "Con quest'applicazione potrai fare delle comode e facili liste della spesa. Le potrai modificare in qualsiasi momento: aggiugendo, eliminando e modificando la lista."
+            },
+            "shareYourLists": {
+                "subtitle": "Potrai condividere le tue liste con gli amici!",
+                "description": "Devi organizzare una festa e dovete fare una lista su cosa comprare? Falla con la nostra applicazione! In breve tempo avrai pronta la tua lista, facile da usare e potrai condivederla con chi vuoi! Ti dimentichi di comprare ciò che dice la morosa? D'ora in poi non dimenticherai più niente! Crea una lista condivisa e sarai sempre aggiornato e pronto!"
+            },
+            "remindWhatToBuy": {
+                "subtitle": "Ti ricorda quando fare la spesa!",
+                "description": "Non avrai più il problema di ricordarti quando fare la spesa perchè la nostra splendida applicazione imparerà a conoscerti e ti suggerirà quando farla. Ogni volta che sarai vicino a un supermercato, ti invierà una notifica per informarti su ciò che devi comprare."
+            },
+            "whatAreYouWaitingSubtitle": "Che cosa aspetti?",
+            "buildYouTooYourListPhrase": "Crea anche tu la tua lista della spesa",
+            "bottomLinks": {
+                "whoAreWe": "Chi siamo",
+                "legalInformation": "Informazioni legali"
+            },
+            "cookieConsent": {
+                "thisAppUsesCookies": "Questa webapp utilizza cookie tecnici.",
+                "informationButton": "Informazioni"
+            }
+        },
+        "tryNow": {
+            "newDemoList": {
+                "title": "Crea una lista di prova",
+                "selectCategory": "Scegli la categoria",
+                "createButton": "Crea",
+                "categoryPlaceholder": "Categoria ...",
+                "list": {
+                    "name": "Lista demo",
+                    "description": "Una lista di prova"
+                }
+            },
+            "inviteToSubscribe": {
+                "title": "Sblocca le funzionalità!",
+                "share": "Condivi la lista e chatta con i tuoi amici",
+                "customize": "Aggiungi o crea prodotti con immagini personalizzate",
+                "moreLists": "Gestisci più list per mantenerti organizzato"
+            }
         }
     },
     "core": {
         "profile": {
             "changeEmailTitle": "Cambia Email"
+        },
+        "navbar": {
+            "login": "Accedi",
+            "register": "Registrati"
         }
     }
 }
