@@ -4,50 +4,50 @@
         <app-notebook-sheet [title]="'core.navbar.register' | translate" [buttons]="buttons">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="firstNameInput">Nome</label>
+                    <label for="firstNameInput">{{ 'landing.home.register.fields.firstName' | translate }}</label>
                     <input type="text" class="form-control" id="firstNameInput" aria-describedby=""
-                           placeholder="Nome" formControlName="firstName">
+                           [placeholder]="'landing.home.register.fields.firstName' | translate" formControlName="firstName">
 
                     <div *ngIf="shouldShowErrors(firstName)"
                          class="alert alert-danger">
 
                         <div *ngIf="firstName.errors.required">
-                            Inserisci il tuo nome.
+                            {{ 'landing.home.register.errors.insertFirstName' | translate}}
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="firstNameInput">Cognome</label>
+                    <label for="firstNameInput">{{ 'landing.home.register.fields.lastName' | translate }}</label>
                     <input type="text" class="form-control" id="lastNameInput" aria-describedby=""
-                           placeholder="Cognome" formControlName="lastName">
+                           [placeholder]="'landing.home.register.fields.lastName' | translate" formControlName="lastName">
 
                     <div *ngIf="shouldShowErrors(lastName)"
                          class="alert alert-danger">
 
                         <div *ngIf="lastName.errors.required">
-                            Inserisci il tuo cognome.
+                            {{ 'landing.home.register.errors.insertLastName' | translate }}
                         </div>
                     </div>
                 </div>
 
 
                 <div class="form-group">
-                    <label for="registerEmail">Indirizzo email</label>
+                    <label for="registerEmail">{{ 'landing.home.register.fields.email' | translate }}</label>
                     <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
-                           placeholder="Email" formControlName="email" required autocomplete="email">
+                           [placeholder]="'landing.home.register.fields.email' | translate" formControlName="email" required autocomplete="email">
 
                     <div *ngIf="shouldShowErrors(email)" class="alert alert-danger">
                         <div *ngIf="email.errors.required">
-                            Inserisci un indirizzo E-email.
+                            {{ 'landing.home.register.errors.insertEmail' | translate }}
                         </div>
                         <div *ngIf="email.errors.email">
-                            Indirizzo E-email non valido.
+                            {{ 'landing.home.register.errors.invalidEmail' | translate }}
                         </div>
                     </div>
                     <div *ngIf="emailAlreadyInUse" class="alert alert-danger">
                         <div>
-                            Indirizzo E-email già in uso.
+                            {{ 'landing.home.register.errors.emailAlreadyInUse' | translate }}
                         </div>
                     </div>
                 </div>
@@ -55,22 +55,20 @@
                 <app-new-password [passwords]="registerForm.get('passwords')"></app-new-password>
 
                 <div class="form-group">
-                    <app-checkbox [(checked)]="privacy" [label]="'Accetto la normativa della privacy'"></app-checkbox>
+                    <app-checkbox [(checked)]="privacy" [label]="'landing.home.register.fields.acceptPrivacyContract' | translate"></app-checkbox>
                 </div>
 
 
                 <div class="modal-footer">
-                    <button type="button" class="action-button back" data-dismiss="modal">Chiudi</button>
+                    <button type="button" class="action-button back" data-dismiss="modal">{{ 'common.buttons.close' | translate }}</button>
                     <button type="submit" class="action-button"
-                            [disabled]="!registerForm.valid || registering || !privacy">
-                        Registrati
-                    </button>
+                            [disabled]="!registerForm.valid || registering || !privacy">{{ 'core.navbar.register' | translate }}</button>
                 </div>
             </form>
             <hr>
             <div class="text-center">
                 <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
-                   data-target="#loginModal">Hai già un account? Accedi</a>
+                   data-target="#loginModal">{{ 'landing.home.register.goToLoginLink' | translate }}</a>
             </div>
         </app-notebook-sheet>
     </div>
@@ -80,11 +78,8 @@
 <div class="modal fade" id="registeredModal" tabindex="-1" role="dialog" aria-labelledby="registeredModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-notebook-sheet title="Quasi fatto!">
-            <p>
-                Ti manca poco per poter utilizzare questa fantastica applicazione, devi solo dirci a cosa serve!
-                Scherziamo dai, dovrai solo cliccare sul link che ti abbiamo inviato per email.
-            </p>
+        <app-notebook-sheet [title]="'landing.home.register.emailSent.title' | translate">
+            <p>{{ 'landing.home.register.emailSent.description' | translate }}</p>
         </app-notebook-sheet>
     </div>
 </div>

@@ -25,6 +25,43 @@
             "cookieConsent": {
                 "thisAppUsesCookies": "This webapp uses technical cookies.",
                 "informationButton": "Information"
+            },
+            "login": {
+                "emailLabel": "Email address",
+                "wrongEmailOrPassword": "Wrone email address or password.",
+                "recoverPasswordLink": "Recover password",
+                "goToRegisterLink": "Not registered yet? Create a new account",
+                "rememberMeButton": "Remember me"
+            },
+            "register": {
+                "fields": {
+                    "firstName": "First name",
+                    "lastName": "Last name",
+                    "email": "Email address",
+                    "acceptPrivacyContract": "I accept the privacy contract"
+                },
+                "errors": {
+                    "insertFirstName": "Insert your first name.",
+                    "insertLastName": "Insert your last name.",
+                    "insertEmail": "Insert your email  address.",
+                    "invalidEmail": "Invalid email address.",
+                    "emailAlreadyInUse": "Email address already in use"
+                },
+                "goToLoginLink": "Already registered? Login here",
+                "emailSent": {
+                    "title": "Almost done!",
+                    "description": "We've just sent an email with the activation link. Click it to enable your account!"
+                }
+            },
+            "recoverPassword": {
+                "emailAddress": "Email address",
+                "recoverButton": "Recover",
+                "goToLoginLink": "Did you remember the password? Login here",
+                "accountNotFound": "Email address not found in our database.",
+                "emailSent": {
+                    "title": "Check your inbox",
+                    "description": "We've just sent you an email with a link to reset your password."
+                }
             }
         },
         "tryNow": {
@@ -44,6 +81,12 @@
                 "customize": "Add or create custom products with your images",
                 "moreLists": "Manage more lists to get more organized"
             }
+        },
+        "confirmEmail": {
+            "verifying": "Verifying ...",
+            "verified": "E-email verified!",
+            "loginSuggestion": "Now you can login into your account",
+            "error": "There has been an error while verifying your email address."
         }
     },
     "core": {
@@ -53,6 +96,21 @@
         "navbar": {
             "login": "Login",
             "register": "Register"
+        },
+        "newPassword": {
+            "confirmPasswordLabel": "Confirm password",
+            "errors": {
+                "insertPassword": "Insert a password.",
+                "passwordsDoNotMatch": "Passwords do not match.",
+                "atLeastOneNumber": "Password must contains at least one number.",
+                "atLeastOneSymbol": "Password must contains at least one symbol (#, $, @, !, %, &, *, ?).",
+                "atLeastSixCharacters": "Password must be at least six characters long."
+            }
+        }
+    },
+    "common": {
+        "buttons": {
+            "close": "Close"
         }
     }
 }

@@ -25,6 +25,43 @@
             "cookieConsent": {
                 "thisAppUsesCookies": "Questa webapp utilizza cookie tecnici.",
                 "informationButton": "Informazioni"
+            },
+            "login": {
+                "emailLabel": "Indirizzo Email",
+                "wrongEmailOrPassword": "Indirizzo E-email o password errati.",
+                "recoverPasswordLink": "Recupera password",
+                "goToRegisterLink": "Non sei registrato? Crea un nuovo account",
+                "rememberMeButton": "Ricordami"
+            },
+            "register": {
+                "fields": {
+                    "firstName": "Nome",
+                    "lastName": "Cognome",
+                    "email": "Indirizzo email",
+                    "acceptPrivacyContract": "Accetto la normativa della privacy"
+                },
+                "errors": {
+                    "insertFirstName": "Inserisci il tuo nome.",
+                    "insertLastName": "Inserisci il tuo cognome.",
+                    "insertEmail": "Inserisci il tuo indirizzo email.",
+                    "invalidEmail": "Indirizzo E-email non valido.",
+                    "emailAlreadyInUse": "Indirizzo E-email già in uso."
+                },
+                "goToLoginLink": "Hai già un account? Accedi",
+                "emailSent": {
+                    "title": "Quasi fatto!",
+                    "description": "Ti manca poco per poter utilizzare tutte le funzionalità di questa webapp! Clicca sul link che ti abbiamo appena inviato per email."
+                }
+            },
+            "recoverPassword": {
+                "emailAddress": "Indirizzo email",
+                "recoverButton": "Recupera",
+                "goToLoginLink": "Ti sei ricordato la password? Accedi",
+                "accountNotFound": "L'indirizzo E-email specificato non è nel nostro database.",
+                "emailSent": {
+                    "title": "Controlla la posta in arrivo",
+                    "description": "Ti abbiamo inviato una email con un link per il recupero della password"
+                }
             }
         },
         "tryNow": {
@@ -44,6 +81,12 @@
                 "customize": "Aggiungi o crea prodotti con immagini personalizzate",
                 "moreLists": "Gestisci più list per mantenerti organizzato"
             }
+        },
+        "confirmEmail": {
+            "verifying": "Verifica in corso ...",
+            "verified": "E-email verificata!",
+            "loginSuggestion": "Ora puoi accedere al tuo account",
+            "error": "Si è verificato un errore durante la vericica."
         }
     },
     "core": {
@@ -53,6 +96,21 @@
         "navbar": {
             "login": "Accedi",
             "register": "Registrati"
+        },
+        "newPassword": {
+            "confirmPasswordLabel": "Conferma password",
+            "errors": {
+                "insertPassword": "Inserisci una password.",
+                "passwordsDoNotMatch": "Le password non corrispondono.",
+                "atLeastOneNumber": "La password deve contenere almeno un numero.",
+                "atLeastOneSymbol": "La password deve contenere almeno un carattere speciale (tra #, $, @, !, %, &, *, ?).",
+                "atLeastSixCharacters": "La password deve essere lunga almeno 6 caratteri."
+            }
+        }
+    },
+    "common": {
+        "buttons": {
+            "close": "Chiudi"
         }
     }
 }

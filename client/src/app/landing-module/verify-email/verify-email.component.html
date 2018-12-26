@@ -1,15 +1,17 @@
 <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div *ngIf="verifying">
-        <h3>Stiamo verificando il tuo indirizzo E-email ...</h3>
-    </div>
+    <app-notebook-sheet>
+        <div *ngIf="verifying" class="text-center">
+            <h3>{{ 'landing.confirmEmail.verifying' | translate }}</h3>
+        </div>
 
-    <div *ngIf="verified" class="text-center">
-        <h3>E-email verificata!</h3>
-        <h4>Ora puoi accedere al tuo account</h4>
-        <button [routerLink]="['/home']" [queryParams]="redirectLoginQueryParams" class="action-button big mt-4 button-link" >Accedi</button>
-    </div>
+        <div *ngIf="verified" class="text-center">
+            <h3>{{ 'landing.confirmEmail.verified' | translate }}</h3>
+            <h4>{{ 'landing.confirmEmail.loginSuggestion' | translate }}</h4>
+            <button [routerLink]="['/home']" [queryParams]="redirectLoginQueryParams" class="action-button big mt-4 button-link">{{ 'core.navbar.login' | translate }}</button>
+        </div>
 
-    <div *ngIf="verifyError">
-        <h3>Si è verificato un errore durante la vericica.</h3>
-    </div>
+        <div *ngIf="verifyError"  class="text-center">
+            <h3>{{ 'landing.confirmEmail.error' | translate }}</h3>
+        </div>
+    </app-notebook-sheet>
 </div>
