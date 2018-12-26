@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { ReactiveFormsModule } from "@angular/forms";
 
@@ -17,6 +17,9 @@ import { UserModule } from "./user-module/user.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NotificationsComponent } from './navbar/notifications/notifications.component';
+import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { I18nService } from "./core-module/services/i18n.service";
 
 @NgModule({
     declarations: [
@@ -31,6 +34,13 @@ import { NotificationsComponent } from './navbar/notifications/notifications.com
         ReactiveFormsModule,
         EditorModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (httpClient) => new TranslateHttpLoader(httpClient),
+                deps: [HttpClient]
+            }
+        }),
 
         CoreModule,
         LandingModule,
@@ -46,4 +56,8 @@ import { NotificationsComponent } from './navbar/notifications/notifications.com
     bootstrap: [AppComponent]
 })
 export class AppModule {
+
+    constructor(i18n: I18nService) {
+        i18n.onAppSetup();
+    }
 }

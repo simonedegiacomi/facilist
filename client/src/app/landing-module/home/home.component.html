@@ -2,7 +2,7 @@
     <div class="container big-header-content d-flex align-items-center">
         <div>
             <h1>Facilist</h1>
-            <p class="description mt-3"> D'ora in avanti non ti dimenticherai più niente e la tua vita sarà più semplice. Inserisci, modifica ed elimina gli elementi che devi comprare con un solo click.</p>
+            <p class="description mt-3" [innerHTML]="'landing.home.subtitleDescription' | translate"></p>
             <div>
                 <button class="action-button big" routerLink="/tryNow">Prova ora!</button>
             </div>

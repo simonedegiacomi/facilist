@@ -20,13 +20,15 @@ import { NewUserProductComponent } from './components/user-list/new-user-product
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { NotebookSheetComponent } from './components/notebook-sheet/notebook-sheet.component';
 import { SelectComponent } from './components/select/select.component';
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
+        TranslateModule
     ],
     providers: [
         AuthService,
@@ -61,7 +63,8 @@ import { SelectComponent } from './components/select/select.component';
         UserListComponent,
         CheckboxComponent,
         SelectComponent,
-        NotebookSheetComponent
+        NotebookSheetComponent,
+        TranslateModule
     ]
 })
 export class CoreModule {
