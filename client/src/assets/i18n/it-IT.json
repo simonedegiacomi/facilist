@@ -38,7 +38,10 @@
                     "firstName": "Nome",
                     "lastName": "Cognome",
                     "email": "Indirizzo email",
-                    "acceptPrivacyContract": "Accetto la normativa della privacy"
+                    "acceptPrivacyContract": {
+                        "pre": "Accetto la ",
+                        "post": "normativa della privacy"
+                    }
                 },
                 "errors": {
                     "insertFirstName": "Inserisci il tuo nome.",
@@ -51,6 +54,10 @@
                 "emailSent": {
                     "title": "Quasi fatto!",
                     "description": "Ti manca poco per poter utilizzare tutte le funzionalità di questa webapp! Clicca sul link che ti abbiamo appena inviato per email."
+                },
+                "privacy": {
+                    "title": "Normativa sulla privacy",
+                    "content": "<small> Ultimo aggiornamento: novembre 2018 </small> <blockquote> I siti web collegati a questa pagina hanno scelto di adottare questa politica sulla privacy generica come propria. Ciò significa che accettano di attenersi ai principi esposti di seguito. </blockquote> <h6> Informazioni raccolte dai visitatori </h6> <p> Come in altri siti Web, i file di registro sono memorizzati sul server Web. come l'indirizzo IP del visitatore, il tipo di browser, la pagina di riferimento e l'orario di visita. </p> <p> I cookie possono essere utilizzati per ricordare le preferenze dei visitatori quando interagiscono con il sito web. </p> <p> Dove è richiesta la registrazione, l'e-mail del visitatore e il nome utente verranno memorizzati sul server. </p> <h6> Come vengono utilizzate le informazioni </h6> <p> Le informazioni vengono utilizzate per migliorare l'esperienza di vistor quando si utilizza il sito Web per visualizzare contenuti personalizzati e eventualmente pubblicità. </p> <p> Gli indirizzi e-mail non saranno venduti, affittati o affittati a terzi. </p> <p> E-mail può essere inviata per informarti delle notizie dei nostri servizi o offerte da noi o i nostri affiliati. </p> <h6> Opzioni visitatori </ h6> <p> Se ti sei abbonato a uno dei nostri servizi, puoi annullare l'iscrizione seguendo le istruzioni che sono incluso nella posta elettronica che ricevi. </p> <p> Potresti riuscire a bloccare i cookie tramite le impostazioni del browser, ma questo potrebbe impedirti di accedere a determinate funzionalità del sito web. </p> <h6> Cookie </h6> <p> I cookie sono piccoli file di firma digitale memorizzati dal browser Web che consentono di registrare le proprie preferenze quando si visita il sito Web. Inoltre, possono essere utilizzati per tracciare le visite di ritorno al sito Web. </p> <p> Le società pubblicitarie di terze parti possono anche utilizzare i cookie a scopo di monitoraggio. </p>"
                 }
             },
             "recoverPassword": {

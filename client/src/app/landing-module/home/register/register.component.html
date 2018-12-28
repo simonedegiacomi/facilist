@@ -6,7 +6,8 @@
                 <div class="form-group">
                     <label for="firstNameInput">{{ 'landing.home.register.fields.firstName' | translate }}</label>
                     <input type="text" class="form-control" id="firstNameInput" aria-describedby=""
-                           [placeholder]="'landing.home.register.fields.firstName' | translate" formControlName="firstName">
+                           [placeholder]="'landing.home.register.fields.firstName' | translate"
+                           formControlName="firstName">
 
                     <div *ngIf="shouldShowErrors(firstName)"
                          class="alert alert-danger">
@@ -20,7 +21,8 @@
                 <div class="form-group">
                     <label for="firstNameInput">{{ 'landing.home.register.fields.lastName' | translate }}</label>
                     <input type="text" class="form-control" id="lastNameInput" aria-describedby=""
-                           [placeholder]="'landing.home.register.fields.lastName' | translate" formControlName="lastName">
+                           [placeholder]="'landing.home.register.fields.lastName' | translate"
+                           formControlName="lastName">
 
                     <div *ngIf="shouldShowErrors(lastName)"
                          class="alert alert-danger">
@@ -35,7 +37,8 @@
                 <div class="form-group">
                     <label for="registerEmail">{{ 'landing.home.register.fields.email' | translate }}</label>
                     <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
-                           [placeholder]="'landing.home.register.fields.email' | translate" formControlName="email" required autocomplete="email">
+                           [placeholder]="'landing.home.register.fields.email' | translate" formControlName="email"
+                           required autocomplete="email">
 
                     <div *ngIf="shouldShowErrors(email)" class="alert alert-danger">
                         <div *ngIf="email.errors.required">
@@ -54,15 +57,32 @@
 
                 <app-new-password [passwords]="registerForm.get('passwords')"></app-new-password>
 
-                <div class="form-group">
-                    <app-checkbox [(checked)]="privacy" [label]="'landing.home.register.fields.acceptPrivacyContract' | translate"></app-checkbox>
+                <div class="form-group privacy-policy">
+                    <app-checkbox class="privacy-polity-checkbox" [(checked)]="privacy"
+                                  [label]="'landing.home.register.fields.acceptPrivacyContract.pre' | translate"></app-checkbox>
+
+                    <a class="privacy-policy-trigger" (click)="showPrivacyContract = !showPrivacyContract">
+                        {{ 'landing.home.register.fields.acceptPrivacyContract.post' | translate }}
+                    </a>
+
+                    <!-- Privacy contract -->
+                    <div class="popover top privacy-popover" *ngIf="showPrivacyContract">
+                        <h3 class="popover-title">{{ 'landing.home.register.privacy.title' | translate }}</h3>
+                        <div class="popover-content">
+                            <p [innerHTML]="'landing.home.register.privacy.content' | translate"></p>
+                        </div>
+                    </div>
                 </div>
 
 
                 <div class="modal-footer">
-                    <button type="button" class="action-button back" data-dismiss="modal">{{ 'common.buttons.close' | translate }}</button>
+                    <button type="button" class="action-button back" data-dismiss="modal">{{ 'common.buttons.close' |
+                        translate }}
+                    </button>
                     <button type="submit" class="action-button"
-                            [disabled]="!registerForm.valid || registering || !privacy">{{ 'core.navbar.register' | translate }}</button>
+                            [disabled]="!registerForm.valid || registering || !privacy">{{ 'core.navbar.register' |
+                        translate }}
+                    </button>
                 </div>
             </form>
             <hr>
