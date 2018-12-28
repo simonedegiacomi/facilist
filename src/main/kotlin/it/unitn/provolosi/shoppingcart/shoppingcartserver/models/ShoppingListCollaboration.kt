@@ -43,6 +43,10 @@ data class ShoppingListCollaboration (
         const val ADMIN     = "ADMIN"
 
         const val SHOPPING_LIST_COLLABORATION_UNIQUE_CONSTRAINT = "shopping_list_collaboration_unique_constraint"
+
+        fun isRoleValid (role: String) = role == BASIC ||
+                        role == SOCIAL ||
+                        role == ADMIN
     }
 
     init {

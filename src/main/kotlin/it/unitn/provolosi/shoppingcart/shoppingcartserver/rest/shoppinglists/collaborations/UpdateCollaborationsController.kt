@@ -40,16 +40,22 @@ class UpdateCollaborationsController(
             @PathVariableBelongingShoppingList list: ShoppingList,
             @AppUser user: User,
             @RequestBody @Valid update: List<UpdateCollaborationsDTO>
-    ): ResponseEntity<ShoppingList> = try {
+    ): ResponseEntity<ShoppingList> {
 
-        if (list.canUserEditCollaborations(user)) {
+        if (!areRolesValid(update)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+        }
+
+        try {
+            if (!list.canUserEditCollaborations(user)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+            }
 
             update.forEach { it ->
                 val c = shoppingListCollaborationDAO.findById(it.collaborationId!!)
 
                 if (c.role != it.role) {
-                    c.role = it.role!! // TODO: Verify!
-
+                    c.role = it.role!!
 
                     shoppingListCollaborationDAO.save(c)
 
@@ -58,15 +64,11 @@ class UpdateCollaborationsController(
                 }
             }
 
-            ResponseEntity(list, HttpStatus.OK)
+            return ResponseEntity(list, HttpStatus.OK)
 
-        } else {
-
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        } catch (ex: ShoppingListCollaborationNotFoundException) {
+            return ResponseEntity.notFound().build()
         }
-
-    } catch (ex: ShoppingListCollaborationNotFoundException) {
-        ResponseEntity.notFound().build()
     }
 
     data class UpdateCollaborationsDTO(
@@ -78,14 +80,17 @@ class UpdateCollaborationsController(
             val role: String?
     )
 
+    private fun areRolesValid (update: List<UpdateCollaborationsDTO>) = update.map { it.role!! }
+                    .all { ShoppingListCollaboration.isRoleValid(it) }
+
     private fun sendNotificationToCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList
 
         notificationService.saveAndSend(Notification(
             message = "${inviter.firstName} ha cambiato i tuoi privilegi nella lista \"${list.name}\"",
-            icon    = inviter.photo,
-            target  = collaboration.user,
-            url     = "$websiteUrl/shoppingLists/{$list.id}"
+            icon = inviter.photo,
+            target = collaboration.user,
+            url = "$websiteUrl/shoppingLists/{$list.id}"
         ))
     }
 }
