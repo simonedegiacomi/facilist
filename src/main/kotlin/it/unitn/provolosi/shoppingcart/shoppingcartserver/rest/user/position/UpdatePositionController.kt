@@ -65,6 +65,7 @@ class UpdatePositionController (
                 .map { near -> near.name }
                 .joinToString(separator = ", ")
 
+        // TODO: Should we move also this notification?
         notificationSync.deliver(Notification(
             message = "Non farti scappare l'occasione, passa da $shopNames",
             icon    = "near-you-notification-icon",

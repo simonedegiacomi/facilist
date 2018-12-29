@@ -29,14 +29,13 @@ class SimpleImagesService(
     private fun megaBytesToBytes(MB: Long) = MB * 1024 * 1024
 
     override fun storeImage(inputStream: InputStream): String {
-        val id = UUID.randomUUID().toString()
-        val fileName = getFileName(id)
-        val tempFileName = getTempFileName(fileName)
+        val id              = UUID.randomUUID().toString()
+        val fileName        = getFileName(id)
+        val tempFileName    = getTempFileName(fileName)
 
-        val file = File(uploadsFolderPath, fileName)
-        val tempFile = File(uploadsFolderPath, tempFileName)
+        val file        = File(uploadsFolderPath, fileName)
+        val tempFile    = File(uploadsFolderPath, tempFileName)
 
-        // TODO: Convert image if not png
         tempFile.parentFile.mkdir()
         writeToDisk(inputStream, tempFile)
         if (!isImage(tempFile)) {

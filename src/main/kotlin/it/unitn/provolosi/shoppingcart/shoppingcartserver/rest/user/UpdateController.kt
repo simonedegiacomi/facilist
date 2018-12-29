@@ -1,16 +1,12 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
 
-import badRequest
 import forbidden
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ChangePasswordRequestNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenDAO
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationToken
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.ConfirmNewEmailAddressEmail
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.user.IUserService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.user.WrongCurrentPasswordException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.validation.Password

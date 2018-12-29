@@ -2,12 +2,11 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.ch
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ChatMessageDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChatMessage
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.ShoppingListNotifications
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.ResponseEntity
@@ -23,7 +22,7 @@ import javax.validation.constraints.NotEmpty
 class SendMessageController(
         private val chatMessageDAO: ChatMessageDAO,
         private val syncService: SyncService,
-        private val notificationService: NotificationService
+        private val shoppingListNotifications: ShoppingListNotifications
 ) {
 
     companion object {
@@ -54,7 +53,7 @@ class SendMessageController(
      */
     private fun sendNotificationToCollaboratorsIfNeeded(message: ChatMessage) {
         if (shouldSendNotification(message)) {
-            sendNotificationOfNewMessage(message)
+            shoppingListNotifications.notifyCollaboratorsNewMessage(message)
         }
     }
 
@@ -72,24 +71,4 @@ class SendMessageController(
         val newMessageSentAfter = sentMessage.sentAt.time - olderMessage.sentAt.time
         return newMessageSentAfter > NEW_MESSAGE_THRESHOLD
     }
-
-    /**
-     * Send a notification to the collaborators except the user who sent the message
-     */
-    private fun sendNotificationOfNewMessage(message: ChatMessage) =
-            notificationService.saveAndSend(buildNotification(message))
-
-    private fun buildNotification(message: ChatMessage) = getCollaboratorsExpect(message.shoppingList, message.user)
-            .map { user -> Notification(
-                target  = user,
-                message = buildNotificationMessage(message),
-                icon    = message.shoppingList.icon,
-                url     = "/user/shoppingLists/${message.shoppingList.id}"
-            ) }
-
-    private fun buildNotificationMessage(message: ChatMessage) =
-            "${message.user.firstName} ha inviato un nuovo messaggio nella lista \"${message.shoppingList.name}\""
-
-    private fun getCollaboratorsExpect(list: ShoppingList, user: User) = list.ownerAndCollaborators()
-            .filter { it != user }
 }

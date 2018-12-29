@@ -1,13 +1,16 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.collaborations
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.InviteToJoin
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.AddedToListEmail
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.InvitedToJoinEmail
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.ShoppingListNotifications
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -28,7 +31,7 @@ class AddCollaborationController(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val inviteToJoinDAO: InviteToJoinDAO,
         private val emailService: EmailService,
-        private val notificationService: NotificationService,
+        private val shoppingListNotifications: ShoppingListNotifications,
         private val syncShoppingListService: SyncService,
 
         @Value("\${app.name}")
@@ -84,40 +87,9 @@ class AddCollaborationController(
         ))
 
         syncShoppingListService.newCollaborator(collaboration)
-        sendNotificationToNewCollaborator(inviter, collaboration)
-        sendNotificationToExistingCollaborators(inviter, collaboration)
+        shoppingListNotifications.notifyNewCollaborator(inviter, collaboration)
+        shoppingListNotifications.notifyCollaboratorsNewCollaborator(inviter, collaboration)
         emailService.sendEmail(AddedToListEmail(collaboration, inviter))
-    }
-
-
-    private fun sendNotificationToNewCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
-        val list = collaboration.shoppingList
-
-        notificationService.saveAndSend(Notification(
-            message = "${inviter.firstName} ti ha invitato a collaborare alla lista \"${list.name}\"",
-            icon    = inviter.photo,
-            target  = collaboration.user,
-            url     = "$websiteUrl/shoppingLists/{$list.id}"
-        ))
-    }
-
-    private fun sendNotificationToExistingCollaborators(inviter: User, collaboration: ShoppingListCollaboration) {
-        val list    = collaboration.shoppingList
-        val invited = collaboration.user
-
-        val notifications = list
-                .ownerAndCollaborators()
-                .filter { u -> u != inviter && u != invited }
-                .map { u ->
-                    Notification(
-                        message = "${inviter.firstName} ha invitato ${invited.firstName} a collaborare alla lista \"${list.name}\"",
-                        target  = u,
-                        icon    = inviter.photo,
-                        url     = "$websiteUrl/shoppingLists/{$list.id}"
-                    )
-                }
-
-        notificationService.saveAndSend(notifications)
     }
 
 

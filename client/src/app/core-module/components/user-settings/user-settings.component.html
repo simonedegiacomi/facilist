@@ -66,7 +66,7 @@
                 <!-- Current password -->
                 <div class="form-group col-12">
                     <label for="currentPassword">{{ 'core.profile.password.currentPassword' | translate }}</label>
-                    <input type="password" class="form-control" id="currentPassword"
+                    <input type="password" class="form-control" id="currentPassword" formControlName="currentPassword"
                            [placeholder]="'core.profile.password.currentPassword' | translate">
 
                     <div *ngIf="changePasswordError"

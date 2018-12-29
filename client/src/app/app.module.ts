@@ -17,7 +17,7 @@ import { UserModule } from "./user-module/user.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NotificationsComponent } from './navbar/notifications/notifications.component';
-import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { I18nService } from "./core-module/services/i18n.service";
 

@@ -1,17 +1,19 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.collaborations
 
+import badRequest
+import forbidden
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.NotificationService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.ShoppingListNotifications
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import notFound
+import ok
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -26,7 +28,7 @@ import javax.validation.constraints.NotNull
 @RequestMapping("/api/shoppingLists/{shoppingListId}/collaborations")
 class UpdateCollaborationsController(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
-        private val notificationService: NotificationService,
+        private val shoppingListNotifications: ShoppingListNotifications,
         private val syncShoppingListService: SyncService,
 
 
@@ -43,12 +45,12 @@ class UpdateCollaborationsController(
     ): ResponseEntity<ShoppingList> {
 
         if (!areRolesValid(update)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+            return badRequest()
         }
 
         try {
             if (!list.canUserEditCollaborations(user)) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+                return forbidden()
             }
 
             update.forEach { it ->
@@ -60,14 +62,14 @@ class UpdateCollaborationsController(
                     shoppingListCollaborationDAO.save(c)
 
                     syncShoppingListService.collaborationEdited(c)
-                    sendNotificationToCollaborator(user, c)
+                    shoppingListNotifications.notifyCollaboratorRoleChanged(user, c)
                 }
             }
 
-            return ResponseEntity(list, HttpStatus.OK)
+            return ok(list)
 
         } catch (ex: ShoppingListCollaborationNotFoundException) {
-            return ResponseEntity.notFound().build()
+            return notFound()
         }
     }
 
@@ -83,14 +85,4 @@ class UpdateCollaborationsController(
     private fun areRolesValid (update: List<UpdateCollaborationsDTO>) = update.map { it.role!! }
                     .all { ShoppingListCollaboration.isRoleValid(it) }
 
-    private fun sendNotificationToCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
-        val list = collaboration.shoppingList
-
-        notificationService.saveAndSend(Notification(
-            message = "${inviter.firstName} ha cambiato i tuoi privilegi nella lista \"${list.name}\"",
-            icon = inviter.photo,
-            target = collaboration.user,
-            url = "$websiteUrl/shoppingLists/{$list.id}"
-        ))
-    }
 }

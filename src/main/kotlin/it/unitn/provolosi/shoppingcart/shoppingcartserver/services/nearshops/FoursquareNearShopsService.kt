@@ -32,9 +32,13 @@ class FoursquareNearShopsService(
                     "limit=3"
         )
 
-        // TODO: Handle errors
-        return ObjectMapper().readTree(url)["response"]["venues"]
-                .map { venue -> NearShops(venue["name"].asText()) }
+        val json = ObjectMapper().readTree(url)
+        if (json.hasNonNull("response") && json["response"].hasNonNull("venues")) {
+            return ObjectMapper().readTree(url)["response"]["venues"]
+                    .map { venue -> NearShops(venue["name"].asText()) }
+        } else {
+            return emptyList()
+        }
     }
 
     override fun getCategories(): List<NearShopCategory> {

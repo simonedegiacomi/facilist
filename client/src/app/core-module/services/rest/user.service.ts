@@ -45,7 +45,7 @@ export class UserService extends MyRestService<User> {
 
     changeUserPassword(update: UpdatePassword): Observable<any> {
         return this.httpClient
-            .post(`${this.resourcePath}/me/password`, update)
+            .put(`${this.resourcePath}/me/password`, update)
             .pipe(
                 catchError(res => throwError(res.status == FORBIDDEN ? WRONG_CREDENTIALS : NETWORK_ERROR))
             );
@@ -53,7 +53,7 @@ export class UserService extends MyRestService<User> {
 
     changeUserEmail(email: string): Observable<any> {
         return this.httpClient
-            .post(`${this.resourcePath}/me/email`, email);
+            .put(`${this.resourcePath}/me/email`, email);
     }
 
     verifyNewEmail(email: string, token: string): Observable<any> {
@@ -62,7 +62,7 @@ export class UserService extends MyRestService<User> {
             params: new HttpParams().set('token', token)
         };
 
-        return this.httpClient.post(`${this.resourcePath}/confirmEmailChange/${email}`, {}, options);
+        return this.httpClient.post(`${this.resourcePath}/me/confirmEmailChange/${email}`, {}, options);
     }
 
     updatePosition(position: Position): Observable<any> {

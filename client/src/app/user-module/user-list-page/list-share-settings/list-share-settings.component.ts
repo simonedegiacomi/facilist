@@ -8,35 +8,9 @@ import { Subject } from "rxjs";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { ShoppingListSyncService } from "../../../core-module/services/sync/shopping-list-sync.service";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
+import { removeFromArrayByIdIfPresent, replaceArrayItemByIdIfPresent } from "../../../core-module/utils";
 
 const $ = window['jQuery'];
-
-// TODO: Move utility somewhere else
-function removeFromArrayIfPresent(array, item) {
-    const index = array.indexOf(item);
-
-    if (index >= 0) {
-        array.splice(index, 1);
-    }
-}
-
-// TODO: Move utility somewhere else
-function removeFromArrayByIdIfPresent(array, id) {
-    const index = array.findIndex(c => c.id == id);
-
-    if (index >= 0) {
-        array.splice(index, 1);
-    }
-}
-
-// TODO: Move utility somewhere else
-function replaceArrayItemByIdIfPresent(array, id, newItem) {
-    const index = array.findIndex(c => c.id == id);
-
-    if (index >= 0) {
-        array.splice(index, 1, newItem);
-    }
-}
 
 @Component({
     selector: 'user-list-share-settings',
