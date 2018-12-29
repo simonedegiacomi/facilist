@@ -3,6 +3,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import notFound
+import ok
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -37,11 +39,11 @@ class ConfirmRegistrationController(
                 tokenDAO.delete(token)
                 acceptInvitesForUser(user)
 
-                ResponseEntity.ok().build()
+                ok()
             }
         }
     } catch (ex: VerificationTokenNotFoundException) {
-        ResponseEntity.notFound().build()
+        notFound()
     }
 
 

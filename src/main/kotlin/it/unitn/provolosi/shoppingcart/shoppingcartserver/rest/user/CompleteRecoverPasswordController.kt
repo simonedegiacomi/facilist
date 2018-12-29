@@ -3,6 +3,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.user.IUserService
+
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.validation.Password
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,7 +19,8 @@ import javax.validation.constraints.NotEmpty
 @RequestMapping("/api/users")
 class CompleteRecoverPasswordController(
         private val userDAO: UserDAO,
-        private val tokenDAO: VerificationTokenDAO
+        private val tokenDAO: VerificationTokenDAO,
+        private val userService: IUserService
 ) {
 
     @PostMapping("/completeRecoverPassword")
@@ -31,7 +34,7 @@ class CompleteRecoverPasswordController(
 
         val user = token.user
         if (user.email == recover.email) {
-            user.password = BCryptPasswordEncoder().encode(recover.newPassword) // TODO: Refactor
+            user.password = userService.hashPassword(recover.newPassword)
 
             userDAO.save(user)
             tokenDAO.delete(token)

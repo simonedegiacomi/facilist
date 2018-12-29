@@ -7,6 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationToken
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.ConfirmAccountEmail
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.user.IUserService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.validation.Password
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,8 +25,11 @@ import javax.validation.constraints.NotEmpty
 class RegistrationController (
         val userDAO: UserDAO,
         val tokenDAO: VerificationTokenDAO,
-        val emailService: EmailService
+        val emailService: EmailService,
+        val userService: IUserService
 ) {
+
+    // TODO: Move code to user service
 
     @PostMapping("/register")
     fun registerUser(

@@ -4,7 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordR
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.ResourceEmail
 import org.springframework.web.util.UriComponentsBuilder
 
-class ConfigNewEmailAddressEmail(
+class ConfirmNewEmailAddressEmail(
         private val request: ChangePasswordRequest
 ):ResourceEmail() {
 
@@ -20,8 +20,8 @@ class ConfigNewEmailAddressEmail(
     )
 
     private fun generateConfirmationLink() = UriComponentsBuilder
-            .fromHttpUrl("$websiteUrl/verifyEmail/{email}")
+            .fromHttpUrl("$websiteUrl/verifyNewEmail/{email}")
             .queryParam("token", request.token.token)
-            .buildAndExpand(mapOf("email" to request.token.user.email))
+            .buildAndExpand(mapOf("email" to request.newEmail))
             .toUriString()
 }

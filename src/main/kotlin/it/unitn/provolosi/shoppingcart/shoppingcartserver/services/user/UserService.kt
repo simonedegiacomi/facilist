@@ -6,7 +6,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordR
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationToken
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.ConfigNewEmailAddressEmail
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.ConfirmNewEmailAddressEmail
 import org.springframework.context.annotation.Bean
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -26,7 +26,7 @@ class UserService(
             user: User,
             currentPassword: String,
             newPassword: String
-    ) = if (passwordEncoder().matches(currentPassword, user.password)) {
+    ) = if (passwordMatchesHash(currentPassword, user.password)) {
         user.password = passwordEncoder().encode(newPassword)
         userDAO.save(user)
     } else {
@@ -40,7 +40,7 @@ class UserService(
             newEmail    = email
         ))
 
-        emailService.sendEmail(ConfigNewEmailAddressEmail(request))
+        emailService.sendEmail(ConfirmNewEmailAddressEmail(request))
 
         return request
     }
