@@ -43,13 +43,13 @@
 
 
                 <!-- Buttons -->
-                <div class="buttons mt-2">
-                    <button [disabled]="!isUserTheCreator" class="col-4 action-button link-cta danger"
+                <div class="modal-footer mt-2 buttons">
+                    <button *ngIf="isUserTheCreator" class="col-4 action-button link-cta danger"
                             (click)="onDeleteList()">
                         {{ 'user.listPage.options.deleteButton' | translate }}
                     </button>
 
-                    <button type="submit" class="col-4 action-button link-cta primary"
+                    <button *ngIf="canUserUpdateListInfo" type="submit" class="col-4 action-button link-cta primary"
                             [disabled]="!form.valid || isSaving"
                             (click)="onSave()">
                         {{ 'common.buttons.save' | translate }}

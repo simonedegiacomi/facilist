@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ShoppingList } from "../../../core-module/models/shopping-list";
+import {
+    CollaborationsRoles,
+    ShoppingList,
+    ShoppingListCollaboration
+} from "../../../core-module/models/shopping-list";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { ShoppingListService } from "../../../core-module/services/rest/shopping-list.service";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
@@ -16,7 +20,7 @@ export class ListOptionsComponent  {
     buttons: NotebookSheetButton[] = [{
         title: 'chiudi',
         iconClass: 'close-icon',
-        onClick: () => $('#listOptionsModal').modal('hide')
+        onClick: () => this.closeModal()
     }];
 
 
@@ -27,8 +31,7 @@ export class ListOptionsComponent  {
     constructor(
         private listService: ShoppingListService,
         private authService: AuthService
-    ) {
-    }
+    ) { }
 
     onDeleteList () {
         this.closeModal();
@@ -55,5 +58,15 @@ export class ListOptionsComponent  {
         $('#confirmDeleteListModal').modal('show');
     }
 
-    get isUserTheCreator () { return this.authService.user.id == this.list.creator.id }
+    get userId(): number { return this.authService.user.id; }
+
+    get isUserTheCreator(): boolean { return this.userId == this.list.creator.id }
+
+    get userCollaboration(): ShoppingListCollaboration {
+        return this.list.collaborations.find(c => c.user.id == this.userId);
+    }
+
+    get canUserUpdateListInfo(): boolean {
+        return this.isUserTheCreator || this.userCollaboration.role === CollaborationsRoles.ADMIN;
+    }
 }
