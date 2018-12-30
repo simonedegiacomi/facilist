@@ -77,6 +77,7 @@ export class UserSettingsComponent implements OnInit {
             () => {
                 this.isSaving = false;
                 this.changePasswordForm.reset();
+                $('#userSettingsModal').modal('hide');
             },
             error => this.onChangePasswordError(error)
         );
