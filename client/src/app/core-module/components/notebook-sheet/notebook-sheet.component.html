@@ -11,7 +11,7 @@
         </div>
 
         <div class="notebook-sheet-buttons">
-            <button *ngFor="let button of buttons" type="button" [ngClass]="button.iconClass" [title]="button.title"
+            <button *ngFor="let button of visibleButtons" type="button" [ngClass]="button.iconClass" [title]="button.title"
                     (click)="button.onClick()"></button>
         </div>
     </div>

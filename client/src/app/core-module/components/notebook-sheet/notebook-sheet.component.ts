@@ -4,6 +4,7 @@ export interface NotebookSheetButton {
     iconClass: string;
     title: string;
     onClick: Function;
+    shouldBeVisible?: Function;
 }
 
 @Component({
@@ -11,7 +12,7 @@ export interface NotebookSheetButton {
     templateUrl: './notebook-sheet.component.html',
     styleUrls: ['./notebook-sheet.component.css']
 })
-export class NotebookSheetComponent implements OnInit {
+export class NotebookSheetComponent {
 
     @Input()
     buttons: NotebookSheetButton[] = [];
@@ -24,14 +25,18 @@ export class NotebookSheetComponent implements OnInit {
     @Output()
     headerIconChange = new EventEmitter<string>();
 
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
-
-    onImageChanged (imageId: string) {
+    onImageChanged(imageId: string) {
         this.headerIconChange.emit(imageId);
+    }
+
+    get visibleButtons(): NotebookSheetButton[] {
+        return this.buttons.filter(button => {
+            if (button.shouldBeVisible != null) {
+                return button.shouldBeVisible();
+            }
+
+            return true;
+        });
     }
 
 }

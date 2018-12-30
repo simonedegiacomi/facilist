@@ -27,7 +27,8 @@ export class UserListComponent implements OnInit {
     },  {
         title: 'Apri chat',
         iconClass: 'message-icon',
-        onClick: () => this.openChat.emit()
+        onClick: () => this.openChat.emit(),
+        shouldBeVisible: () => this.list.collaborations.length >= 1
     }, {
         title: 'Chiudi',
         iconClass: 'close-icon',
