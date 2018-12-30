@@ -140,4 +140,6 @@ export class UserListComponent implements OnInit {
         this.customProductName = name;
         $('#newUserProductModal').modal('show');
     }
+
+    get listHasProducts(): boolean { return this.list.products.length > 0; }
 }

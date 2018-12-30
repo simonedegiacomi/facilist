@@ -1,23 +1,31 @@
 <div class="modal fade new-list" id="newListModal" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
         <app-notebook-sheet [title]="'user.lists.newList.title' | translate" [buttons]="buttons">
             <form class="new-list-form row" (submit)="onCreate()" #form="ngForm">
 
-                <div class="col-2 col-sm-4">
+                <!-- New list icon -->
+                <div class="col-3 col-sm-2">
                     <app-show-change-image [(image)]="newListIcon"></app-show-change-image>
                 </div>
 
-                <div class="col-10 col-sm-8">
+                <div class="col-9 col-sm-10">
                     <div class="row">
-                        <div class="col-12">
+                        <!-- Name -->
+                        <div class="col-12 col-sm-3">
+                            <label>{{ 'common.fields.name' | translate}}</label>
+                        </div>
+                        <div class="col-12 col-sm-9">
                             <div class="form-group">
                                 <input type="text" class="form-control" [placeholder]="'user.lists.newList.namePlaceholder' | translate"
                                        [(ngModel)]="newList.name" required name="newListName">
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <!-- Category -->
+                        <div class="col-12 col-sm-3">
+                            <label>{{ 'common.fields.category' | translate}}</label>
+                        </div>
+                        <div class="col-12 col-sm-9">
                             <app-select [values]="categories$ | async"
                                         [(selected)]="newList.category"
                             [placeholder]="'user.lists.newList.categoryPlaceholder' | translate"></app-select>
@@ -25,12 +33,16 @@
                     </div>
                 </div>
 
-
+                <!-- Description -->
+                <div class="col-12">
+                    <label>{{ 'common.fields.description' | translate}}</label>
+                </div>
                 <div class="col-12">
                     <textarea class="form-control col-12 mb-3" name="newListDescription"
                               [(ngModel)]="newList.description" [placeholder]="'user.lists.newList.descriptionPlaceholder' | translate"></textarea>
                 </div>
 
+                <!-- Create button -->
                 <div class="col-12 text-right">
                     <button type="submit" class="action-button"
                             [disabled]="!form.valid || newList.category == null|| isSaving">{{ 'common.buttons.create' | translate}}</button>

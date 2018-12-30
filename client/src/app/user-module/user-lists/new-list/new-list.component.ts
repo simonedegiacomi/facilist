@@ -19,7 +19,7 @@ export class NewListComponent implements OnInit {
     buttons: NotebookSheetButton[] = [{
         title: 'chiudi',
         iconClass: 'close-icon',
-        onClick: () => $('#newListModal').modal('hide')
+        onClick: () => this.closeModal()
     }];
 
 
@@ -67,12 +67,16 @@ export class NewListComponent implements OnInit {
         this.newList.icon = this.newListIcon;
         this.listService.create(this.newList).subscribe(l => {
             this.isSaving = false;
-            $('#newListModal').modal('hide');
+            this.closeModal();
 
             this.newListCreated.emit(this.newList);
 
             this.newList = new ShoppingList();
         });
+    }
+
+    private closeModal () {
+        $('#newListModal').modal('hide')
     }
 
 }

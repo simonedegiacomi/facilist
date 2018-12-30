@@ -109,6 +109,9 @@
                 "namePlaceholder": "Nome lista",
                 "categoryPlaceholder": "Categoria ...",
                 "descriptionPlaceholder": "Descrizione"
+            },
+            "createFirstList": {
+                "text": "Crea la tua prima lista usando il pulsante qui sotto!"
             }
         },
         "listPage": {
@@ -228,6 +231,11 @@
                 "loading": "Caricamento in corso ...",
                 "noResults": "Nessun risultato",
                 "addButton": "Aggiungi"
+            },
+            "addFirstITemText": "Aggiungi prodotti alla lista usando la barra di ricerca qui sopra!",
+            "newProduct": {
+                "title": "Crea prodotto",
+                "note": "Stai creando un nuovo prodotto personalizzato. Se questa lista è condivisa o verrà condivisa in futuro, tutti i collaboratori saranno in grado di vedere questo prodotto. Tutta via, solo tu sarai in grado di aggiungerlo in altre liste al di fuori di questa."
             }
         },
         "pagination": {
@@ -247,7 +255,8 @@
         "fields": {
             "name": "Nome",
             "description": "Descrizione",
-            "category": "Categoria"
+            "category": "Categoria",
+            "categoryPlaceholder": "Categoria ..."
         }
     }
 }

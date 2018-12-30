@@ -4,11 +4,13 @@
         <!-- Create your first list -->
         <div class="row first-list" *ngIf="!hasLists">
             <div class="col-12 text-center first-list-message">
-                <h3>Crea la tua prima lista usando il pulsante qui sotto!</h3>
+                <h3>{{ 'user.lists.createFirstList.text' | translate }}</h3>
             </div>
 
             <div class="col-12 d-flex justify-content-center">
-                <button class="action-button" data-toggle="modal" data-target="#newListModal">Crea</button>
+                <button class="action-button" data-toggle="modal" data-target="#newListModal">
+                    {{ 'common.buttons.create' | translate }}
+                </button>
             </div>
         </div>
 

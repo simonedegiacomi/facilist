@@ -1,51 +1,53 @@
 <div class="modal fade" id="newUserProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content notebook-sheet">
+        <app-notebook-sheet [title]="'core.list.newProduct.title' | translate" [buttons]="buttons">
+            <form class="row" #form="ngForm">
 
-            <div class="notebook-sheet-header">
-                <h5 class="modal-title">Nuovo oggetto</h5>
-
-                <div class="notebook-sheet-buttons">
-                    <button type="button" class="close-icon" data-dismiss="modal" aria-label="Close"></button>
+                <!-- New product icon -->
+                <div class="col-3 col-sm-2">
+                    <app-show-change-image [(image)]="newProductIcon"></app-show-change-image>
                 </div>
-            </div>
 
-            <div class="notebook-sheet-content">
-                <form  #form="ngForm">
-
+                <div class="col-9 col-sm-10">
                     <div class="row">
-                        <div class="col-2">
-                            <app-show-change-image [(image)]="newProductIcon"></app-show-change-image>
+                        <!-- Name -->
+                        <div class="col-12 col-sm-3">
+                            <label>{{ 'common.fields.name' | translate}}</label>
+                        </div>
+                        <div class="col-12 col-sm-9">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Nome oggetto" [(ngModel)]="customProductName"
+                                       name="newUserProductName" id="newUserProductName" required>
+                            </div>
                         </div>
 
-                        <div class="col-10 row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Nome oggetto" [(ngModel)]="customProductName"
-                                           name="newUserProductName" id="newUserProductName" required>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <select required [(ngModel)]="newProduct.category" name="newUserProductCategory">
-                                    <option *ngFor="let category of categories$ | async" [ngValue]="category">
-                                        {{ category.name }}
-                                    </option>
-                                </select>
-                            </div>
+                        <!-- Category -->
+                        <div class="col-12 col-sm-3">
+                            <label>{{ 'common.fields.category' | translate}}</label>
+                        </div>
+                        <div class="col-12 col-sm-9">
+                            <app-select [values]="categories$ | async"
+                                        [(selected)]="newProduct.category"
+                                        [placeholder]="'common.fields.categoryPlaceholder' | translate"></app-select>
                         </div>
                     </div>
+                </div>
 
-                </form>
+                <div class="col-12 mb-4">
+                    <img src="/assets/img/ic_info.svg" class="info-icon"> <em>
+                    {{ 'core.list.newProduct.note' | translate }}
+                </em>
+                </div>
 
-                <button type="submit" class="col-4 action-button link-cta primary"
-                        [disabled]="!form.valid || isSaving"
-                        (click)="onSave()">
-                    Salva
-                </button>
-            </div>
-
-        </div>
-
+                <!-- Create button -->
+                <div class="col-12 text-right">
+                    <button type="submit" class="col-4 action-button link-cta primary"
+                            [disabled]="!form.valid || newProduct.category == null || isSaving"
+                            (click)="onSave()">
+                        {{ 'common.buttons.create' | translate }}
+                    </button>
+                </div>
+            </form>
+        </app-notebook-sheet>
     </div>
 </div>

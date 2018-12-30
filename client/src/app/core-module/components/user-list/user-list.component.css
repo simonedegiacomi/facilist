@@ -10,3 +10,12 @@
     min-height: 350px;
 }
 
+.add-first-product img.add-first-product-arrow {
+    width: 4em;
+    transform: rotate(90deg);
+    margin: 2em 0;
+}
+
+.add-first-product div.add-first-product-text {
+    margin-bottom: 3em;
+}

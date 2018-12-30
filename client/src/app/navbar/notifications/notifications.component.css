@@ -31,6 +31,8 @@ div.notifications-box.box-open {
     max-width: 90vw;
 
     color: white;
+
+    overflow-x: hidden;
 }
 
 .notifications-icon {

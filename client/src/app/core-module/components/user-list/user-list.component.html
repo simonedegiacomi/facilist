@@ -3,7 +3,19 @@
     <user-list-search [list]="list" (addProduct)="onAddProduct($event)"
                       (createProduct)="onCreateProduct($event)" [allowNewProducts]="allowNewProducts"></user-list-search>
 
-    <div class="products container-fluid">
+    <!-- Add first product -->
+    <div *ngIf="!listHasProducts" class="container-fluid add-first-product">
+        <div class="col-12 text-center">
+            <img class="add-first-product-arrow" src="/assets/img/ic_up_arrow.svg">
+        </div>
+
+        <div class="col-12 text-center add-first-product-text">
+            <h3>{{ 'core.list.addFirstITemText' | translate }}</h3>
+        </div>
+    </div>
+
+    <!-- List of products -->
+    <div *ngIf="listHasProducts" class="products container-fluid">
         <user-shopping-list-product *ngFor="let product of list.products" [product]="product">
         </user-shopping-list-product>
     </div>

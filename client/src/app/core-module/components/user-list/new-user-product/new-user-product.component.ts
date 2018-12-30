@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from "../../../models/product";
+import { defaultProductIcon, Product } from "../../../models/product";
 import { ProductCategoryService } from "../../../services/rest/product-category.service";
 import { ProductCategory } from "../../../models/product-category";
 import { Observable } from "rxjs";
@@ -7,6 +7,7 @@ import { ProductService } from "../../../services/rest/product.service";
 import { ShoppingList } from "../../../models/shopping-list";
 import { ShoppingListService } from "../../../services/rest/shopping-list.service";
 import { switchMap } from "rxjs/operators";
+import { NotebookSheetButton } from "../../notebook-sheet/notebook-sheet.component";
 
 const $ = window['jQuery'];
 
@@ -16,6 +17,14 @@ const $ = window['jQuery'];
     styleUrls: ['./new-user-product.component.css']
 })
 export class NewUserProductComponent implements OnInit {
+
+
+    buttons: NotebookSheetButton[] = [{
+        title: 'chiudi',
+        iconClass: 'close-icon',
+        onClick: () => this.closeModal()
+    }];
+
 
     @Input() customProductName: string;
 
@@ -31,8 +40,7 @@ export class NewUserProductComponent implements OnInit {
         private productCategoryService: ProductCategoryService,
         private productService: ProductService,
         private shoppingListService: ShoppingListService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.categories$ = this.productCategoryService.getAll();
@@ -40,12 +48,12 @@ export class NewUserProductComponent implements OnInit {
 
 
     get newProductIcon(): string {
-        if (this.newProduct.icon != null) {
+        if (this.newProduct.icon != defaultProductIcon {
             return this.newProduct.icon;
         } else if (this.newProduct.category != null) {
             return this.newProduct.category.icon;
         } else {
-            return 'default-product-category-icon';
+            return defaultProductIcon;
         }
     }
 
@@ -65,7 +73,11 @@ export class NewUserProductComponent implements OnInit {
         ).subscribe(() => {
             this.newProduct = new Product();
             this.isSaving = false;
-            $('#newUserProductModal').modal('hide');
+            this.closeModal();
         });
+    }
+
+    private closeModal () {
+        $('#newUserProductModal').modal('hide');
     }
 }

@@ -1,6 +1,9 @@
 import { MyRestEntity } from "../services/rest/MyRestService";
 import { ProductCategory } from "./product-category";
 
+export const defaultProductIcon = "default-product-category-icon";
+
+
 export class Product implements MyRestEntity {
 
     id: number = null;
@@ -9,7 +12,7 @@ export class Product implements MyRestEntity {
 
     categoryId: number;
 
-    icon: string = "default-product-category-icon";
+    icon: string = defaultProductIcon;
 
     category: ProductCategory;
 

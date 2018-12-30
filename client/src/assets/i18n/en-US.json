@@ -109,6 +109,9 @@
                 "namePlaceholder": "List name",
                 "categoryPlaceholder": "Category ...",
                 "descriptionPlaceholder": "Description"
+            },
+            "createFirstList": {
+                "text": "Create your first list using the button below!"
             }
         },
         "listPage": {
@@ -228,6 +231,11 @@
                 "loading": "Loading ...",
                 "noResults": "No results",
                 "addButton": "Add"
+            },
+            "addFirstITemText": "Add products to the list using the search bar up here!",
+            "newProduct": {
+                "title": "Create product",
+                "note": "You are creating a new custom product. If this list is shared or will be shared in the future, all collaborators will be able to see this product. However, only you will be able to add it to other lists outside of this."
             }
         },
         "pagination": {
@@ -247,7 +255,8 @@
         "fields": {
             "name": "Name",
             "description": "Description",
-            "category": "Category"
+            "category": "Category",
+            "categoryPlaceholder": "Category ..."
         }
     }
 }
