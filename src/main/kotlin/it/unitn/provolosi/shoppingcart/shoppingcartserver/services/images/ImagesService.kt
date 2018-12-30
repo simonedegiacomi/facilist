@@ -8,8 +8,8 @@ import java.io.InputStream
 interface ImagesService {
 
     /**
-     * Store an photo on the disk from an input stream.
-     * The photo will be saved in a folder and with a nmae base on the entity name and the entity id.
+     * Store an image on the disk from an input stream. The function takes care of choosing a unique file name, which
+     * will be returned.
      *
      * @return The path of the stored file.
      */

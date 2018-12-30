@@ -1,23 +1,23 @@
 name;description;icon
 Quidditch;Materiali per allenamento di Quidditch.;quidditch.png
-Frutta;Contiene prodotti commestibili.;frutta.png
-Verdura;Contiene prodotti commestibili.;verdura.png
+Frutta;Prodotti freschi che si trovano dal fruttivendolo o al sueprmercato;frutta.png
+Verdura;Prodotti freschi da fruttivendolo, supermercato o coltivatore locale;verdura.png
 Panificio;Il panificio è il singolo laboratorio dedicato alla produzione completa del pane, ed alla sua vendita diretta al pubblico.;panificio.png
-Tecnologia;Il termine tecnologia è una parola composta derivante dal greco tékhne-logìa, cioè letteralmente 'trattato sistematico su un'arte'. Nell'Etica nicomachea Aristotele distinse due forme di azione, prâxis e téchnē: mentre la prima ha il proprio scopo in se stessa, la seconda è sempre al servizio di altro, come un mezzo. In questo senso la 'tecnica' (termine usato spesso come sinonimo), non era diversa ne dall'arte, ne dalla scienza, ne da qualsiasi procedimento o operazione atto a raggiungere un effetto qualsiasi, e il suo campo si estendeva su tutte le attività umane.;tecnologia.png
+Tecnologia;Il termine tecnologia è una parola composta derivante dal greco tͩkhne-log, cioè letteralmente 'trattato sistematico su un'arte'. Nell'Etica nicomachea Aristotele distinse due forme di azione, pr͢xis e tͩchn: mentre la prima ha il proprio scopo in se stessa, la seconda è sempre al servizio di altro, come un mezzo. In questo senso la 'tecnica' (termine usato spesso come sinonimo), non era diversa ne dall'arte, ne dalla scienza, ne da qualsiasi procedimento o operazione atto a raggiungere un effetto qualsiasi, e il suo campo si estendeva su tutte le attività umane.;tecnologia.png
 Domestico;Per casa si intende una qualunque struttura utilizzata da uomini e donne per ripararsi dagli agenti atmosferici. Essa generalmente ospita uno o più nuclei familiari e talvolta anche animali domestici.;domestico.png
 Bagno;Una moderna sala da bagno La stanza da bagno o semplicemente bagno o anche toilette è un locale adibito alla sede di apparecchi igienici, diffuso in gran parte del mondo.;bagno.png
-Carne;La carne è molto buona.;carne.png
+Carne;Carne è il termine usato comunemente per intendere le parti commestibili degli animali omeotermi, e può comprendere perciò anche gli organi interni;carne.png
 Condimenti;Ketchup, uno dei condimenti più diffusi Vari condimenti al mercato di Sangha, Mali 1992 Un condimento è una sostanza utilizzata in cucina per insaporire i generi alimentari o i preparati culinari, come le salse.;condimenti.png
 Salute;Un medico ausculta il cuore di un paziente di tre anni con uno stetoscopio. Con il termine salute si intende una condizione di elevato benessere psicofisico e sociale. Viene spesso indicata come il contrario dello stato di malattia.;salute.png
 Abbigliamento;Ciascun articolo d'abbigliamento ha un significato culturale e sociale. In esso si condensano alcune funzioni tramandate o evolutesi nel tempo: quella pratica legata alla vestibilità, quella estetica legata al gusto dell'epoca e a canoni specifici delle diverse comunità, quella simbolica grazie alla quale l'abito può definire l'appartenenza ad una particolare comunità e nello specifico identificare lo status sociale, civile e religioso.;abbigliamento.png
 Bevanda;Una bevanda è un liquido adatto al consumo umano. Anche se la bevanda per eccellenza è sicuramente l'acqua, elemento indispensabile per la vita più del cibo, il termine molto spesso si riferisce per antonomasia alle bevande non alcoliche, fredde o calde, e a quelle alcoliche.;bevanda.png
 Regalo;Per regalo si intende il passaggio di proprietà di un bene da un soggetto ad un altro senza una compensazione diretta che deriverebbe dallo scambio commerciale con un altro bene o servizio dotato di valore economicamente valutabile;regalo.png
-Film;;
-A;una bella descrizione;
-c;una bella descrizione;
-d;una bella descrizione;
-e;una bella descrizione;
-f;una bella descrizione;
-g;una bella descrizione;
-h;una bella descrizione;
-i;una bella descrizione;
+Utensili;Strumenti da lavoro per sistemare la casa o per progetti DIY;tools.png
+Legno;Oggetti in legno per realizzare progetti o per abbellire la casa;wood.png
+Chodi & viti;Oggetti essenziali per assemblare pezzi in metallo e in legno;screws.png
+Frutta secca;Frutta secca da sgranocchiare dopo il pranzo o nel tempo libero;dried-fruits.png
+Creme di frutta;Creme, zuppe e minestroni basati su verdure fresche;jam.png
+Creme di verdura;Creme dolci come marmellate e vari tipi di miele;soup.png
+Sostegni;Supporti per mobili e altri oggetti della casa e di uso comune;bracket.png
+Materiali;Assi in legno e altri materiali primari per realizzare progetti;beam.png
+Film;Biglietti del cinema, abbonamenti e supporti multimediali per guardare un film in compagnia;video-camera.png

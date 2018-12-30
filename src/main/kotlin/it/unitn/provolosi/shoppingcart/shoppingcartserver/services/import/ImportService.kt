@@ -67,7 +67,7 @@ class ImportService(
 
         val photoFileName = it["photo"]
         if (photoFileName.isNotEmpty()) {
-            user.photo = importImageIfExists("user-photos", photoFileName)
+            user.photo = importImage("user-photos", photoFileName)
         }
 
         userDAO.save(user)
@@ -83,7 +83,7 @@ class ImportService(
 
         val iconFileName = it["icon"]
         if (iconFileName.isNotEmpty()) {
-            category.icon = importImageIfExists("product-category-icons", iconFileName)
+            category.icon = importImage("product-category-icons", iconFileName)
         }
 
         productCategoryDAO.save(category)
@@ -100,7 +100,7 @@ class ImportService(
 
         val iconFileName = it["icon"]
         if (iconFileName.isNotEmpty()) {
-            product.icon = importImageIfExists("product-icons", iconFileName)
+            product.icon = importImage("product-icons", iconFileName)
         }
 
         productDAO.save(product)
@@ -120,8 +120,9 @@ class ImportService(
         )
 
         val iconFileName = it["icon"]
+        println(iconFileName)
         if (iconFileName.isNotEmpty()) {
-            category.icon = importImageIfExists("shopping-list-category-icons", iconFileName)
+            category.icon = importImage("shopping-list-category-icons", iconFileName)
         }
 
         shoppingListCategoryDAO.save(category)
@@ -171,7 +172,7 @@ class ImportService(
 
         val iconFileName = it["icon"]
         if (iconFileName.isNotEmpty()) {
-            shoppingList.icon = importImageIfExists("shopping-list-icons", iconFileName)
+            shoppingList.icon = importImage("shopping-list-icons", iconFileName)
         }
 
         shoppingListsByName[shoppingList.name] = shoppingList
@@ -224,7 +225,7 @@ class ImportService(
             .parse(InputStreamReader(ImportService::class.java.getResourceAsStream(name)))
 
 
-    private fun importImageIfExists(folder: String, name: String) = imagesService.storeImage(
+    private fun importImage(folder: String, name: String) = imagesService.storeImage(
         ImportService::class.java.getResourceAsStream("/import/images/$folder/$name")
     )
 
