@@ -120,7 +120,6 @@ class ImportService(
         )
 
         val iconFileName = it["icon"]
-        println(iconFileName)
         if (iconFileName.isNotEmpty()) {
             category.icon = importImage("shopping-list-category-icons", iconFileName)
         }

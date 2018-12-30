@@ -13,6 +13,6 @@ class UploadImageController (
         private val images: ImagesService
 ) {
 
-    @PostMapping(consumes = [MediaType.IMAGE_PNG_VALUE])
+    @PostMapping(consumes = [MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE])
     fun uploadImage(fromClient: InputStream) = images.storeImage(fromClient)
 }
