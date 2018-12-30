@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService, EMAIL_NOT_REGISTERED } from "../../../core-module/services/auth.service";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
@@ -10,7 +10,7 @@ const $ = window['jQuery'];
     templateUrl: './recover-password.component.html',
     styleUrls: ['./recover-password.component.css']
 })
-export class RecoverPasswordComponent implements OnInit {
+export class RecoverPasswordComponent {
 
     buttons: NotebookSheetButton[] = [{
         title: 'chiudi',
@@ -30,11 +30,7 @@ export class RecoverPasswordComponent implements OnInit {
 
     constructor(
         private auth: AuthService
-    ) {
-    }
-
-    ngOnInit() {
-    }
+    ) { }
 
     get email () { return this.recoverPasswordForm.get('email'); }
 

@@ -12,7 +12,7 @@ import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { Roles, User } from "../models/user";
 import { catchError, tap } from "rxjs/operators";
 import { NETWORK_ERROR } from "./network-errors.service";
-import { BAD_REQUEST, FORBIDDEN } from "http-status-codes";
+import { BAD_REQUEST, FORBIDDEN, NOT_FOUND } from "http-status-codes";
 import { Router } from "@angular/router";
 
 export const USER_NOT_LOGGED_IN   = "userNotLoggedIn";
@@ -106,7 +106,7 @@ export class AuthService {
 
     recoverPassword(email: string): Observable<any> {
         return this.httpClient.post(`/api/users/${email}/recoverPassword`, null).pipe(
-            catchError(res => throwError(res.status == BAD_REQUEST ? EMAIL_NOT_REGISTERED : NETWORK_ERROR)),
+            catchError(res => throwError(res.status == NOT_FOUND ? EMAIL_NOT_REGISTERED : NETWORK_ERROR)),
         );
     }
 
