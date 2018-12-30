@@ -3,7 +3,7 @@
 
         <div class="row">
             <app-show-change-image class="mt-3 ml-1 mr-3" *ngIf="headerIcon" [image]="headerIcon"
-                                   (imageChange)="onImageChanged($event)"></app-show-change-image>
+                                   (imageChange)="onImageChanged($event)" [editable]="headerIconEditable"></app-show-change-image>
 
             <h5 class="modal-title">
                 {{ title }}

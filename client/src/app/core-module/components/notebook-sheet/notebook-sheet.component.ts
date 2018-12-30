@@ -25,6 +25,9 @@ export class NotebookSheetComponent {
     @Output()
     headerIconChange = new EventEmitter<string>();
 
+    @Input()
+    headerIconEditable: boolean = true;
+
     onImageChanged(imageId: string) {
         this.headerIconChange.emit(imageId);
     }
