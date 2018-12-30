@@ -13,5 +13,5 @@ export class ShoppingListCategory implements MyRestEntity {
 
     productCategories: ProductCategory[];
 
-    foursquareCategoryIds: string[];
+    foursquareCategoryIds: string[] = [];
 }

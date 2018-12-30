@@ -21,12 +21,17 @@ div.select-category .list-group-item img {
         padding: 0;
         margin-right: 15px;
         margin-left: 15px;
+        margin-bottom: .5em;
+
+        overflow-y: hidden;
 
         max-width: calc(100% - 30px);
     }
 
     div.select-category .list-group-item {
-        height: 7rem;
+        min-height: 6rem;
+        min-width: 9rem;
+        height: 100%;
     }
 
     div.select-category .list-group-item img {

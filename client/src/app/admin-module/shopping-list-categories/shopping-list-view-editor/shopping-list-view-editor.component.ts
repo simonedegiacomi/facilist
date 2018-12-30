@@ -71,7 +71,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
         this.category                     = category;
         this.includedProductCategories    = [];
-        this.includedForesquareCategories = [];
+        this.includedForesquareCategories = this.category.foursquareCategoryIds;
         this.nameError                    = false;
 
         if (category.id == null) {
@@ -88,7 +88,6 @@ export class ShoppingListViewEditorComponent implements OnInit {
             this.originalName                 = this.category.name;
             this.originalDescription          = this.category.description;
             this.includedProductCategories    = this.category.productCategories;
-            this.includedForesquareCategories = this.category.foursquareCategoryIds;
         }
     }
 
