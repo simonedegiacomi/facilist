@@ -48,7 +48,7 @@ export class NewUserProductComponent implements OnInit {
 
 
     get newProductIcon(): string {
-        if (this.newProduct.icon != defaultProductIcon {
+        if (this.newProduct.icon != defaultProductIcon) {
             return this.newProduct.icon;
         } else if (this.newProduct.category != null) {
             return this.newProduct.category.icon;

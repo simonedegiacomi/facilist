@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ProductCategoryService } from "../../core-module/services/rest/product-category.service";
+import {
+    ProductCategoryService,
+    ProductCategoryWithProductsCount
+} from "../../core-module/services/rest/product-category.service";
 import { ProductCategory } from "../../core-module/models/product-category";
 import { Product } from "../../core-module/models/product";
 import { ProductService } from "../../core-module/services/rest/product.service";
@@ -15,7 +18,7 @@ import { PaginationComponent } from "../../core-module/components/pagination/pag
 })
 export class ProductsComponent implements OnInit {
 
-    categories: ProductCategory[];
+    categories: ProductCategoryWithProductsCount[];
     selectedCategory: ProductCategory;
 
     productsPage: PagedResult<Product>;
@@ -41,7 +44,7 @@ export class ProductsComponent implements OnInit {
     }
 
     private fetchCategories () {
-        this.categoryService.getAll().subscribe(categories => this.categories = categories);
+        this.categoryService.getAllWithProductsCount().subscribe(categories => this.categories = categories);
     }
 
     private fetchAllProducts () {

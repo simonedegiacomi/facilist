@@ -16,7 +16,10 @@
                 <img class="mb-3 mr-lg-3" [src]="category.icon | image" alt="Icona della categoria">
                 <div class="">
                     <h5 class="">{{ category.name }}</h5>
-                    <span class="d-none d-lg-block"><strong>6</strong> prodotti</span>
+                    <span class="d-none d-lg-block">
+                        <strong>{{ category.productsCount }}</strong>
+                        {{ 'common.fields.products' | translate }}
+                    </span>
                 </div>
             </div>
 

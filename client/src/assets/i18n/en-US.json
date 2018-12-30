@@ -256,7 +256,8 @@
             "name": "Name",
             "description": "Description",
             "category": "Category",
-            "categoryPlaceholder": "Category ..."
+            "categoryPlaceholder": "Category ...",
+            "products": "products"
         }
     }
 }

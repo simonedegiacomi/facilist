@@ -18,21 +18,24 @@ interface InternalSpringJPAProductCategory : JpaRepository<ProductCategory, Long
     @Query("SELECT COUNT(pc) > 0 from ProductCategory pc where pc.name = :name")
     fun existsWithName(name: String): Boolean
 
-    fun findAllByOrderByNameAsc (page: Pageable): Page<ProductCategory>
+    fun findAllByOrderByNameAsc(page: Pageable): Page<ProductCategory>
 
-    fun findAllByOrderByNameAsc (): List<ProductCategory>
+    fun findAllByOrderByNameAsc(): List<ProductCategory>
 
     fun findByNameContainingIgnoreCaseOrderByNameAsc(name: String, pageable: Pageable): Page<ProductCategory>
+
+    @Query("SELECT pc, COUNT(p) FROM ProductCategory pc JOIN Product p ON p.category.id = pc.id GROUP BY pc.id")
+    fun findAllWithProductsCountByOrderByNameAsc(): List<Array<Any>>
 }
 
 @Component
-class SpringJPAProductCategory (
+class SpringJPAProductCategory(
 
         @Autowired
         private val springRepository: InternalSpringJPAProductCategory
 ) : ProductCategoryDAO {
 
-    override fun save(category: ProductCategory) = try{
+    override fun save(category: ProductCategory) = try {
         springRepository.save(category)
 
     } catch (ex: DataIntegrityViolationException) {
@@ -47,6 +50,10 @@ class SpringJPAProductCategory (
 
     override fun findAllByOrderByNameAsc() = springRepository.findAllByOrderByNameAsc()
 
+    override fun findAllWithProductsCountByOrderByNameAsc(): List<Pair<ProductCategory, Long>> =
+            springRepository.findAllWithProductsCountByOrderByNameAsc()
+                    .map { row -> Pair(row[0] as ProductCategory, row[1] as Long) }
+
     override fun findAllByOrderByNameAsc(page: Pageable) = springRepository.findAllByOrderByNameAsc(page)
 
     override fun findById(id: Long) = springRepository.findById(id).orElseThrow { ProductCategoryNotFoundException() }!!
@@ -54,7 +61,7 @@ class SpringJPAProductCategory (
 
     override fun deleteById(id: Long) = try {
         springRepository.deleteById(id)
-    } catch (ex: EmptyResultDataAccessException){
+    } catch (ex: EmptyResultDataAccessException) {
         throw ProductCategoryNotFoundException()
     }
 

@@ -15,6 +15,8 @@ interface ProductCategoryDAO {
 
     fun findAllByOrderByNameAsc(): List<ProductCategory>
 
+    fun findAllWithProductsCountByOrderByNameAsc(): List<Pair<ProductCategory, Long>>
+
     fun findAllByOrderByNameAsc(page: Pageable): Page<ProductCategory>
 
     fun findById(id: Long): ProductCategory

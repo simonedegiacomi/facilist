@@ -35,5 +35,13 @@ export class ProductCategoryService extends MyRestService<ProductCategory> {
         );
     }
 
+    getAllWithProductsCount(): Observable<ProductCategoryWithProductsCount[]> {
+        return this.httpClient.get<ProductCategoryWithProductsCount[]>(this.resourcePath);
+    }
 
+
+}
+
+export class ProductCategoryWithProductsCount extends ProductCategory {
+    productsCount: number;
 }
