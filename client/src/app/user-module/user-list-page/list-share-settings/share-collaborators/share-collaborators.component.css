@@ -44,7 +44,7 @@ input[type=radio].admin:checked + div {
 }
 
 input[type=radio].social + div {
-    background-image: url("../../../../../assets/img/ic_ham_permission_off.svg");
+    background-image: url("../../../../../assets/img/ic_social_permission_off.svg");
 }
 
 input[type=radio].social:checked + div {
@@ -74,4 +74,10 @@ button img {
 
 button.delete {
     cursor: pointer;
+}
+
+
+img.small-icon {
+    width: 3em;
+    height: 3em;
 }

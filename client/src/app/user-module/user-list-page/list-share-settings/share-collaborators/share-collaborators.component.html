@@ -1,12 +1,12 @@
 <!-- Collaborators -->
 <div *ngFor="let collaboration of list.collaborations" class="row notebook-sheet-list-item pb-0 pb-sm-2">
     <!-- Photo -->
-    <div class="col-2 col-sm-1 mb-2 mb-sm-0">
+    <div class="col-2 col-sm-2 mb-2 mb-sm-0">
         <img class="icon small-icon" [src]="collaboration.user.photo | image">
     </div>
 
     <!-- Name -->
-    <div class="col-10 col-sm-6 mb-2 mb-sm-0" [attr.aria-label]="collaboration.user.email">
+    <div class="col-10 col-sm-5 mb-2 mb-sm-0 pl-sm-0" [attr.aria-label]="collaboration.user.email">
         <span>
             <strong>{{ collaboration.user.firstName }}</strong>
         </span>
