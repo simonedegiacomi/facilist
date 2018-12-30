@@ -52,3 +52,11 @@ img.share-flag {
 .enable-geolocation-icon {
     width: 3em;
 }
+
+.first-list div.first-list-message {
+    margin: 3em 0;
+}
+
+.first-list button {
+    margin-bottom: 2em;
+}
