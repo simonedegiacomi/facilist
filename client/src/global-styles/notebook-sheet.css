@@ -9,6 +9,12 @@
     border-bottom: 2px dashed var(--lightDarkened);
 }
 
+hr {
+    width: 100%;
+    border-top: 2px dashed var(--dark);
+}
+
+
 /* BUTTONS ON THE TOP RIGHT CORNER */
 .notebook-sheet-buttons {
     position: absolute;
