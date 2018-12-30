@@ -80,6 +80,7 @@ data class ShoppingList(
 
     override fun toString() = "ShoppingList(id=$id, name='$name')"
 
+    fun getCollaborationOfUser(user: User): ShoppingListCollaboration = collaborations.find { it.user.id == user.id }!!
 
 }
 
