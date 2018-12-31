@@ -147,6 +147,10 @@
                     "question": "Sei sicuro di voler eliminare definitivamente la lista",
                     "cancelButton": "Mantieni"
                 }
+            },
+            "chat":{
+                "loadingPreviousMessages": "Sto caricando i messaggi più vecchi ...",
+                "writeMessagePlaceholder": "Digita il tuo messaggio..."
             }
         }
     },

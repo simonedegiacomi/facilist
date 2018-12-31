@@ -79,12 +79,41 @@ div.smartphone {
 }
 
 .message {
-    padding: .25em;
+    position: relative;
+    border-radius: 1em;
+    padding: 1em;
+    margin: .5em .25em;
     background-color: lightgreen;
+
+    margin-right: 2em;
+}
+
+.message:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    background: lightgreen;
+    border-bottom-right-radius: 15px;
+    bottom: -5px;
+    left: 0;
+}
+
+.message.my-message,
+.message.my-message:before {
+    background-color: lightblue;
 }
 
 .message.my-message {
-    background-color: lightblue;
+    margin-right: .25em;
+    margin-left: 2em;
+}
+
+.message.my-message:before {
+    left: initial;
+    right: 0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: initial;
 }
 
 .new-message {
@@ -95,4 +124,9 @@ div.smartphone {
     border-top: 2px solid var(--lightDarkened);
 
     padding: 0.5em;
+}
+
+div.message-time {
+    font-size: .75em;
+    text-align: end;
 }

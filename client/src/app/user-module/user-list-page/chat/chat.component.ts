@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { ChatService } from "../../../core-module/services/rest/chat.service";
 import { ChatMessage } from "../../../core-module/models/chat-message";
@@ -14,7 +14,7 @@ const $ = window['jQuery'];
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnChanges {
 
     @Input() list: ShoppingList;
     @Input() isOpen = false;
@@ -31,6 +31,8 @@ export class ChatComponent implements OnInit {
 
     loadingPreviousMessages = false;
 
+    private wasAlreadyOpenOnce = false;
+
     @ViewChild('form') form: NgForm;
 
     constructor(
@@ -45,6 +47,14 @@ export class ChatComponent implements OnInit {
         this.listenForNewMessages();
         this.fetchMessages();
     }
+
+    ngOnChanges(): void {
+        if (this.isOpen && !this.wasAlreadyOpenOnce) {
+            this.wasAlreadyOpenOnce = true;
+            this.scrollToBottom();
+        }
+    }
+
 
     private listenForNewMessages () {
         this.chatSync.newMessageOfShoppingList(this.list)
@@ -62,7 +72,7 @@ export class ChatComponent implements OnInit {
 
     private scrollToBottom () {
         setTimeout(() => document.querySelector('.messages')
-            .scrollTo(0, document.querySelector('.smartphone').clientHeight));
+            .scrollTo(0, document.querySelector('.messages').scrollHeight));
     }
 
     onScrollUp () {

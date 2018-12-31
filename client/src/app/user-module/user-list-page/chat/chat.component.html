@@ -12,11 +12,12 @@
              [scrollWindow]="false"
         >
 
-            <div *ngIf="loadingPreviousMessages">Sto caricando i messaggi più vecchi ...</div>
+            <div *ngIf="loadingPreviousMessages">{{ 'user.listPage.chat.loadingPreviousMessages' | translate }}</div>
 
             <div *ngFor="let message of messages" class="message" [class.my-message]="user.id == message.user.id">
-                <strong>{{ message.user.firstName }}</strong>
-                {{ message.message }}
+                <strong>{{ message.user.firstName }}</strong><br>
+                {{ message.message }}<br>
+                <div class="message-time"><em>{{ message.sentAt |  date:'medium' }}</em></div>
             </div>
 
         </div>
@@ -26,7 +27,7 @@
                 <textarea class="new-message" name="message"
                           [(ngModel)]="newMessage" required
                           (keydown)="onKeyDown($event)"
-                          placeholder="Digita il tuo messaggio..."></textarea>
+                          [placeholder]="'user.listPage.chat.writeMessagePlaceholder' | translate"></textarea>
             </form>
         </div>
     </div>

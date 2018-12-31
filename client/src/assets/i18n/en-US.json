@@ -133,6 +133,10 @@
                         "social": "Manage products and collaborations",
                         "ham": "Manage products"
                     }
+                },
+                "chat":{
+                    "loadingPreviousMessages": "Loading older messages ...",
+                    "writeMessagePlaceholder": "Write here your message ..."
                 }
             },
             "options": {
@@ -257,7 +261,7 @@
             "description": "Description",
             "category": "Category",
             "categoryPlaceholder": "Category ...",
-            "products": "products"
+            "products": "products",
         }
     }
 }
