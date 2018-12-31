@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { ProductService } from "../../../services/rest/product.service";
 import { Product } from "../../../models/product";
 import { ShoppingList } from "../../../models/shopping-list";
+import { AuthService } from "../../../services/auth.service";
 
 @Component({
     selector: 'user-list-search',
@@ -31,9 +32,9 @@ export class SearchComponent implements OnInit {
     emptyResults = false;
 
     constructor(
-        private productService: ProductService
-    ) {
-    }
+        private productService: ProductService,
+        private authService: AuthService
+    ) { }
 
     ngOnInit() {
         this.setupSearch();
@@ -45,7 +46,9 @@ export class SearchComponent implements OnInit {
             distinctUntilChanged(),
             switchMap(filter => {
                 this.isLoading = true;
-                return this.productService.searchByNameAndShoppingListCategory(filter, this.list.category)
+                const includeUserProducts = this.authService.user != null;
+                console.log(includeUserProducts)
+                return this.productService.searchByNameAndShoppingListCategory(filter, this.list.category, includeUserProducts)
             })
         ).subscribe(resultPage => this.onGotResults(resultPage.content));
     }

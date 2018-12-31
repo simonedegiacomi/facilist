@@ -36,8 +36,13 @@ export class ProductService extends MyRestService<Product> {
     }
 
 
-    searchByNameAndShoppingListCategory(name: string, category: ShoppingListCategory): Observable<PagedResult<Product>> {
-        const url = `${this.resourcePath}/search?name=${name}&shoppingListCategoryId=${category.id}`;
+    searchByNameAndShoppingListCategory(name: string, category: ShoppingListCategory, includeUserProducts: boolean = false): Observable<PagedResult<Product>> {
+        let url;
+        if (includeUserProducts) {
+            url = `${this.resourcePath}/search?name=${name}&shoppingListCategoryId=${category.id}&includeUserProducts=true`;
+        } else {
+            url = `${this.resourcePath}/search?name=${name}&shoppingListCategoryId=${category.id}`;
+        }
 
         return this.httpClient.get<PagedResult<Product>>(url).pipe(
             map(result => PagedResult.wrapFromResponse(result, this, url))
