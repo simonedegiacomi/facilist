@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateTask
 import org.springframework.beans.factory.annotation.Value
@@ -12,13 +13,20 @@ class ShoppingListNotifications(
         @Value("\${websiteUrl}")
         private val websiteUrl: String
 ) {
-    // TODO: Move the code to generate the notifications here
+
+    private val translationMapsByLocale = listOf("it-IT", "en-US")
+            .map{ it to ObjectMapper().readTree(ShoppingListNotifications::class.java.getResource("/i18n/$it.json")) }
+            .toMap()
+
+    private fun getTranslationMap (user: User) = translationMapsByLocale[user.locale]!!["notifications"]!!
+
+    private fun translate(user: User, messageKey: String) = getTranslationMap(user)[messageKey].asText()
 
     fun notifyCollaboratorsListDeleted(user: User, list: ShoppingList) = notificationService.saveAndSend(
         list.ownerAndCollaboratorsExcept(user)
                 .map { u ->
                     Notification(
-                        message = "${user.firstName} ha eliminato la lista \"${list.name}\"",
+                        message = "${user.firstName} ${translate(u, "hasDeletedTheList")} \"${list.name}\"",
                         target  = u,
                         icon    = user.photo,
                         url     = websiteUrl
@@ -31,7 +39,7 @@ class ShoppingListNotifications(
         list.ownerAndCollaboratorsExcept(user)
                 .map { u ->
                     Notification(
-                        message = "${user.firstName} ha modificato la lista \"${list.name}\"",
+                        message = "${user.firstName} ${translate(u, "hasUpdatedTheList")} \"${list.name}\"",
                         target  = u,
                         icon    = user.photo,
                         url     = "$websiteUrl/shoppingLists/${list.id}"
@@ -44,10 +52,10 @@ class ShoppingListNotifications(
      */
     fun notifyCollaboratorsNewMessage(message: ChatMessage) = notificationService.saveAndSend(
         message.shoppingList.ownerAndCollaboratorsExcept(message.user)
-                .map { user ->
+                .map { u ->
                     Notification(
-                        target  = user,
-                        message = "${message.user.firstName} ha inviato un nuovo messaggio nella lista \"${message.shoppingList.name}\"",
+                        target  = u,
+                        message = "${message.user.firstName} ${translate(u, "hasSentANewMessage")} \"${message.shoppingList.name}\"",
                         icon    = message.shoppingList.icon,
                         url     = "/user/shoppingLists/${message.shoppingList.id}"
                     )
@@ -59,7 +67,7 @@ class ShoppingListNotifications(
         val list = collaboration.shoppingList
 
         notificationService.saveAndSend(Notification(
-            message = "${inviter.firstName} ti ha invitato a collaborare alla lista \"${list.name}\"",
+            message = "${inviter.firstName} ${translate(collaboration.user, "hasInvitedYouToCollaborate")} \"${list.name}\"",
             icon    = inviter.photo,
             target  = collaboration.user,
             url     = "$websiteUrl/shoppingLists/{$list.id}"
@@ -76,7 +84,7 @@ class ShoppingListNotifications(
                 .filter { u -> u != inviter && u != invited }
                 .map { u ->
                     Notification(
-                        message = "${inviter.firstName} ha invitato ${invited.firstName} a collaborare alla lista \"${list.name}\"",
+                        message = "${inviter.firstName} ${translate(u, "hasInvited")} ${invited.firstName} ${translate(u, "toCollaborateToTheList")} \"${list.name}\"",
                         target  = u,
                         icon    = inviter.photo,
                         url     = "$websiteUrl/shoppingLists/{$list.id}"
@@ -91,7 +99,7 @@ class ShoppingListNotifications(
         val list = collaboration.shoppingList
 
         notificationService.saveAndSend(Notification(
-            message = "${user.firstName} ti ha rimosso dai collaboratori di ${list.name}",
+            message = "${user.firstName} ${translate(collaboration.user, "hasRemovedYouFromTheCollaborators")} ${list.name}",
             icon    = user.photo,
             target  = collaboration.user,
             url     = "$websiteUrl/shoppingLists/{$list.id}"
@@ -107,7 +115,7 @@ class ShoppingListNotifications(
                 .filter { u -> u != user && u != removed }
                 .map { u ->
                     Notification(
-                        message = "${user.firstName} ha rimosso ${removed.firstName} dai collaboratoridella lista \"${list.name}\"",
+                        message = "${user.firstName} ${translate(u, "hasRemoved")} ${removed.firstName} dai collaboratoridella lista \"${list.name}\"",
                         target  = u,
                         icon    = user.photo,
                         url     = "$websiteUrl/shoppingLists/{$list.id}"
@@ -121,7 +129,7 @@ class ShoppingListNotifications(
         val list = collaboration.shoppingList
 
         notificationService.saveAndSend(Notification(
-            message = "${inviter.firstName} ha cambiato i tuoi privilegi nella lista \"${list.name}\"",
+            message = "${inviter.firstName} ${translate(collaboration.user, "hasChangedYourRole")} \"${list.name}\"",
             icon = inviter.photo,
             target = collaboration.user,
             url = "$websiteUrl/shoppingLists/{$list.id}"
@@ -134,7 +142,7 @@ class ShoppingListNotifications(
                 .map { user ->
                     Notification(
                         target = user,
-                        message = buildMessageOfListProductsUpdatedNotification(group),
+                        message = buildMessageOfListProductsUpdatedNotification(user, group),
                         icon = group.shoppingList.icon,
                         url = "/user/shoppingLists/${group.shoppingList.id}"
                     )
@@ -158,7 +166,7 @@ class ShoppingListNotifications(
         return collaborators
     }
 
-    private fun buildMessageOfListProductsUpdatedNotification(group: ShoppingListProductUpdatesGroup): String {
+    private fun buildMessageOfListProductsUpdatedNotification(target: User, group: ShoppingListProductUpdatesGroup): String {
         val users = group.users
                 .asSequence()
                 .map { user -> user.firstName }
@@ -171,8 +179,8 @@ class ShoppingListNotifications(
                 .joinToString(separator = ", ")
 
         var message = users
-        message += if (group.users.size == 1) " ha" else " hanno"
-        message += " modificato $products"
+        message += " " + (if (group.users.size == 1) translate(target, "has") else translate(target, "theyHave"))
+        message += " ${translate(target, "edited")} $products"
         if (products.length < group.updatedProducts.size) {
             message += " ..."
         }

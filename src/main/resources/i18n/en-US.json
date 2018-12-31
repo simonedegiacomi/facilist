@@ -1,0 +1,16 @@
+{
+  "notifications": {
+    "hasDeletedTheList": "deleted the list",
+    "hasUpdatedTheList": "updated the list",
+    "hasSentANewMessage": "sent a new message in the list",
+    "hasInvitedYouToCollaborate": "invited you to collaborate in the list",
+    "hasInvited": "invited",
+    "toCollaborateToTheList": "to collaborate in  the list",
+    "hasRemovedYouFromTheCollaborators": "removed you from the collaborators of",
+    "hasRemoved": "removed",
+    "hasChangedYourRole": "changed your role in the list",
+    "has": "has",
+    "theyHave": "have",
+    "edited": "edited"
+  }
+}
