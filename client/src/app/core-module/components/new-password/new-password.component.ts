@@ -31,7 +31,7 @@ const MIN_PASSWORD_LENGTH = 6;
     templateUrl: './new-password.component.html',
     styleUrls: ['./new-password.component.css']
 })
-export class NewPasswordComponent implements OnInit {
+export class NewPasswordComponent {
 
     @Input() passwords: FormGroup;
 
@@ -50,10 +50,6 @@ export class NewPasswordComponent implements OnInit {
         });
     }
 
-
-    ngOnInit() {
-    }
-
     get password () { return this.passwords.get('password'); }
 
     get passwordConfirm () { return this.passwords.get('passwordConfirm'); }
@@ -62,9 +58,12 @@ export class NewPasswordComponent implements OnInit {
         return field.invalid && (field.dirty || field.touched);
     }
 
-
+    /**
+     * Compute a percentage that aims to tell the user how much a password is strong
+     */
     passwordScore () {
-        let percentage = Math.min(this.password.value.length * 5, 100);
+        const length = this.password.value != null ? this.password.value.length : 0;
+        let percentage = Math.min(length * 5, 100);
 
 
         if (this.password.invalid) {

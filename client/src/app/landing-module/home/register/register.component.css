@@ -30,3 +30,7 @@ div.popover-content {
     overflow-y: scroll;
     max-height: 40vh;
 }
+
+div.alert-danger {
+    margin-top: .5em;
+}

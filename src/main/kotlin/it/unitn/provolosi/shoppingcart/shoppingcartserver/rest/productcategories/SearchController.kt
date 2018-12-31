@@ -18,7 +18,7 @@ class SearchController(
         private val productCategoryDAO: ProductCategoryDAO
 ) {
 
-    @GetMapping("/byName")
+    @GetMapping()
     fun searchByName(
             @RequestParam(name = "name", defaultValue = "") name: String,
             @RequestParam(name = "page", defaultValue = "0") page: Int,

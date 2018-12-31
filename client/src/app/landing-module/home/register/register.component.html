@@ -3,14 +3,16 @@
     <div class="modal-dialog" role="document">
         <app-notebook-sheet [title]="'core.navbar.register' | translate" [buttons]="buttons">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                <!-- First name -->
                 <div class="form-group">
                     <label for="firstNameInput">{{ 'landing.home.register.fields.firstName' | translate }}</label>
                     <input type="text" class="form-control" id="firstNameInput" aria-describedby=""
                            [placeholder]="'landing.home.register.fields.firstName' | translate"
                            formControlName="firstName">
 
-                    <div *ngIf="shouldShowErrors(firstName)"
-                         class="alert alert-danger">
+                    <!-- Error -->
+                    <div *ngIf="shouldShowErrors(firstName)" class="alert alert-danger">
 
                         <div *ngIf="firstName.errors.required">
                             {{ 'landing.home.register.errors.insertFirstName' | translate}}
@@ -18,14 +20,15 @@
                     </div>
                 </div>
 
+                <!-- Last name -->
                 <div class="form-group">
                     <label for="firstNameInput">{{ 'landing.home.register.fields.lastName' | translate }}</label>
                     <input type="text" class="form-control" id="lastNameInput" aria-describedby=""
                            [placeholder]="'landing.home.register.fields.lastName' | translate"
                            formControlName="lastName">
 
-                    <div *ngIf="shouldShowErrors(lastName)"
-                         class="alert alert-danger">
+                    <!-- Error -->
+                    <div *ngIf="shouldShowErrors(lastName)" class="alert alert-danger">
 
                         <div *ngIf="lastName.errors.required">
                             {{ 'landing.home.register.errors.insertLastName' | translate }}

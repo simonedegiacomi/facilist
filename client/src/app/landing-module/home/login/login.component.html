@@ -19,18 +19,20 @@
                            autocomplete="current-password">
                 </div>
 
+                <!-- Remember me -->
                 <div class="form-group col-12">
                     <app-checkbox [(checked)]="rememberMe"
                                   [label]="'landing.home.login.rememberMeButton' | translate"></app-checkbox>
                 </div>
 
+                <!-- Wrong email error -->
                 <div class="col-12">
                     <div class="alert alert-warning" *ngIf="loginError">
                         {{ 'landing.home.login.wrongEmailOrPassword' | translate }}
                     </div>
                 </div>
 
-
+                <!-- Login and cancel buttons -->
                 <div class="col-12 modal-footer pt-0">
                     <button type="button" class="action-button back"
                             data-dismiss="modal">{{ 'common.buttons.close' | translate }}</button>
@@ -39,6 +41,8 @@
                 </div>
             </form>
             <hr>
+
+            <!-- Register and recover password button -->
             <div class="text-center">
                 <a href="#" class="link-cta dark" data-dismiss="modal" data-toggle="modal"
                    data-target="#recoverPasswordModal">{{ 'landing.home.login.recoverPasswordLink' | translate }}</a><br>
