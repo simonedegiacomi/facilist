@@ -95,5 +95,5 @@ export class UserListsComponent implements OnInit, OnDestroy {
         this.subscriptions = [];
     }
 
-    get hasLists (): boolean { return this.lists.length > 0 }
+    get hasLists (): boolean { return this.lists != null && this.lists.length > 0 }
 }
