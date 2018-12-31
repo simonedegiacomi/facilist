@@ -134,7 +134,7 @@
                         "ham": "Manage products"
                     }
                 },
-                "chat":{
+                "chat": {
                     "loadingPreviousMessages": "Loading older messages ...",
                     "writeMessagePlaceholder": "Write here your message ..."
                 }
@@ -261,7 +261,7 @@
             "description": "Description",
             "category": "Category",
             "categoryPlaceholder": "Category ...",
-            "products": "products",
+            "products": "products"
         }
     }
 }
