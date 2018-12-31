@@ -16,16 +16,16 @@
     <mj-section background-color="#fff">
       <mj-column>
         <mj-text align="center" font-family="Lobster">
-          <h2>Iscriviti a $applicationName!</h3>
+          <h2>{{ registerTo }} {{ applicationName }}!</h3>
         </mj-text>
 
         <mj-text align="center" font-family="Lato">
-          <p>Cosa aspetti? I tuoi amici ti stanno aspettando!</p>
+          <p>{{ whatAreYouWaitingFor }}</p>
           <br></br>
-          <p>{{ inviterName }} ti ha invitato a collaborare alla lista <strong>{{ listName }}.</strong></p>
+          <p>{{ inviterName }} {{ hasInvitedYouToCollaborate }} <strong>{{ listName }}.</strong></p>
         </mj-text>
 
-        <mj-button mj-class="button-cta" href="{{ link }}">Semplifica la tua spesa</mj-button>
+        <mj-button mj-class="button-cta" href="{{ link }}">{{ simplifyYourShopping }}</mj-button>
       </mj-column>
     </mj-section>
 

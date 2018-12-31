@@ -12,5 +12,38 @@
     "has": "has",
     "theyHave": "have",
     "edited": "edited"
+  },
+  "emails": {
+    "added-to-list": {
+      "hasInvitedYouToCollaborate": "invited you to collaborate in the list",
+      "openTheList": "Open the list",
+      "youHaveBeenAddedToTheList": "You've been added to the list"
+    },
+    "confirm-account": {
+      "welcome": "Welcome",
+      "thankYou": "Thank you for registering!",
+      "clickToVerifyYourEmail": "Click on the button below to verify your E-mail address!",
+      "confirm": "Verify",
+      "confirmYourAccount": "Confirm your account"
+    },
+    "confirm-new-email-address": {
+      "confirm": "Confirm",
+      "clickToVerifyNewEmail": "Click on the link below to confirm your new email address:",
+      "confirmYourAddress": "Confirm your new address"
+    },
+    "invited-to-list": {
+      "registerTo": "Register to",
+      "yourFriendsAreWaitingForYou": "Your friends are waiting for you!",
+      "whatAreYouWaitingFor": "What are you waiting for? Your friends are waiting for you!",
+      "hasInvitedYouToCollaborate": "has invited you to collaborate on the list",
+      "simplifyYourShopping": "Simplify your shopping"
+    },
+    "recover-password": {
+      "clickToResetPassword": "Click on the link below to reset your password:",
+      "recoverYourPassword": "Recover password",
+      "weReceivedAPasswordResetRequest": "We have received a request to recover your account password.",
+      "clickHereToSetANewOne": "Click on the link below to set a new one:",
+      "passwordForgotten": "Password forgotten"
+    }
   }
 }

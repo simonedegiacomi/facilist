@@ -9,11 +9,13 @@ class AddedToListEmail(
         inviter: User
 ) : ResourceEmail() {
 
-    override val emailTemplateName = "added-to-list/added-to-list"
+    override val subjectToCompile = "$applicationName - {{ youHaveBeenAddedToTheList }} ${collaboration.shoppingList.name}"
+
+    override val emailName = "added-to-list"
 
     override val to = collaboration.user.email
 
-    override val subject = "$applicationName - Sei stato aggiunto alla lista ${collaboration.shoppingList.name}"
+    override val locale = collaboration.user.locale
 
     override val data = mapOf(
         "applicationName"   to applicationName,

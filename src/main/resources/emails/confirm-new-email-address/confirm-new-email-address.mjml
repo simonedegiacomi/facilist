@@ -16,10 +16,10 @@
     <mj-section background-color="#fff">
       <mj-column>
         <mj-text align="center" font-family="Lato">
-          <p>Clicca sul link qui sotto per confermare il tuo nuovo indirizzo email:</p>
+          <p>{{ clickToVerifyNewEmail }}</p>
         </mj-text>
 
-        <mj-button mj-class="button-cta" href="{{ link }}">Conferma</mj-button>
+        <mj-button mj-class="button-cta" href="{{ link }}">{{ confirm }}</mj-button>
       </mj-column>
     </mj-section>
 

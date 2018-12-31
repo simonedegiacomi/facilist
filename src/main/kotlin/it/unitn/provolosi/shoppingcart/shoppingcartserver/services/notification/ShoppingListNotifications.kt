@@ -1,7 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.i18n.TranslationUtils
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateTask
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -14,13 +14,8 @@ class ShoppingListNotifications(
         private val websiteUrl: String
 ) {
 
-    private val translationMapsByLocale = listOf("it-IT", "en-US")
-            .map{ it to ObjectMapper().readTree(ShoppingListNotifications::class.java.getResource("/i18n/$it.json")) }
-            .toMap()
-
-    private fun getTranslationMap (user: User) = translationMapsByLocale[user.locale]!!["notifications"]!!
-
-    private fun translate(user: User, messageKey: String) = getTranslationMap(user)[messageKey].asText()
+    private fun translate(user: User, messageKey: String) = TranslationUtils
+            .getNotificationsTranslationMap(user.locale)[messageKey]
 
     fun notifyCollaboratorsListDeleted(user: User, list: ShoppingList) = notificationService.saveAndSend(
         list.ownerAndCollaboratorsExcept(user)

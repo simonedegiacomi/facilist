@@ -8,11 +8,13 @@ class RecoverPasswordEmail(
         private val token: VerificationToken
 ) : ResourceEmail() {
 
-    override val emailTemplateName = "recover-password/recover-password"
+    override val emailName = "recover-password"
 
     override val to = token.user.email
 
-    override val subject = "$applicationName - Password dimenticata"
+    override val locale = token.user.locale
+
+    override val subjectToCompile = "$applicationName - {{ passwordForgotten }}"
 
     override val data: Map<String, String> = mapOf(
         "applicationName"   to applicationName,

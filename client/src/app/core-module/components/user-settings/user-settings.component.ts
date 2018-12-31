@@ -19,14 +19,13 @@ export class UserSettingsComponent implements OnInit {
     buttons: NotebookSheetButton[] = [{
         iconClass: 'close-icon',
         title: 'Chiudi',
-        onClick: () => $('#userSettingsModal').modal('hide')
+        onClick: () => this.closeModal()
     }];
 
     changeEmailForm: FormGroup;
     changePasswordForm: FormGroup;
 
     changePasswordError = false;
-    emailRequestSent    = false;
 
     user: User;
 
@@ -54,7 +53,7 @@ export class UserSettingsComponent implements OnInit {
         this.user = this.authService.user;
     }
 
-    get userPhoto () {
+    get userPhoto() {
         return this.user.photo;
     }
 
@@ -77,7 +76,7 @@ export class UserSettingsComponent implements OnInit {
             () => {
                 this.isSaving = false;
                 this.changePasswordForm.reset();
-                $('#userSettingsModal').modal('hide');
+                this.closeModal();
             },
             error => this.onChangePasswordError(error)
         );
@@ -95,16 +94,21 @@ export class UserSettingsComponent implements OnInit {
 
         this.userService.changeUserEmail(this.changeEmailForm.value.email)
             .subscribe(() => {
-                this.isSaving         = false;
-                this.emailRequestSent = true;
+                this.isSaving = false;
+                this.changeEmailForm.reset();
+                this.closeModal();
             });
     }
 
-    get currentLocale () {
+    private closeModal() {
+        $('#userSettingsModal').modal('hide');
+    }
+
+    get currentLocale() {
         return this.i18n.getCurrentLocale();
     }
 
-    set currentLocale (locale: string) {
+    set currentLocale(locale: string) {
         this.isSaving = true;
 
         this.user.locale = locale;

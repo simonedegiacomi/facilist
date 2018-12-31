@@ -8,9 +8,14 @@ class InvitedToJoinEmail(
 ) : ResourceEmail() {
     override val to = invite.email
 
-    override val subject = "Iscriviti a $applicationName, i tuoi amici ti stanno aspettando!"
+    override val subjectToCompile = "{{ registerTo }} $applicationName, {{ yourFriendsAreWaitingForYou }}"
 
-    override val emailTemplateName = "invited-to-list/invited-to-list"
+    override val emailName = "invited-to-list"
+
+    /**
+     * We expect that the friend invited speaks the same language as the inviter
+     */
+    override val locale = invite.inviter.locale
 
     override val data = mapOf(
         "applicationName"   to applicationName,

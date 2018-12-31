@@ -12,5 +12,38 @@
     "has": "ha",
     "theyHave": "hanno",
     "edited": "modificato"
+  },
+  "emails": {
+    "added-to-list": {
+      "hasInvitedYouToCollaborate": "ti ha invitato a collaborare alla lista",
+      "openTheList": "Apri la lista",
+      "youHaveBeenAddedToTheList": "Sei stato aggiunto alla lista"
+    },
+    "confirm-account": {
+      "welcome": "Benvenuto",
+      "thankYou": "Grazie per esserti registrato al nostro sito!",
+      "clickToVerifyYourEmail": "Clicca sul pulsante qui sotto per verificare il tuo indirizzo E-email!",
+      "confirm": "Verifica",
+      "confirmYourAccount": "Conferma il tuo account"
+    },
+    "confirm-new-email-address": {
+      "confirm": "Conferma",
+      "clickToVerifyNewEmail": "Clicca sul link qui sotto per confermare il tuo nuovo indirizzo email:",
+      "confirmYourAddress": "Conferma nuovo indirizzo"
+    },
+    "invited-to-list": {
+      "registerTo": "Iscriviti a",
+      "yourFriendsAreWaitingForYou": "i tuoi amici ti stanno aspettando!",
+      "whatAreYouWaitingFor": "Cosa aspetti? I tuoi amici ti stanno aspettando!",
+      "hasInvitedYouToCollaborate": "ti ha invitato a collaborare alla lista",
+      "simplifyYourShopping": "Semplifica la tua spesa"
+    },
+    "recover-password": {
+      "clickToResetPassword": "Clicca sul link qui sotto per resettare la tua password:",
+      "recoverYourPassword": "Recupera la password",
+      "weReceivedAPasswordResetRequest": "Abbiamo ricevuto una richiesta di recupero della password del tuo account.",
+      "clickHereToSetANewOne": "Clicca sul link qui sotto per impostarne una nuova:",
+      "passwordForgotten": "Password dimenticata"
+    }
   }
 }

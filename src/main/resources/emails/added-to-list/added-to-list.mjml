@@ -16,14 +16,14 @@
     <mj-section background-color="#fff">
       <mj-column>
         <mj-text align="center" font-family="Lobster">
-          <h2>Sei stato aggiunto alla lista "{{ listName }}"!</h3>
+          <h2>{{ youHaveBeenAddedToTheList }} "{{ listName }}"!</h3>
         </mj-text>
 
         <mj-text align="center" font-family="Lato">
-          <p><strong>{{ inviterName }}</strong> ti ha aggiunto alla lista <strong>{{ listName }}</strong>.</p>
+          <p><strong>{{ inviterName }}</strong> {{ hasInvitedYouToCollaborate }} <strong>{{ listName }}</strong>.</p>
         </mj-text>
 
-        <mj-button mj-class="button-cta" href="{{ link }}">Apri la lista</mj-button>
+        <mj-button mj-class="button-cta" href="{{ link }}">{{ openTheList }}</mj-button>
       </mj-column>
     </mj-section>
 

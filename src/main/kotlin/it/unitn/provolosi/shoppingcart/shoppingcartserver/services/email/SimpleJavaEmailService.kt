@@ -40,7 +40,7 @@ class SimpleJavaEmailService (
                 .startingBlank()
                 .from(sender)
                 .to(email.to)
-                .withSubject(email.subject)
+                .withSubject(email.subject())
                 .withPlainText(email.text())
                 .withHTMLText(email.html())
                 .buildEmail()

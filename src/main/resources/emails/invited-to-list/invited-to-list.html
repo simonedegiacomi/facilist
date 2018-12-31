@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
     <title>
 
@@ -191,7 +191,7 @@
                                     <div
                                             style="font-family:Lobster;font-size:13px;line-height:1;text-align:center;color:#555;"
                                     >
-                                        <h2>Iscriviti a $applicationName!</h3>
+                                        <h2>{{ registerTo }} {{ applicationName }}!</h3>
                                     </div>
 
                                 </td>
@@ -205,9 +205,9 @@
                                     <div
                                             style="font-family:Lato;font-size:13px;line-height:1;text-align:center;color:#555;"
                                     >
-                                        <p>Cosa aspetti? I tuoi amici ti stanno aspettando!</p>
+                                        <p>{{ whatAreYouWaitingFor }}</p>
                                         <br></br>
-                                        <p>{{ inviterName }} ti ha invitato a collaborare alla lista <strong>{{ listName }}.</strong></p>
+                                        <p>{{ inviterName }} {{ hasInvitedYouToCollaborate }} <strong>{{ listName }}.</strong></p>
                                     </div>
 
                                 </td>
@@ -228,7 +228,7 @@
                                                 <a
                                                         href="{{ link }}" style="background:#295C99;color:#ffffff;font-family:Lobster;font-size:13px;font-style:italic;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank"
                                                 >
-                                                    Semplifica la tua spesa
+                                                    {{ simplifyYourShopping }}
                                                 </a>
                                             </td>
                                         </tr>

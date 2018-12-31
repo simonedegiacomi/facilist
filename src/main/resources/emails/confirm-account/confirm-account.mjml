@@ -16,15 +16,15 @@
     <mj-section background-color="#fff">
       <mj-column>
         <mj-text align="center" font-family="Lobster">
-          <h2>Benvenuto {{ firstName }}!</h3>
+          <h2>{{ welcome }} {{ firstName }}!</h3>
         </mj-text>
 
         <mj-text align="center" font-family="Lato">
-          <p>Grazie per esserti registrato al nostro sito!</p>
-          <p>Clicca sul pulsante qui sotto per verificare il tuo indirizzo E-email!</p>
+          <p>{{ thankYou }}</p>
+          <p>{{ clickToVerifyYourEmail }}</p>
         </mj-text>
 
-        <mj-button mj-class="button-cta" href="{{ link }}">Conferma</mj-button>
+        <mj-button mj-class="button-cta" href="{{ link }}">{{ confirm }}</mj-button>
       </mj-column>
     </mj-section>
 

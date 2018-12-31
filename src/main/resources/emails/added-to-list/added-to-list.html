@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
     <title>
 
@@ -191,7 +191,7 @@
                                     <div
                                             style="font-family:Lobster;font-size:13px;line-height:1;text-align:center;color:#555;"
                                     >
-                                        <h2>Sei stato aggiunto alla lista "{{ listName }}"!</h3>
+                                        <h2>{{ youHaveBeenAddedToTheList }} "{{ listName }}"!</h3>
                                     </div>
 
                                 </td>
@@ -205,7 +205,7 @@
                                     <div
                                             style="font-family:Lato;font-size:13px;line-height:1;text-align:center;color:#555;"
                                     >
-                                        <p><strong>{{ inviterName }}</strong> ti ha aggiunto alla lista <strong>{{ listName }}</strong>.</p>
+                                        <p><strong>{{ inviterName }}</strong> {{ hasInvitedYouToCollaborate }} <strong>{{ listName }}</strong>.</p>
                                     </div>
 
                                 </td>
@@ -226,7 +226,7 @@
                                                 <a
                                                         href="{{ link }}" style="background:#295C99;color:#ffffff;font-family:Lobster;font-size:13px;font-style:italic;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank"
                                                 >
-                                                    Apri la lista
+                                                    {{ openTheList }}
                                                 </a>
                                             </td>
                                         </tr>

@@ -8,11 +8,13 @@ class ConfirmNewEmailAddressEmail(
         private val request: ChangePasswordRequest
 ):ResourceEmail() {
 
-    override val emailTemplateName = "confirm-new-email-address/confirm-new-email-address"
+    override val emailName = "confirm-new-email-address"
 
     override val to = request.newEmail
 
-    override val subject = "$applicationName - Conferma nuovo indirizzo"
+    override val locale = request.token.user.locale
+
+    override val subjectToCompile = "$applicationName - {{ confirmYourAddress }}"
 
     override val data = mapOf(
         "applicationName"   to applicationName,

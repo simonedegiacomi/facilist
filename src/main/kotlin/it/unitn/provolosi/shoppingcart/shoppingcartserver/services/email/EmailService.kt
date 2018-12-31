@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email
 
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.i18n.TranslationUtils
 import java.io.File
 
 interface EmailService {
@@ -17,28 +18,46 @@ abstract class Email {
 
     abstract val to: String
 
-    abstract val subject: String
+    abstract fun subject(): String
 
     abstract fun text(): String
 
     open fun html() = text()
 
-    override fun toString() = "$subject: ${text()}"
+    override fun toString() = "${subject()}: ${text()}"
 }
 
 abstract class ResourceEmail : Email() {
 
-    abstract val emailTemplateName: String
+    abstract val subjectToCompile: String
+
+    abstract val emailName: String
 
     abstract val data: Map<String, String>
+
+    abstract val locale: String
 
     override fun text() = loadAndRender("txt")
 
     override fun html() = loadAndRender("html")
 
-    private fun loadAndRender(extension: String) = loadFile("$emailTemplateName.$extension")
-            .readText()
-            .replace(Regex("\\{\\{ ([a-zA-Z]*) }}")) { match -> data.getOrDefault(match.groupValues[1], "?") }
+    override fun subject () = compileText(subjectToCompile)
+
+    private val dataWithTranslations: Map<String, String>
+        get () {
+            val map = data.toMutableMap()
+            map.putAll(TranslationUtils.getEmailTranslationMap(locale, emailName))
+            return map
+        }
+
+
+    private fun loadAndRender(extension: String) = compileText(
+        loadFile("$emailName/$emailName.$extension").readText()
+    )
+
+
+    private fun compileText(text: String) = text
+            .replace(Regex("\\{\\{ ([a-zA-Z]*) }}")) { dataWithTranslations.getOrDefault(it.groupValues[1], "?") }
 
     private fun loadFile(relativeFileName: String) = File(
         EmailService::class.java.getResource("/emails/$relativeFileName").toURI())

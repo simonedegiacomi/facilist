@@ -8,7 +8,7 @@ class ConfirmAccountEmail (
         private val token: VerificationToken
 ): ResourceEmail() {
 
-    override val emailTemplateName = "confirm-account/confirm-account"
+    override val emailName = "confirm-account"
 
     override val data = mapOf(
             "applicationName"   to applicationName,
@@ -18,7 +18,9 @@ class ConfirmAccountEmail (
 
     override val to = token.user.email
 
-    override val subject = "$applicationName - Conferma il tuo account"
+    override val locale = token.user.locale
+
+    override val subjectToCompile = "$applicationName - {{ confirmYourAccount }}"
 
     private fun generateConfirmationLink() = UriComponentsBuilder
             .fromHttpUrl("$websiteUrl/verifyEmail/{email}")
