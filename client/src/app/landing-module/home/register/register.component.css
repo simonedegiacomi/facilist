@@ -1,3 +1,8 @@
+div.modal {
+    position: fixed;
+    overflow-y: scroll;
+}
+
 div.privacy-policy {
     position: relative;
 }

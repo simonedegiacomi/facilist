@@ -36,7 +36,7 @@ class RegistrationController (
 
 
 
-    @PostMapping("/api/users/verifyEmail/{email}")
+    @PostMapping("/verifyEmail/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun confirmRegistration(
             @PathVariable email: String,

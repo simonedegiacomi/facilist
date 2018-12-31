@@ -1,11 +1,11 @@
 
 div.container.user-page {
     min-width: 100vw;
-    height: calc(100vh - var(--navbarHeight));
-    margin: 0;
+    height: calc(100vh - var(--navbarHeight) - 3.5em);
+    margin: 3.5em 0 0 0;
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
 }
 

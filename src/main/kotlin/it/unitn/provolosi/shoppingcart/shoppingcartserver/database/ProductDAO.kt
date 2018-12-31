@@ -1,6 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.database
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -16,12 +17,17 @@ interface ProductDAO {
 
     fun findById(id: Long): Product
 
-    fun findByNameContainingIgnoreCaseOrderByName(name: String, pageable: Pageable): Page<Product>
+    fun findByNameContainingIgnoreCaseAndCreatedByAdminOrderByName(name: String, pageable: Pageable): Page<Product>
 
-    fun findByNameContainingIgnoreCaseAndCategoryIdOrderByName(name: String, categoryId: Long, pageable: Pageable): Page<Product>
+    fun findByNameContainingIgnoreCaseAndCategoryIdAndCreatedByAdminOrderByName
+                (name: String, categoryId: Long, pageable: Pageable): Page<Product>
 
-    fun findByCategoryIdOrderByName(categoryId: Long, pageable: Pageable): Page<Product>
+    fun findByCategoryIdAndCreatedByAdminOrderByName(categoryId: Long, pageable: Pageable): Page<Product>
 
-    fun findByNameContainingIgnoreCaseAndShoppingListCategoryIdOrderByName(name: String, categoryId: Long, pageable: Pageable): Page<Product>
+    fun findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrderByName
+                (name: String, categoryId: Long, pageable: Pageable): Page<Product>
+
+    fun findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrUserOrderByName
+                (name: String, categoryId: Long, user: User, pageable: Pageable): Page<Product>
 
 }

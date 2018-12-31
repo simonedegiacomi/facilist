@@ -6,7 +6,7 @@
 
     max-width: 32em;
     width: 32em;
-    max-height: calc(85vh - var(--navbarHeight));
+    /*max-height: calc(85vh - var(--navbarHeight));*/
 
     margin: 2em 0;
     padding: 0 1em 1em 1em;
@@ -26,7 +26,7 @@
 
 @media (max-width: 576px) {
     .notebook-sheet {
-        max-width: 90vw;
+        max-width: calc(100vw - 30px); /* 30px = 15px bootstrap container margin * 2 */
     }
 }
 
@@ -42,7 +42,7 @@
 }
 
 .notebook-sheet-content {
-    max-height: calc(80vh - var(--navbarHeight));;
+    /*max-height: calc(80vh - var(--navbarHeight));*/
 }
 
 .notebook-sheet h5 {
