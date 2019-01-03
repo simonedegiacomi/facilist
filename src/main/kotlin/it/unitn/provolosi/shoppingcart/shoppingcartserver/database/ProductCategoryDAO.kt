@@ -11,10 +11,17 @@ interface ProductCategoryDAO {
 
     fun save(category: ProductCategory): ProductCategory
 
+    /**
+     * Checks if a ProductCategory with the specified name exists
+     */
     fun existsWithName(name: String): Boolean
 
     fun findAllByOrderByNameAsc(): List<ProductCategory>
 
+    /**
+     * Return a list of Pair object. The first item in the Pair is the ProductCategory and the second is the number of
+     * Products that belongs to that category.
+     */
     fun findAllWithProductsCountByOrderByNameAsc(): List<Pair<ProductCategory, Long>>
 
     fun findAllByOrderByNameAsc(page: Pageable): Page<ProductCategory>

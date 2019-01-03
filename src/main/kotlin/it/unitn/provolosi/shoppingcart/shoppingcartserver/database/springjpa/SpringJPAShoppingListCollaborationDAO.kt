@@ -4,6 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCollaborationNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserAlreadyCollaboratesWithShoppingListException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration.Companion.SHOPPING_LIST_COLLABORATION_UNIQUE_CONSTRAINT
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.jpa.repository.JpaRepository
@@ -16,16 +17,11 @@ class SpringJPAShoppingListCollaborationDAO(
         private val springRepository: InternalSpringJPAShoppingListCollaborationDAO
 ) : ShoppingListCollaborationDAO {
 
-    override fun save(collaboration: ShoppingListCollaboration) = try {
-        springRepository.save(collaboration)
-
-    } catch (ex: DataIntegrityViolationException) {
-        if (ex.toString().contains(ShoppingListCollaboration.SHOPPING_LIST_COLLABORATION_UNIQUE_CONSTRAINT, true)) {
-            throw UserAlreadyCollaboratesWithShoppingListException()
-        } else {
-            throw ex
-        }
-    }
+    override fun save(collaboration: ShoppingListCollaboration) = runAndMapConstraintFailureTo(
+        SHOPPING_LIST_COLLABORATION_UNIQUE_CONSTRAINT,
+        { UserAlreadyCollaboratesWithShoppingListException() },
+        { springRepository.save(collaboration) }
+    )
 
 
     override fun findById(id: Long) = springRepository.findById(

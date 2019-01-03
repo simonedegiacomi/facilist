@@ -12,6 +12,9 @@ interface ShoppingListDAO {
 
     fun save(shoppingList: ShoppingList): ShoppingList
 
+    /**
+     * Returns a flatten version of the shopping lists of the user
+     */
     fun getShoppingListPreviewsByUser(user: User): List<ShoppingListPreview>
 
     fun findById(id: Long): ShoppingList

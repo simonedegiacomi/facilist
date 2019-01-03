@@ -6,6 +6,7 @@ class ShoppingListCollaborationNotFoundException : Exception()
 class UserAlreadyCollaboratesWithShoppingListException : Exception()
 
 interface ShoppingListCollaborationDAO {
+
     fun save(collaboration: ShoppingListCollaboration): ShoppingListCollaboration
 
     fun findById(id: Long): ShoppingListCollaboration

@@ -5,8 +5,16 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListPro
 import java.util.*
 
 interface ShoppingListProductsUpdateDAO {
+
     fun findByShoppingListOrNull(list: ShoppingList): ShoppingListProductUpdatesGroup?
+
     fun save(update: ShoppingListProductUpdatesGroup): ShoppingListProductUpdatesGroup
+
+    /**
+     * Returns a list of groups of notifications that contains edits happened before the specified date
+     */
     fun findByLastEditAtLessThan(lessThan: Date): List<ShoppingListProductUpdatesGroup>
+
     fun delete(update: ShoppingListProductUpdatesGroup)
+
 }

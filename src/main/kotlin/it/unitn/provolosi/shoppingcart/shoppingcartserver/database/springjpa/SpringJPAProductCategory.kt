@@ -4,6 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCatego
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory.Companion.PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
@@ -35,16 +36,12 @@ class SpringJPAProductCategory(
         private val springRepository: InternalSpringJPAProductCategory
 ) : ProductCategoryDAO {
 
-    override fun save(category: ProductCategory) = try {
-        springRepository.save(category)
+    override fun save(category: ProductCategory) = runAndMapConstraintFailureTo(
+        PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT,
+        { ProductCategoryWithSameNameAlreadyExistsException() },
+        { springRepository.save(category) }
+    )
 
-    } catch (ex: DataIntegrityViolationException) {
-        if (ex.toString().contains(ProductCategory.PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT, true)) {
-            throw ProductCategoryWithSameNameAlreadyExistsException()
-        } else {
-            throw RuntimeException("database error")
-        }
-    }
 
     override fun existsWithName(name: String) = springRepository.existsWithName(name)
 

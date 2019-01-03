@@ -6,6 +6,7 @@ class ShoppingListCategoryNotFoundException : Exception()
 class ShoppingListCategoryWithSameNameAlreadyExistsException : Exception()
 
 interface ShoppingListCategoryDAO {
+
     fun save(category: ShoppingListCategory): ShoppingListCategory
 
     fun findAllByOrderByNameAsc(): List<ShoppingListCategory>

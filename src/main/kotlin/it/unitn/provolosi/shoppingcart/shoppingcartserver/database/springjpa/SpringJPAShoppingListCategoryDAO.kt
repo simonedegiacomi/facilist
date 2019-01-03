@@ -4,6 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory.Companion.SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.jpa.repository.JpaRepository
@@ -19,16 +20,11 @@ class SpringJPAShoppingListCategoryDAO(
         private val springRepository: InternalSpringJPAShoppingListCategoryDAO
 ) : ShoppingListCategoryDAO {
 
-    override fun save(category: ShoppingListCategory) = try {
-        springRepository.save(category)
-
-    } catch (ex: DataIntegrityViolationException) {
-        if (ex.toString().contains(ShoppingListCategory.SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT, true)) {
-            throw ShoppingListCategoryWithSameNameAlreadyExistsException()
-        } else {
-            throw RuntimeException("database error")
-        }
-    }
+    override fun save(category: ShoppingListCategory) = runAndMapConstraintFailureTo(
+        SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT,
+        { ShoppingListCategoryWithSameNameAlreadyExistsException() },
+        { springRepository.save(category) }
+    )
 
     override fun findById(id: Long): ShoppingListCategory = springRepository.findById(
         id).orElseThrow { ShoppingListCategoryNotFoundException() }

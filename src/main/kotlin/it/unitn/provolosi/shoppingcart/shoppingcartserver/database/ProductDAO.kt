@@ -24,9 +24,17 @@ interface ProductDAO {
 
     fun findByCategoryIdAndCreatedByAdminOrderByName(categoryId: Long, pageable: Pageable): Page<Product>
 
+    /**
+     * Return a list of products filtered by the specified name. The returned products can be added to lists of the
+     * specified id and the products are created by admins
+     */
     fun findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrderByName
                 (name: String, categoryId: Long, pageable: Pageable): Page<Product>
 
+    /**
+     * Return a list of products filtered by the specified name. The returned products can be added to lists of the
+     * specified id and the products are created by admins or the specified user
+     */
     fun findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrUserOrderByName
                 (name: String, categoryId: Long, user: User, pageable: Pageable): Page<Product>
 

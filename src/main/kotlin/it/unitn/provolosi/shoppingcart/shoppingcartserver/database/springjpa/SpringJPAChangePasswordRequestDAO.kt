@@ -2,15 +2,15 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ChangePasswordRequestDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ChangePasswordRequestNotFoundException
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordRequest
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangeEmailRequest
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-interface InternalSpringJPAChangePasswordRequestDAO : JpaRepository<ChangePasswordRequest, Long> {
+interface InternalSpringJPAChangePasswordRequestDAO : JpaRepository<ChangeEmailRequest, Long> {
 
-    fun findByNewEmailAndTokenToken(email: String, tokenString: String): Optional<ChangePasswordRequest>
+    fun findByNewEmailAndTokenToken(email: String, tokenString: String): Optional<ChangeEmailRequest>
 
 }
 
@@ -19,17 +19,17 @@ class SpringJPAChangePasswordRequestDAO(
         private val springRepository: InternalSpringJPAChangePasswordRequestDAO
 ) : ChangePasswordRequestDAO {
 
-    override fun save(request: ChangePasswordRequest) = springRepository.save(request)
+    override fun save(request: ChangeEmailRequest) = springRepository.save(request)
 
 
     override fun findByNewEmailAndTokenByToken(
             email: String,
             tokenString: String
-    ): ChangePasswordRequest = springRepository.findByNewEmailAndTokenToken(
+    ): ChangeEmailRequest = springRepository.findByNewEmailAndTokenToken(
         email,
         tokenString
     ).orElseThrow { ChangePasswordRequestNotFoundException() }
 
 
-    override fun delete(req: ChangePasswordRequest) = springRepository.delete(req)
+    override fun delete(req: ChangeEmailRequest) = springRepository.delete(req)
 }

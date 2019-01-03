@@ -14,6 +14,9 @@ interface NotificationDAO {
 
     fun save(notification: Notification): Notification
 
+    /**
+     * Marks notification sent to the specified user before the specified date as read
+     */
     fun markUnreadNotificationsOfUserBeforeDateAsRead(user: User, date: Date)
 
 }

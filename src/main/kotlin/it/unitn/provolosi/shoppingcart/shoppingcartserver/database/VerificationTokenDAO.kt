@@ -5,7 +5,11 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationTok
 class VerificationTokenNotFoundException : Exception()
 
 interface VerificationTokenDAO {
+
     fun save(verificationToken: VerificationToken): VerificationToken
+
     fun findByToken(tokenString: String): VerificationToken
+
     fun delete(token: VerificationToken)
+
 }

@@ -4,6 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.EmailAlreadyI
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User.Companion.USER_EMAIL_UNIQUE_NAME_CONSTRAINT
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.jpa.repository.JpaRepository
@@ -22,16 +23,12 @@ class SpringJPAUserDAO(
         val springRepository: InternalSpringJPAUserDAO
 ) : UserDAO {
 
-    override fun save(user: User) = try{
-        springRepository.save(user)
 
-    } catch (ex: DataIntegrityViolationException) {
-        if (ex.toString().contains(User.USER_EMAIL_UNIQUE_NAME_CONSTRAINT, true)) {
-            throw EmailAlreadyInUseException()
-        } else {
-            throw RuntimeException("database error")
-        }
-    }
+    override fun save(user: User) = runAndMapConstraintFailureTo(
+        USER_EMAIL_UNIQUE_NAME_CONSTRAINT,
+        { EmailAlreadyInUseException() },
+        { springRepository.save(user) }
+    )
 
     override fun getUserByEmail(email: String) = try {
         springRepository.getUserByEmail(email)

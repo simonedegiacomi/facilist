@@ -14,7 +14,8 @@ interface InternalSpringJPAVerificationTokenDAO: JpaRepository<VerificationToken
 class SpringJPAVerificationTokenDAO (
         private val springRepository: InternalSpringJPAVerificationTokenDAO
 ) : VerificationTokenDAO {
-    override fun save(token: VerificationToken) = springRepository.save(token)
+
+    override fun save(verificationToken: VerificationToken) = springRepository.save(verificationToken)
 
     override fun findByToken(tokenString: String) = springRepository.findByToken(tokenString)
 
