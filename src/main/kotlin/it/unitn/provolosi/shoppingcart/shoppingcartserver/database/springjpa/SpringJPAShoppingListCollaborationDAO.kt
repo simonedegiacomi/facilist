@@ -5,7 +5,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserAlreadyCollaboratesWithShoppingListException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration.Companion.SHOPPING_LIST_COLLABORATION_UNIQUE_CONSTRAINT
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component

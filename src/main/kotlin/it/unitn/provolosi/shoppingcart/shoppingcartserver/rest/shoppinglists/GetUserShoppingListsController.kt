@@ -4,7 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import org.springframework.http.HttpStatus
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -19,7 +19,7 @@ class GetUserShoppingListsController(
     @RolesAllowed(User.USER)
     fun getUserShoppingLists(
             @AppUser user: User
-    ) = ResponseEntity(shoppingListDAO.getShoppingListPreviewsByUser(user), HttpStatus.OK)
+    ) = ok(shoppingListDAO.getShoppingListPreviewsByUser(user))
 
 
     @GetMapping("/api/shoppingLists/{shoppingListId}")
@@ -27,6 +27,6 @@ class GetUserShoppingListsController(
     fun getById(
             @AppUser user: User,
             @PathVariableBelongingShoppingList list: ShoppingList
-    ): ResponseEntity<ShoppingList> = ResponseEntity.ok(list)
+    ): ResponseEntity<ShoppingList> = ok(list)
 
 }

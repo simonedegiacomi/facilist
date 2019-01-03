@@ -6,6 +6,8 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationT
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationToken
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.EmailService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails.RecoverPasswordEmail
+import notFound
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -20,6 +22,9 @@ class RecoverPasswordController(
         val emailService: EmailService
 ) {
 
+    /**
+     * Handles the request to start the recover of the password
+     */
     @PostMapping("/{email}/recoverPassword")
     fun recoverPassword(
             @PathVariable @javax.validation.constraints.Email email: String
@@ -31,9 +36,9 @@ class RecoverPasswordController(
 
         emailService.sendEmail(RecoverPasswordEmail(token))
 
-        ResponseEntity.ok().build()
+        ok()
     } catch (ex: UserNotFoundException) {
-        ResponseEntity.notFound().build()
+        notFound()
     }
 
 }

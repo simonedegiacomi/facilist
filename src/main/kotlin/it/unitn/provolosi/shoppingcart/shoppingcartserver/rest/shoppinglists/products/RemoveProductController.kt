@@ -5,8 +5,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListP
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.WebSocketSyncService
 import notFound
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,9 +19,12 @@ import javax.persistence.EntityNotFoundException
 @RequestMapping("/api/shoppingListProducts/{id}")
 class RemoveProductController (
         private val shoppingListProductDAO: ShoppingListProductDAO,
-        private val syncShoppingListService: SyncService
+        private val syncShoppingListService: WebSocketSyncService
 ) {
 
+    /**
+     * Handles the request to remove a product from a list
+     */
     @DeleteMapping
     fun removeProduct(
             @AppUser user: User,
@@ -35,7 +39,7 @@ class RemoveProductController (
 
             syncShoppingListService.productInShoppingListDeleted(relation)
 
-            ResponseEntity.ok(relation)
+            ok(relation)
 
         } else {
             forbidden()

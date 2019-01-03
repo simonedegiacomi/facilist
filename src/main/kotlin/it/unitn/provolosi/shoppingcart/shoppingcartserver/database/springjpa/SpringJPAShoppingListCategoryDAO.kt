@@ -5,7 +5,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListC
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory.Companion.SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component

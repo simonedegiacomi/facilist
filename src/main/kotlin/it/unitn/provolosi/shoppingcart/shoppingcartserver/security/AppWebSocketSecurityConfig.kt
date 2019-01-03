@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry
 import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer
 
+/**
+ * Configures the websocket security
+ */
 @Configuration
 class AppWebSocketSecurityConfig: AbstractSecurityWebSocketMessageBrokerConfigurer() {
 
@@ -12,8 +15,6 @@ class AppWebSocketSecurityConfig: AbstractSecurityWebSocketMessageBrokerConfigur
                 .anyMessage().authenticated()
                 .simpSubscribeDestMatchers("/*").authenticated()
     }
-
-
 
     override fun sameOriginDisabled(): Boolean {
         return true

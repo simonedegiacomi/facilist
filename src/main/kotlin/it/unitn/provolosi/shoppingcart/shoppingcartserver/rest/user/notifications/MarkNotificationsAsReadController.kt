@@ -16,6 +16,9 @@ class MarkNotificationsAsReadController (
         private val notificationDAO: NotificationDAO
 ) {
 
+    /**
+     * Marks the notifications of the user as seen
+     */
     @PostMapping("/lastSeen")
     fun markNotificationsAsRead (
             @AppUser user: User,

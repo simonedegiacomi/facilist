@@ -1,10 +1,13 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.user
 
+import badRequest
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.VerificationTokenNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.user.IUserService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.validation.Password
+import notFound
+import ok
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -21,6 +24,9 @@ class CompleteRecoverPasswordController(
         private val userService: IUserService
 ) {
 
+    /**
+     * Handler of the request to complete the recover of the password (sent when the user clicked on the recover link)
+     */
     @PostMapping("/completeRecoverPassword")
     @PreAuthorize("isAnonymous()")
     @ResponseStatus(HttpStatus.OK)
@@ -37,12 +43,12 @@ class CompleteRecoverPasswordController(
             userDAO.save(user)
             tokenDAO.delete(token)
 
-            ResponseEntity.ok().build()
+            ok()
         } else {
-            ResponseEntity.badRequest().build()
+            badRequest()
         }
     } catch (ex: VerificationTokenNotFoundException) {
-        ResponseEntity.notFound().build()
+        notFound()
     }
 
     data class CompleteRecoverDTO(

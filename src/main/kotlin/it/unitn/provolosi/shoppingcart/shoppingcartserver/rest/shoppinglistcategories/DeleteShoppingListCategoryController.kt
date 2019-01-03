@@ -2,6 +2,8 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglistcate
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryNotFoundException
+import notFound
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,9 +22,9 @@ class DeleteShoppingListCategoryController(
     ): ResponseEntity<Any> = try {
 
         shoppingListCategoryDAO.deleteById(id)
-        ResponseEntity.ok().build()
+        ok()
     } catch (ex: ShoppingListCategoryNotFoundException) {
 
-        ResponseEntity.notFound().build()
+        notFound()
     }
 }

@@ -1,9 +1,11 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglistcategories
 
+import conflict
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import org.springframework.http.HttpStatus
+import notFound
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.annotation.security.RolesAllowed
@@ -34,17 +36,14 @@ class EditShoppingListCategoryController (
             foursquareCategoryIds.addAll(dto.foursquareCategoryIds!!)
         }
 
-
-        shoppingListCategoryDAO.save(category)
-
-        ResponseEntity(category, HttpStatus.OK)
+        ok(shoppingListCategoryDAO.save(category))
 
     } catch (ex: ShoppingListCategoryNotFoundException) {
 
-        ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        notFound()
     } catch (ex: ShoppingListCategoryWithSameNameAlreadyExistsException) {
 
-        ResponseEntity.status(HttpStatus.CONFLICT).build()
+        conflict()
     }
 
     @PutMapping("/{id}/productCategories")
@@ -61,16 +60,13 @@ class EditShoppingListCategoryController (
             productCategoryIds.map { productCategoryId -> productCategoryDAO.findById(productCategoryId) }
         )
 
-
-        shoppingListCategoryDAO.save(listCategory)
-
-        ResponseEntity.status(HttpStatus.OK).build()
+        ok(shoppingListCategoryDAO.save(listCategory))
     } catch (ex: ShoppingListCategoryNotFoundException) {
 
-        ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        notFound()
     } catch (ex: ProductCategoryNotFoundException) {
 
-        ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        notFound()
     }
 
 }

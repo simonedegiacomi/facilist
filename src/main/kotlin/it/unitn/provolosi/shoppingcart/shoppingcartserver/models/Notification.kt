@@ -26,13 +26,18 @@ data class Notification(
         @Column(nullable = true)
         val seenAt: Date? = null,
 
+        /**
+         * The user to which the notification is sent
+         */
         @ManyToOne()
         @OnDelete(action = OnDeleteAction.CASCADE)
         @JoinColumn(name = "target_user_id")
         @JsonIgnore
         val target: User,
 
+        /**
+         * Url that will be opened when the user touches the notification
+         */
         @Column
         val url: String
-
 )

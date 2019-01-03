@@ -6,7 +6,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCatego
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory.Companion.PRODUCT_CATEGORY_UNIQUE_NAME_CONSTRAINT
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

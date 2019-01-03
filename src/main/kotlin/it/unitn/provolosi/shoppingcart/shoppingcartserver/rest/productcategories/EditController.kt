@@ -1,11 +1,13 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.productcategories
 
+import conflict
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ProductCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import org.springframework.http.HttpStatus
+import notFound
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.annotation.security.RolesAllowed
@@ -25,13 +27,13 @@ class EditController (
             @RequestBody @Valid category: ProductCategory
     ): ResponseEntity<ProductCategory> = try {
         val updated = updateCategory(id, category)
-        ResponseEntity(updated, HttpStatus.OK)
+        ok(updated)
 
     } catch (e: ProductCategoryNotFoundException) {
-        ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        notFound()
 
     } catch (e: ProductCategoryWithSameNameAlreadyExistsException) {
-        ResponseEntity.status(HttpStatus.CONFLICT).build()
+        conflict()
 
     }
 

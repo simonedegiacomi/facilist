@@ -2,7 +2,10 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.*
 
-interface ISyncService {
+/**
+ * Service used to sync lists on clients
+ */
+interface SyncService {
 
     fun userNewShoppingList(user: User, list: ShoppingList)
 

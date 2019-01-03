@@ -1,12 +1,13 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.products
 
+import created
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import org.springframework.http.HttpStatus
+import notFound
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,6 +17,9 @@ import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
+/**
+ * HAndlers of the requests to create products
+ */
 @RestController
 @RequestMapping("/api/products")
 class CreateProductController (
@@ -35,19 +39,22 @@ class CreateProductController (
             category    = productCategoryDAO.findById(dto.categoryId!!)
         )
 
+        // Set the creator only if the user it's not an admin (to make the product accessible to all the users)
         if (user.role == User.USER) {
             product.creator = user
         }
 
         productDAO.save(product)
 
-        ResponseEntity(product, HttpStatus.CREATED)
+        created(product)
     } catch (ex: ProductCategoryNotFoundException) {
 
-        ResponseEntity.notFound().build()
+        notFound()
     }
 
-
+    /**
+     * Object received through JSON with annotations for validation
+     */
     data class CreateProductDTO (
 
         // NOTE: To use the spring validation annotations, the field must be nullable, otherwise an exception

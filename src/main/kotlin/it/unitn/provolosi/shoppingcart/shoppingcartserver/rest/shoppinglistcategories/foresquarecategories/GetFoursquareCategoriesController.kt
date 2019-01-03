@@ -2,22 +2,22 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglistcate
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.FoursquareNearShopsService
-import org.springframework.http.ResponseEntity
+import ok
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.RolesAllowed
 
 @RestController
-@RequestMapping("/api/shoppingListCategories/foresquareCategories")
-class GetForesquareCategoriesController (
+@RequestMapping("/api/shoppingListCategories/foursquareCategories")
+class GetFoursquareCategoriesController (
         private val foresquareService: FoursquareNearShopsService
 ) {
 
     @GetMapping
     @RolesAllowed(User.ADMIN)
-    fun getCategories () = ResponseEntity.ok(getShopsForesquareCategories())
+    fun getCategories () = ok(getShopsFoursquareCategories())
 
-    fun getShopsForesquareCategories () = foresquareService.getCategories()
+    fun getShopsFoursquareCategories () = foresquareService.getCategories()
             .find { category -> category.name == "Shop & Service" }!!.categories
 }

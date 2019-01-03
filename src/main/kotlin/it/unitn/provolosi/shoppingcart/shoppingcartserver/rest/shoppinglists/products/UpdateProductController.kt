@@ -6,8 +6,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListPro
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ShoppingListProductsUpdateService
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.WebSocketSyncService
 import notFound
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.persistence.EntityNotFoundException
@@ -20,10 +21,13 @@ import javax.validation.constraints.PositiveOrZero
 @RequestMapping("/api/shoppingListProducts/{id}")
 class UpdateProductController(
         private val shoppingListProductDAO: ShoppingListProductDAO,
-        private val syncShoppingListService: SyncService,
+        private val syncShoppingListService: WebSocketSyncService,
         private val shoppingListProductsUpdateService: ShoppingListProductsUpdateService
 ) {
 
+    /**
+     * Handle the request to update a product in a list (notes, images, quantity, to buy or not, etc...)
+     */
     @PutMapping
     fun updateProduct(
             @AppUser user: User,
@@ -35,19 +39,22 @@ class UpdateProductController(
 
         if (list.isUserOwnerOrCollaborator(user)) {
 
+            // Update the database
             relation.apply {
                 quantity    = update.quantity!!
                 image       = update.image!!
                 bought      = update.bought!!
                 note        = update.note
             }
-
             shoppingListProductDAO.save(relation)
+
+            // Sync clients
             syncShoppingListService.productInShoppingListEdited(relation)
 
+            // Generate the event to group
             shoppingListProductsUpdateService.collectEvent(user, relation)
 
-            ResponseEntity.ok(relation)
+            ok(relation)
 
         } else {
             forbidden()

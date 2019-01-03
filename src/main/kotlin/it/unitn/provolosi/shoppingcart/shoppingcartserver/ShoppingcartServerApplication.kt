@@ -22,7 +22,6 @@ import javax.annotation.PostConstruct
 import javax.persistence.EntityManagerFactory
 import javax.servlet.http.HttpServletRequest
 
-
 fun main(args: Array<String>) {
     runApplication<ShoppingcartServerApplication>(*args)
 }
@@ -33,14 +32,20 @@ class ShoppingcartServerApplication(
         private val import: ImportService
 ) {
 
-
+    /**
+     * Function called when the app starts
+     */
     @PostConstruct
     fun onInitialized() {
         import.importDataFromResources()
     }
-
 }
 
+/**
+ * Configuration of argument resolvers and beans injection.
+ * Argument resolvers are the classes that take care to resolve arguments based on request properties of controllers
+ * methods based on the current HTTP request.
+ */
 @Configuration
 @EnableTransactionManagement
 class Config(
@@ -54,11 +59,14 @@ class Config(
         resolvers.add(shoppingListResolver)
     }
 
+    /**
+     * Configure the TransactionManagerBean, used in the Timer {@link ShoppingListProductsUpdateTask#onTick}
+     * to generate the notification of the shopping list updates.
+     */
     @Bean
     fun transactionManager(): PlatformTransactionManager {
         return JpaTransactionManager(entityManagerFactory)
     }
-
 }
 
 /**

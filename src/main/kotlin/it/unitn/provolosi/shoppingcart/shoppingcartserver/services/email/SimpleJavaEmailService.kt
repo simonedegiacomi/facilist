@@ -7,7 +7,11 @@ import org.simplejavamail.mailer.config.TransportStrategy
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-
+/**
+ * Implementation of the email service based on the SimpleJavaEmail library.
+ * This service is a Spring components and receives the authentication credentials through the constructor using
+ * the Value Spring annotations. This annotation load the actual data from the environment properties file
+ */
 @Service
 class SimpleJavaEmailService (
         @Value("\${emails.server.host}")
@@ -25,6 +29,9 @@ class SimpleJavaEmailService (
         @Value("\${emails.server.sender}")
         private val sender: String,
 
+        /**
+         * Flag that disable the actual sending of the email and just print the email on the console (useful during development)
+         */
         @Value("\${emails.sendEmails}")
         private val sendEmails: Boolean
 ): EmailService {

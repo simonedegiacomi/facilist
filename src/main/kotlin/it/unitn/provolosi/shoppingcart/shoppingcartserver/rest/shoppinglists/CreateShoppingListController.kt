@@ -1,13 +1,14 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists
 
+import created
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.ISyncService
-import org.springframework.http.HttpStatus
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import notFound
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -23,15 +24,19 @@ import javax.validation.constraints.NotNull
 class CreateShoppingListController (
         private val shoppingListDAO: ShoppingListDAO,
         private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
-        private val syncService: ISyncService
+        private val syncService: SyncService
 ) {
 
+    /**
+     * Handles the request to create a new shopping list
+     */
     @PostMapping
     @RolesAllowed(User.USER)
     fun create(
             @AppUser user: User,
             @RequestBody @Valid dto: CreateShoppingListDTO
     ): ResponseEntity<ShoppingList> = try {
+        // Create the entity in yhe database
         val list = shoppingListDAO.save(ShoppingList(
             name        = dto.name!!,
             description = dto.description,
@@ -40,11 +45,12 @@ class CreateShoppingListController (
             category    = shoppingListCategoryDAO.findById(dto.shoppingListCategoryId!!)
         ))
 
+        // sync the clients
         syncService.userNewShoppingList(user, list)
 
-        ResponseEntity(list, HttpStatus.CREATED)
+        created(list)
     } catch (ex: ShoppingListCategoryNotFoundException) {
-        ResponseEntity.notFound().build()
+        notFound()
     }
 
     data class CreateShoppingListDTO(

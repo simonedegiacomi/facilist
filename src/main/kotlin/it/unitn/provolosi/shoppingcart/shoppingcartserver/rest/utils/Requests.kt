@@ -1,6 +1,9 @@
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
+/**
+ * Utils functions to create the common responses to return
+ */
 
 fun <T> notFound(): ResponseEntity<T> = ResponseEntity.notFound().build()
 

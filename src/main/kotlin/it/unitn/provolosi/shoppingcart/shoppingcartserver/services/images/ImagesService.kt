@@ -16,8 +16,12 @@ interface ImagesService {
     @Throws(FileExceedsMaxSizeException::class, FileIsNotAnImageException::class)
     fun storeImage(inputStream: InputStream): String
 
+    /**
+     * Loads an image given its id and returns a InputStream of the image
+     */
     fun getImageAsResponse(id: String, headers: HttpHeaders): ResponseEntity<InputStreamResource>
 }
 
 class FileExceedsMaxSizeException (size: Long, max: Long) : Exception("Read $size bytes, max is $max bytes")
+
 class FileIsNotAnImageException : Exception()

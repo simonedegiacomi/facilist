@@ -7,17 +7,40 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
 
-@Component
-class SyncService(
-        private val stomp: SimpMessagingTemplate
-) : ISyncService {
+/**
+ * Object that contains the created, edited or deleted entity and a string that identifies the action applied to it.
+ */
+data class SyncEvent<T>(
+        val event: String,
+        val model: T? = null
+) {
+    companion object {
+        const val EVENT_CREATED = "created"
+        const val EVENT_MODIFIED = "modified"
+        const val EVENT_DELETED = "deleted"
+    }
+}
 
+/**
+ * Sync service based on websockets (STOMP messages in particular)
+ */
+@Component
+class WebSocketSyncService(
+        private val stomp: SimpMessagingTemplate
+) : SyncService {
+
+    /**
+     * Sends a sync event to a queue (to the clients of a specified user)
+     */
     private fun sendSyncQueueEvent(email: String, destination: String, event: String, model: Any) = stomp.convertAndSendToUser(
         email,
         destination,
         SyncEvent(event, model)
     )
 
+    /**
+     * Sends a sync event to a topic (to all the clients of multiple users, subscribed to a topic)
+     */
     private fun sendSyncTopicEvent(destination: String, event: String, model: Any? = null) = stomp.convertAndSend(
         destination,
         SyncEvent(event, model)
@@ -100,14 +123,3 @@ class SyncService(
     )
 }
 
-
-data class SyncEvent<T>(
-        val event: String,
-        val model: T? = null
-) {
-    companion object {
-        const val EVENT_CREATED = "created"
-        const val EVENT_MODIFIED = "modified"
-        const val EVENT_DELETED = "deleted"
-    }
-}

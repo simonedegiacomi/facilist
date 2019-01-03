@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.net.URL
 
+/**
+ * NearShopsService implementation based on the Foursquare APIs
+ */
 @Component
 class FoursquareNearShopsService(
         @Value("\${foursquareAPI.clientId}")

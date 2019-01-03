@@ -6,6 +6,9 @@ import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
 
+/**
+ * Describes a product into a list
+ */
 @Entity
 @Table(
     name = "shopping_list__product",
@@ -30,20 +33,30 @@ data class ShoppingListProduct(
         @OnDelete(action = OnDeleteAction.CASCADE)
         val product: Product,
 
+        /**
+         * True when the product is bought, false when users need to buy the products
+         */
         @Column
         var bought: Boolean = true,
 
         @Column
         var quantity: Int = 1,
 
+        /**
+         * Custom note of the product in the list
+         */
         @Column
         var note: String? = null,
 
-
+        /**
+         * Custom image of the product in the list
+         */
         @Column
         var image: String,
 
-
+        /**
+         * 
+         */
         @OneToOne
         @JoinColumn(name = "shopping_list_product_updates_group_id")
         @JsonIgnore

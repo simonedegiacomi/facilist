@@ -7,6 +7,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.DEFAULT_PAGE_SIZE_PARAM
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
+import ok
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.ResponseEntity
@@ -28,7 +29,7 @@ class GetMessagesController(
             @PathVariableBelongingShoppingList list: ShoppingList,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
-    ): ResponseEntity<Page<ChatMessage>> = ResponseEntity.ok(
+    ): ResponseEntity<Page<ChatMessage>> = ok(
         chatMessageDAO.findByShoppingListOrderBySentAtDesc(list, PageRequest.of(page, size))
     )
 
@@ -39,7 +40,7 @@ class GetMessagesController(
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int,
             @RequestParam(name = "lastMessageId") lastMessageId: Long
-    ): ResponseEntity<Page<ChatMessage>> = ResponseEntity.ok(
+    ): ResponseEntity<Page<ChatMessage>> = ok(
         chatMessageDAO.findByShoppingListOlderThanMessageOrderBySentAtDesc(list, lastMessageId, PageRequest.of(page, size))
     )
 }

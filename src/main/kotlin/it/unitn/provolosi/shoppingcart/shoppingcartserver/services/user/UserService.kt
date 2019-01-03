@@ -1,7 +1,7 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.user
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.*
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordRequest
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangeEmailRequest
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCollaboration
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.VerificationToken
@@ -79,8 +79,8 @@ class UserService(
     }
 
 
-    override fun changeUserEmail(user: User, email: String): ChangePasswordRequest {
-        val request = changePasswordRequestDAO.save(ChangePasswordRequest(
+    override fun changeUserEmail(user: User, email: String): ChangeEmailRequest {
+        val request = changePasswordRequestDAO.save(ChangeEmailRequest(
             token       = VerificationToken(user = user),
             newEmail    = email
         ))

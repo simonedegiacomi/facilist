@@ -38,6 +38,4 @@ data class ProductCategory(
     }
 
     override fun toString() = "ProductCategory(name='$name')"
-
-
 }

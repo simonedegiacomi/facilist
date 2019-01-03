@@ -1,11 +1,11 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.emails
 
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangePasswordRequest
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ChangeEmailRequest
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email.ResourceEmail
 import org.springframework.web.util.UriComponentsBuilder
 
 class ConfirmNewEmailAddressEmail(
-        private val request: ChangePasswordRequest
+        private val request: ChangeEmailRequest
 ):ResourceEmail() {
 
     override val emailName = "confirm-new-email-address"

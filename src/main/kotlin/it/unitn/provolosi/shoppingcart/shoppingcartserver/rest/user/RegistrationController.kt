@@ -23,6 +23,9 @@ class RegistrationController (
         val userService: IUserService
 ) {
 
+    /**
+     * Handles the request to register the user
+     */
     @PostMapping("/register")
     fun registerUser(
             @RequestBody @Valid registration: RegisterDTO,
@@ -35,7 +38,9 @@ class RegistrationController (
     }
 
 
-
+    /**
+     * HAndles the request to enable the account of the user, verifying his email
+     */
     @PostMapping("/verifyEmail/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun confirmRegistration(

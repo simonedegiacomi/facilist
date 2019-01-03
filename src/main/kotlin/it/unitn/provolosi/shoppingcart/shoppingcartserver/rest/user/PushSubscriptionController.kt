@@ -4,6 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.UserDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.PushSubscription
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -19,6 +20,9 @@ class PushSubscriptionController (
     private val userDAO: UserDAO
 ) {
 
+    /**
+     * Handles the request to add a Push API subscription of a device of the user
+     */
     @PostMapping
     fun addSubscription(
             @AppUser user: User,
@@ -26,12 +30,13 @@ class PushSubscriptionController (
     ): ResponseEntity<Any> {
         val oldSubscription = user.pushSubscriptions.find { s -> s.endpoint == add.endpoint }
 
+        // If we didn't already store this subscription
         if (oldSubscription == null) {
             user.pushSubscriptions.add(add.toSubscription(user))
             userDAO.save(user)
         }
 
-        return ResponseEntity.ok().build()
+        return ok()
     }
 
 

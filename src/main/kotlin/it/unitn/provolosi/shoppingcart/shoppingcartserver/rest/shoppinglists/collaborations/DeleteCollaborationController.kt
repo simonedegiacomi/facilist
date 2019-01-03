@@ -10,7 +10,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.ShoppingListNotifications
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.WebSocketSyncService
 import notFound
 import ok
 import org.springframework.http.ResponseEntity
@@ -26,12 +26,14 @@ class DeleteCollaborationController(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val shoppingListProductDAO: ShoppingListProductDAO,
         private val shoppingListNotifications: ShoppingListNotifications,
-        private val syncShoppingListService: SyncService
+        private val syncShoppingListService: WebSocketSyncService
 ) {
 
     /**
      * Handler of the request to remove a collaborator from a list.
-     * A collaborator of a list can remove himself or other users if he has the proper permission
+     * A collaborator of a list can remove himself or other users if he has the proper permission.
+     * When a user is removed, the product created by this user are removed from the list.
+     * Collaborators will be notified that  the collaborator has been removed.
      */
     @DeleteMapping("{collaborationId}")
     @RolesAllowed(User.USER)
@@ -48,11 +50,18 @@ class DeleteCollaborationController(
 
             removeProductsOfUserFromList(collaboration.user, list)
 
+            // Delete the collaboration
             shoppingListCollaborationDAO.deleteById(collaborationId)
 
+            // update the clients
             syncShoppingListService.collaborationDeleted(collaboration)
+
+            // Notify collaborators
             shoppingListNotifications.notifyCollaboratorsCollaborationDeleted(user, collaboration)
-            shoppingListNotifications.notifyCollaboratorCollaborationDeleted(user, collaboration)
+
+            if (user.id != collaboration.user.id) { // If the user didn't remove himself, notify the ex-collaborator
+                shoppingListNotifications.notifyCollaboratorCollaborationDeleted(user, collaboration)
+            }
 
             ok(list)
         }
@@ -78,6 +87,9 @@ class DeleteCollaborationController(
         return isUserLeavingList || list.canUserEditCollaborations(user)
     }
 
+    /**
+     * Remove products created by the specified user from the specified list
+     */
     private fun removeProductsOfUserFromList(user: User, list: ShoppingList) {
         val relationsToRemove = list.products
                 .filter { relation -> relation.product.creator == user }

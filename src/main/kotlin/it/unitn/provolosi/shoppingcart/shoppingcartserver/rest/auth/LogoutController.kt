@@ -1,5 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.auth
 
+import ok
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.context.SecurityContextHolder
@@ -16,7 +17,7 @@ class LogoutController {
     fun logout(): ResponseEntity<Any> {
         SecurityContextHolder.clearContext()
 
-        return ResponseEntity.ok().build()
+        return ok()
     }
 
 }

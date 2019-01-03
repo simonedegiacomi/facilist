@@ -31,7 +31,9 @@ data class ShoppingListCategory(
         )
         val productCategories: MutableList<ProductCategory> = mutableListOf(),
 
-
+        /**
+         * List of Foursquare category ids for the near shop feature.
+         */
         @ElementCollection
         @CollectionTable(
             name = "shopping_list_category__foursquare_id",
@@ -45,6 +47,4 @@ data class ShoppingListCategory(
     }
 
     override fun toString() = "ShoppingListCategory(name='$name')"
-
-
 }

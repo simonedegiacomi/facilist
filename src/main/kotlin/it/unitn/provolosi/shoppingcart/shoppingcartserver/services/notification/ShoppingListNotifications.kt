@@ -6,17 +6,33 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
+/**
+ * Utility class to generate localized notifications
+ */
 @Component
 class ShoppingListNotifications(
+        /**
+         * Service to persist and send the notifications
+         */
         private val notificationService: NotificationService,
 
+        /**
+         * Website url (used to generate links in notifications)
+         */
         @Value("\${websiteUrl}")
         private val websiteUrl: String
 ) {
 
+    /**
+     * Given the string key, this function returns the localized string in the specified locale
+     */
     private fun translate(user: User, messageKey: String) = TranslationUtils
             .getNotificationsTranslationMap(user.locale)[messageKey]
 
+    /**
+     * Sends the notification to send to collaborators when a list is deleted
+     * @param user: User that deleted the list (the owner)
+     */
     fun notifyCollaboratorsListDeleted(user: User, list: ShoppingList) = notificationService.saveAndSend(
         list.ownerAndCollaboratorsExcept(user)
                 .map { u ->
@@ -29,7 +45,10 @@ class ShoppingListNotifications(
                 }
     )
 
-
+    /**
+     * Sends the notification to send when the list info are updated (list name, icon or description)
+     * @param user The user who modified the information
+     */
     fun notifyCollaboratorsListUpdated(user: User, list: ShoppingList) = notificationService.saveAndSend(
         list.ownerAndCollaboratorsExcept(user)
                 .map { u ->
@@ -43,7 +62,7 @@ class ShoppingListNotifications(
     )
 
     /**
-     * Send a notification to the collaborators of the relative list except the user who sent the message
+     * Send the notification to send to the collaborators of the relative list except the user who sent the message
      */
     fun notifyCollaboratorsNewMessage(message: ChatMessage) = notificationService.saveAndSend(
         message.shoppingList.ownerAndCollaboratorsExcept(message.user)
@@ -57,7 +76,11 @@ class ShoppingListNotifications(
                 }
     )
 
-
+    /**
+     * Send the notification that notifies the user of the specified collaborator that he is been added to the list
+     * @param inviter User who invited the new collaborator to the list
+     * @param collaboration New collaborations
+     */
     fun notifyNewCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList
 
@@ -69,7 +92,10 @@ class ShoppingListNotifications(
         ))
     }
 
-
+    /**
+     * Sends a notification to each collaborator of the list about the new collaborator.
+     * The notification will not be sent to the user who invited the new collaborator and to the new collaborator.
+     */
     fun notifyCollaboratorsNewCollaborator(inviter: User, collaboration: ShoppingListCollaboration) {
         val list    = collaboration.shoppingList
         val invited = collaboration.user
@@ -90,6 +116,9 @@ class ShoppingListNotifications(
     }
 
 
+    /**
+     * Sends the notification to a collaborator that has been removed from a list
+     */
     fun notifyCollaboratorCollaborationDeleted(user: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList
 
@@ -101,6 +130,9 @@ class ShoppingListNotifications(
         ))
     }
 
+    /**
+     * Notifies collaborators of the specified list that a collaborator has been removed
+     */
     fun notifyCollaboratorsCollaborationDeleted(user: User, collaboration: ShoppingListCollaboration) {
         val list    = collaboration.shoppingList
         val removed = collaboration.user
@@ -120,6 +152,9 @@ class ShoppingListNotifications(
         notificationService.saveAndSend(notifications)
     }
 
+    /**
+     * Sends the notification to the user who roles has been changed in the specified list
+     */
     fun notifyCollaboratorRoleChanged(inviter: User, collaboration: ShoppingListCollaboration) {
         val list = collaboration.shoppingList
 
@@ -131,7 +166,9 @@ class ShoppingListNotifications(
         ))
     }
 
-
+    /**
+     * Send the notification about a group of products in the list that have been edited.
+     */
     fun notifyCollaboratorsListProductsUpdated (group: ShoppingListProductUpdatesGroup) = notificationService.saveAndSend(
         getDestinationUsersOfListProductsUpdatedNotification(group)
                 .map { user ->
@@ -183,4 +220,8 @@ class ShoppingListNotifications(
     }
 }
 
+/**
+ * Return a list of users which are the owner and the collaborator of the list, except a speicifed user
+ * @param user: USer to esclude from the list
+ */
 private fun ShoppingList.ownerAndCollaboratorsExcept(user: User) = ownerAndCollaborators().filter { u -> u != user }

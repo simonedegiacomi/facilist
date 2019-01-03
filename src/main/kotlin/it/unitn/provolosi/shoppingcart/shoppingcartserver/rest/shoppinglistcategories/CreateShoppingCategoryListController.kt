@@ -1,10 +1,11 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglistcategories
 
+import conflict
+import created
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryWithSameNameAlreadyExistsException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -27,16 +28,16 @@ class CreateShoppingCategoryListController(
     fun create(
             @RequestBody @Valid dto: ShoppingListCategoryDTO
     ): ResponseEntity<ShoppingListCategory> = try {
-        ResponseEntity(shoppingListCategoryDAO.save(ShoppingListCategory(
+        created(shoppingListCategoryDAO.save(ShoppingListCategory(
             name                    = dto.name!!,
             description             = dto.description!!,
             icon                    = dto.icon!!,
             foursquareCategoryIds   = dto.foursquareCategoryIds!!.toMutableList()
-        )), HttpStatus.CREATED)
+        )))
 
     } catch (ex: ShoppingListCategoryWithSameNameAlreadyExistsException) {
 
-        ResponseEntity.status(HttpStatus.CONFLICT).build()
+        conflict()
     }
 
 

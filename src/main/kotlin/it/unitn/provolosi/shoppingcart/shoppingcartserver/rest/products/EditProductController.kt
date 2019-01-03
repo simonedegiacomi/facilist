@@ -5,6 +5,8 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ProductNotFou
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import notFound
+import ok
 import org.springframework.http.HttpStatus
 
 import org.springframework.http.ResponseEntity
@@ -19,29 +21,28 @@ class EditProductController(
         private val productDAO: ProductDAO
 ) {
 
-
+    /**
+     * Request to edit a product information (icon and name)
+     */
     @PutMapping("/{id}")
     fun edit(
             @PathVariable id: Long,
             @AppUser user: User,
             @RequestBody @Valid update: EditProductDTO
-    ): ResponseEntity<Product> {
+    ): ResponseEntity<Product> = try {
+        val product = productDAO.findById(id)
 
-        return try {
-            val product = productDAO.findById(id)
+        if (!product.canBeEditedBy(user)) {
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        } else {
+            product.name = update.name!!
+            product.icon = update.icon!!
 
-            if (!product.canBeEditedBy(user)) {
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-            } else {
-                product.name = update.name!!
-                product.icon = update.icon!!
-
-                ResponseEntity(productDAO.save(product), HttpStatus.OK)
-            }
-
-        } catch (ex: ProductNotFoundException) {
-            ResponseEntity.notFound().build()
+            ok(productDAO.save(product))
         }
+
+    } catch (ex: ProductNotFoundException) {
+        notFound()
     }
 
 

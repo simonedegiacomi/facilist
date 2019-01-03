@@ -27,17 +27,15 @@ class UpdatePositionController (
         private val websiteUrl: String
 ) {
 
+    /**
+     * Updates the latest position of the user, to notify his about near shops
+     */
     @PostMapping
     fun updatePosition (
             @RequestBody @Valid update: UpdatePositionDTO,
             @AppUser user: User
     ) {
-        val foursquareCategoryIds = shoppingListDAO.getShoppingListPreviewsByUser(user)
-                .filter { list -> list.itemsToBuy > 0 }
-                .map { list -> list.shoppingList.category }
-                .distinctBy { shoppingListCategory -> shoppingListCategory.id }
-                .flatMap { shoppingListCategory -> shoppingListCategory.foursquareCategoryIds }
-                .distinct()
+        val foursquareCategoryIds = getFoursquareCateogryIdsInWhichUSerIsInterested(user)
 
         if (foursquareCategoryIds.isNotEmpty()) {
             val shops = foursquareService.findShopsOfCategoryNearCoordinates(
@@ -58,6 +56,17 @@ class UpdatePositionController (
     ) {
         fun toCoordinates () = Coordinates(lat!!, lon!!)
     }
+
+    /**
+     * Returns a list of ids of Foursquare categories in which the user is interested (category of shops that sell products
+     * nedded by the user)
+     */
+    private fun getFoursquareCateogryIdsInWhichUSerIsInterested (user: User) = shoppingListDAO.getShoppingListPreviewsByUser(user)
+            .filter { list -> list.itemsToBuy > 0 }
+            .map { list -> list.shoppingList.category }
+            .distinctBy { shoppingListCategory -> shoppingListCategory.id }
+            .flatMap { shoppingListCategory -> shoppingListCategory.foursquareCategoryIds }
+            .distinct()
 
     private fun sendNotification (user: User, shops: List<NearShops>) {
         val shopNames = shops

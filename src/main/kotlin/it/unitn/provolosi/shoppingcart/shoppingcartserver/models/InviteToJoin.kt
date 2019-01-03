@@ -4,9 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.InviteToJoin.Companion.INVITE_TO_COLLABORATE__UNIQUE_INVITE_FOR_SHOPPING_LIST_PER_MAIL_CONSTRAINT
 import javax.persistence.*
 
+/**
+ * For each invite sent by a user to an unregistered person is reppresentated by an instance of this class.
+ * This is done to remember, when the invited user registers, to which shopping list the new user has to be added.
+ */
 @Entity
 @Table(
     name = "invite_to_collaborate",
+
+    /**
+     * There can be only one invite per email and shopping list. That is, an unregisterd person can't be invited two
+     * times to join the same list.
+     */
     uniqueConstraints = [UniqueConstraint(
         columnNames = ["email", "shopping_list_id"],
         name = INVITE_TO_COLLABORATE__UNIQUE_INVITE_FOR_SHOPPING_LIST_PER_MAIL_CONSTRAINT
@@ -26,6 +35,9 @@ data class InviteToJoin(
         @JsonIgnore
         val shoppingList: ShoppingList,
 
+        /**
+         * User who sent the invite
+         */
         @ManyToOne
         @JoinColumn(name = "inviter_id")
         @JsonIgnore

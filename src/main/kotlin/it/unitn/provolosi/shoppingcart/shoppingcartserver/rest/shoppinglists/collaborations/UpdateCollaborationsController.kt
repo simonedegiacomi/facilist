@@ -10,10 +10,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglists.PathVariableBelongingShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.notification.ShoppingListNotifications
-import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.SyncService
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.shoppinglist.WebSocketSyncService
 import notFound
 import ok
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -29,13 +28,13 @@ import javax.validation.constraints.NotNull
 class UpdateCollaborationsController(
         private val shoppingListCollaborationDAO: ShoppingListCollaborationDAO,
         private val shoppingListNotifications: ShoppingListNotifications,
-        private val syncShoppingListService: SyncService,
-
-
-        @Value("\${websiteUrl}")
-        private val websiteUrl: String
+        private val syncShoppingListService: WebSocketSyncService
 ) {
 
+    /**
+     * Updates the collaboration of a user (his roles).
+     * This request expect all the colaborations to be sent
+     */
     @PostMapping()
     @RolesAllowed(User.USER)
     fun updateCollaborations(
@@ -54,14 +53,20 @@ class UpdateCollaborationsController(
             }
 
             update.forEach { it ->
+                // get the current collaboration
                 val c = shoppingListCollaborationDAO.findById(it.collaborationId!!)
 
+                // Check if the role was changed
                 if (c.role != it.role) {
-                    c.role = it.role!!
 
+                    // Update the role in the database
+                    c.role = it.role!!
                     shoppingListCollaborationDAO.save(c)
 
+                    // Sync the clients
                     syncShoppingListService.collaborationEdited(c)
+
+                    // Notify the collaborator
                     shoppingListNotifications.notifyCollaboratorRoleChanged(user, c)
                 }
             }
@@ -82,6 +87,9 @@ class UpdateCollaborationsController(
             val role: String?
     )
 
+    /**
+     * Checks if the roles in the updates list (which are strings) represent valid roles
+     */
     private fun areRolesValid (update: List<UpdateCollaborationsDTO>) = update.map { it.role!! }
                     .all { ShoppingListCollaboration.isRoleValid(it) }
 

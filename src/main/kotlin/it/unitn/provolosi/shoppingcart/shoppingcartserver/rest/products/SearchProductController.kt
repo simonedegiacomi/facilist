@@ -5,9 +5,9 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Product
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.DEFAULT_PAGE_SIZE_PARAM
+import ok
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.security.PermitAll
 import javax.annotation.security.RolesAllowed
 
+/**
+ * Handlers for the different ways to search objects
+ */
 @RestController
 @RequestMapping("/api/products/search")
 class SearchProductController (
@@ -32,9 +35,8 @@ class SearchProductController (
             @RequestParam(name = "name", defaultValue = "") name: String,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
-    ): ResponseEntity<Page<Product>> = ResponseEntity(
-        productDAO.findByNameContainingIgnoreCaseAndCreatedByAdminOrderByName(name, PageRequest.of(page, size)),
-        HttpStatus.OK
+    ): ResponseEntity<Page<Product>> = ok(
+        productDAO.findByNameContainingIgnoreCaseAndCreatedByAdminOrderByName(name, PageRequest.of(page, size))
     )
 
     /**
@@ -47,9 +49,8 @@ class SearchProductController (
             @RequestParam(name = "categoryId", defaultValue = "") categoryId: Long,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
-    ): ResponseEntity<Page<Product>> = ResponseEntity(
-        productDAO.findByCategoryIdAndCreatedByAdminOrderByName(categoryId, PageRequest.of(page, size)),
-        HttpStatus.OK
+    ): ResponseEntity<Page<Product>> = ok(
+        productDAO.findByCategoryIdAndCreatedByAdminOrderByName(categoryId, PageRequest.of(page, size))
     )
 
     /**
@@ -63,9 +64,8 @@ class SearchProductController (
             @RequestParam(name = "categoryId", defaultValue = "") categoryId: Long,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
-    ): ResponseEntity<Page<Product>> = ResponseEntity(
-        productDAO.findByNameContainingIgnoreCaseAndCategoryIdAndCreatedByAdminOrderByName(name, categoryId, PageRequest.of(page, size)),
-        HttpStatus.OK
+    ): ResponseEntity<Page<Product>> = ok(
+        productDAO.findByNameContainingIgnoreCaseAndCategoryIdAndCreatedByAdminOrderByName(name, categoryId, PageRequest.of(page, size))
     )
 
 
@@ -85,9 +85,8 @@ class SearchProductController (
             @RequestParam(name = "includeUserProducts", defaultValue = "true") includeUserProduct: Boolean,
             @AppUser user: User
     ): ResponseEntity<Page<Product>> =  if (includeUserProduct){
-        ResponseEntity(
-            productDAO.findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrUserOrderByName(name, categoryId, user, PageRequest.of(page, size)),
-            HttpStatus.OK
+        ok(
+            productDAO.findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrUserOrderByName(name, categoryId, user, PageRequest.of(page, size))
         )
     } else {
         searchByNameAndShoppingListCategory(name, categoryId, page, size)
@@ -105,9 +104,8 @@ class SearchProductController (
             @RequestParam(name = "shoppingListCategoryId", defaultValue = "") categoryId: Long,
             @RequestParam(name = "page", defaultValue = "0") page: Int,
             @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE_PARAM) size: Int
-    ): ResponseEntity<Page<Product>> = ResponseEntity(
-        productDAO.findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrderByName(name, categoryId, PageRequest.of(page, size)),
-        HttpStatus.OK
+    ): ResponseEntity<Page<Product>> = ok(
+        productDAO.findByNameContainingIgnoreCaseAndShoppingListCategoryIdAndCreatedByAdminOrderByName(name, categoryId, PageRequest.of(page, size))
     )
 
 }

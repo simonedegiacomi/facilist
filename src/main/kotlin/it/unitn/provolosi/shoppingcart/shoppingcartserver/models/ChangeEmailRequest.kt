@@ -7,7 +7,7 @@ import javax.persistence.*
  */
 @Entity
 @Table
-data class ChangePasswordRequest (
+data class ChangeEmailRequest (
 
         @Id
         @GeneratedValue

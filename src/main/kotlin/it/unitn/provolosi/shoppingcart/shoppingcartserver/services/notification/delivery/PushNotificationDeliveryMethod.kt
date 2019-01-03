@@ -14,7 +14,10 @@ import java.security.KeyFactory
 import java.security.PublicKey
 import java.security.Security
 
-
+/**
+ * DeliveryMethod based on Push API.
+ * You can find more info about Push API here: https://developer.mozilla.org/en-US/docs/Web/API/Push_API
+ */
 @Component
 class PushNotificationDeliveryMethod (
         @Value("\${pushAPI.VAPID.base64PublicKey}")
@@ -25,20 +28,27 @@ class PushNotificationDeliveryMethod (
 
 ) : NotificationDeliveryMethod {
 
+    /**
+     * Object ot send Push notifications
+     */
     private val pushService = PushService()
 
+    /**
+     * When this service is constructed, initialize the library to send push notifications with our keys
+     */
     init {
         Security.addProvider(BouncyCastleProvider())
         pushService.publicKey = Utils.loadPublicKey(base64PublicKey)
         pushService.privateKey = Utils.loadPrivateKey(base64PrivateKey)
     }
 
+    /**
+     * Checks if the user target of the notification has at least one Push subscription
+     */
     override fun canDeliver(notification: Notification) = notification.target.pushSubscriptions.size > 0
 
     override fun deliver(notification: Notification) {
         val user = notification.target
-
-
 
         user.pushSubscriptions.forEach { subscription ->
             pushService.send(nl.martijndwars.webpush.Notification(
@@ -60,6 +70,9 @@ class PushNotificationDeliveryMethod (
         return kf.generatePublic(pubSpec)
     }
 
+    /**
+     * Map our notification object ot the map used in the JSON for the Push notification
+     */
     fun buildNotificationPayload(notification: Notification): ByteArray = ObjectMapper().writeValueAsString(mapOf(
         "notification" to mapOf(
             "title" to "Shopping list",

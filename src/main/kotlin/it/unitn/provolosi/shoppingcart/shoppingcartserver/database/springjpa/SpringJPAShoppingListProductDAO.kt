@@ -5,7 +5,6 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListP
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListProductNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListProduct.Companion.SHOPPING_LIST_PRODUCT_UNIQUE_CONSTRAINT
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 

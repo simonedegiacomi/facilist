@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.RequestMatcher
 import javax.sql.DataSource
 
+/**
+ * Configuration to enable the Annotations relative to the security
+ */
 @Configuration()
 @EnableWebSecurity()
 @EnableGlobalMethodSecurity(
@@ -48,6 +51,9 @@ class AppSecurityConfig(
         )
     }
 
+    /**
+     * Configure the path authentication and authorization
+     */
     override fun configure(http: HttpSecurity?) {
         if (forceHerokuHttps) {
             http!!.requiresChannel()
@@ -85,7 +91,10 @@ class AppSecurityConfig(
                 .and().csrf().disable()
     }
 
-
+    /**
+     * Configure the authentication method to use to convert the email (stored in the session) to the User object
+     * used in the application
+     */
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth!!.jdbcAuthentication()
                 .dataSource(dataSource)

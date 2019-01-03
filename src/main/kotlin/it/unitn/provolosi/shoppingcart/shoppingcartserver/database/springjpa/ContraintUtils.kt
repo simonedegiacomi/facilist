@@ -2,7 +2,6 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 
 
 import org.springframework.dao.DataIntegrityViolationException
-import java.lang.Exception
 
 const val UNKNOWN_DATABASE_ERROR_EXCEPTION_MESSAGE = "unknown database error"
 

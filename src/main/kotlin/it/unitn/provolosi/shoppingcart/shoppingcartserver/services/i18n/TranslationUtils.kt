@@ -4,10 +4,16 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 
-
+/**
+ * Utils to load the files that contains the localized strings used on the server side
+ */
 class TranslationUtils {
 
     companion object {
+
+        /**
+         * Map that maps a locale to all the string localized in that locale
+         */
         private val translationMapsByLocale = listOf("it-IT", "en-US")
                 .map {
                     it to ObjectMapper().readTree(
@@ -15,17 +21,28 @@ class TranslationUtils {
                 }
                 .toMap()
 
+        /**
+         * Return the map of localized string of a given locale
+         */
         private fun getTranslationMap(locale: String) = translationMapsByLocale[locale]!!
 
-        private fun jsonNodeToMap(node: JsonNode) =
-                ObjectMapper().convertValue<Map<String, String>>(node, object : TypeReference<Map<String, String>>() {})
+        /**
+         * Return the localized strings used in notifications of the specified locale
+         */
+        fun getNotificationsTranslationMap(locale: String) =
+            getTranslationMap(locale)["notifications"]!!.toStringMap()
 
-        fun getNotificationsTranslationMap(locale: String): Map<String, String> = jsonNodeToMap(
-            getTranslationMap(locale)["notifications"]!!
-        )
+        /**
+         * Return the localized strings used in emails of the specified locale
+         */
+        fun getEmailTranslationMap(locale: String, emailName: String) =
+            getTranslationMap(locale)["emails"]!![emailName]!!.toStringMap()
 
-        fun getEmailTranslationMap(locale: String, emailName: String): Map<String, String> = jsonNodeToMap(
-            getTranslationMap(locale)["emails"]!![emailName]!!
-        )
     }
 }
+
+/**
+ * Convert a JsonNode (of the Jackson library) to a map of strings
+ */
+private fun JsonNode.toStringMap(): Map<String, String> = ObjectMapper()
+        .convertValue<Map<String, String>>(this, object : TypeReference<Map<String, String>>() {})
