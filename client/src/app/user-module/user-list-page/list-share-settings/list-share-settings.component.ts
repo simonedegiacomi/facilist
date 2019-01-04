@@ -35,9 +35,7 @@ export class ListShareSettingsComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private shoppingListSyncService: ShoppingListSyncService
-    ) {
-
-    }
+    ) { }
 
     ngOnInit() {
         this.listenForSyncUpdates();

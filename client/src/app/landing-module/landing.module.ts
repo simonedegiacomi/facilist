@@ -16,6 +16,7 @@ import { NewDemoListComponent } from './try-now/new-demo-list/new-demo-list.comp
 import { CookiesConsentComponent } from './home/cookies-consent/cookies-consent.component';
 import { InviteToSubscribeComponent } from './try-now/invite-to-subscribe/invite-to-subscribe.component';
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -38,5 +39,4 @@ import { InviteToSubscribeComponent } from './try-now/invite-to-subscribe/invite
         InviteToSubscribeComponent
     ]
 })
-export class LandingModule {
-}
+export class LandingModule { }

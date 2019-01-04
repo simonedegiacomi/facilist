@@ -5,6 +5,9 @@ import { Observable } from "rxjs";
 import { Notification } from "../../models/notification";
 import { map } from "rxjs/operators";
 
+/**
+ * Service to synchronize notifications
+ */
 @Injectable({
     providedIn: 'root'
 })

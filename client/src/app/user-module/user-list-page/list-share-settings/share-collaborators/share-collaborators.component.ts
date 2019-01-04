@@ -32,8 +32,7 @@ export class ShareCollaboratorsComponent {
         private collaborationService: ShoppingListCollaborationService,
         private authService: AuthService,
         private router: Router
-    ) {
-    }
+    ) { }
 
     onDeleteCollaboration(toDelete: ShoppingListCollaboration) {
         this.isSaving = true;

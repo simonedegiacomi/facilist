@@ -27,8 +27,7 @@ export class AddCollaboratorComponent implements OnInit {
     constructor(
         private userService: UserService,
         private listService: ShoppingListCollaborationService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.setupSearch();

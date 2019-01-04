@@ -16,9 +16,11 @@ export class PushSubscriptionService {
 
     constructor(
         private httpClient: HttpClient,
+        /**
+         * Helper provided by Angular to handle Push API subscriptions with ease
+         */
         private swPush: SwPush
-    ) {
-    }
+    ) { }
 
     hasActivatedPushNotification (): boolean {
         return window.localStorage.getItem("pushNotificationsActivated") === 'true';
@@ -41,6 +43,10 @@ export class PushSubscriptionService {
         }));
     }
 
+    /**
+     * Send the Push API subscription information to the server
+     * @param subscription
+     */
     private sendPushSubscription(subscription: PushSubscription): Observable<any> {
         return this.httpClient.post(`/api/users/me/pushSubscriptions`, {
             endpoint: subscription.endpoint,
@@ -50,7 +56,10 @@ export class PushSubscriptionService {
     }
 }
 
-
+/**
+ * Utility to convert buffers content to a base 64 string (used to convert the buffer that contains the public key)
+ * @param data Buffer to encode
+ */
 function arrayBufferToBase64 (data: ArrayBuffer): String {
     return btoa(String.fromCharCode.apply(null, new Uint8Array(data)));
 }

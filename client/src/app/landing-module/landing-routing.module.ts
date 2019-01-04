@@ -54,5 +54,4 @@ const routes: Routes = [
         NotLoggedInGuard
     ]
 })
-export class LandingRoutingModule {
-}
+export class LandingRoutingModule { }

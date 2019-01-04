@@ -3,6 +3,9 @@ import { NetworkErrorsService } from "../core-module/services/network-errors.ser
 
 const $ = window['jQuery'];
 
+/**
+ * Component that shows an alert with a description of the network error when a network or server error happen.
+ */
 @Component({
   selector: 'app-network-error-display',
   templateUrl: './network-error-display.component.html',

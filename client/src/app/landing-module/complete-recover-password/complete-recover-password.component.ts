@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { NewPasswordComponent } from "../../core-module/components/new-password/new-password.component";
 import { ActivatedRoute } from "@angular/router";
@@ -9,7 +9,7 @@ import { AuthService, INVALID_CODE } from "../../core-module/services/auth.servi
     templateUrl: './complete-recover-password.component.html',
     styleUrls: ['./complete-recover-password.component.css']
 })
-export class CompleteRecoverPasswordComponent implements OnInit {
+export class CompleteRecoverPasswordComponent {
 
     passwords: FormGroup;
 
@@ -23,9 +23,6 @@ export class CompleteRecoverPasswordComponent implements OnInit {
         private auth: AuthService
     ) {
         this.passwords = NewPasswordComponent.createPasswordsFormGroup(formBuilder)
-    }
-
-    ngOnInit() {
     }
 
     get email () { return this.route.snapshot.paramMap.get('email'); }

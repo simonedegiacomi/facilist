@@ -4,6 +4,9 @@ import { Router } from "@angular/router";
 
 const $ = window['jQuery'];
 
+/**
+ * Components that shows a dialog that invites the user to register
+ */
 @Component({
     selector: 'invite-to-subscribe',
     templateUrl: './invite-to-subscribe.component.html',
@@ -17,11 +20,12 @@ export class InviteToSubscribeComponent {
         onClick: () => this.closeModal()
     }];
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) { }
 
     register() {
         this.closeModal();
+
+        //  Redirect to the home woth the registration modal open
         this.router.navigateByUrl('/home?openRegisterModal=true');
     }
 

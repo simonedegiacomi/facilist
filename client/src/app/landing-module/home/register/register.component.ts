@@ -56,6 +56,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
+            // Open the modal in the url there is the query parameter to open the register modal
             if (params.has('openRegisterModal')) {
                 $('#registerModal').modal('show');
             }
@@ -78,6 +79,9 @@ export class RegisterComponent implements OnInit {
         return field.invalid && (field.dirty || field.touched);
     }
 
+    /**
+     * Send the request to register the user
+     */
     onSubmit() {
         this.emailAlreadyInUse = false;
         this.registering       = true;

@@ -8,6 +8,9 @@ import { NotebookSheetButton } from "../../../core-module/components/notebook-sh
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 
+/**
+ * Component to create a new demo shopping list. The user will be able to select only the category
+ */
 @Component({
     selector: 'app-new-demo-list',
     templateUrl: './new-demo-list.component.html',
@@ -33,6 +36,7 @@ export class NewDemoListComponent implements OnInit {
         private router: Router,
         private translate: TranslateService
     ) {
+        // Localize name and description of demo list
         translate.get('landing.tryNow.newDemoList.list.name')
             .subscribe(name => this.newList.name = name);
 

@@ -21,8 +21,7 @@ export class TryNowComponent implements OnInit {
     constructor(
         private router: Router,
         private shoppingListService: ShoppingListService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.loadList();

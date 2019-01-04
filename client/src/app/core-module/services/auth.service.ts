@@ -32,12 +32,14 @@ export class AuthService {
     public user: User = null;
 
     /**
-     * Observable logged in user
+     * Observable logged in user. Emits a new user (or null) when a user logins or logouts
      */
     public readonly user$ = new BehaviorSubject<User>(null);
 
 
-    // Last route  which access was unauthorized (used for redirect after login)
+    /**
+     * Last route which access was unauthorized (used for redirect after login)
+     */
     public unauthorizedRoute: string;
 
     constructor(
@@ -45,7 +47,11 @@ export class AuthService {
         private router: Router
     ) { }
 
-
+    /**
+     * Sends a request to get the currently logged in user
+     * @param redirectAfter If true and unauthorizedRoute is not null, user will be redirected to unauthorizedRoute if
+     *                      authenticated
+     */
     getUser(redirectAfter: boolean = false): Observable<User> {
         if (this.user != null) {
             return of(this.user);
@@ -70,12 +76,22 @@ export class AuthService {
         );
     }
 
+    /**
+     * Update thecached value of the user and emits the user event using the BehaviourSubject
+     * @param user
+     */
     private notifyUserObservers (user: User) {
         this.user = user;
         this.user$.next(user);
     }
 
 
+    /**
+     * Send the POST request to login the user
+     * @param email
+     * @param password
+     * @param rememberMe
+     */
     login(email: string, password: string, rememberMe: boolean): Observable<User> {
         this.notifyUserObservers(null);
 
@@ -98,19 +114,17 @@ export class AuthService {
         );
     }
 
-
+    /**
+     * Completes the user registration verifying the email address
+     * @param email
+     * @param token
+     */
     verifyEmail(email: string, token: string): Observable<any> {
         const options = {
             params: new HttpParams().set('token', token)
         };
 
         return this.httpClient.post(`/api/users/verifyEmail/${email}`, {}, options);
-    }
-
-    recoverPassword(email: string): Observable<any> {
-        return this.httpClient.post(`/api/users/${email}/recoverPassword`, null).pipe(
-            catchError(res => throwError(res.status == NOT_FOUND ? EMAIL_NOT_REGISTERED : NETWORK_ERROR)),
-        );
     }
 
 
@@ -124,13 +138,29 @@ export class AuthService {
         );
     }
 
+    /**
+     * Send the request to start the recover password procedure
+     * @param email
+     */
+    recoverPassword(email: string): Observable<any> {
+        return this.httpClient.post(`/api/users/${email}/recoverPassword`, null).pipe(
+            catchError(res => throwError(res.status == NOT_FOUND ? EMAIL_NOT_REGISTERED : NETWORK_ERROR)),
+        );
+    }
+
+    /**
+     * Send the POST to complete the recover password procedure
+     * @param data
+     */
     completeRecoverPassword(data: { email: string; newPassword: string; token: string }): Observable<any> {
         return this.httpClient.post('/api/users/completeRecoverPassword', data).pipe(
             catchError(res => throwError(res.status == BAD_REQUEST ? INVALID_CODE : NETWORK_ERROR))
         );
     }
 
-
+    /**
+     * Redirect the user to his home (admin home, user home or landing) or to the path in unauthorizedRoute
+     */
     redirectAfterLogin () {
         if (this.user === null) {
             console.warn('Accessed AuthService.redirectAfterLogin when no user is logged in');
@@ -148,6 +178,10 @@ export class AuthService {
     }
 }
 
+/**
+ * Class that intercepts request responses and if a response is a 403 (and it's not a login or status request) redirects
+ * the user to the login page
+ */
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
 
@@ -173,6 +207,10 @@ export class AuthHttpInterceptor implements HttpInterceptor {
         )
     }
 
+    /**
+     * Checks if it's a login or a status request
+     * @param req
+     */
     static isNotALoginRequest (req: HttpRequest<any>) {
         return !(req.url.startsWith('/api/users/me') || req.url.startsWith('/api/auth/login'));
     }

@@ -13,6 +13,9 @@ import { EventTypes, MySyncService } from "./MySyncService";
 
 const {CREATED, MODIFIED, DELETED} = EventTypes;
 
+/**
+ * Service to synchronize shopping lists
+ */
 @Injectable({
     providedIn: 'root'
 })

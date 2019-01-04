@@ -9,13 +9,14 @@
             (openChat)="onOpenChat()"
         ></app-user-list>
 
-
+        <!-- Chat -->
         <list-chat [list]="list" [(isOpen)]="isChatOpen"></list-chat>
-
     </div>
 
+    <!-- Dialog with sharing settings -->
     <user-list-share-settings [list]="list"></user-list-share-settings>
 
+    <!-- Dialog with list options -->
     <list-options [list]="list"></list-options>
 
 </div>

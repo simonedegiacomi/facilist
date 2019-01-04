@@ -4,11 +4,12 @@ import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../../co
 import { Observable, of } from "rxjs";
 import { Product } from "../../core-module/models/product";
 
+/**
+ * Implementation of the ShoppingListService that stores data in the local storage (used in the try nwo feature).
+ * NOTE: This service handle at most one shopping list.
+ */
 @Injectable()
 export class LocalStorageShoppingListService implements ShoppingListService {
-
-    constructor() {
-    }
 
     addProduct(list: ShoppingList, product: Product): Observable<ShoppingListProduct> {
         const relation = new ShoppingListProduct(product);

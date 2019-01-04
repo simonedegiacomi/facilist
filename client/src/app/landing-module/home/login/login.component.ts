@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
         onClick: () => $('#loginModal').modal('hide')
     }];
 
-    loggingIn = false;
+    loggingIn  = false;
     loginError = false;
     rememberMe = false;
 
@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
         private auth: AuthService,
         private router: Router,
         private route: ActivatedRoute
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
+            // Open the modal in the url there is the query parameter to open the register modal
             if (params.has('openLoginModal')) {
                 const email = params.get('email');
                 if (email != null) {
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         this.loginError = false;
-        this.loggingIn = true;
+        this.loggingIn  = true;
 
         const {email, password} = this.loginForm.value;
         this.auth.login(email, password, this.rememberMe).subscribe(
@@ -70,5 +70,7 @@ export class LoginComponent implements OnInit {
         this.loggingIn = false;
     }
 
-    get email () { return this.loginForm.get('email'); }
+    get email() {
+        return this.loginForm.get('email');
+    }
 }

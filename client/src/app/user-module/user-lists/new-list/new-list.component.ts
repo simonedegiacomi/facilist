@@ -8,7 +8,9 @@ import { NotebookSheetButton } from "../../../core-module/components/notebook-sh
 
 const $ = window['jQuery'];
 
-
+/**
+ * Component to create  a new list
+ */
 @Component({
     selector: 'user-new-list',
     templateUrl: './new-list.component.html',
@@ -35,8 +37,7 @@ export class NewListComponent implements OnInit {
     constructor(
         private listCategoryService: ShoppingListCategoryService,
         private listService: ShoppingListService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.fetchListCategories();

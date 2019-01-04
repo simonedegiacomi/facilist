@@ -6,6 +6,9 @@ import { Observable } from "rxjs";
 import { Product } from "../../core-module/models/product";
 import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
 
+/**
+ * Implementation of the ShoppingListService that sends request to the server
+ */
 @Injectable()
 export class BackendShoppingListService extends MyRestService<ShoppingList> implements ShoppingListService {
 
@@ -29,8 +32,6 @@ export class BackendShoppingListService extends MyRestService<ShoppingList> impl
 
         return super.create(entity);
     }
-
-
 
     updateProductInShoppingList(relation: ShoppingListProduct): Observable<ShoppingListProduct> {
         return this.httpClient.put<ShoppingListProduct>(

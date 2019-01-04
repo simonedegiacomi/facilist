@@ -23,8 +23,7 @@ export class VerifyEmailComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private authService: AuthService,
         private userService: UserService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.activatedRoute.queryParamMap.subscribe(_ => this.onRouteChanged());

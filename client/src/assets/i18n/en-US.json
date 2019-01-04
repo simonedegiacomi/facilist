@@ -94,6 +94,12 @@
             "verified": "E-email verified!",
             "loginSuggestion": "Now you can login into your account",
             "error": "There has been an error while verifying your email address."
+        },
+        "completeRecoverPassword": {
+            "title": "Password recover",
+            "createNewPassword": "Create a new password for your account.",
+            "passwordChanged": "Password changed!",
+            "nowYouCanLogin": "Now you can access your account"
         }
     },
     "user": {
@@ -254,7 +260,8 @@
             "save": "Save",
             "delete": "Delete",
             "edit": "Edit",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "login": "Login"
         },
         "fields": {
             "name": "Name",
@@ -264,7 +271,9 @@
             "products": "products"
         },
         "states": {
-            "loading": "Loading..."
+            "loading": "Loading...",
+            "verifyError": "An error occurred during verification.",
+            "retry": "retry"
         }
     }
 }

@@ -1,11 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
+    <!-- Open collapsed links -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsableItems"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
             [class.v-sm-hidden]="isUser$ | async">
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Application name -->
     <a class="navbar-brand d-none d-lg-block" href="#">{{ applicationName }}</a>
 
     <div class="collapse navbar-collapse" id="collapsableItems">
@@ -91,4 +93,5 @@
     </div>
 </nav>
 
+<!-- Profile settings dialog -->
 <app-user-settings *ngIf="user$ | async"></app-user-settings>

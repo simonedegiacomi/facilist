@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from "../core-module/services/auth.service";
 import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
@@ -10,7 +10,7 @@ import { I18nService } from "../core-module/services/i18n.service";
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
     applicationName = "Facilist";
 
@@ -19,8 +19,6 @@ export class NavbarComponent implements OnInit {
         private router: Router,
         private i18n: I18nService
     ) { }
-
-    ngOnInit() { }
 
     readonly user$      = this.auth.user$;
     readonly isGuest$   = this.user$.pipe(map(user => user == null));

@@ -6,6 +6,9 @@ import { Observable } from "rxjs";
 import { filter, map } from "rxjs/operators";
 import { ChatMessage } from "../../models/chat-message";
 
+/**
+ * Service to synchronize chat messages
+ */
 @Injectable({
     providedIn: 'root'
 })

@@ -94,6 +94,12 @@
             "verified": "E-email verificata!",
             "loginSuggestion": "Ora puoi accedere al tuo account",
             "error": "Si è verificato un errore durante la vericica."
+        },
+        "completeRecoverPassword": {
+            "title": "Recupero della password",
+            "createNewPassword": "Crea una nuova password per il tuo account.",
+            "passwordChanged": "Password cambiata!",
+            "nowYouCanLogin": "Ora puoi accedere al tuo account"
         }
     },
     "user": {
@@ -148,7 +154,7 @@
                     "cancelButton": "Mantieni"
                 }
             },
-            "chat":{
+            "chat": {
                 "loadingPreviousMessages": "Sto caricando i messaggi più vecchi ...",
                 "writeMessagePlaceholder": "Digita il tuo messaggio..."
             }
@@ -254,7 +260,8 @@
             "save": "Salva",
             "delete": "Elimina",
             "edit": "Modifica",
-            "cancel": "Annulla"
+            "cancel": "Annulla",
+            "login": "Accedi"
         },
         "fields": {
             "name": "Nome",
@@ -264,7 +271,9 @@
             "products": "prodotti"
         },
         "states": {
-            "loading": "Caricamento..."
+            "loading": "Caricamento...",
+            "verifyError": "Si è verificato un errore durante la verifica.",
+            "retry": "Riprovare"
         }
     }
 }

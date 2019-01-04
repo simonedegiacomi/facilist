@@ -7,8 +7,11 @@ import { ChatSyncService } from "../../../core-module/services/sync/chat-sync.se
 import { AuthService } from "../../../core-module/services/auth.service";
 import { NgForm } from "@angular/forms";
 
-const $ = window['jQuery'];
-
+/**
+ * Components that handle the chat of a shopping list.
+ * Messages are loaded in pages from the server. When the chat is opened only the latest messages are shown. As the use
+ * scroll, older messages will befetched.
+ */
 @Component({
     selector: 'list-chat',
     templateUrl: './chat.component.html',
@@ -17,20 +20,43 @@ const $ = window['jQuery'];
 export class ChatComponent implements OnInit, OnChanges {
 
     @Input() list: ShoppingList;
+
+    /**
+     * Wheter or not the chat is open
+     */
     @Input() isOpen = false;
 
+    /**
+     * Event emitter that emits boolean (that indicates if the chat is open or not)
+     */
     @Output() isOpenChange = new EventEmitter<boolean>();
 
+    /**
+     * Last page of messages loaded.
+     */
     private lastLoadedPage: PagedResult<ChatMessage>;
 
     messages: ChatMessage[] = [];
 
+    /**
+     * New message that the user is writing
+     */
     newMessage: string;
 
+    /**
+     * Is sending the new message. User to disable the textarea
+     */
     isSending = false;
 
+    /**
+     * Flag that indicates if we're fetching older messages. Use to show a message in the view.
+     */
     loadingPreviousMessages = false;
 
+    /**
+     * Flag that indicates if the chat was already opened once. Used to scroll to the bottom (latest message) only the
+     * first time
+     */
     private wasAlreadyOpenOnce = false;
 
     @ViewChild('form') form: NgForm;
@@ -64,6 +90,9 @@ export class ChatComponent implements OnInit, OnChanges {
             })
     }
 
+    /**
+     * Fetches latest messages
+     */
     private fetchMessages () {
         this.loadingPreviousMessages = true;
         this.chatService.getPagedMessagesOfShoppingList(this.list)
@@ -75,6 +104,10 @@ export class ChatComponent implements OnInit, OnChanges {
             .scrollTo(0, document.querySelector('.messages').scrollHeight));
     }
 
+    /**
+     * Called when the user scroll up to the top.
+     * IF there are older messages, a new request to fetch them will be made
+     */
     onScrollUp () {
         if (this.lastLoadedPage.hasNext) {
             this.loadingPreviousMessages = true;
@@ -96,6 +129,11 @@ export class ChatComponent implements OnInit, OnChanges {
         this.newMessage = "";
     }
 
+    /**
+     * Called every time the user presses a key and the textarea of the new message is focused. If the user presses the enter
+     * button, the new message will be sent.
+     * @param event
+     */
     onKeyDown (event: KeyboardEvent) {
         if (event.keyCode == 13) {
             if (this.form.valid) {
@@ -107,6 +145,9 @@ export class ChatComponent implements OnInit, OnChanges {
         return true;
     }
 
+    /**
+     * Closes the chat
+     */
     closeChat() {
         this.isOpen = false;
         this.isOpenChange.emit(false);

@@ -5,6 +5,9 @@ import { ShoppingListPreview } from "../../core-module/models/shopping-list";
 import { ShoppingListService } from "../../core-module/services/rest/shopping-list.service";
 import { NearYouService } from "../../core-module/services/near-you.service";
 
+/**
+ * Component that shows the all the lists of the user (created and in which the user collaborates)
+ */
 @Component({
     templateUrl: './user-lists.component.html',
     styleUrls: ['./user-lists.component.css']
@@ -22,8 +25,7 @@ export class UserListsComponent implements OnInit, OnDestroy {
         private listService: ShoppingListService,
         private syncService: ShoppingListSyncService,
         private nearYouService: NearYouService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.fetchMyShoppingLists();

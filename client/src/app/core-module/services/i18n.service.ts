@@ -5,6 +5,9 @@ import { AuthService } from "./auth.service";
 const SUPPORTED_LOCALES = ['it-IT', 'en-US'];
 const DEFAULT_LOCALE    = 'it-IT';
 
+/**
+ * Service that decide which locale to use for internationalization
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -24,20 +27,29 @@ export class I18nService {
 
         this.useLastUsedLocaleOrDefault();
 
-        this.listenToUSerLoginEvent();
+        this.listenToUserLoginEvent();
     }
 
+    /**
+     * Configure the internationalization library which locale the app supports and which is the dafult one
+     */
     private setupTranslationLibrary() {
         this.i18n.addLangs(SUPPORTED_LOCALES);
         this.i18n.setDefaultLang(DEFAULT_LOCALE);
     }
 
+    /**
+     * If the locale has been saved in the local storage load it, otherwise use the default one
+     */
     private useLastUsedLocaleOrDefault () {
         const latestOrDefault = window.localStorage.getItem('latestLocale') || DEFAULT_LOCALE;
         this.setCurrentLocale(latestOrDefault);
     }
 
-    private listenToUSerLoginEvent() {
+    /**
+     * Listen for the event emit when the user logins. This because the user locale may be different from the currently used one
+     */
+    private listenToUserLoginEvent() {
         this.authService.user$.subscribe(user => {
             if (user != null) {
                 this.setCurrentLocale(user.locale)
@@ -56,6 +68,10 @@ export class I18nService {
         this.storeLastUsedLocale(locale);
     }
 
+    /**
+     * Store the specified locale as the last one used in the local storage
+     * @param locale
+     */
     private storeLastUsedLocale(locale: string) {
         window.localStorage.setItem('latestLocale', locale);
     }

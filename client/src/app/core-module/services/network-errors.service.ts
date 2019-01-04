@@ -3,13 +3,23 @@ import { Observable, throwError } from "rxjs";
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 
-export const NETWORK_ERROR = 'newtorkError';
+export const NETWORK_ERROR = 'networkError';
 
+/**
+ * Service used to collect all the network and server errors, so they can be handled and showed to the user through the
+ * NetworkErrorDisplay component.
+ */
 @Injectable()
 export class NetworkErrorsService {
 
+    /**
+     * Observer used by the NetworkErrorDusplay component
+     */
     error: Observable<any>;
 
+    /**
+     * Observer which events are emitted by the public error Observer
+     */
     private observer;
 
     constructor () {
@@ -18,6 +28,10 @@ export class NetworkErrorsService {
         });
     }
 
+    /**
+     * Method called by the NetworkErrorInterceptor when a network error happens
+     * @param error
+     */
     onNetworkError (error: any) {
         console.error('Network error', error);
 
@@ -26,6 +40,9 @@ export class NetworkErrorsService {
         }
     }
 
+    /**
+     * Returns a new error handler that can be passed as argument to the catchError function of RXJS
+     */
     errorHandler<T> (): ((error: any) => Observable<T | any>) {
         return (error: any) => {
             if (NetworkErrorsService.isNetworkError(error)) {
@@ -36,8 +53,13 @@ export class NetworkErrorsService {
         }
     }
 
+    /**
+     * Utility function that checks if an error is a network or a server error
+     * @param error
+     */
     static isNetworkError (error: any): boolean {
-        if (error === NETWORK_ERROR) {
+
+        if (error === NETWORK_ERROR) { // The error was handled by our logic in some service
             return true;
         }
 
@@ -59,6 +81,9 @@ export class NetworkErrorsService {
     }
 }
 
+/**
+ * HTTP request filter that looks for 500 response code
+ */
 @Injectable()
 export class NetworkErrorInterceptor implements HttpInterceptor {
 

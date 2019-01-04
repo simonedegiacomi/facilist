@@ -5,19 +5,28 @@ import { UserService } from "./rest/user.service";
 
 import geodist from 'geodist';
 
-const DISTANCE_THRESHOLD = 500;
+/**
+ * Distance to user to consider that the user moved enough to notify the server
+ */
+const DISTANCE_THRESHOLD = 500; // meters
 
+/**
+ * Service that handle the location permission and sends the location to the server when the user starts the app
+ * or moves more than a specified threshold
+ */
 @Injectable({
     providedIn: 'root'
 })
 export class NearYouService {
 
+    /**
+     * Last position sent to the server
+     */
     private lastPosition: Position;
 
     constructor(
         private userService: UserService
-    ) {
-    }
+    ) { }
 
     hasGivenPermissionToUseGeolocation(): Observable<boolean> {
         // @ts-ignore
@@ -29,6 +38,9 @@ export class NearYouService {
         );
     }
 
+    /**
+     * Use the browser API to ask the user the permission for the geolocation
+     */
     askPermission(): Observable<boolean> {
         return Observable.create((observer) => {
             navigator.geolocation.getCurrentPosition(() => {
@@ -37,6 +49,10 @@ export class NearYouService {
         });
     }
 
+    /**
+     * Start the service listening to position events. When the first positions found or the user moves more than a
+     * threshold, the user position is sent to the server.
+     */
     start() {
         navigator.geolocation.watchPosition((position: Position) => {
             if (this.shouldSendNewPosition(position)) {
@@ -49,6 +65,10 @@ export class NearYouService {
         });
     }
 
+    /**
+     * Checks if the specified position is far from the last position sent to the server more than a threshold
+     * @param position
+     */
     shouldSendNewPosition(position: Position): boolean {
         if (this.lastPosition == null) {
             return true;
