@@ -8,6 +8,9 @@ import { NotebookSheetButton } from "../notebook-sheet/notebook-sheet.component"
 
 const $ = window['jQuery'];
 
+/**
+ * Component that shows a shopping list, products in it and allow the user to add new products
+ */
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
@@ -43,8 +46,6 @@ export class UserListComponent implements OnInit {
     @Output() openSettings      = new EventEmitter();
     @Output() openChat          = new EventEmitter();
 
-    isSaving = false;
-
     lastUpdate: Date;
 
     customProductName: string;
@@ -53,25 +54,28 @@ export class UserListComponent implements OnInit {
         private listService: ShoppingListService,
         private auth: AuthService,
         private shoppingListSyncService: ShoppingListSyncService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.listenForSyncUpdates();
     }
 
-
-
+    /**
+     * Listen for list updates from the server to keep the view always up to date
+     */
     private listenForSyncUpdates() {
+        // List for edits on list info (name, icon and description)
         this.shoppingListSyncService.shoppingListInfoEdited(this.list)
             .subscribe(edited => {
                 this.list.name        = edited.name;
                 this.list.description = edited.description;
             });
 
+        // Listen for products added
         this.shoppingListSyncService.newProductInShoppingList(this.list)
             .subscribe(p => this.list.products.push(p));
 
+        // Listen for products updated
         this.shoppingListSyncService.productInShoppingListEdited(this.list)
             .subscribe(updatedProduct => {
                 const product = this.list.products.find(p => p.id == updatedProduct.id)
@@ -82,6 +86,7 @@ export class UserListComponent implements OnInit {
                 product.bought   = updatedProduct.bought;
             });
 
+        // Listen for products deleted
         this.shoppingListSyncService.productInShoppingListDeleted(this.list)
             .subscribe(deletedProduct => {
                 const index = this.list.products.findIndex(p => p.id == deletedProduct.id);
@@ -89,51 +94,29 @@ export class UserListComponent implements OnInit {
             });
     }
 
-
+    /**
+     * Sends the request to add a new product to the list
+     * @param product Product to add
+     */
     onAddProduct(product: Product) {
-
         this.listService.addProduct(this.list, product).subscribe(() => {
             this.lastUpdate = new Date();
         });
-
     }
 
+    /**
+     * Sends the request to remove a product from the list
+     * @param product Product to remove
+     */
     removeProduct(product: ShoppingListProduct) {
         this.list.products.splice(this.list.products.indexOf(product), 1);
-        //this.notifyChange();
     }
 
+    /**
+     * Checks if the list is currently used in the try now feature
+     */
     get isDemoList(): boolean {
         return this.auth.user == null && this.list.creator == null;
-    }
-
-    get userCanEditCollaborations() {
-        if (this.isDemoList) {
-            return true;
-        }
-
-        const userId = this.auth.user.id;
-        if (userId == this.list.creator.id) {
-            return true;
-        }
-
-        const userCollaborations = this.list.collaborations.find(c => c.user.id == userId);
-        return userCollaborations.role == CollaborationsRoles.SOCIAL ||
-            userCollaborations.role == CollaborationsRoles.ADMIN;
-    }
-
-    get userCanEditInfo() {
-        if (this.isDemoList) {
-            return true;
-        }
-
-        const userId = this.auth.user.id;
-        if (userId == this.list.creator.id) {
-            return true;
-        }
-
-        const userCollaborations = this.list.collaborations.find(c => c.user.id == userId);
-        return userCollaborations.role == CollaborationsRoles.ADMIN;
     }
 
     onCreateProduct(name: string) {
