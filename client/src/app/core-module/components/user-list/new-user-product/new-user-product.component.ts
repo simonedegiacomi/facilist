@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { defaultProductIcon, Product } from "../../../models/product";
-import { ProductCategoryService } from "../../../services/rest/product-category.service";
 import { ProductCategory } from "../../../models/product-category";
-import { Observable } from "rxjs";
 import { ProductService } from "../../../services/rest/product.service";
 import { ShoppingList } from "../../../models/shopping-list";
 import { ShoppingListService } from "../../../services/rest/shopping-list.service";
@@ -11,6 +9,9 @@ import { NotebookSheetButton } from "../../notebook-sheet/notebook-sheet.compone
 
 const $ = window['jQuery'];
 
+/**
+ * Component to create a custom product
+ */
 @Component({
     selector: 'app-new-user-product',
     templateUrl: './new-user-product.component.html',
@@ -25,27 +26,24 @@ export class NewUserProductComponent implements OnInit {
         onClick: () => this.closeModal()
     }];
 
-
+    /**
+     * Initial name of the custom products
+     */
     @Input() customProductName: string;
 
+    /**
+     * List into which insert the custom product
+     */
     @Input() shoppingList: ShoppingList;
-
-    categories$: Observable<ProductCategory[]>;
 
     isSaving = false;
 
     newProduct = new Product();
 
     constructor(
-        private productCategoryService: ProductCategoryService,
         private productService: ProductService,
         private shoppingListService: ShoppingListService
     ) { }
-
-    ngOnInit() {
-        this.categories$ = this.productCategoryService.getAll();
-    }
-
 
     get newProductIcon(): string {
         if (this.newProduct.icon != defaultProductIcon) {
@@ -63,7 +61,7 @@ export class NewUserProductComponent implements OnInit {
 
     onSave() {
         this.isSaving = true;
-        
+
         this.newProduct.name       = this.customProductName;
         this.newProduct.icon       = this.newProductIcon;
         this.newProduct.categoryId = this.newProduct.category.id;
@@ -72,12 +70,19 @@ export class NewUserProductComponent implements OnInit {
             switchMap(product => this.shoppingListService.addProduct(this.shoppingList, product))
         ).subscribe(() => {
             this.newProduct = new Product();
-            this.isSaving = false;
+            this.isSaving   = false;
             this.closeModal();
         });
     }
 
-    private closeModal () {
+    private closeModal() {
         $('#newUserProductModal').modal('hide');
+    }
+
+    /**
+     * Categories compatible with the shopping list
+     */
+    get categories(): ProductCategory[] {
+        return this.shoppingList.category.productCategories;
     }
 }

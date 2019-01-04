@@ -26,7 +26,7 @@
                             <label>{{ 'common.fields.category' | translate}}</label>
                         </div>
                         <div class="col-12 col-sm-9">
-                            <app-select [values]="categories$ | async"
+                            <app-select [values]="categories"
                                         [(selected)]="newProduct.category"
                                         [placeholder]="'common.fields.categoryPlaceholder' | translate"></app-select>
                         </div>
