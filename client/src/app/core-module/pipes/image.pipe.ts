@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Pipe that converts an image id in it's url
+ */
 @Pipe({
     name: 'image'
 })

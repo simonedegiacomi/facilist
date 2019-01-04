@@ -5,7 +5,7 @@ import { ProductCategory } from "../../models/product-category";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
-import { ifResponseCodeThen } from "../../utils";
+import { ifResponseCodeThen } from "../../utils/request";
 import { CONFLICT } from "http-status-codes";
 import { ForesquareCategory } from "../../models/foresquare-category";
 
@@ -44,6 +44,6 @@ export class ShoppingListCategoryService extends MyRestService<ShoppingListCateg
     }
 
     getAllForesquareCategories(): Observable<ForesquareCategory[]> {
-        return this.httpClient.get<ForesquareCategory[]>(`${this.resourcePath}/foresquareCategories`);
+        return this.httpClient.get<ForesquareCategory[]>(`${this.resourcePath}/foursquareCategories`);
     }
 }

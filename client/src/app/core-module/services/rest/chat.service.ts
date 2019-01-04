@@ -25,6 +25,11 @@ export class ChatService extends MyRestService<ChatMessage> {
         return this.getPaged(`/api/shoppingLists/${list.id}/chat/messages`, page, size);
     }
 
+    /**
+     * Sends a message ina shopping list
+     * @param list
+     * @param message
+     */
     public sendMessage(
         list: ShoppingList,
         message: string

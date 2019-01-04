@@ -19,9 +19,8 @@
 
 <!-- Loading -->
 <div *ngIf="loading">
-    Caricamento
+    {{ 'common.states.loading' | translate }}
 </div>
-
 
 
 <!-- Display results -->
@@ -40,7 +39,7 @@
 </div>
 
 
-<!-- Warning delete category warning -->
+<!-- Delete category warning -->
 <div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteCategoryModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -60,6 +59,7 @@
                     {{ 'admin.productCategories.delete.warning' | translate }}
                 </p>
 
+                <!-- Confirm delete button -->
                 <button class="action-button link-cta danger" (click)="onDeleteCategoryAfterWarning(deletingCategory)">
                     {{ 'common.buttons.delete' | translate }}
                 </button>

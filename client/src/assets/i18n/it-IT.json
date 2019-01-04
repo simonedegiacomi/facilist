@@ -262,6 +262,9 @@
             "category": "Categoria",
             "categoryPlaceholder": "Categoria ...",
             "products": "prodotti"
+        },
+        "states": {
+            "loading": "Caricamento..."
         }
     }
 }

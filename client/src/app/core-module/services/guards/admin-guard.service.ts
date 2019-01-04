@@ -5,6 +5,9 @@ import { catchError, map, tap } from "rxjs/operators";
 import { AuthService } from "../auth.service";
 import { Roles } from "../../models/user";
 
+/**
+ * Guard that make some route accessible only if the logged in user is an admin
+ */
 @Injectable()
 export class AdminGuard implements CanActivate {
 

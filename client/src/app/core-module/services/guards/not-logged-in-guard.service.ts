@@ -4,6 +4,9 @@ import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { AuthService } from "../auth.service";
 
+/**
+ * Guard that make some route accessible only if no user is logged in
+ */
 @Injectable()
 export class NotLoggedInGuard implements CanActivate {
 

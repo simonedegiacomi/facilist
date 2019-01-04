@@ -9,8 +9,7 @@ export class UploadService {
 
     constructor(
         private httpClient: HttpClient
-    ) {
-    }
+    ) { }
 
 
     uploadImage(file: File): Observable<string> {

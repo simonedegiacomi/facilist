@@ -86,6 +86,4 @@ export class ShoppingListPreview {
 
         this.shared = list.collaborations.length > 0
     }
-
-
 }

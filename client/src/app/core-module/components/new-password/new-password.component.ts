@@ -1,6 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 
+/**
+ * Define a validation rule that checks if the password insert in the second field matches the one inserted in the first
+ * @param passwordFieldName
+ * @param confirmFieldName
+ */
 function confirmPassword(passwordFieldName: string, confirmFieldName: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
 
@@ -8,13 +13,18 @@ function confirmPassword(passwordFieldName: string, confirmFieldName: string): V
         const confirm = control.get(confirmFieldName).value;
 
         if (confirm === password) {
-            return null;
+            return null; // no error
         }
 
         return {'confirmPassword': 'differentPasswords'};
     };
 }
 
+/**
+ * Define a validation rule that checks if a string matches a specified regexp and return a specified error if not
+ * @param name The name of the error to return
+ * @param pattern The pattern that the string must match
+ */
 function namedPatter(name: string, pattern: RegExp): ValidatorFn {
     const error = {};
     error[name] = true;
@@ -35,6 +45,10 @@ export class NewPasswordComponent {
 
     @Input() passwords: FormGroup;
 
+    /**
+     * Creates the password reactive form group
+     * @param formBuilder
+     */
     static createPasswordsFormGroup (formBuilder: FormBuilder) {
         return formBuilder.group({
             password: new FormControl(null, [

@@ -262,6 +262,9 @@
             "category": "Category",
             "categoryPlaceholder": "Category ...",
             "products": "products"
+        },
+        "states": {
+            "loading": "Loading..."
         }
     }
 }

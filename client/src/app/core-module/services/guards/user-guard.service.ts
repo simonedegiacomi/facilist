@@ -5,6 +5,9 @@ import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { Roles } from "../../models/user";
 
+/**
+ * Guard that make some route accessible only if the logged in user is not an admin
+ */
 @Injectable()
 export class UserGuard implements CanActivate {
 
@@ -30,6 +33,4 @@ export class UserGuard implements CanActivate {
             })
         );
     }
-
-
 }

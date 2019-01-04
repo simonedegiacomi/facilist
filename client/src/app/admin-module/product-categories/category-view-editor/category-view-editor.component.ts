@@ -15,7 +15,14 @@ export class CategoryViewEditorComponent implements OnInit {
 
     @Input() category: ProductCategory;
 
+    /**
+     * Name of the category before the edit
+     */
     private originalName: string;
+
+    /**
+     * Description of the category before the edit
+     */
     private originalDescription: string;
 
     @Output() cancel: EventEmitter<void> = new EventEmitter();
@@ -28,6 +35,9 @@ export class CategoryViewEditorComponent implements OnInit {
 
     nameConflict        = false;
 
+    /**
+     * Config of the TinyMCE editor
+     */
     editorConfig = editorConfig;
 
     constructor(
@@ -81,6 +91,10 @@ export class CategoryViewEditorComponent implements OnInit {
             this.nameConflict = true;
         }
     }
+
+    /**
+     * Cancel the edit or the creation of a category
+     */
     onCancel () {
         this.isEditing              = false;
         this.category.name          = this.originalName;

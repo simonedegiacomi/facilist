@@ -1,22 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MyRestEntity, PagedResult } from "../../services/rest/MyRestService";
 import { Observable } from "rxjs";
 
+/**
+ * Component that show link to pages and load them when the user clicks on the link
+ */
 @Component({
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent<T extends MyRestEntity> implements OnInit {
+export class PaginationComponent<T extends MyRestEntity> {
 
+    /**
+     * Page to show
+     */
     @Input() page: PagedResult<T>;
+
+    /**
+     * Emits events when the user changes page
+     */
     @Output() pageChange = new EventEmitter<PagedResult<T>>();
-
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
 
     loadPage (page: Observable<PagedResult<T>>) {
         this.page = null;

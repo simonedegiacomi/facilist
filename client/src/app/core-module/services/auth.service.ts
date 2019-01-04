@@ -20,6 +20,9 @@ export const WRONG_CREDENTIALS    = "wrongCredentials";
 export const EMAIL_NOT_REGISTERED = "emailNotRegistered";
 export const INVALID_CODE         = "invalidCode";
 
+/**
+ * Service that handles the authentication of the user
+ */
 @Injectable()
 export class AuthService {
 

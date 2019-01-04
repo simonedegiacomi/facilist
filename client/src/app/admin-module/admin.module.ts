@@ -17,7 +17,7 @@ import { CoreModule } from "../core-module/core.module";
     imports: [
         CommonModule,
         FormsModule,
-        EditorModule, // NOTE: This is already imported in the main 'app' module, but if i remove from here it doesn't work
+        EditorModule,
         AdminRoutingModule,
         CoreModule
     ],

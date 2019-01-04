@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { CollaborationsRoles, ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
+import { ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
 import { Product } from "../../models/product";
 import { AuthService } from "../../services/auth.service";
 import { ShoppingListSyncService } from "../../services/sync/shopping-list-sync.service";
@@ -124,5 +124,8 @@ export class UserListComponent implements OnInit {
         $('#newUserProductModal').modal('show');
     }
 
+    /**
+     * Checks if the list has at leas one product
+     */
     get listHasProducts(): boolean { return this.list.products.length > 0; }
 }

@@ -8,7 +8,7 @@ import { Subject } from "rxjs";
 import { AuthService } from "../../../core-module/services/auth.service";
 import { ShoppingListSyncService } from "../../../core-module/services/sync/shopping-list-sync.service";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
-import { removeFromArrayByIdIfPresent, replaceArrayItemByIdIfPresent } from "../../../core-module/utils";
+import { removeFromArrayByIdIfPresent, replaceArrayItemByIdIfPresent } from "../../../core-module/utils/array";
 
 const $ = window['jQuery'];
 

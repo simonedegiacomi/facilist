@@ -22,12 +22,13 @@ const routes: Routes = [
             }, {
                 path: 'shoppingListCategories',
                 component: ShoppingListCategoriesComponent
-            }, {
+            }, { // Redirect unknown admin path to products
                 path: '**',
                 redirectTo: 'products'
             }
         ],
         canActivate: [
+            // The admin path can be reached only if the currently logged in user is an admin
             AdminGuard
         ]
     }

@@ -1,23 +1,33 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+/**
+ * Custom stiled checkbox
+ */
 @Component({
-  selector: 'app-checkbox',
-  templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.css']
+    selector: 'app-checkbox',
+    templateUrl: './checkbox.component.html',
+    styleUrls: ['./checkbox.component.css']
 })
-export class CheckboxComponent implements OnInit {
+export class CheckboxComponent {
 
-  @Input() checked: boolean;
-  @Input() label = "";
-  @Output() checkedChange = new EventEmitter<boolean>();
+    /**
+     * Is the checkbox checked by default
+     */
+    @Input() checked: boolean;
 
-  constructor() { }
+    /**
+     * Emits event when the check status changes
+     */
+    @Output() checkedChange = new EventEmitter<boolean>();
 
-  ngOnInit() {
-  }
+    /**
+     * Label of the checkbox
+     */
+    @Input() label = "";
 
-  toggleValue() {
-  	this.checked = !this.checked;
-  	this.checkedChange.emit(this.checked);
-  }
+
+    toggleValue() {
+        this.checked = !this.checked;
+        this.checkedChange.emit(this.checked);
+    }
 }

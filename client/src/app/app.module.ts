@@ -58,6 +58,9 @@ import { I18nService } from "./core-module/services/i18n.service";
 export class AppModule {
 
     constructor(i18n: I18nService) {
+        /**
+         * Load the default language or the last used by the user
+         */
         i18n.onAppSetup();
     }
 }

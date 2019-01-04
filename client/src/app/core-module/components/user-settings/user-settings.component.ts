@@ -9,6 +9,9 @@ import { I18nService } from "../../services/i18n.service";
 
 const $ = window['jQuery'];
 
+/**
+ * Component that shows a dialog with the user profile settings
+ */
 @Component({
     selector: 'app-user-settings',
     templateUrl: './user-settings.component.html',
@@ -37,6 +40,7 @@ export class UserSettingsComponent implements OnInit {
         formBuilder: FormBuilder,
         private i18n: I18nService
     ) {
+        // Create the forms
         this.changeEmailForm    = formBuilder.group({
             email: new FormControl(null, [
                 Validators.required,

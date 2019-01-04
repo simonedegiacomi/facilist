@@ -9,10 +9,12 @@ import { ShoppingListCategoryService } from "../../core-module/services/rest/sho
 })
 export class ShoppingListCategoriesComponent implements OnInit {
 
+    /**
+     * All the shopping list categories
+     */
     categories: ShoppingListCategory[];
 
     selected: ShoppingListCategory;
-
 
     constructor(
         private categoryService: ShoppingListCategoryService

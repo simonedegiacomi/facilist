@@ -1,3 +1,6 @@
+/**
+    Here we define common variables like font size and colors
+ */
 :root {
     --dark: #15202b;
     --light: #f9ede7;

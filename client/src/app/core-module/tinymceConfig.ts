@@ -1,3 +1,6 @@
+/**
+ * Config of the TinyMCE text editor
+ */
 export default {
     menubar: false,
     toolbar: 'undo, redo | cut, copy, paste, selectall | bold, italic | subscript, superscript | formatselect',

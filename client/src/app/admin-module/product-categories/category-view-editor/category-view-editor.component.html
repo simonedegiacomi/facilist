@@ -1,5 +1,6 @@
 <li class="list-group-item" [class.is-editing]="isEditing">
     <div class="media">
+        <!-- Icon of the category -->
         <div class="mr-3">
             <app-show-change-image [(image)]="category.icon" [editable]="isEditing"></app-show-change-image>
         </div>
@@ -21,6 +22,7 @@
                                required>
                     </div>
 
+                    <!-- Error that appears when the user tries to save/create a category which name is already used -->
                     <div *ngIf="nameConflict" class="col-12 mt-2 alert alert-danger">
                         <div>
                             {{ 'admin.productCategories.errors.categoryNameConflict' | translate}}
@@ -35,6 +37,7 @@
                 <editor *ngIf="isEditing" [init]="editorConfig" [(ngModel)]="category.description" name="description"
                         required></editor>
 
+                <!-- Buttons -->
                 <div class="media-bottom d-flex justify-content-end mt-2">
                     <button class="action-button link-cta mr-1" *ngIf="!isEditing" (click)="isEditing = true">
                         {{ 'common.buttons.edit' | translate }}
@@ -54,7 +57,6 @@
                         {{ 'common.buttons.delete' | translate }}
                     </button>
                 </div>
-
             </form>
         </div>
     </div>

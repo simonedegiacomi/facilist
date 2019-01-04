@@ -30,8 +30,7 @@ export class ProductViewEditorComponent implements OnInit {
     constructor(
         private productService: ProductService,
         private categoryService: ProductCategoryService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         if (this.product.id == null) {
@@ -79,12 +78,20 @@ export class ProductViewEditorComponent implements OnInit {
     }
 
     onDelete() {
-        $(`#delete-product-${this.product.id}-warning`).modal('show');
+        this.showDeleteWarning();
     }
 
     onDeleteProductAfterWarning() {
-        $(`#delete-product-${this.product.id}-warning`).modal('hide');
+        this.hideDeleteWarning()
         this.productService.delete(this.product)
             .subscribe(_ => this.deleted.emit());
+    }
+
+    private showDeleteWarning () {
+        $(`#delete-product-${this.product.id}-warning`).modal('show');
+    }
+
+    private hideDeleteWarning () {
+        $(`#delete-product-${this.product.id}-warning`).modal('hide');
     }
 }

@@ -1,25 +1,30 @@
 <div class="row" *ngIf="!deleted">
+
+    <!-- Bought checkbox -->
     <div class="col-1 col-sm-1 mt-3 mr-4 mr-sm-2" >
         <div class="form-group list-product-bought-state">
             <app-checkbox (checkedChange)="toggleToBuy(product)" [checked]="product.bought"></app-checkbox>
         </div>
     </div>
 
+    <!-- Image -->
     <div class="col-3 col-sm-2" style="height: 4em;">
         <app-show-change-image [(image)]="product.image"
                                (imageChange)="notifyChange()"></app-show-change-image>
-
     </div>
 
+    <!-- Name and notes -->
     <div class="col-6 col-sm-4">
         <p>
             <strong>{{ product.product.name }}</strong>
 
+            <!-- Notes .-->
             <user-product-list-note [product]="product"
                                     (noteChange)="notifyChange()"></user-product-list-note>
         </p>
     </div>
 
+    <!-- Quantity -->
     <div class="col-9 col-sm-3 quantity-box d-flex align-items-center justify-content-end justify-content-sm-center">
         <button class="quantity-button" (click)="incrementQuantity(product)">+</button>
         <span class="quantity-number" [class.to-buy]="!product.bought">{{ product.quantity }}</span>
@@ -27,6 +32,7 @@
         </button>
     </div>
 
+    <!-- Button to remove product from list -->
     <div class="col-1 d-flex align-items-center">
         <button class="delete">
             <img src="/assets/img/ic_eraser.svg" (click)="removeProduct(product)">

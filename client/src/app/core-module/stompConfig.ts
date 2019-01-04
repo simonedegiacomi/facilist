@@ -1,5 +1,9 @@
 import { StompConfig } from "@stomp/ng2-stompjs";
 
+/**
+ * Configuration of the STOMO protocol library , used in  the websocket connection
+ */
+
 const protocol = location.protocol == 'https:' ? 'wss:' : 'ws:';
 
 export const stompConfig: StompConfig = {

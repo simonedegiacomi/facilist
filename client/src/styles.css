@@ -1,5 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+/**
+This is the main css file, where we import fonts, bootstrap and set the common style rules
+ */
 
+/* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i|Lobster');
 
 /* Bootstrap */
@@ -8,6 +11,7 @@
 /* Font awesome */
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
+/* Load common variables */
 @import "global-styles/common-variables.css";
 
 @import "global-styles/buttons.css";
@@ -33,8 +37,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--fontTitle);
 }
-
-
 
 hr {
     border-top: 2px dashed var(--dark);

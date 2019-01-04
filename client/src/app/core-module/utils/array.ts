@@ -1,11 +1,13 @@
-import { Observable, Subject, throwError } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-
-export function  ifResponseCodeThen(code : number, contextualError: any): <T>(error: any) => Observable<T | any> {
-    return(error: any) => throwError(error.status === code ? contextualError : error)
-}
+/**
+ * Common array utils
+ */
 
 
+/**
+ * Remove an item from the array if it's present
+ * @param array
+ * @param item Item to remove
+ */
 export function removeFromArrayIfPresent(array, item) {
     const index = array.indexOf(item);
 
@@ -14,7 +16,11 @@ export function removeFromArrayIfPresent(array, item) {
     }
 }
 
-
+/**
+ * Remove an item, given it's id, in the array if present
+ * @param array
+ * @param id Id of the item to remove
+ */
 export function removeFromArrayByIdIfPresent(array, id) {
     const index = array.findIndex(c => c.id == id);
 
@@ -23,7 +29,12 @@ export function removeFromArrayByIdIfPresent(array, id) {
     }
 }
 
-
+/**
+ * Replace an item, given it's id, if it's present
+ * @param array
+ * @param id Id of the item to replace
+ * @param newItem New item
+ */
 export function replaceArrayItemByIdIfPresent(array, id, newItem) {
     const index = array.findIndex(c => c.id == id);
 
@@ -32,18 +43,3 @@ export function replaceArrayItemByIdIfPresent(array, id, newItem) {
     }
 }
 
-
-/**
- *
- * @param subject
- * @param then
- */
-export function debounceAndDistinctThenMap <T, K> (subject: Subject<T>, then: (searchTerm: T) => Observable<K>) {
-    return subject.pipe(
-        debounceTime(300),
-
-        distinctUntilChanged(),
-
-        switchMap(searchTerm => then(searchTerm))
-    );
-}

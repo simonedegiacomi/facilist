@@ -4,6 +4,10 @@ import { Subject } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { ShoppingListService } from "../../../services/rest/shopping-list.service";
 
+/**
+ * Show a product in a shopping list.
+ * When the product in th elist it's updated, this component send the update request
+ */
 @Component({
     selector: 'user-shopping-list-product',
     templateUrl: './user-shopping-list-product.component.html',
@@ -11,8 +15,10 @@ import { ShoppingListService } from "../../../services/rest/shopping-list.servic
 })
 export class UserShoppingListProductComponent {
 
+    /**
+     * Product in a shopping list
+     */
     @Input() product: ShoppingListProduct;
-
 
     sendEdits: Subject<null> = new Subject();
 
@@ -22,11 +28,8 @@ export class UserShoppingListProductComponent {
         private listService: ShoppingListService,
     ) {
         this.sendEdits.pipe(
-            //debounceTime(1500),
             switchMap(() => this.listService.updateProductInShoppingList(this.product))
-        ).subscribe(updatedList => {
-
-        });
+        ).subscribe(_ => {});
     }
 
     toggleToBuy(product: ShoppingListProduct) {

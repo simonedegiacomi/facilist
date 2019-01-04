@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
     ProductCategoryService,
     ProductCategoryWithProductsCount
@@ -6,70 +6,98 @@ import {
 import { ProductCategory } from "../../core-module/models/product-category";
 import { Product } from "../../core-module/models/product";
 import { ProductService } from "../../core-module/services/rest/product.service";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { PagedResult } from "../../core-module/services/rest/MyRestService";
-import { Subject } from "rxjs";
 import { PaginationComponent } from "../../core-module/components/pagination/pagination.component";
+import { SearchOnUserInput } from "../../core-module/utils/SearchOnUserInput";
 
 @Component({
     selector: 'app-products',
     templateUrl: './products.component.html',
     styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
+    /**
+     * List of all the categories
+     */
     categories: ProductCategoryWithProductsCount[];
+
+    /**
+     * Selected category, of which products of the current page are shown. When this is null, page of all the products
+     * is shown
+     */
     selectedCategory: ProductCategory;
 
+    /**
+     * Currently displayed page
+     */
     productsPage: PagedResult<Product>;
 
+    /**
+     * Input field of the search (we need the reference to clear the input when the user select another product cateogry
+     */
     @ViewChild('searchFilter') searchFilter: ElementRef;
 
-    private filter = new Subject<string>();
+    /**
+     * Bind search input to logic to search products
+     */
+    private search: SearchOnUserInput<PagedResult<Product>> = new SearchOnUserInput(
+        searchTerm => {
+            if (this.selectedCategory) {
+                return this.productsService.searchByCategoryAndNameAndSortByName(this.selectedCategory, searchTerm);
+            } else {
+                return this.productsService.searchByNameAndSortByName(searchTerm);
+            }
+        },
+        page => this.productsPage = page
+    );
 
+    /**
+     * Reference to a new product not saved yet
+     */
     newProduct: Product;
 
+    /**
+     * Shows the page links
+     */
     @ViewChild('pagination') private pagination: PaginationComponent<ProductCategory>;
 
     constructor(
         private categoryService: ProductCategoryService,
         private productsService: ProductService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.fetchCategories();
         this.fetchAllProducts();
-        this.setupSearch();
+    }
+
+    ngOnDestroy() {
+        this.search.unbind();
     }
 
     private fetchCategories () {
-        this.categoryService.getAllWithProductsCount().subscribe(categories => this.categories = categories);
+        this.categoryService.getAllWithProductsCount()
+            .subscribe(categories => this.categories = categories);
     }
 
     private fetchAllProducts () {
-        this.productsService.getAllPaged().subscribe(page =>this.productsPage = page)
+        this.productsService.getAllPaged()
+            .subscribe(page =>this.productsPage = page)
     }
 
-    private setupSearch () {
-        this.filter.pipe(
-            debounceTime(300),
-            distinctUntilChanged(),
-            switchMap(filter => {
-                if (this.selectedCategory) {
-                    return this.productsService.searchByCategoryAndNameAndSortByName(this.selectedCategory, filter);
-                } else {
-                    return this.productsService.searchByNameAndSortByName(filter);
-                }
-            })
-        ).subscribe(page => this.productsPage = page);
-    }
-
+    /**
+     * Load product of all the categories
+     */
     onShowAllProducts() {
         this.selectedCategory = null;
         this.fetchAllProducts();
     }
 
+    /**
+     * Load products of a specified category
+     * @param category
+     */
     onSelectCategory (category: ProductCategory) {
         this.searchFilter.nativeElement.value = "";
         this.selectedCategory = category;
@@ -78,13 +106,19 @@ export class ProductsComponent implements OnInit {
 
     }
 
+    /**
+     * Checks if it's loading products
+     */
     get loadingProducts (): boolean { return this.productsPage == null; }
 
+    /**
+     * Return the list of product in the current page
+     */
     get products (): Product[] { return this.productsPage.content; }
 
 
     onUpdateSearchFilter (searchFilter: string) {
-        this.filter.next(searchFilter);
+        this.search.onInput(searchFilter);
     }
 
     onCreateProduct () {
@@ -95,7 +129,7 @@ export class ProductsComponent implements OnInit {
         }
     }
 
-    onProductCreated (product: Product) {
+    onProductCreated () {
         this.newProduct = null;
         this.pagination.reloadCurrentPage();
     }

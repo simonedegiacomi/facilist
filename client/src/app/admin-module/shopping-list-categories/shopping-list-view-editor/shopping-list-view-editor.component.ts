@@ -31,12 +31,29 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
     category: ShoppingListCategory;
 
+    /**
+     * List of all products categories
+     */
     productCategories: ProductCategory[];
+
+    /**
+     * Product categories included in the shopping list category
+     */
     includedProductCategories: ProductCategory[];
 
+    /**
+     * List of all Foursquare categories
+     */
     foresquareCategories: ForesquareCategory[];
+
+    /**
+     * Foursquare categories in the shopping list category
+     */
     includedForesquareCategories: string[];
 
+    /**
+     * TinyMCE editor config
+     */
     editorConfig = editorConfig;
 
     @Output() cancel: EventEmitter<ShoppingListCategory>  = new EventEmitter<ShoppingListCategory>();
@@ -45,8 +62,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
     constructor(
         private categoryService: ShoppingListCategoryService,
         private productCategoryService: ProductCategoryService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.fetchProductCategories();
@@ -63,6 +79,10 @@ export class ShoppingListViewEditorComponent implements OnInit {
             .subscribe(categories => this.productCategories = categories);
     }
 
+    /**
+     * Function called when the editor needs to display a different shopping list category
+     * @param category
+     */
     @Input() set shoppingListCategory(category: ShoppingListCategory) {
         const wasEditing = this.isEditing;
         if (this.isEditing) {
@@ -91,11 +111,19 @@ export class ShoppingListViewEditorComponent implements OnInit {
         }
     }
 
+    /**
+     * Checks if a product category is already included in the list category
+     * @param category
+     */
     isIncluded(category: ProductCategory): boolean {
         return this.includedProductCategories
             .find(includedCategory => includedCategory.id == category.id) != null;
     }
 
+    /**
+     * Checks if a Foursquare category is already included in the list category
+     * @param category
+     */
     isForesquareCategoryIncluded(category: ForesquareCategory): boolean {
         return this.includedForesquareCategories.find(includedId => includedId == category.id) != null;
     }
@@ -122,7 +150,10 @@ export class ShoppingListViewEditorComponent implements OnInit {
         }
     }
 
-
+    /**
+     * This function send the request to create or save the shopping list category and then send a second request to
+     * set the product categories of the list category
+     */
     onSaveOrCreate() {
         this.isSavingOrCreating = true;
         this.nameError          = false;

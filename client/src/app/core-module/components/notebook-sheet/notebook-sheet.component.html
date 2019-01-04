@@ -1,21 +1,26 @@
 <div class="modal-content notebook-sheet">
     <div class="modal-header notebook-sheet-header">
 
+        <!-- Header -->
         <div class="row">
+            <!-- Icon -->
             <app-show-change-image class="mt-3 ml-1 mr-3" *ngIf="headerIcon" [image]="headerIcon"
                                    (imageChange)="onImageChanged($event)" [editable]="headerIconEditable"></app-show-change-image>
 
+            <!-- Title -->
             <h5 class="modal-title">
                 {{ title }}
             </h5>
         </div>
 
+        <!-- Buttons -->
         <div class="notebook-sheet-buttons">
             <button *ngFor="let button of visibleButtons" type="button" [ngClass]="button.iconClass" [title]="button.title"
                     (click)="button.onClick()"></button>
         </div>
     </div>
 
+    <!-- Content container -->
     <div class="modal-body notebook-sheet-content d-flex">
         <div class="container-fluid">
             <ng-content></ng-content>

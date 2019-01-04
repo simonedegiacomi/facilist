@@ -4,6 +4,9 @@ export interface OptionWithName {
     name: string;
 }
 
+/**
+ * Custom styled select input control
+ */
 @Component({
     selector: 'app-select',
     templateUrl: './select.component.html',

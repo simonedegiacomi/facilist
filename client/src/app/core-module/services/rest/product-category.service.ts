@@ -3,7 +3,7 @@ import { ProductCategory } from "../../models/product-category";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { CONFLICT } from "http-status-codes";
-import { ifResponseCodeThen } from "../../utils";
+import { ifResponseCodeThen } from "../../utils/request";
 import { MyRestService } from "./MyRestService";
 import { HttpClient } from "@angular/common/http";
 

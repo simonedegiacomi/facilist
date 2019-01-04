@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProductCategoryService } from "../../core-module/services/rest/product-category.service";
 import { ProductCategory } from "../../core-module/models/product-category";
-import { Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { PagedResult } from "../../core-module/services/rest/MyRestService";
 import { PaginationComponent } from "../../core-module/components/pagination/pagination.component";
+import { SearchOnUserInput } from "../../core-module/utils/SearchOnUserInput";
 
 const $ = window['jQuery'];
 
@@ -13,46 +12,58 @@ const $ = window['jQuery'];
     templateUrl: './product-categories.component.html',
     styleUrls: ['./product-categories.component.css']
 })
-export class ProductCategoriesComponent implements OnInit {
+export class ProductCategoriesComponent implements OnInit, OnDestroy {
 
+    /**
+     * Page of results currently displayed
+     */
     page: PagedResult<ProductCategory>;
+
+    /**
+     * New category not created yet
+     */
     newCategory: ProductCategory;
 
-    private filter = new Subject<string>();
+    /**
+     * Bind search input to logic to search product categories
+     */
+    private search: SearchOnUserInput<PagedResult<ProductCategory>> = new SearchOnUserInput(
+        searchTerm => this.categoriesService.searchByNameAndSortByName(searchTerm),
+        page => this.page = page
+    );
 
-
+    /**
+     * Object that shows the links to the other pages of results
+     */
     @ViewChild('pagination') private pagination: PaginationComponent<ProductCategory>;
 
+    /**
+     * Product category that the user wants to tdelete
+     */
     deletingCategory: ProductCategory;
 
     constructor(
         private categoriesService: ProductCategoryService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.fetchCategories();
-        this.setUpSearch();
     }
 
+    ngOnDestroy() {
+        this.search.unbind();
+    }
 
-    fetchCategories () {
+    /**
+     * Load the first page of categories
+     */
+    private fetchCategories () {
         this.categoriesService.getAllPaged()
             .subscribe(page => this.page = page);
     }
 
-    setUpSearch () {
-        this.filter.pipe(
-            debounceTime(300),
-
-            distinctUntilChanged(),
-
-            switchMap(filter => this.categoriesService.searchByNameAndSortByName(filter))
-        ).subscribe(page => this.page = page);
-    }
-
     onUpdateSearchFilter (searchFilter: string) {
-        this.filter.next(searchFilter);
+        this.search.onInput(searchFilter);
     }
 
     createCategory () {
@@ -64,17 +75,29 @@ export class ProductCategoriesComponent implements OnInit {
         this.pagination.reloadCurrentPage();
     }
 
-
+    /**
+     * Checks if we're loading categories
+     */
     get loading (): boolean { return this.page == null; }
 
+    /**
+     * Return the list of categories of the current page
+     */
     get categories (): ProductCategory[] { return this.page.content; }
 
-
+    /**
+     * Shows the delete warning dialog
+     * @param category Category to delte
+     */
     onDelete (category: ProductCategory) {
         this.deletingCategory = category;
         $('#deleteCategoryModal').modal('show');
     }
 
+    /**
+     * Actually delete the category, after the user has confirm on the dialog
+     * @param category
+     */
     onDeleteCategoryAfterWarning (category: ProductCategory) {
         $('#deleteCategoryModal').modal('hide');
         this.categoriesService.delete(category).subscribe(_ => {

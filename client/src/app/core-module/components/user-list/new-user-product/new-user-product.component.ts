@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { defaultProductIcon, Product } from "../../../models/product";
 import { ProductCategory } from "../../../models/product-category";
 import { ProductService } from "../../../services/rest/product.service";
@@ -17,7 +17,7 @@ const $ = window['jQuery'];
     templateUrl: './new-user-product.component.html',
     styleUrls: ['./new-user-product.component.css']
 })
-export class NewUserProductComponent implements OnInit {
+export class NewUserProductComponent {
 
 
     buttons: NotebookSheetButton[] = [{

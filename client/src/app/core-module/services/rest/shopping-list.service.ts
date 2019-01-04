@@ -3,6 +3,11 @@ import { Observable } from "rxjs";
 import { ShoppingList, ShoppingListPreview, ShoppingListProduct } from "../../models/shopping-list";
 import { Product } from "../../models/product";
 
+/**
+ * We define an interface for the service of the ShoppingList so we can have two implementations:
+ * - backend implementation
+ * - Local storage implementation (for the try now feature)
+ */
 @Injectable()
 export abstract class ShoppingListService {
 

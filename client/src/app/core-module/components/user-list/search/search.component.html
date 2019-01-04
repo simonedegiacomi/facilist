@@ -1,10 +1,12 @@
 <div class="row">
     <div class="col-12 notebook-sheet-strip green-strip" [class.focused]="isFocused">
+        <!-- Input field -->
         <div class="form-group">
             <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)"
                    [placeholder]="'core.list.search.placeholder' | translate">
         </div>
 
+        <!-- List of results -->
         <div class="results" *ngIf="isFocused">
             <div *ngIf="isLoading" class="text-center loading">
                 <em>{{ 'core.list.search.loading' | translate }}</em>
@@ -12,11 +14,13 @@
 
             <div *ngFor="let productsByCategory of productsByCategories | keyvalue"  ><!--[disabled]="isProductAlreadyInList(product)"-->
 
+                <!-- Name of category -->
                 <div class="category-header">
                     <h6>{{ productsByCategory.key }}</h6>
                 </div>
 
                 <ul>
+                    <!-- Product -->
                     <li *ngFor="let product of productsByCategory.value" class="row product"
                         [class.already-in-list]="isProductAlreadyInList(product)" (click)="onAddProduct(product)">
                         <div class="col-3 col-sm-2">
@@ -43,5 +47,5 @@
     </div>
 </div>
 
-
+<!-- Backdrop visible when results are shown -->
 <div class="notifications-backdrop" [class.active]="isFocused" (click)="isFocused = false"></div>

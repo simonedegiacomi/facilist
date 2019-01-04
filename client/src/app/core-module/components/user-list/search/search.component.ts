@@ -1,31 +1,60 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { ProductService } from "../../../services/rest/product.service";
 import { Product } from "../../../models/product";
 import { ShoppingList } from "../../../models/shopping-list";
 import { AuthService } from "../../../services/auth.service";
+import { SearchOnUserInput } from "../../../utils/SearchOnUserInput";
 
+/**
+ * Search bar to add products to the shopping list
+ */
 @Component({
     selector: 'user-list-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnDestroy {
 
     @Input() list: ShoppingList;
+
+    /**
+     * Show or hide the create product button
+     */
     @Input() allowNewProducts: boolean;
 
+    /**
+     * Emits events when the create button product is pressed
+     */
     @Output() addProduct = new EventEmitter<Product>();
 
+    /**
+     * Emits events when a new product is created
+     */
     @Output() createProduct = new EventEmitter<string>();
 
-    private filter = new Subject<string>();
+    /**
+     * Bidn input with logic to search
+     */
+    private search = new SearchOnUserInput(searchTerm => {
+        this.isLoading = true;
+        const includeUserProducts = this.authService.user != null;
 
+        return this.productService.searchByNameAndShoppingListCategory(searchTerm, this.list.category, includeUserProducts)
+    }, resultPage => this.onGotResults(resultPage.content));
+
+    /**
+     * Enable backdrop or not
+     */
     isFocused = false;
 
+    /**
+     * Results products mapped by category name
+     */
     productsByCategories: { [key:string]: Product[] };
 
+    /**
+     * Text currently present in the search field
+     */
     filterText: string;
 
     isLoading = false;
@@ -36,27 +65,14 @@ export class SearchComponent implements OnInit {
         private authService: AuthService
     ) { }
 
-    ngOnInit() {
-        this.setupSearch();
-    }
-
-    setupSearch() {
-        this.filter.pipe(
-            debounceTime(300),
-            distinctUntilChanged(),
-            switchMap(filter => {
-                this.isLoading = true;
-                const includeUserProducts = this.authService.user != null;
-                console.log(includeUserProducts)
-                return this.productService.searchByNameAndShoppingListCategory(filter, this.list.category, includeUserProducts)
-            })
-        ).subscribe(resultPage => this.onGotResults(resultPage.content));
+    ngOnDestroy() {
+        this.search.unbind();
     }
 
     onUpdateSearchFilter(searchFilter: string) {
         this.isFocused = true;
         this.filterText = searchFilter;
-        this.filter.next(searchFilter);
+        this.search.onInput(searchFilter);
     }
 
     onAddProduct (product: Product) {
@@ -90,6 +106,10 @@ export class SearchComponent implements OnInit {
     }
 
 
+    /**
+     * Cheks if a specified product it's already in the list
+     * @param product
+     */
     isProductAlreadyInList (product: Product): boolean {
         return this.list.products
             .map(relation => relation.product)
