@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>1213e2e0-1a38-4004-a77b-c121ac5cf035.SCHEMA:web</OriginalElement>
+  <nodes>
+    <node x="2148.5" y="100.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product_category</node>
+    <node x="1569.5" y="336.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__product</node>
+    <node x="-7.0" y="1334.0">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.hibernate_sequence</node>
+    <node x="767.0" y="369.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__user</node>
+    <node x="2091.5" y="803.0">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category__product_category</node>
+    <node x="1152.0" y="1151.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.change_email_request</node>
+    <node x="-26.0" y="347.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.notification</node>
+    <node x="1195.0" y="203.0">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group__user</node>
+    <node x="1770.0" y="963.0">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category__foursquare_id</node>
+    <node x="529.0" y="580.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.invite_to_collaborate</node>
+    <node x="1633.5" y="89.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product</node>
+    <node x="849.0" y="1009.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.chat_message</node>
+    <node x="1225.0" y="391.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group</node>
+    <node x="816.5" y="758.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list</node>
+    <node x="259.5" y="1140.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.verification_token</node>
+    <node x="1828.5" y="780.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category</node>
+    <node x="256.5" y="325.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user</node>
+    <node x="231.5" y="-30.5">1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.push_subscription</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.notification" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="106.0" y="0.0" />
+      <point x="-103.5" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.verification_token" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="0.0" y="-59.5" />
+      <point x="0.0" y="114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category__foursquare_id" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.invite_to_collaborate" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list">
+      <point x="111.0" y="0.0" />
+      <point x="920.0" y="640.0" />
+      <point x="-40.0" y="-81.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group__user" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="-165.0" y="0.0" />
+      <point x="440.0" y="240.0" />
+      <point x="80.0" y="-114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__product" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list">
+      <point x="0.0" y="103.5" />
+      <point x="1760.0" y="820.0" />
+      <point x="143.5" y="-20.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.push_subscription" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="0.0" y="70.5" />
+      <point x="0.0" y="-114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.invite_to_collaborate" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="-111.0" y="0.0" />
+      <point x="420.0" y="640.0" />
+      <point x="60.0" y="114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category__product_category" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category">
+      <point x="-148.5" y="0.0" />
+      <point x="91.5" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category">
+      <point x="143.5" y="0.0" />
+      <point x="-91.5" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__user" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group">
+      <point x="193.0" y="0.0" />
+      <point x="-135.0" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__product" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product">
+      <point x="0.0" y="-103.5" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list">
+      <point x="0.0" y="48.5" />
+      <point x="1360.0" y="800.0" />
+      <point x="143.5" y="-40.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__user" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="-193.0" y="0.0" />
+      <point x="103.5" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="-126.5" y="0.0" />
+      <point x="400.0" y="160.0" />
+      <point x="40.0" y="-114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="-143.5" y="0.0" />
+      <point x="400.0" y="840.0" />
+      <point x="40.0" y="114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.chat_message" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list">
+      <point x="0.0" y="-70.5" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_category__product_category" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product_category">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.change_email_request" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.verification_token">
+      <point x="-128.0" y="0.0" />
+      <point x="100.5" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__product" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group">
+      <point x="-190.5" y="0.0" />
+      <point x="135.0" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product_category">
+      <point x="126.5" y="0.0" />
+      <point x="-91.5" y="0.0" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group__user" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list_product_updates_group">
+      <point x="0.0" y="37.0" />
+      <point x="0.0" y="-48.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.chat_message" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.user">
+      <point x="-111.0" y="0.0" />
+      <point x="380.0" y="1080.0" />
+      <point x="20.0" y="114.5" />
+    </edge>
+    <edge source="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list__user" target="1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.shopping_list">
+      <point x="0.0" y="70.5" />
+      <point x="0.0" y="-81.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6944301310363049" x="1629.2887502608023" y="932.0246181123542" />
+  <SelectedNodes>
+    <node>1213e2e0-1a38-4004-a77b-c121ac5cf035.TABLE:web.product_category</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

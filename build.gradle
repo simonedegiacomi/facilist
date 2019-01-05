@@ -58,7 +58,8 @@ dependencies {
     implementation('org.springframework.security:spring-security-messaging')
 
     // Database
-    implementation 'com.h2database:h2'
+    implementation 'com.h2database:h2' // for development
+    implementation 'org.mariadb.jdbc:mariadb-java-client:1.5.7'
 
     // CSV reader to import data
     implementation 'org.apache.commons:commons-csv:1.5'
