@@ -64,17 +64,9 @@
                     <app-checkbox class="privacy-polity-checkbox" [(checked)]="privacy"
                                   [label]="'landing.home.register.fields.acceptPrivacyContract.pre' | translate"></app-checkbox>
 
-                    <a class="privacy-policy-trigger" (click)="showPrivacyContract = !showPrivacyContract">
+                    <a href="https://www.iubenda.com/privacy-policy/38835485" class="iubenda-white iubenda-embed " title="Privacy Policy ">
                         {{ 'landing.home.register.fields.acceptPrivacyContract.post' | translate }}
                     </a>
-
-                    <!-- Privacy contract -->
-                    <div class="popover top privacy-popover" *ngIf="showPrivacyContract">
-                        <h3 class="popover-title">{{ 'landing.home.register.privacy.title' | translate }}</h3>
-                        <div class="popover-content">
-                            <p [innerHTML]="'landing.home.register.privacy.content' | translate"></p>
-                        </div>
-                    </div>
                 </div>
 
 

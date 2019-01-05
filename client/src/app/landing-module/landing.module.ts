@@ -13,7 +13,6 @@ import { CoreModule } from "../core-module/core.module";
 import { TryNowComponent } from './try-now/try-now.component';
 import { UserModule } from "../user-module/user.module";
 import { NewDemoListComponent } from './try-now/new-demo-list/new-demo-list.component';
-import { CookiesConsentComponent } from './home/cookies-consent/cookies-consent.component';
 import { InviteToSubscribeComponent } from './try-now/invite-to-subscribe/invite-to-subscribe.component';
 
 
@@ -35,7 +34,6 @@ import { InviteToSubscribeComponent } from './try-now/invite-to-subscribe/invite
         CompleteRecoverPasswordComponent,
         TryNowComponent,
         NewDemoListComponent,
-        CookiesConsentComponent,
         InviteToSubscribeComponent
     ]
 })

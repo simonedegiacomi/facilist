@@ -11,25 +11,6 @@ div.privacy-policy {
     float: left;
 }
 
-a.privacy-policy-trigger,
-a.privacy-policy-trigger:hover {
-    text-decoration: underline;
-}
-
-div.privacy-popover {
-    top: initial;
-    bottom: 2em;
-}
-
-
-div.popover {
-    padding: .5em;
-}
-
-div.popover-content {
-    overflow-y: scroll;
-    max-height: 40vh;
-}
 
 div.alert-danger {
     margin-top: .5em;

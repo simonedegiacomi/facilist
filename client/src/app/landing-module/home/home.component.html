@@ -82,14 +82,10 @@
 
 <div class="footer">
     <div class="footer-content">
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <a href="#" [innerHTML]="'landing.home.bottomLinks.legalInformation' | translate"></a></li>
-            <li class="list-inline-item">
-                <a href="#" [innerHTML]="'landing.home.bottomLinks.whoAreWe' | translate"></a></li>
-            <li class="list-inline-item">
-                <a href="#">Privacy</a></li>
-        </ul>
+        <a href="https://www.iubenda.com/privacy-policy/38835485" class="iubenda-white iubenda-embed "
+           title="Privacy Policy ">
+            {{ 'landing.home.register.fields.acceptPrivacyContract.post' | translate }}
+        </a>
     </div>
 </div>
 
@@ -98,4 +94,3 @@
 <landing-login></landing-login>
 <landing-register></landing-register>
 <landing-recover-password></landing-recover-password>
-<cookies-consent></cookies-consent>

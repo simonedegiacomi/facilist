@@ -22,8 +22,6 @@ export class RegisterComponent implements OnInit {
         onClick: () => $('#registerModal').modal('hide')
     }];
 
-    showPrivacyContract = false;
-
     registerForm: FormGroup;
 
     emailAlreadyInUse = false;
