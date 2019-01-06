@@ -24,7 +24,7 @@ interface InternalSpringJPAProductCategory : JpaRepository<ProductCategory, Long
 
     fun findByNameContainingIgnoreCaseOrderByNameAsc(name: String, pageable: Pageable): Page<ProductCategory>
 
-    @Query("SELECT pc, COUNT(p) FROM ProductCategory pc JOIN Product p ON p.category.id = pc.id GROUP BY pc.id")
+    @Query("SELECT pc, COUNT(p) FROM ProductCategory pc LEFT JOIN Product p ON p.category.id = pc.id GROUP BY pc.id ORDER BY pc.name")
     fun findAllWithProductsCountByOrderByNameAsc(): List<Array<Any>>
 }
 
