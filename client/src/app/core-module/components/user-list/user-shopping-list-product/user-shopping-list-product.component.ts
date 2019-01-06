@@ -20,6 +20,11 @@ export class UserShoppingListProductComponent {
      */
     @Input() product: ShoppingListProduct;
 
+    /**
+     * Whether the product is in a demo list (used to disable the edit of the image)
+     */
+    @Input() isDemoListProduct: boolean;
+
     sendEdits: Subject<null> = new Subject();
 
     deleted = false;
