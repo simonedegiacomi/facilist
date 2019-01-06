@@ -10,6 +10,8 @@ import {
 } from "../../../core-module/services/rest/shopping-list-category.service";
 import { ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
 import { ForesquareCategory } from "../../../core-module/models/foresquare-category";
+import { ShoppingList } from "../../../core-module/models/shopping-list";
+import { Observable } from "rxjs";
 
 const $ = window['jQuery'];
 
@@ -56,8 +58,9 @@ export class ShoppingListViewEditorComponent implements OnInit {
      */
     editorConfig = editorConfig;
 
-    @Output() cancel: EventEmitter<ShoppingListCategory>  = new EventEmitter<ShoppingListCategory>();
-    @Output() deleted: EventEmitter<ShoppingListCategory> = new EventEmitter<ShoppingListCategory>();
+    @Output() cancel  = new EventEmitter<ShoppingListCategory>();
+    @Output() deleted = new EventEmitter<ShoppingListCategory>();
+    @Output() created = new EventEmitter<ShoppingListCategory>();
 
     constructor(
         private categoryService: ShoppingListCategoryService,
@@ -104,10 +107,10 @@ export class ShoppingListViewEditorComponent implements OnInit {
                 this.isEditing = true;
             }
         } else {
-            this.isNew                        = false;
-            this.originalName                 = this.category.name;
-            this.originalDescription          = this.category.description;
-            this.includedProductCategories    = this.category.productCategories;
+            this.isNew                     = false;
+            this.originalName              = this.category.name;
+            this.originalDescription       = this.category.description;
+            this.includedProductCategories = this.category.productCategories;
         }
     }
 
@@ -158,7 +161,7 @@ export class ShoppingListViewEditorComponent implements OnInit {
         this.isSavingOrCreating = true;
         this.nameError          = false;
 
-        let observable;
+        let observable: Observable<ShoppingListCategory>;
         if (this.isNew) {
             observable = this.categoryService.create(this.category);
         } else {
@@ -166,10 +169,17 @@ export class ShoppingListViewEditorComponent implements OnInit {
         }
 
         observable.pipe(
-            switchMap(c => this.categoryService.updateProductCategories(this.category, this.includedProductCategories))
+            switchMap(c => {
+                if (this.isNew) {
+                    this.category.id = c.id;
+                }
+
+                return this.categoryService.updateProductCategories(c, this.includedProductCategories)
+            })
         ).subscribe(_ => {
             if (this.isNew) {
                 this.isNew = false;
+                this.created.emit(this.category);
             }
 
             this.isSavingOrCreating = false;

@@ -40,7 +40,8 @@
     <div class="col-12 col-lg-8 mt-3 mt-lg-0">
         <div *ngIf="selected">
             <admin-shopping-list-view-editor [shoppingListCategory]="selected" (cancel)="onCancel($event)"
-                                             (deleted)="onDeleted($event)"></admin-shopping-list-view-editor>
+                                             (deleted)="onDeleted($event)"
+            ></admin-shopping-list-view-editor>
 
         </div>
     </div>
