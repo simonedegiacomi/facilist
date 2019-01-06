@@ -1,7 +1,7 @@
 <div class="card" [class.is-editing]="isEditing">
     <div class="card-body">
         <div class="media">
-            <app-show-change-image [(image)]="product.icon" [editable]="isEditing"></app-show-change-image>
+            <app-show-change-image [(image)]="productIcon" [editable]="isEditing"></app-show-change-image>
             <div class="media-body ml-3 pt-2">
 
 
@@ -51,7 +51,7 @@
 
             <!-- Create -->
             <button class="action-button link-cta" *ngIf="isEditing && isNew" (click)="onSaveOrCreate()"
-                    [disabled]="!form.valid || product.category || isSaving">
+                    [disabled]="!form.valid || !product.category || isSaving">
                 {{ 'common.buttons.create' | translate }}
             </button>
 

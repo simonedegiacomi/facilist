@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product } from "../../../core-module/models/product";
+import { defaultProductIcon, Product } from "../../../core-module/models/product";
 import { ProductService } from "../../../core-module/services/rest/product.service";
 import { ProductCategory } from "../../../core-module/models/product-category";
 import { ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
@@ -30,7 +30,8 @@ export class ProductViewEditorComponent implements OnInit {
     constructor(
         private productService: ProductService,
         private categoryService: ProductCategoryService
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         if (this.product.id == null) {
@@ -48,13 +49,24 @@ export class ProductViewEditorComponent implements OnInit {
             .subscribe(categories => this.categories = categories);
     }
 
-    onSelectCategory () {
-        if (this.product.icon == null) {
-            this.product.icon = this.product.category.icon;
+    get productIcon (): string {
+        const customIconSelected = this.product.icon != defaultProductIcon;
+
+        if (customIconSelected) {
+            return this.product.icon;
+        } else if (this.product.category != null) {
+            return this.product.category.icon;
+        } else {
+            return defaultProductIcon;
         }
     }
 
+    set productIcon (icon: string) { this.product.icon = icon; }
+
     onSaveOrCreate() {
+        // Apply the icon that appears on the screen
+        this.product.icon = this.productIcon;
+
         this.isSaving = true;
 
         if (this.isNew) {
@@ -87,11 +99,11 @@ export class ProductViewEditorComponent implements OnInit {
             .subscribe(_ => this.deleted.emit());
     }
 
-    private showDeleteWarning () {
+    private showDeleteWarning() {
         $(`#delete-product-${this.product.id}-warning`).modal('show');
     }
 
-    private hideDeleteWarning () {
+    private hideDeleteWarning() {
         $(`#delete-product-${this.product.id}-warning`).modal('hide');
     }
 }
