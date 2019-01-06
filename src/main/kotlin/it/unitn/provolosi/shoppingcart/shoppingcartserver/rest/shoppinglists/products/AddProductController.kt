@@ -50,7 +50,8 @@ class AddProductController(
             val relation = shoppingListProductDAO.save(ShoppingListProduct(
                 shoppingList    = list,
                 product         = product,
-                image           = product.icon
+                image           = product.icon,
+                bought          = false
             ))
 
             // Sync the clients
