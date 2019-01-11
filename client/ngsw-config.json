@@ -1,26 +1,40 @@
 {
-  "index": "/index.html",
-  "assetGroups": [
-    {
-      "name": "app",
-      "installMode": "prefetch",
-      "resources": {
-        "files": [
-          "/favicon.ico",
-          "/index.html",
-          "/*.css",
-          "/*.js"
-        ]
-      }
-    }, {
-      "name": "assets",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "resources": {
-        "files": [
-          "/assets/**"
-        ]
-      }
-    }
-  ]
+    "index": "/index.html",
+    "dataGroups": [
+        {
+            "name": "iubenda",
+            "urls": [
+                "https://hits-i.iubenda.com/*"
+            ],
+            "cacheConfig": {
+                "maxSize": 0,
+                "maxAge": "0u",
+                "strategy": "freshness"
+            }
+        }
+    ],
+    "assetGroups": [
+        {
+            "name": "app",
+            "installMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/favicon.ico",
+                    "/index.html",
+                    "/*.css",
+                    "/*.js"
+                ]
+            }
+        },
+        {
+            "name": "assets",
+            "installMode": "lazy",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/assets/**"
+                ]
+            }
+        }
+    ]
 }
