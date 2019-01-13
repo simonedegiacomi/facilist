@@ -47,8 +47,7 @@ export class LocalStorageShoppingListService implements ShoppingListService {
         return of(updatedRel);
     }
 
-    deleteProductFromShoppingList(removedRel: ShoppingListProduct): Observable<any> {
-        const list  = this.getListFromLocalStorageOrNull();
+    deleteProductFromShoppingList(list: ShoppingList, removedRel: ShoppingListProduct): Observable<any> {
         const index = list.products.findIndex(rel => rel.id == removedRel.id);
 
         list.products.splice(index, 1);

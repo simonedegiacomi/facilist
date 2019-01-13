@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ShoppingListProduct } from "../../../models/shopping-list";
+import { ShoppingList, ShoppingListProduct } from "../../../models/shopping-list";
 import { Subject } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { ShoppingListService } from "../../../services/rest/shopping-list.service";
@@ -19,6 +19,8 @@ export class UserShoppingListProductComponent {
      * Product in a shopping list
      */
     @Input() product: ShoppingListProduct;
+
+    @Input() list: ShoppingList;
 
     /**
      * Whether the product is in a demo list (used to disable the edit of the image)
@@ -44,7 +46,7 @@ export class UserShoppingListProductComponent {
 
     removeProduct(product: ShoppingListProduct) {
         this.deleted = true;
-        this.listService.deleteProductFromShoppingList(product).subscribe(() => {});
+        this.listService.deleteProductFromShoppingList(this.list, product).subscribe(() => {});
     }
 
     decrementQuantity(product: ShoppingListProduct) {

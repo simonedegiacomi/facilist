@@ -25,5 +25,5 @@ export abstract class ShoppingListService {
 
     abstract getById(entityId: number): Observable<ShoppingList>;
 
-    abstract deleteProductFromShoppingList(product: ShoppingListProduct): Observable<any>;
+    abstract deleteProductFromShoppingList(list: ShoppingList, product: ShoppingListProduct): Observable<any>;
 }

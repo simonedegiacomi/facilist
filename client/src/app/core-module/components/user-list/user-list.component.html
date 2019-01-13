@@ -17,7 +17,7 @@
 
     <!-- List of products -->
     <div *ngIf="listHasProducts" class="products container-fluid">
-        <user-shopping-list-product *ngFor="let product of list.products" [product]="product" [isDemoListProduct]="isDemoList">
+        <user-shopping-list-product *ngFor="let product of list.products" [list]="list" [product]="product" [isDemoListProduct]="isDemoList">
         </user-shopping-list-product>
     </div>
 </app-notebook-sheet>

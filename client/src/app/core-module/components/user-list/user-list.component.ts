@@ -105,14 +105,6 @@ export class UserListComponent implements OnInit {
     }
 
     /**
-     * Sends the request to remove a product from the list
-     * @param product Product to remove
-     */
-    removeProduct(product: ShoppingListProduct) {
-        this.list.products.splice(this.list.products.indexOf(product), 1);
-    }
-
-    /**
      * Checks if the list is currently used in the try now feature
      */
     get isDemoList(): boolean {
