@@ -4,6 +4,7 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListD
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.Notification
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.AppUser
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.i18n.TranslationUtils
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.Coordinates
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.FoursquareNearShopsService
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.nearshops.NearShops
@@ -74,9 +75,11 @@ class UpdatePositionController (
                 .map { near -> near.name }
                 .joinToString(separator = ", ")
 
-        // TODO: Should we move also this notification?
+        val startOfText = TranslationUtils
+                .getNotificationsTranslationMap(user.locale)["goNear"]
+
         notificationSync.deliver(Notification(
-            message = "Non farti scappare l'occasione, passa da $shopNames",
+            message = "$startOfText $shopNames",
             icon    = "near-you-notification-icon",
             target  = user,
             url     = websiteUrl
