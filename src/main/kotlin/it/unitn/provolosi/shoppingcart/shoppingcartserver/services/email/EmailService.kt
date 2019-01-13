@@ -2,6 +2,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.i18n.TranslationUtils
 import java.io.File
+import java.nio.charset.Charset
 
 interface EmailService {
     fun sendEmail(email: Email)
@@ -77,7 +78,7 @@ abstract class ResourceEmail : Email() {
      * Load a file and replace placeholders with translated strings and data
      */
     private fun loadAndCompile(extension: String) = compileText(
-        loadFile("$emailName/$emailName.$extension").readText()
+        loadFile("$emailName/$emailName.$extension")
     )
 
     /**
@@ -89,7 +90,7 @@ abstract class ResourceEmail : Email() {
     /**
      * Given the file name returns the content of it as a string
      */
-    private fun loadFile(relativeFileName: String) = File(
-        EmailService::class.java.getResource("/emails/$relativeFileName").toURI())
+    private fun loadFile(relativeFileName: String) =
+        EmailService::class.java.getResourceAsStream("/emails/$relativeFileName").readBytes().toString(Charsets.UTF_8)
 
 }
