@@ -28,7 +28,7 @@ img.icon {
 img.counter-icon,
 img.share-flag {
     width: 100%;
-    max-width: 2em;
+    max-width: 1.8em;
 }
 
 .counter-and-share-flag {
