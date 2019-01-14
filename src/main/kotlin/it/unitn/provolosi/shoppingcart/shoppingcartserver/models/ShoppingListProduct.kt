@@ -26,6 +26,7 @@ data class ShoppingListProduct(
         @ManyToOne
         @JoinColumn(name = "shopping_list_id")
         @JsonIgnore
+        @OnDelete(action = OnDeleteAction.CASCADE)
         val shoppingList: ShoppingList,
 
         @ManyToOne

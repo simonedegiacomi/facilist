@@ -2,6 +2,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.rest.shoppinglistcate
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryNotFoundException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import notFound
 import ok
 import org.springframework.http.ResponseEntity
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/shoppingListCategories")
 class DeleteShoppingListCategoryController(
-        private val shoppingListCategoryDAO: ShoppingListCategoryDAO
+        private val shoppingListCategoryDAO: ShoppingListCategoryDAO,
+        private val shoppingListDAO: ShoppingListDAO
 ) {
 
     @DeleteMapping("/{id}")
@@ -21,10 +23,19 @@ class DeleteShoppingListCategoryController(
             @PathVariable id: Long
     ): ResponseEntity<Any> = try {
 
-        shoppingListCategoryDAO.deleteById(id)
+        this.deleteShoppingListsAndCategory(id)
         ok()
     } catch (ex: ShoppingListCategoryNotFoundException) {
 
         notFound()
+    }
+
+    /**
+     * Deletes the shopping lists from the database and the shopping list cateogry.
+     * TODO: Move into a service
+     */
+    private fun deleteShoppingListsAndCategory (id: Long) {
+        shoppingListDAO.findByCategoryId(id).forEach { shoppingListDAO.delete(it) }
+        shoppingListCategoryDAO.deleteById(id)
     }
 }

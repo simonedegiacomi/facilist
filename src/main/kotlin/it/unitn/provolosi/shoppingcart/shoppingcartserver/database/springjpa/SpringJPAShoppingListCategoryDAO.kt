@@ -3,6 +3,7 @@ package it.unitn.provolosi.shoppingcart.shoppingcartserver.database.springjpa
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryNotFoundException
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListCategoryWithSameNameAlreadyExistsException
+import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListDAO
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingListCategory.Companion.SHOPPING_LIST_CATEGORY_UNIQUE_NAME_CONSTRAINT
 import org.springframework.dao.EmptyResultDataAccessException

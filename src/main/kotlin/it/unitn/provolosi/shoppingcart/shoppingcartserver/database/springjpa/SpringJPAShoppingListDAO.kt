@@ -5,13 +5,20 @@ import it.unitn.provolosi.shoppingcart.shoppingcartserver.database.ShoppingListN
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.ShoppingList
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.models.User
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 interface InternalSpringJPAShoppingListDAO : JpaRepository<ShoppingList, Long> {
 
-    @Query("SELECT sl FROM ShoppingList sl WHERE sl.creator = :user OR EXISTS (SELECT c FROM ShoppingListCollaboration c WHERE c.user = :user AND c.shoppingList = sl)")
+    @Query(
+        "SELECT sl FROM ShoppingList sl WHERE sl.creator = :user OR EXISTS (SELECT c FROM ShoppingListCollaboration c WHERE c.user = :user AND c.shoppingList = sl)")
     fun getShoppingListsWithUserAsCreatorOrCollaborator(user: User): List<ShoppingList>
+
+
+    @Query("FROM ShoppingList l WHERE l.category.id = :id")
+    fun findByCategoryId(id: Long): List<ShoppingList>
 }
 
 @Component
@@ -30,4 +37,6 @@ class SpringJPAShoppingListDAO(
 
 
     override fun delete(list: ShoppingList) = springRepository.delete(list)
+
+    override fun findByCategoryId(id: Long): List<ShoppingList> = springRepository.findByCategoryId(id)
 }
