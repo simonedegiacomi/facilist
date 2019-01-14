@@ -23,12 +23,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">
+                <a class="nav-link" href="#" data-toggle="modal" (click)="goToHomeAndOpenModal('loginModal')">
                     {{ 'core.navbar.login' | translate }}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">
+                <a class="nav-link" href="#" data-toggle="modal" (click)="goToHomeAndOpenModal('registerModal')">
                     {{ 'core.navbar.register' | translate }}
                 </a>
             </li>

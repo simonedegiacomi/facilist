@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from "../core-module/services/auth.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { map } from "rxjs/operators";
 import { Roles } from "../core-module/models/user";
 import { I18nService } from "../core-module/services/i18n.service";
+
+const $ = window['jQuery'];
 
 @Component({
     selector: 'app-navbar',
@@ -42,5 +44,9 @@ export class NavbarComponent {
 
     set currentLocale (locale: string) {
         this.i18n.setCurrentLocale(locale);
+    }
+
+    goToHomeAndOpenModal (modalId: string) {
+        this.router.navigateByUrl('/').then(() => $(`#${modalId}`).modal('show'));
     }
 }
