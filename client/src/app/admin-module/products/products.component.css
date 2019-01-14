@@ -39,3 +39,6 @@ div.select-category .list-group-item img {
     }
 }
 
+.list-group-item {
+    cursor: pointer;
+}
