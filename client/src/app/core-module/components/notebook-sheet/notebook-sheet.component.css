@@ -78,6 +78,16 @@
     margin-bottom: 20px;
 }
 
+.notebook-sheet-buttons button:hover {
+    transform: rotateY(15deg);
+    transform-origin: top left;
+}
+
+.notebook-sheet-buttons button:active {
+    transform: rotateY(30deg);
+    transform-origin: top left;
+}
+
 @media (max-width: 576px) {
     .notebook-sheet-buttons {
         top: 0;
@@ -91,16 +101,15 @@
         height: 2em;
         margin-right: .5em;
     }
-}
 
-.notebook-sheet-buttons button:hover {
-    transform: rotateY(15deg);
-    transform-origin: top left;
-}
+    .notebook-sheet-buttons button:hover {
+        transform: translateY(4px);
+        transform-origin: top;
+    }
 
-.notebook-sheet-buttons button:active {
-    transform: rotateY(30deg);
-    transform-origin: top left;
+    .notebook-sheet-buttons button:active {
+        transform: translateY(8px);
+    }
 }
 
 .notebook-sheet-buttons button:focus {
