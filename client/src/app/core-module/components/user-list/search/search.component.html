@@ -3,7 +3,7 @@
         <!-- Input field -->
         <div class="form-group">
             <input #searchFilter type="text" class="form-control" (keyup)="onUpdateSearchFilter(searchFilter.value)"
-                   [placeholder]="'core.list.search.placeholder' | translate">
+                   [placeholder]="'core.list.search.placeholder' | translate" [(ngModel)]="searchText" >
         </div>
 
         <!-- List of results -->

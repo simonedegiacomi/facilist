@@ -32,6 +32,9 @@ export class SearchComponent implements OnDestroy {
      */
     @Output() createProduct = new EventEmitter<string>();
 
+    searchText = "";
+
+
     /**
      * Bidn input with logic to search
      */
@@ -83,6 +86,7 @@ export class SearchComponent implements OnDestroy {
         this.addProduct.emit(product);
         this.productsByCategories = {};
         this.isFocused = false;
+        this.searchText = "";
     }
 
     onGotResults (results: Product[]) {
