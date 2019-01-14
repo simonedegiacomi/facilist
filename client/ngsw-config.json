@@ -4,7 +4,8 @@
         {
             "name": "iubenda",
             "urls": [
-                "https://hits-i.iubenda.com/*"
+                "https://hits-i.iubenda.com/*",
+                "https://cdn.iubenda.com/*"
             ],
             "cacheConfig": {
                 "maxSize": 0,
