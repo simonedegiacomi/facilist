@@ -29,29 +29,28 @@
 
     <!-- iubenda cookie solution -->
     <script type="text/javascript">
-        var _iub = _iub || [];
+        var _iub             = _iub || [];
         _iub.csConfiguration = {
             "consentOnScroll": false,
             "lang"           : "it",
             "siteId"         : 1477593,
             "cookiePolicyUrl": "https://www.iubenda.com/privacy-policy/38835485",
-            "cookiePolicyId" : 38835485
+            "logLevel"       : "debug",
+            "cookiePolicyId" : 38835485,
+            "callback"       : {
+                "onConsentFirstGiven": function () {
+                    window.localStorage.setItem('consentGiven', 'true');
+                    console.log('cookie consent given');
+                }
+            }
         };
-    </script>
-    <script type="text/javascript">(function (w, d) {
-        var loader = function () {
-            var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
-            s.src = "//cdn.iubenda.com/cookie_solution/iubenda_cs.js";
-            tag.parentNode.insertBefore(s, tag);
-        };
-        if (w.addEventListener) {
-            w.addEventListener("load", loader, false);
-        } else if (w.attachEvent) {
-            w.attachEvent("onload", loader);
-        } else {
-            w.onload = loader;
+
+        if (window.localStorage.getItem('consentGiven') !== 'true') {
+            var script = document.createElement('script');
+            script.src = '//cdn.iubenda.com/cookie_solution/safemode/iubenda_cs.js';
+            document.head.appendChild(script);
         }
-    })(window, document);</script>
+    </script>
     <!-- End iubend cookie solution -->
 
 
