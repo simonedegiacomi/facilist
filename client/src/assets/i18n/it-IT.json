@@ -94,7 +94,7 @@
             "verifying": "Verifica in corso ...",
             "verified": "E-email verificata!",
             "loginSuggestion": "Ora puoi accedere al tuo account",
-            "error": "Si è verificato un errore durante la vericica."
+            "error": "Si è verificato un errore durante la verifica."
         },
         "completeRecoverPassword": {
             "title": "Recupero della password",
