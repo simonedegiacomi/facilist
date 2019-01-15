@@ -40,6 +40,7 @@
         <div class="col-12 col-md-6">
             <h5 class="mb-1  mt-2">{{ 'admin.productCategories.title' | translate }}</h5>
 
+
             <div *ngIf="productCategories && includedProductCategories">
                 <ul class="list-group" style="max-height: 50vh; overflow-y: scroll;">
                     <li class="list-group-item" *ngFor="let productCategory of productCategories">

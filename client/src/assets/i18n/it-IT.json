@@ -148,7 +148,7 @@
                 "description": "Descrizione",
                 "createdBy": "Creata da",
                 "deleteButton": "Elimina lista",
-                "category": "Descrizione",
+                "category": "Categoria",
                 "confirmDelete": {
                     "title": "Eliminazione definitiva",
                     "question": "Sei sicuro di voler eliminare definitivamente la lista",
@@ -246,7 +246,7 @@
             "addFirstITemText": "Aggiungi prodotti alla lista usando la barra di ricerca qui sopra!",
             "newProduct": {
                 "title": "Crea prodotto",
-                "note": "Stai creando un nuovo prodotto personalizzato. Se questa lista è condivisa o verrà condivisa in futuro, tutti i collaboratori saranno in grado di vedere questo prodotto. Tutta via, solo tu sarai in grado di aggiungerlo in altre liste al di fuori di questa."
+                "note": "Stai creando un nuovo prodotto personalizzato. Se questa lista è condivisa o verrà condivisa in futuro, tutti i collaboratori saranno in grado di vedere questo prodotto. Tuttavia, solo tu sarai in grado di aggiungerlo in altre liste al di fuori di questa."
             }
         },
         "pagination": {

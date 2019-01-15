@@ -76,7 +76,8 @@ class PushNotificationDeliveryMethod (
     fun buildNotificationPayload(notification: Notification): ByteArray = ObjectMapper().writeValueAsString(mapOf(
         "notification" to mapOf(
             "title" to "Shopping list",
-            "body" to notification.message
+            "body" to notification.message,
+            "icon" to "assets/icons/icon-512x512.png"
         )
     )).toByteArray()
 

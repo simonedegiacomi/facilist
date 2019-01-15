@@ -7,6 +7,7 @@
 
                 <form #form="ngForm">
                     <h5 class="card-title" *ngIf="!isEditing">{{ product.name }}</h5>
+                    <h6 *ngIf="!isEditing"><span class="badge badge-secondary">{{ product.category.name }}</span></h6>
 
                     <!-- Insert new name -->
                     <div class="form-group row" *ngIf="isEditing && isNew">
@@ -14,14 +15,16 @@
                             {{ 'common.fields.name' | translate }}
                         </label>
                         <div class="col-12 col-sm-9">
-                            <input type="text" class="form-control" [placeholder]="'common.fields.name' | translate" [disabled]="isSaving"
+                            <input type="text" class="form-control" [placeholder]="'common.fields.name' | translate"
+                                   [disabled]="isSaving"
                                    [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
                         </div>
                     </div>
 
                     <!-- Edit name -->
                     <div class="form-group row" *ngIf="isEditing && !isNew">
-                        <input type="text" class="form-control" [placeholder]="'common.fields.name' | translate" [disabled]="isSaving"
+                        <input type="text" class="form-control" [placeholder]="'common.fields.name' | translate"
+                               [disabled]="isSaving"
                                [(ngModel)]="product.name" (keyup.enter)="onEditName()" required name="name">
                     </div>
 
