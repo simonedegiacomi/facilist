@@ -42,3 +42,8 @@ img.upload-icon {
     padding: 0.9em;
 }
 
+label {
+    display: flex;
+    height: 4em;
+    align-items: center;
+}

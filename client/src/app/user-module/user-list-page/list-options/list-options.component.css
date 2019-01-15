@@ -9,3 +9,9 @@ form label {
 form {
     padding: 0.15em;
 }
+
+
+input:disabled,
+textarea:disabled {
+    cursor: not-allowed;
+}

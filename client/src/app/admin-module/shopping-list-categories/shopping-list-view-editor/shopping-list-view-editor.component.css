@@ -8,3 +8,8 @@
 button {
     margin-left: .25em;
 }
+
+
+label input[type=checkbox] {
+    margin-right: 8px;
+}
