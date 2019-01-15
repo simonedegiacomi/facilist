@@ -1,12 +1,14 @@
 <p *ngIf="!isEditing">
     {{ product.note }}
 
+
+    <br *ngIf="product.note && product.note.length > 0">
     <a *ngIf="product.note" (click)="isEditing = true">{{ 'core.list.item.editNoteButton' | translate }}</a>
     <a *ngIf="!product.note" (click)="isEditing = true">{{ 'core.list.item.addNoteButton' | translate }}</a>
 </p>
 <div *ngIf="isEditing">
     <div class="form-group">
         <textarea class="form-control" [(ngModel)]="product.note"></textarea>
-        <button class="btn" (click)="onSave()">{{ 'common.buttons.save' | translate }}</button>
+        <button class="btn mt-1" (click)="onSave()">{{ 'common.buttons.save' | translate }}</button>
     </div>
 </div>
