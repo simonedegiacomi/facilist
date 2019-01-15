@@ -6,6 +6,8 @@ interface EmailService {
     fun sendEmail(email: Email)
 }
 
+fun environmentVariableOrDefault (key: String, default: String) = System.getenv(key) ?: default
+
 /**
  * Class that models an email that can be sent using a EmailService
  */
@@ -16,7 +18,7 @@ abstract class Email {
     /**
      * NOTE: @Variable or @Autowired of Spring would not work here, because the Email class is not managed by Spring
      */
-    val websiteUrl: String = System.getProperty("WEBSITE_URL", "http://localhost:4200")
+    val websiteUrl: String = environmentVariableOrDefault("WEBSITE_URL", "http://localhost:4200")
 
     abstract val to: String
 
