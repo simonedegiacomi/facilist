@@ -28,7 +28,9 @@ class UserService(
 
     @Throws(EmailAlreadyInUseException::class)
     override fun registerUser(registration: RegisterDTO): User {
-        val user = userDAO.save(registration.toUser())
+        val user = registration.toUser()
+        user.password = passwordEncoder().encode(user.password)
+        userDAO.save(user)
 
         val token = tokenDAO.save(VerificationToken(user = user))
 

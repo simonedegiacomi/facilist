@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from "../core-module/services/auth.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
 import { Roles } from "../core-module/models/user";
 import { I18nService } from "../core-module/services/i18n.service";

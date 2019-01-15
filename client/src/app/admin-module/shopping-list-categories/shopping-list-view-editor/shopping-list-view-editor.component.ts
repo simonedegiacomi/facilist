@@ -10,7 +10,6 @@ import {
 } from "../../../core-module/services/rest/shopping-list-category.service";
 import { ProductCategoryService } from "../../../core-module/services/rest/product-category.service";
 import { ForesquareCategory } from "../../../core-module/models/foresquare-category";
-import { ShoppingList } from "../../../core-module/models/shopping-list";
 import { Observable } from "rxjs";
 
 const $ = window['jQuery'];

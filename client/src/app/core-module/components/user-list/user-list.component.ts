@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { ShoppingList, ShoppingListProduct } from "../../models/shopping-list";
+import { ShoppingList } from "../../models/shopping-list";
 import { Product } from "../../models/product";
 import { AuthService } from "../../services/auth.service";
 import { ShoppingListSyncService } from "../../services/sync/shopping-list-sync.service";

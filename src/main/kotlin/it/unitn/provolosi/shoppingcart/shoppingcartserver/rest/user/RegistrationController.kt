@@ -39,7 +39,7 @@ class RegistrationController (
 
 
     /**
-     * HAndles the request to enable the account of the user, verifying his email
+     * Handles the request to enable the account of the user, verifying his email
      */
     @PostMapping("/verifyEmail/{email}")
     @ResponseStatus(HttpStatus.OK)

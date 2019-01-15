@@ -1,8 +1,6 @@
 package it.unitn.provolosi.shoppingcart.shoppingcartserver.services.email
 
 import it.unitn.provolosi.shoppingcart.shoppingcartserver.services.i18n.TranslationUtils
-import java.io.File
-import java.nio.charset.Charset
 
 interface EmailService {
     fun sendEmail(email: Email)

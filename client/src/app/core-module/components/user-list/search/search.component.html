@@ -23,12 +23,16 @@
                     <!-- Product -->
                     <li *ngFor="let product of productsByCategory.value" class="row product"
                         [class.already-in-list]="isProductAlreadyInList(product)" (click)="onAddProduct(product)">
-                        <div class="col-3 col-sm-2">
+                        <div class="col-3 col-sm-3">
                             <img class="result-icon icon" [src]="product.icon | image">
                         </div>
-                        <div class="col-9 col-sm-10">
+                        <div class="col-7 col-sm-7">
                             <h4>{{ product.name }}</h4>
                             <span>{{ product.category.name }}</span>
+                        </div>
+
+                        <div class="col-2 col-sm-2 d-flex align-items-end product-user-icon-container" *ngIf="product.creator">
+                            <img class="icon product-user-icon" [src]="product.creator.photo | image" [title]="product.creator.firstName">
                         </div>
                     </li>
                 </ul>

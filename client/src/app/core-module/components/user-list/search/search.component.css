@@ -73,3 +73,13 @@ div.category-header h6 {
 div.add-product-container {
     padding: .75em 0;
 }
+
+.product-user-icon-container {
+    flex-direction: column-reverse;
+}
+
+.product-user-icon {
+    width: 2em;
+    height: 2em;
+    margin-right: -5px;
+}

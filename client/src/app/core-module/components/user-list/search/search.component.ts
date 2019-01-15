@@ -107,6 +107,7 @@ export class SearchComponent implements OnDestroy {
     createCustomProduct() {
         this.createProduct.emit(this.filterText);
         this.isFocused = false;
+        this.searchText = "";
     }
 
 
