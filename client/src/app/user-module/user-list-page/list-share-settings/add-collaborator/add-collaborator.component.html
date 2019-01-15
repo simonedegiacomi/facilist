@@ -2,8 +2,8 @@
 <div class="row mt-2">
     <h6 class="col-12 mb-1">{{ 'user.listPage.share.addCollaborator.title' | translate }}</h6>
 
-    <div class="col-1"></div>
-    <div class="col-7">
+    <div class="d-none d-sm-block col-sm-1"></div>
+    <div class="col-7 ml-sm-4">
         <form #form="ngForm" class="form-group">
             <input #searchFilter class="form-control" [(ngModel)]="newCollaborator" type="email" name="email" required
                    (keyup)="onUpdateSearchFilter(searchFilter.value)" [placeholder]="'user.listPage.share.addCollaborator.emailPlaceholder' | translate" email>
@@ -14,6 +14,7 @@
     </div>
 </div>
 
+<!-- Suggestions -->
 <div class="suggestions" *ngIf="suggestedUsers.length > 0 && newCollaborator.length > 0">
     <ul>
         <li *ngFor="let user of suggestedUsers" (click)="addCollaborator(user.email)"

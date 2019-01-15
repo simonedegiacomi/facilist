@@ -17,7 +17,7 @@
     </div>
 
     <!-- Space if small screen -->
-    <div class="d-block d-sm-none col-6"></div>
+    <div class="d-block d-sm-none col-5"></div>
 
     <!-- Permissions -->
     <div class="col-4 col-sm-3 collaborator-permission permission" *ngIf="!isMyCollaboration(collaboration)">
@@ -71,17 +71,17 @@
 <!-- Invites -->
 <div *ngFor="let invite of list.invites" class="row notebook-sheet-list-item invite pb-0 pb-sm-2">
     <!-- Photo -->
-    <div class="col-2 col-sm-1">
+    <div class="col-2 col-sm-2">
         <img class="icon small-icon" src="/assets/img/ic_invited_user.svg">
     </div>
 
     <!-- Name -->
-    <div class="col-10 col-sm-6">
+    <div class="col-10 col-sm-5 pl-sm-0">
         {{ invite.email }}
     </div>
 
     <!-- Space if small screen -->
-    <div class="d-block d-sm-none col-6"></div>
+    <div class="d-block d-sm-none col-5"></div>
 
     <!-- Permissions -->
     <div class="col-4 col-sm-3 collaborator-permission permission">
