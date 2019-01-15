@@ -12,13 +12,14 @@ import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { Roles, User } from "../models/user";
 import { catchError, tap } from "rxjs/operators";
 import { NETWORK_ERROR } from "./network-errors.service";
-import { BAD_REQUEST, FORBIDDEN, NOT_FOUND } from "http-status-codes";
+import { BAD_REQUEST, FORBIDDEN, NOT_FOUND, UNAUTHORIZED } from "http-status-codes";
 import { Router } from "@angular/router";
 
-export const USER_NOT_LOGGED_IN   = "userNotLoggedIn";
-export const WRONG_CREDENTIALS    = "wrongCredentials";
-export const EMAIL_NOT_REGISTERED = "emailNotRegistered";
-export const INVALID_CODE         = "invalidCode";
+export const USER_NOT_LOGGED_IN     = "userNotLoggedIn";
+export const WRONG_CREDENTIALS      = "wrongCredentials";
+export const EMAIL_NOT_VERIFIED_YET = "emailNotVerifiedYet";
+export const EMAIL_NOT_REGISTERED   = "emailNotRegistered";
+export const INVALID_CODE           = "invalidCode";
 
 /**
  * Service that handles the authentication of the user
@@ -45,7 +46,8 @@ export class AuthService {
     constructor(
         private httpClient: HttpClient,
         private router: Router
-    ) { }
+    ) {
+    }
 
     /**
      * Sends a request to get the currently logged in user
@@ -80,7 +82,7 @@ export class AuthService {
      * Update thecached value of the user and emits the user event using the BehaviourSubject
      * @param user
      */
-    private notifyUserObservers (user: User) {
+    private notifyUserObservers(user: User) {
         this.user = user;
         this.user$.next(user);
     }
@@ -110,7 +112,18 @@ export class AuthService {
             tap(() => console.info('Logged in')),
             tap(() => this.getUser(true).subscribe()),
 
-            catchError(res => throwError(res.status == FORBIDDEN ? WRONG_CREDENTIALS : NETWORK_ERROR))
+            catchError(res => {
+                switch (res.status) {
+                    case FORBIDDEN:
+                        return throwError(EMAIL_NOT_VERIFIED_YET);
+
+                    case UNAUTHORIZED:
+                        return throwError(WRONG_CREDENTIALS);
+
+                    default:
+                        return throwError(NETWORK_ERROR);
+                }
+            })
         );
     }
 
@@ -161,7 +174,7 @@ export class AuthService {
     /**
      * Redirect the user to his home (admin home, user home or landing) or to the path in unauthorizedRoute
      */
-    redirectAfterLogin () {
+    redirectAfterLogin() {
         if (this.user === null) {
             console.warn('Accessed AuthService.redirectAfterLogin when no user is logged in');
             this.router.navigate(['/home']);
@@ -185,10 +198,11 @@ export class AuthService {
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
 
-    constructor (
+    constructor(
         private auth: AuthService,
         private router: Router
-    ) { }
+    ) {
+    }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
@@ -211,7 +225,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
      * Checks if it's a login or a status request
      * @param req
      */
-    static isNotALoginRequest (req: HttpRequest<any>) {
+    static isNotALoginRequest(req: HttpRequest<any>) {
         return !(req.url.startsWith('/api/users/me') || req.url.startsWith('/api/auth/login'));
     }
 

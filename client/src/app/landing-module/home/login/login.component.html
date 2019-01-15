@@ -26,9 +26,15 @@
                 </div>
 
                 <!-- Wrong email error -->
-                <div class="col-12">
-                    <div class="alert alert-warning" *ngIf="loginError">
+                <div class="col-12" *ngIf="loginError">
+                    <!-- Wrong credentials -->
+                    <div class="alert alert-warning" *ngIf="loginError == WRONG_CREDENTIALS">
                         {{ 'landing.home.login.wrongEmailOrPassword' | translate }}
+                    </div>
+
+                    <!-- Email not verified -->
+                    <div class="alert alert-warning" *ngIf="loginError == EMAIL_NOT_VERIFIED_YET">
+                        {{ 'landing.home.login.emailNotVerifiedYet' | translate }}
                     </div>
                 </div>
 

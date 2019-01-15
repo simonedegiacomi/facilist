@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
+import org.springframework.security.authentication.DisabledException
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -75,7 +76,15 @@ class AppSecurityConfig(
                     .loginPage("/api/auth/login")
                     .usernameParameter("email")
                     .successHandler { _, response, _ -> response.status = HttpStatus.OK.value() }
-                    .failureHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }
+                    .failureHandler { _, response, ex ->
+                        if (ex is DisabledException) {
+                            // User didn't verify his email
+                            response.status = HttpStatus.FORBIDDEN.value()
+                        } else {
+                            // Wrong credentials
+                            response.status = HttpStatus.UNAUTHORIZED.value()
+                        }
+                    }
 
                 .and().exceptionHandling()
                     .accessDeniedHandler { _, response, _ -> response.status = HttpStatus.FORBIDDEN.value() }

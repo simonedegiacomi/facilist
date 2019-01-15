@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, WRONG_CREDENTIALS } from "../../../core-module/services/auth.service";
+import { AuthService, EMAIL_NOT_VERIFIED_YET, WRONG_CREDENTIALS } from "../../../core-module/services/auth.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NotebookSheetButton } from "../../../core-module/components/notebook-sheet/notebook-sheet.component";
@@ -19,9 +19,13 @@ export class LoginComponent implements OnInit {
         onClick: () => $('#loginModal').modal('hide')
     }];
 
-    loggingIn  = false;
-    loginError = false;
-    rememberMe = false;
+    loggingIn          = false;
+    loginError: string = null;
+    rememberMe         = false;
+
+    // Export error constants to the template file
+    WRONG_CREDENTIALS      = WRONG_CREDENTIALS;
+    EMAIL_NOT_VERIFIED_YET = EMAIL_NOT_VERIFIED_YET;
 
     loginForm = new FormGroup({
         email: new FormControl(''),
@@ -32,7 +36,8 @@ export class LoginComponent implements OnInit {
         private auth: AuthService,
         private router: Router,
         private route: ActivatedRoute
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
@@ -49,7 +54,7 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        this.loginError = false;
+        this.loginError = null;
         this.loggingIn  = true;
 
         const {email, password} = this.loginForm.value;
@@ -64,9 +69,10 @@ export class LoginComponent implements OnInit {
     }
 
     onError(error: any) {
-        if (error == WRONG_CREDENTIALS) {
-            this.loginError = true;
+        if (error == WRONG_CREDENTIALS || error == EMAIL_NOT_VERIFIED_YET) {
+            this.loginError = error;
         }
+
         this.loggingIn = false;
     }
 

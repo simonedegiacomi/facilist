@@ -29,6 +29,7 @@
             "login": {
                 "emailLabel": "Indirizzo Email",
                 "wrongEmailOrPassword": "Indirizzo E-email o password errati.",
+                "emailNotVerifiedYet": "Indirizzo email non ancora verificato. Controlla la tua casella di posta.",
                 "recoverPasswordLink": "Recupera password",
                 "goToRegisterLink": "Non sei registrato? Crea un nuovo account",
                 "rememberMeButton": "Ricordami"

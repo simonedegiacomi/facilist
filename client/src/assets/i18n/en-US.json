@@ -29,6 +29,7 @@
             "login": {
                 "emailLabel": "Email address",
                 "wrongEmailOrPassword": "Wrone email address or password.",
+                "emailNotVerifiedYet": "Email address not verified yet. Please check your inbox.",
                 "recoverPasswordLink": "Recover password",
                 "goToRegisterLink": "Not registered yet? Create a new account",
                 "rememberMeButton": "Remember me"
