@@ -32,6 +32,9 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
     category: ShoppingListCategory;
 
+    filterCategory: string;
+    filterFoursquareCategory: string;
+
     /**
      * List of all products categories
      */
@@ -208,5 +211,21 @@ export class ShoppingListViewEditorComponent implements OnInit {
 
         this.categoryService.delete(toDelete)
             .subscribe(_ => this.deleted.emit(toDelete));
+    }
+
+    get filteredProductCategories () : ProductCategory[] {
+        if (this.filterCategory == '' || this.filterCategory == null) {
+            return this.productCategories;
+        } else {
+            return this.productCategories.filter(c => c.name.toLowerCase().indexOf(this.filterCategory.toLowerCase()) >= 0);
+        }
+    }
+
+    get filteredFoursquareProductCategories () : ForesquareCategory[] {
+        if (this.filterFoursquareCategory == '' || this.filterFoursquareCategory == null) {
+            return this.foresquareCategories;
+        } else {
+            return this.foresquareCategories.filter(c => c.name.toLowerCase().indexOf(this.filterFoursquareCategory.toLowerCase()) >= 0);
+        }
     }
 }
