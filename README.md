@@ -9,7 +9,7 @@ A shopping list can contain products created by system admins or normal users.
 ## Tecnologies
 
 The backend is written in Kotlin using the Spring framework and the frontend is built with Angular 6.
-The project uses the Push Notifcatio API to notify users about collaborator actions and web sockets to provide a chat between the users.
+The project uses the Push Notification API to notify users about collaborator actions and web sockets to provide a chat between the users.
 
 
 ## How to run
