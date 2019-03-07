@@ -23,6 +23,14 @@ div.smartphone {
     position: relative;
 }
 
+@media (max-width: 575.98px) {
+    .smartphone.open {
+        position: fixed;
+        top: 2em;
+        min-height: calc(100vh - 4.2em);
+    }
+}
+
 @keyframes opening {
     0%   {width: 0;}
     100% {width: 23.75em;}
@@ -71,7 +79,6 @@ div.smartphone {
     }
 
     div.smartphone.open {
-        top: 6em;
         right: 0;
     }
 
@@ -141,3 +148,6 @@ div.message-time {
     font-size: .75em;
     text-align: end;
 }
+
+
+
